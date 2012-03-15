@@ -4,6 +4,21 @@
 
         <!-- Rules from Quebec -->
 
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2qc">
+            <field name="name">Du Québec vers le Québec</field>
+            <field name="description">De la compagnie au Québec vers un partenaire au Québec</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provincial')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
         <record model="account.fiscal.position.rule" id="rule_fr_qc2on">
             <field name="name">Du Québec vers l'Ontario</field>
             <field name="description">De la compagnie au Québec vers un partenaire en Ontario</field>
