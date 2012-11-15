@@ -1,0 +1,27 @@
+<openerp>
+	<data>
+
+        	<record id="view_expenses_form" model="ir.ui.view">
+			<field name="name">hr.expense.form.inherit</field>
+			<field name="model">hr.expense.expense</field>
+			<field name="inherit_id" ref="hr_expense.view_expenses_form"/>
+			<field name="arch" type="xml">
+				<field name="product_id" position="after">
+					<field name="partner_id" domain="[('supplier','=',True)]" select="2"/>
+				</field>
+            		</field>
+        	</record>
+
+        	<record id="view_expenses_tree" model="ir.ui.view">
+			<field name="name">hr.expense.line.tree.inherit</field>
+			<field name="model">hr.expense.line</field>
+			<field name="inherit_id" ref="hr_expense.view_expenses_line_tree"/>
+			<field name="arch" type="xml">
+				<field name="analytic_account" position="after">
+					<field name="partner_id"/>
+				</field>
+            		</field>
+        	</record>
+
+	</data>
+</openerp>
