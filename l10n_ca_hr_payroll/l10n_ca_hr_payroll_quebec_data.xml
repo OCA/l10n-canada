@@ -67,7 +67,7 @@
             <field name="amount_select">code</field>
             <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
 date_to = payslip.date_to
-EIcalc = 0.0183 * I
+EIcalc = 0.0183 * GROSS
 result = max(min(EIcalc, (EIMAX - payslip.sum('EI',date_from,date_to) - employee.ei_ytd_adj)), 0.0)</field>
         </record>
 
@@ -81,7 +81,7 @@ result = max(min(EIcalc, (EIMAX - payslip.sum('EI',date_from,date_to) - employee
             <field name="condition_select">python</field>
             <field name="condition_python">result = not employee.cpp_exempt</field>
             <field name="amount_select">percentage</field>
-            <field name="amount_percentage_base">I</field>
+            <field name="amount_percentage_base">GROSS</field>
             <field name="quantity">1.0</field>
             <field name="amount_percentage">100.0</field>
         </record>
