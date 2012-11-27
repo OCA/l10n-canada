@@ -41,5 +41,25 @@
             <field name="amount_python_compute">result = categories.I + categories.ALW - categories.DED - categories.SDED</field>
         </record>
 
+	<!-- Common rules to all salary structures -->
+
+        <record id="hr_salary_rule_p" model="hr.salary.rule">
+            <field name="name">Pays Per Year</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">P</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.pays_per_year or 0</field>
+            <field name="notes">Pays per year from the contract form</field>
+        </record>
+
+	<record id="hr_payroll.structure_base" model="hr.payroll.structure">
+            <field name="rule_ids" eval="[(6, 0, [ref('hr_salary_rule_p')])]"/>
+        </record>
+
+
     </data>
 </openerp>

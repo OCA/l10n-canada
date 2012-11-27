@@ -4,19 +4,6 @@
 
 	<!-- Salary Rules for Ontario -->
 
-        <record id="hr_salary_rule_on_p" model="hr.salary.rule">
-            <field name="name">Pays Per Year</field>
-            <field name="sequence" eval="1"/>
-            <field name="code">P</field>
-            <field eval="0" name="appears_on_payslip"/>
-            <field eval="1" name="active"/>
-            <field name="category_id" ref="CALC"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.pays_per_year or 0</field>
-            <field name="notes">Pays per year from the contract form</field>
-        </record>
-
         <record id="hr_salary_rule_on_pocc" model="hr.salary.rule">
             <field name="name">Payslip Counter(POCC)</field>
             <field name="sequence" eval="1"/>
@@ -530,7 +517,7 @@ Used for calculations only</field>
          <record id="hr_structure_on" model="hr.payroll.structure">
             <field name="code">CABASE</field>
             <field name="name">Ontario Base - Non-Commisioned</field>
-            <field eval="[(6, 0, [ref('hr_salary_rule_on_p'), ref('hr_salary_rule_on_pocc'), ref('hr_salary_rule_on_pr'), ref('hr_salary_rule_on_cppmax'), ref('hr_salary_rule_on_eimax'), ref('hr_salary_rule_on_vpay'), ref('hr_salary_rule_on_u1'), ref('hr_salary_rule_on_l'), ref('hr_salary_rule_on_hd'), ref('hr_salary_rule_on_f'), ref('hr_salary_rule_on_f1'),  ref('hr_salary_rule_on_f2'), ref('hr_salary_rule_on_pi_ytd'), ref('hr_salary_rule_on_ie_ytd'), ref('hr_salary_rule_on_a'), ref('hr_salary_rule_on_r'), ref('hr_salary_rule_on_c'), ref('hr_salary_rule_on_ei'), ref('hr_salary_rule_on_c_ytd'), ref('hr_salary_rule_on_ei_ytd'), ref('hr_salary_rule_on_empc'), ref('hr_salary_rule_on_empei'), ref('hr_salary_rule_on_k'), ref('hr_salary_rule_on_k1'), ref('hr_salary_rule_on_k2'), ref('hr_salary_rule_on_k3'), ref('hr_salary_rule_on_k4'), ref('hr_salary_rule_on_tcp'), ref('hr_salary_rule_on_v'),ref('hr_salary_rule_on_kp'), ref('hr_salary_rule_on_k1p'), ref('hr_salary_rule_on_k2p'), ref('hr_salary_rule_on_t4'), ref('hr_salary_rule_on_v1'), ref('hr_salary_rule_on_v2'), ref('hr_salary_rule_on_s'), ref('hr_salary_rule_on_t2'), ref('hr_salary_rule_on_t1'), ref('hr_salary_rule_on_t3'), ref('hr_salary_rule_on_t')])]" name="rule_ids"/>
+            <field eval="[(6, 0, [ref('hr_salary_rule_on_pocc'), ref('hr_salary_rule_on_pr'), ref('hr_salary_rule_on_cppmax'), ref('hr_salary_rule_on_eimax'), ref('hr_salary_rule_on_vpay'), ref('hr_salary_rule_on_u1'), ref('hr_salary_rule_on_l'), ref('hr_salary_rule_on_hd'), ref('hr_salary_rule_on_f'), ref('hr_salary_rule_on_f1'),  ref('hr_salary_rule_on_f2'), ref('hr_salary_rule_on_pi_ytd'), ref('hr_salary_rule_on_ie_ytd'), ref('hr_salary_rule_on_a'), ref('hr_salary_rule_on_r'), ref('hr_salary_rule_on_c'), ref('hr_salary_rule_on_ei'), ref('hr_salary_rule_on_c_ytd'), ref('hr_salary_rule_on_ei_ytd'), ref('hr_salary_rule_on_empc'), ref('hr_salary_rule_on_empei'), ref('hr_salary_rule_on_k'), ref('hr_salary_rule_on_k1'), ref('hr_salary_rule_on_k2'), ref('hr_salary_rule_on_k3'), ref('hr_salary_rule_on_k4'), ref('hr_salary_rule_on_tcp'), ref('hr_salary_rule_on_v'),ref('hr_salary_rule_on_kp'), ref('hr_salary_rule_on_k1p'), ref('hr_salary_rule_on_k2p'), ref('hr_salary_rule_on_t4'), ref('hr_salary_rule_on_v1'), ref('hr_salary_rule_on_v2'), ref('hr_salary_rule_on_s'), ref('hr_salary_rule_on_t2'), ref('hr_salary_rule_on_t1'), ref('hr_salary_rule_on_t3'), ref('hr_salary_rule_on_t')])]" name="rule_ids"/>
         </record>
 
     </data>
