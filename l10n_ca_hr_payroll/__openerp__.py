@@ -18,16 +18,16 @@
 #
 ##############################################################################
 {
-    'name': 'Canada - Quebec - Payroll',
+    'name': 'Canada - Payroll',
     'category': 'Localization',
     'version': '0.1',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'description': """
-Canada - Quebec Payroll Rules
+Canada Payroll Rules
 ==============================
- * Adds all Federal and Provincial Salary Rules for Quebec
- * Adds Quebec Salary Structure
+ * Adds all Federal and Provincial Salary Rules
+ * Adds all Provincial Salary Structures
  * Adds Claim Codes, Deductions and Exemptions on the Employee Form
  * Adds 'Pays Per Year' field on the Contract Form
     """,
@@ -38,8 +38,10 @@ Canada - Quebec Payroll Rules
         'l10n_ca_toponyms',
     ],
     'data': [
-        'l10n_ca_qc_hr_payroll_view.xml',
-#        'l10n_ca_qc_hr_payroll_data.xml',
+        'l10n_ca_hr_payroll_view.xml',
+        'l10n_ca_hr_payroll_data.xml',
+        'l10n_ca_hr_payroll_ontario_data.xml',
+        'l10n_ca_hr_payroll_quebec_data.xml',
     ],
     'test': [],
     'demo': [],

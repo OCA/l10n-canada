@@ -19,6 +19,6 @@
 #
 ##############################################################################
 
-import l10n_ca_qc_hr_payroll
+import l10n_ca_hr_payroll
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

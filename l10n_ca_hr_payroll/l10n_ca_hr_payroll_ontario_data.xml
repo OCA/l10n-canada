@@ -2,38 +2,9 @@
 <openerp>
     <data noupdate="1">
 
-        <record id="I" model="hr.salary.rule.category">
-            <field name="name">Taxable Income</field>
-            <field name="code">I</field>
-        </record>
+	<!-- Salary Rules for Ontario -->
 
-        <record id="CALC" model="hr.salary.rule.category">
-            <field name="code">CALC</field>
-            <field name="name">Standard Calculation</field>
-        </record>
-
-        <record id="FCALC" model="hr.salary.rule.category">
-            <field name="code">FCALC</field>
-            <field name="name">Federal Calculation</field>
-        </record>
-
-        <record id="PCALC" model="hr.salary.rule.category">
-            <field name="code">PCALC</field>
-            <field name="name">Provincial Calculation</field>
-        </record>
-
-        <record id="EMP" model="hr.salary.rule.category">
-            <field name="code">EMP</field>
-            <field name="name">Employer Contribution</field>
-        </record>
-
-        <record id="SDED" model="hr.salary.rule.category">
-            <field name="code">SDED</field>
-            <field name="name">Source Deduction</field>
-            <field name="notes">Used for after tax deductions at source</field>
-        </record>
-
-        <record id="hr_salary_rule_p" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_p" model="hr.salary.rule">
             <field name="name">Pays Per Year</field>
             <field name="sequence" eval="1"/>
             <field name="code">P</field>
@@ -46,7 +17,7 @@
             <field name="notes">Pays per year from the contract form</field>
         </record>
 
-        <record id="hr_salary_rule_pocc" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_pocc" model="hr.salary.rule">
             <field name="name">Payslip Counter(POCC)</field>
             <field name="sequence" eval="1"/>
             <field name="code">POCC</field>
@@ -60,7 +31,7 @@
             <field name="notes">Sloppy way of counting payslips for use in PR calc</field>
         </record>
 
-        <record id="hr_salary_rule_cppmax" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_cppmax" model="hr.salary.rule">
             <field name="name">CPP Maximum(CPPMAX)</field>
             <field name="sequence" eval="1"/>
             <field name="code">CPPMAX</field>
@@ -74,7 +45,7 @@
             <field name="notes">Annual maximum employee CPP contribution</field>
         </record>
 
-        <record id="hr_salary_rule_eimax" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_eimax" model="hr.salary.rule">
             <field name="name">EI Maximum(EIMAX)</field>
             <field name="sequence" eval="1"/>
             <field name="code">EIMAX</field>
@@ -88,7 +59,7 @@
             <field name="notes">Annual maximum employee EI contribution</field>
         </record>
 
-        <record id="hr_salary_rule_pr" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_pr" model="hr.salary.rule">
             <field name="name">Pays Remaining(PR)</field>
             <field name="sequence" eval="2"/>
             <field name="code">PR</field>
@@ -102,7 +73,7 @@ date_to = payslip.date_to
 result = P - payslip.sum('POCC',date_from,date_to)</field>
         </record>
 
-        <record id="hr_salary_rule_ca_wage" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_ca_wage" model="hr.salary.rule">
             <field name="name">Base Pay</field>
             <field name="sequence" eval="2"/>
             <field name="code">CAWAGE</field>
@@ -112,7 +83,7 @@ result = P - payslip.sum('POCC',date_from,date_to)</field>
             <field name="amount_python_compute">result = contract.wage</field>
         </record>
 
-        <record id="hr_salary_rule_vpay" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_vpay" model="hr.salary.rule">
             <field name="name">Vacation Pay</field>
             <field name="sequence" eval="2"/>
             <field name="code">VPAY</field>
@@ -122,7 +93,7 @@ result = P - payslip.sum('POCC',date_from,date_to)</field>
             <field name="amount_python_compute">result = categories.I * 0.04</field>
         </record>
 
-        <record id="hr_salary_rule_i" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_i" model="hr.salary.rule">
             <field name="name">Gross Pay</field>
             <field name="sequence" eval="40"/>
             <field name="code">I</field>
@@ -132,7 +103,7 @@ result = P - payslip.sum('POCC',date_from,date_to)</field>
             <field name="amount_python_compute">result = categories.I + categories.ALW</field>
         </record>
 
-        <record id="hr_salary_rule_pi_ytd" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_pi_ytd" model="hr.salary.rule">
             <field name="name">Pensionable Income YTD(PIYTD)</field>
             <field eval="45" name="sequence"/>
             <field name="code">PIYTD</field>
@@ -146,7 +117,7 @@ date_to = payslip.date_to
 result = min(payslip.sum('I',date_from,date_to) + I, 50100)</field>
         </record>
 
-        <record id="hr_salary_rule_ie_ytd" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_ie_ytd" model="hr.salary.rule">
             <field name="name">Insurable Income YTD(IEYTD)</field>
             <field eval="45" name="sequence"/>
             <field name="code">IEYTD</field>
@@ -160,7 +131,7 @@ date_to = payslip.date_to
 result = min(payslip.sum('I',date_from,date_to) + I, 45900)</field>
         </record>
 
-        <record id="hr_salary_rule_u1" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_u1" model="hr.salary.rule">
             <field name="name">Union Dues(U1)</field>
             <field name="sequence" eval="50"/>
             <field name="code">U1</field>
@@ -170,7 +141,7 @@ result = min(payslip.sum('I',date_from,date_to) + I, 45900)</field>
             <field name="amount_python_compute">result = employee.u1</field>
         </record>
 
-        <record id="hr_salary_rule_l" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_l" model="hr.salary.rule">
             <field name="name">Extra Tax Deductions Requested(L)</field>
             <field name="sequence" eval="50"/>
             <field name="code">L</field>
@@ -180,7 +151,7 @@ result = min(payslip.sum('I',date_from,date_to) + I, 45900)</field>
             <field name="amount_python_compute">result = (employee.l + inputs.L.amount) if I else 0.0</field>
         </record>
 
-        <record id="hr_salary_rule_f" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_f" model="hr.salary.rule">
             <field name="name">RSP/RPP/RCA(F)</field>
             <field eval="60" name="sequence"/>
             <field name="code">F</field>
@@ -192,7 +163,7 @@ result = min(payslip.sum('I',date_from,date_to) + I, 45900)</field>
             <field name="amount_python_compute">result = employee.f or 0.0</field>
         </record>
 
-        <record id="hr_salary_rule_f1" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_f1" model="hr.salary.rule">
             <field name="name">Childcare/Alimony(F1)</field>
             <field eval="60" name="sequence"/>
             <field name="code">F1</field>
@@ -204,7 +175,7 @@ result = min(payslip.sum('I',date_from,date_to) + I, 45900)</field>
             <field name="amount_python_compute">result = employee.f1 or 0.0</field>
         </record>
 
-        <record id="hr_salary_rule_f2" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_f2" model="hr.salary.rule">
             <field name="name">Alimony/Maintenance(F2)</field>
             <field eval="60" name="sequence"/>
             <field name="code">F2</field>
@@ -216,7 +187,7 @@ result = min(payslip.sum('I',date_from,date_to) + I, 45900)</field>
             <field name="amount_python_compute">result = employee.f2 or 0.0</field>
         </record>
 
-        <record id="hr_salary_rule_hd" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_hd" model="hr.salary.rule">
             <field name="name">Prescribed Zone(HD)</field>
             <field eval="60" name="sequence"/>
             <field name="code">HD</field>
@@ -228,7 +199,7 @@ result = min(payslip.sum('I',date_from,date_to) + I, 45900)</field>
             <field name="amount_python_compute">result = employee.hd or 0.0</field>
         </record>
 
-        <record id="hr_salary_rule_a" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_a" model="hr.salary.rule">
             <field name="name">Annual Taxable Income(A)</field>
             <field eval="101" name="sequence"/>
             <field name="code">A</field>
@@ -240,7 +211,7 @@ result = min(payslip.sum('I',date_from,date_to) + I, 45900)</field>
             <field name="amount_python_compute">result = max((P * (I - F - F2 - U1)) - HD - F1, 0.0)</field>
         </record>
 
-        <record id="hr_salary_rule_r" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_r" model="hr.salary.rule">
             <field name="name">Annual Federal Tax Rate(R)</field>
             <field eval="110" name="sequence"/>
             <field name="code">R</field>
@@ -252,7 +223,7 @@ result = min(payslip.sum('I',date_from,date_to) + I, 45900)</field>
             <field name="amount_python_compute">result = (A &gt; 132406 and 0.29) or (A &gt; 85424 and 0.26) or (A &gt; 42707 and 0.22) or 0.15</field>
         </record>
 
-        <record id="hr_salary_rule_c" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_c" model="hr.salary.rule">
             <field name="name">Canada Pension Plan(C)</field>
             <field eval="140" name="sequence"/>
             <field name="code">C</field>
@@ -268,7 +239,7 @@ Ccalc = 0.0495 * (I - (3500.0 / P))
 result = max(Ccalc if (Ccalc &lt; (CPPMAX - (payslip.sum('C',date_from,date_to) + employee.cpp_ytd_adj))) else (CPPMAX - (payslip.sum('C',date_from,date_to) + employee.cpp_ytd_adj)), 0)</field>
         </record>
 
-        <record id="hr_salary_rule_ei" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_ei" model="hr.salary.rule">
             <field name="name">Employment Insurance(EI)</field>
             <field eval="140" name="sequence"/>
             <field name="code">EI</field>
@@ -284,7 +255,7 @@ EIcalc = 0.0183 * I
 result = max(min(EIcalc, (EIMAX - payslip.sum('EI',date_from,date_to) - employee.ei_ytd_adj)), 0.0)</field>
         </record>
 
-        <record id="hr_salary_rule_c_ytd" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_c_ytd" model="hr.salary.rule">
             <field name="name">Canada Pension Plan YTD</field>
             <field eval="145" name="sequence"/>
             <field name="code">CPPYTD</field>
@@ -298,7 +269,7 @@ date_to = payslip.date_to
 result = payslip.sum('C',date_from,date_to) + C</field>
         </record>
 
-        <record id="hr_salary_rule_ei_ytd" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_ei_ytd" model="hr.salary.rule">
             <field name="name">Employment Insurance YTD</field>
             <field eval="145" name="sequence"/>
             <field name="code">EIYTD</field>
@@ -312,7 +283,7 @@ date_to = payslip.date_to
 result = payslip.sum('EI',date_from,date_to) + EI</field>
         </record>
 
-        <record id="hr_salary_rule_empc" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_empc" model="hr.salary.rule">
             <field name="name">Employer CPP Contribution(EMPC)</field>
             <field eval="146" name="sequence"/>
             <field name="code">EMPC</field>
@@ -327,7 +298,7 @@ result = payslip.sum('EI',date_from,date_to) + EI</field>
             <field name="amount_percentage">100.0</field>
         </record>
 
-        <record id="hr_salary_rule_empei" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_empei" model="hr.salary.rule">
             <field name="name">Employer EI Contribution(EMPEI)</field>
             <field eval="146" name="sequence"/>
             <field name="code">EMPEI</field>
@@ -342,7 +313,7 @@ result = payslip.sum('EI',date_from,date_to) + EI</field>
             <field name="amount_percentage">140.0</field>
         </record>
 
-        <record id="hr_salary_rule_k" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_k" model="hr.salary.rule">
             <field name="name">Annual Federal Constant(K)</field>
             <field eval="150" name="sequence"/>
             <field name="code">K</field>
@@ -354,7 +325,7 @@ result = payslip.sum('EI',date_from,date_to) + EI</field>
             <field name="amount_python_compute">result = (A &gt; 132406 and 10378) or (A &gt; 85424 and 6406) or (A &gt; 42707 and 2989) or 0.0</field>
         </record>
 
-        <record id="hr_salary_rule_k1" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_k1" model="hr.salary.rule">
             <field name="name">Federal Personal Credit(K1)</field>
             <field eval="150" name="sequence"/>
             <field name="code">K1</field>
@@ -368,7 +339,7 @@ result = payslip.sum('EI',date_from,date_to) + EI</field>
 Appears on the Employee Form in Canadian Payroll.</field>
         </record>
 
-        <record id="hr_salary_rule_k2" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_k2" model="hr.salary.rule">
             <field name="name">Annual Federal CPP/QPP(K2)</field>
             <field eval="150" name="sequence"/>
             <field name="code">K2</field>
@@ -382,7 +353,7 @@ Appears on the Employee Form in Canadian Payroll.</field>
 Used for calculations only</field>
         </record>
 
-        <record id="hr_salary_rule_k3" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_k3" model="hr.salary.rule">
             <field name="name">Other Federal Tax Credits(K3)</field>
             <field eval="150" name="sequence"/>
             <field name="code">K3</field>
@@ -396,7 +367,7 @@ Used for calculations only</field>
 Appears on the Employee Form in Canadian Payroll.</field>
         </record>
 
-        <record id="hr_salary_rule_k4" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_k4" model="hr.salary.rule">
             <field name="name">Canada Employment Credit(K4)</field>
             <field eval="150" name="sequence"/>
             <field name="code">K4</field>
@@ -410,7 +381,7 @@ Appears on the Employee Form in Canadian Payroll.</field>
 Used for calculations only</field>
         </record>
 
-        <record id="hr_salary_rule_tcp" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_tcp" model="hr.salary.rule">
             <field name="name">Provincial Claim Amount(TCP)</field>
             <field eval="150" name="sequence"/>
             <field name="code">TCP</field>
@@ -422,7 +393,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = employee.td1p == 1 and 9405.00 or employee.td1p == 2 and 10418.00 or employee.td1p == 3 and 12444.00 or employee.td1p == 4 and 14470.00 or employee.td1p == 5 and 16496.00 or employee.td1p == 6 and 18522.00 or employee.td1p == 7 and 20548.00 or employee.td1p == 8 and 22574.00 or employee.td1p == 9 and 24600.00 or employee.td1p == 10 and 26626.00 or employee.td1p == 0 and 0.0</field>
         </record>
 
-        <record id="hr_salary_rule_v" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_v" model="hr.salary.rule">
             <field name="name">Annual Provincial Tax Rate(V)</field>
             <field eval="150" name="sequence"/>
             <field name="code">V</field>
@@ -434,7 +405,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = (A &gt; 78043 and 0.1116) or (A &gt; 39020 and A &lt;= 78043 and 0.0915) or 0.0505</field>
         </record>
 
-        <record id="hr_salary_rule_kp" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_kp" model="hr.salary.rule">
             <field name="name">Provincial Constant(KP)</field>
             <field eval="150" name="sequence"/>
             <field name="code">KP</field>
@@ -446,7 +417,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = (A &gt; 78043 and 3168) or (A &gt; 39020 and A &lt;= 78043 and 1600) or 0</field>
         </record>
 
-        <record id="hr_salary_rule_k1p" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_k1p" model="hr.salary.rule">
             <field name="name">Provincial Personal Tax Credit(K1P)</field>
             <field eval="151" name="sequence"/>
             <field name="code">K1P</field>
@@ -458,7 +429,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = 0.0505 * TCP</field>
         </record>
 
-        <record id="hr_salary_rule_k2p" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_k2p" model="hr.salary.rule">
             <field name="name">Provincial CPP and EI Tax Credits(K2P)</field>
             <field eval="151" name="sequence"/>
             <field name="code">K2P</field>
@@ -470,7 +441,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = (0.0505 * min(CPPYTD + (PR * C), CPPMAX)) + (0.0505 * min(EIYTD + (PR * EI), EIMAX))</field>
         </record>
 
-        <record id="hr_salary_rule_t4" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_t4" model="hr.salary.rule">
             <field name="name">Annual Basic Provincial Tax(T4)</field>
             <field eval="154" name="sequence"/>
             <field name="code">T4</field>
@@ -482,7 +453,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = max((V * A) - KP - K1P - K2P, 0.0)</field>
         </record>
 
-        <record id="hr_salary_rule_v1" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_v1" model="hr.salary.rule">
             <field name="name">Surtax on Basic Provincial Tax(V1)</field>
             <field eval="155" name="sequence"/>
             <field name="code">V1</field>
@@ -494,7 +465,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = (T4 &gt; 5392 and (0.20 * (T4 - 4213)) + (0.36 * (T4 - 5392))) or (T4 &gt; 4213 and T4 &lt;= 5392 and (0.20 * (T4 - 4213))) or 0</field>
         </record>
 
-        <record id="hr_salary_rule_v2" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_v2" model="hr.salary.rule">
             <field name="name">Extra Tax for Ontario Health Premium(V2)</field>
             <field eval="155" name="sequence"/>
             <field name="code">V2</field>
@@ -506,7 +477,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = (A &gt; 200000 and min(900, (750 + (0.25 * (A - 200000))))) or (A &gt; 72000 and A &lt;= 200000 and min(750, (600 + (0.25 * (A - 72000))))) or (A &gt; 48000 and A &lt;= 72000 and min(600, (450 + (0.25 * (A - 48000))))) or (A &gt; 36000 and A &lt;= 48000 and min(450, (300 + (0.06 * (A - 36000))))) or (A &gt; 20000 and A &lt;= 36000 and min(300, (0.06 * (A - 20000)))) or 0</field>
         </record>
 
-        <record id="hr_salary_rule_s" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_s" model="hr.salary.rule">
             <field name="name">Ontario or British Columbia Tax Reduction(S)</field>
             <field eval="156" name="sequence"/>
             <field name="code">S</field>
@@ -518,7 +489,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = max(min((2 * (217 + employee.y) - (T4 + V1)), T4 + V1 ), 0.0)</field>
         </record>
 
-        <record id="hr_salary_rule_t3" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_t3" model="hr.salary.rule">
             <field name="name">Annual Basic Federal Tax(T3)</field>
             <field eval="170" name="sequence"/>
             <field name="code">T3</field>
@@ -530,7 +501,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = max((R * A) - K - K1 - K2 - K3 - K4, 0.0)</field>
         </record>
 
-        <record id="hr_salary_rule_t1" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_t1" model="hr.salary.rule">
             <field name="name">Annual Federal Tax(T1)</field>
             <field eval="170" name="sequence"/>
             <field name="code">T1</field>
@@ -542,7 +513,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = max(T3 - employee.lcf, 0.0)</field>
         </record>
 
-        <record id="hr_salary_rule_t2" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_t2" model="hr.salary.rule">
             <field name="name">Annual Provincial Tax Deduction - Ontario(T2)</field>
             <field eval="160" name="sequence"/>
             <field name="code">T2</field>
@@ -554,7 +525,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = max(T4 + V1 + V2 - S - employee.lcp, 0.0)</field>
         </record>
 
-        <record id="hr_salary_rule_t" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_t" model="hr.salary.rule">
             <field name="name">Tax Deductions(T)</field>
             <field eval="190" name="sequence"/>
             <field name="code">T</field>
@@ -566,7 +537,7 @@ Used for calculations only</field>
             <field name="amount_python_compute">result = ((T1 + T2) / P) + L</field>
         </record>
 
-        <record id="hr_salary_rule_net" model="hr.salary.rule">
+        <record id="hr_salary_rule_on_net" model="hr.salary.rule">
             <field name="name">Net Pay(N)</field>
             <field eval="200" name="sequence"/>
             <field name="code">N</field>
@@ -583,14 +554,15 @@ Used for calculations only</field>
         <record id="hr_input_l" model="hr.rule.input">
             <field name="name">Extra Tax Deductions(L)</field>
             <field name="code">L</field>
-            <field name="input_id" ref="hr_salary_rule_l"/>
+            <field name="input_id" ref="hr_salary_rule_on_l"/>
         </record>
 
         <!-- Salary Structure -->
-         <record id="hr_structure_cabase" model="hr.payroll.structure">
+
+         <record id="hr_structure_on" model="hr.payroll.structure">
             <field name="code">CABASE</field>
             <field name="name">Ontario Base - Non-Commisioned</field>
-            <field eval="[(6, 0, [ref('hr_salary_rule_p'), ref('hr_salary_rule_pocc'), ref('hr_salary_rule_pr'), ref('hr_salary_rule_cppmax'), ref('hr_salary_rule_eimax'), ref('hr_salary_rule_ca_wage'), ref('hr_salary_rule_vpay'), ref('hr_salary_rule_u1'), ref('hr_salary_rule_l'), ref('hr_salary_rule_hd'), ref('hr_salary_rule_f'), ref('hr_salary_rule_f1'),  ref('hr_salary_rule_f2'), ref('hr_salary_rule_i'), ref('hr_salary_rule_pi_ytd'), ref('hr_salary_rule_ie_ytd'), ref('hr_salary_rule_a'), ref('hr_salary_rule_r'), ref('hr_salary_rule_c'), ref('hr_salary_rule_ei'), ref('hr_salary_rule_c_ytd'), ref('hr_salary_rule_ei_ytd'), ref('hr_salary_rule_empc'), ref('hr_salary_rule_empei'), ref('hr_salary_rule_k'), ref('hr_salary_rule_k1'), ref('hr_salary_rule_k2'), ref('hr_salary_rule_k3'), ref('hr_salary_rule_k4'), ref('hr_salary_rule_tcp'), ref('hr_salary_rule_v'),ref('hr_salary_rule_kp'), ref('hr_salary_rule_k1p'), ref('hr_salary_rule_k2p'), ref('hr_salary_rule_t4'), ref('hr_salary_rule_v1'), ref('hr_salary_rule_v2'), ref('hr_salary_rule_s'), ref('hr_salary_rule_t2'), ref('hr_salary_rule_t1'), ref('hr_salary_rule_t3'), ref('hr_salary_rule_t'), ref('hr_salary_rule_net')])]" name="rule_ids"/>
+            <field eval="[(6, 0, [ref('hr_salary_rule_on_p'), ref('hr_salary_rule_on_pocc'), ref('hr_salary_rule_on_pr'), ref('hr_salary_rule_on_cppmax'), ref('hr_salary_rule_on_eimax'), ref('hr_salary_rule_on_ca_wage'), ref('hr_salary_rule_on_vpay'), ref('hr_salary_rule_on_u1'), ref('hr_salary_rule_on_l'), ref('hr_salary_rule_on_hd'), ref('hr_salary_rule_on_f'), ref('hr_salary_rule_on_f1'),  ref('hr_salary_rule_on_f2'), ref('hr_salary_rule_on_i'), ref('hr_salary_rule_on_pi_ytd'), ref('hr_salary_rule_on_ie_ytd'), ref('hr_salary_rule_on_a'), ref('hr_salary_rule_on_r'), ref('hr_salary_rule_on_c'), ref('hr_salary_rule_on_ei'), ref('hr_salary_rule_on_c_ytd'), ref('hr_salary_rule_on_ei_ytd'), ref('hr_salary_rule_on_empc'), ref('hr_salary_rule_on_empei'), ref('hr_salary_rule_on_k'), ref('hr_salary_rule_on_k1'), ref('hr_salary_rule_on_k2'), ref('hr_salary_rule_on_k3'), ref('hr_salary_rule_on_k4'), ref('hr_salary_rule_on_tcp'), ref('hr_salary_rule_on_v'),ref('hr_salary_rule_on_kp'), ref('hr_salary_rule_on_k1p'), ref('hr_salary_rule_on_k2p'), ref('hr_salary_rule_on_t4'), ref('hr_salary_rule_on_v1'), ref('hr_salary_rule_on_v2'), ref('hr_salary_rule_on_s'), ref('hr_salary_rule_on_t2'), ref('hr_salary_rule_on_t1'), ref('hr_salary_rule_on_t3'), ref('hr_salary_rule_on_t'), ref('hr_salary_rule_on_net')])]" name="rule_ids"/>
         </record>
 
     </data>
