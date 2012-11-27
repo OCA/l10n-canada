@@ -35,5 +35,11 @@
             <field name="notes">Used for after tax deductions at source</field>
         </record>
 
+	<!-- Update calculation of Net Salary rule from hr_payroll -->
+
+        <record id="hr_payroll.hr_rule_net" model="hr.salary.rule">
+            <field name="amount_python_compute">result = categories.I + categories.ALW - categories.DED - categories.SDED</field>
+        </record>
+
     </data>
 </openerp>

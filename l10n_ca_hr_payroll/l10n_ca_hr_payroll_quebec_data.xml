@@ -45,26 +45,6 @@
             <field name="notes">Annual maximum employee EI contribution</field>
         </record>
 
-        <record id="hr_salary_rule_qc_ca_wage" model="hr.salary.rule">
-            <field name="name">Base Pay</field>
-            <field name="sequence" eval="2"/>
-            <field name="code">WAGE</field>
-            <field name="category_id" ref="I"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.wage</field>
-        </record>
-
-        <record id="hr_salary_rule_qc_i" model="hr.salary.rule">
-            <field name="name">Gross Pay</field>
-            <field name="sequence" eval="40"/>
-            <field name="code">I</field>
-            <field name="category_id" ref="hr_payroll.GROSS"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.I + categories.ALW</field>
-        </record>
-
         <record id="hr_salary_rule_qc_vpay" model="hr.salary.rule">
             <field name="name">Vacation Pay</field>
             <field name="sequence" eval="2"/>
@@ -75,16 +55,86 @@
             <field name="amount_python_compute">result = categories.I * 0.04</field>
         </record>
 
-        <record id="hr_salary_rule_qc_net" model="hr.salary.rule">
-            <field name="name">Net Pay (N)</field>
-            <field name="sequence" eval="200"/>
-            <field name="code">N</field>
-            <field name="category_id" ref="hr_payroll.NET"/>
+        <record id="hr_salary_rule_qc_ei" model="hr.salary.rule">
+            <field name="name">Employment Insurance (EI)</field>
+            <field name="sequence" eval="140"/>
+            <field name="code">EI</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.cpp_exempt</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+EIcalc = 0.0183 * I
+result = max(min(EIcalc, (EIMAX - payslip.sum('EI',date_from,date_to) - employee.ei_ytd_adj)), 0.0)</field>
+        </record>
+
+        <record id="hr_salary_rule_qc_empc" model="hr.salary.rule">
+            <field name="name">Employer CPP Contribution (EMPC)</field>
+            <field name="sequence" eval="146"/>
+            <field name="code">EMPC</field>
+            <field name="category_id" ref="EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.cpp_exempt</field>
+            <field name="amount_select">percentage</field>
+            <field name="amount_percentage_base">I</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_percentage">100.0</field>
+        </record>
+
+        <record id="hr_salary_rule_qc_empei" model="hr.salary.rule">
+            <field name="name">Employer EI Contribution (EMPEI)</field>
+            <field name="sequence" eval="146"/>
+            <field name="code">EMPEI</field>
+            <field name="category_id" ref="EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.ei_exempt</field>
+            <field name="amount_select">percentage</field>
+            <field name="amount_percentage_base">EI</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_percentage">140.0</field>
+        </record>
+
+        <record id="hr_salary_rule_qc_t4" model="hr.salary.rule">
+            <field name="name">Annual Basic Provincial Tax (T4)</field>
+            <field eval="154" name="sequence"/>
+            <field name="code">T4</field>
+            <field name="category_id" ref="PCALC"/>
+            <field eval="0" name="appears_on_payslip"/>
+            <field eval="1" name="active"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.I + categories.ALW - categories.DED - categories.SDED</field>
+            <field name="amount_python_compute">result = 1</field>
+        </record>
+
+        <record id="hr_salary_rule_qc_t3" model="hr.salary.rule">
+            <field name="name">Annual Basic Federal Tax (T3)</field>
+            <field eval="170" name="sequence"/>
+            <field name="code">T3</field>
+            <field name="category_id" ref="FCALC"/>
+            <field eval="0" name="appears_on_payslip"/>
+            <field eval="1" name="active"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = 1</field>
+        </record>
+
+        <record id="hr_salary_rule_qc_t1" model="hr.salary.rule">
+            <field name="name">Annual Federal Tax (T1)</field>
+            <field eval="170" name="sequence"/>
+            <field name="code">T1</field>
+            <field name="category_id" ref="FCALC"/>
+            <field eval="0" name="appears_on_payslip"/>
+            <field eval="1" name="active"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = max(T3 - employee.lcf, 0.0)</field>
         </record>
 
         <!-- Salary Structure -->
@@ -92,7 +142,7 @@
          <record id="hr_structure_qc_base" model="hr.payroll.structure">
             <field name="code">QC</field>
             <field name="name">Quebec Base</field>
-            <field eval="[(6, 0, [ref('hr_salary_rule_qc_p'), ref('hr_salary_rule_qc_ca_wage'), ref('hr_salary_rule_qc_i'), ref('hr_salary_rule_qc_net')])]" name="rule_ids"/>
+            <field eval="[(6, 0, [ref('hr_salary_rule_qc_p'), ref('hr_salary_rule_qc_pocc'), ref('hr_salary_rule_qc_eimax'), ref('hr_salary_rule_qc_vpay'), ref('hr_salary_rule_qc_ei'), ref('hr_salary_rule_qc_empc'), ref('hr_salary_rule_qc_empei'), ref('hr_salary_rule_qc_t4'), ref('hr_salary_rule_qc_t3'), ref('hr_salary_rule_qc_t1')])]" name="rule_ids"/>
         </record>
 
     </data>
