@@ -32,18 +32,31 @@
         <record id="SDED" model="hr.salary.rule.category">
             <field name="code">SDED</field>
             <field name="name">Source Deduction</field>
-            <field name="notes">Used for after tax deductions at source</field>
+            <field name="note">Used for after tax deductions at source</field>
         </record>
 
-	<!-- Update calculation of Net Salary rule from hr_payroll -->
+        <record id="VAC" model="hr.salary.rule.category">
+            <field name="code">VAC</field>
+            <field name="name">Vacation Calculation</field>
+        </record>
+
+	<!-- Update salary rules of hr_payroll -->
+
+        <record id="hr_payroll.hr_rule_basic" model="hr.salary.rule">
+            <field name="appears_on_payslip" eval="0"/>
+        </record>
+
+        <record id="hr_payroll.hr_rule_taxable" model="hr.salary.rule">
+            <field name="appears_on_payslip" eval="0"/>
+        </record>
 
         <record id="hr_payroll.hr_rule_net" model="hr.salary.rule">
-            <field name="amount_python_compute">result = categories.I + categories.ALW - categories.DED - categories.SDED</field>
+            <field name="amount_python_compute">result = BASICP + categories.ALW - categories.DED - categories.SDED</field>
         </record>
 
-	<!-- Common rules to all salary structures -->
+	<!-- Common rules to all canadian salary structures -->
 
-        <record id="hr_salary_rule_p" model="hr.salary.rule">
+        <record id="hr_salary_rule_ca_p" model="hr.salary.rule">
             <field name="name">Pays Per Year</field>
             <field name="sequence" eval="1"/>
             <field name="code">P</field>
@@ -53,13 +66,104 @@
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = contract.pays_per_year or 0</field>
-            <field name="notes">Pays per year from the contract form</field>
+            <field name="note">Pays per year from the contract form</field>
         </record>
 
-	<record id="hr_payroll.structure_base" model="hr.payroll.structure">
-            <field name="rule_ids" eval="[(6, 0, [ref('hr_salary_rule_p')])]"/>
+        <record id="hr_salary_rule_ca_pocc" model="hr.salary.rule">
+            <field name="name">Payslip Counter (POCC)</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">POCC</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">1.0</field>
+            <field name="note">Sloppy way of counting payslips for use in PR calc</field>
         </record>
 
+        <record id="hr_salary_rule_ca_basic" model="hr.salary.rule">
+            <field name="name">Basic per pay (BASICP)</field>
+            <field name="sequence" eval="10"/>
+            <field name="code">BASICP</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = BASIC / P</field>
+        </record>
+
+        <record id="hr_salary_rule_ca_gross" model="hr.salary.rule">
+            <field name="name">Gross per pay (GROSSP)</field>
+            <field name="sequence" eval="110"/>
+            <field name="code">GROSSP</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = GROSS / P</field>
+        </record>
+
+        <record id="hr_salary_rule_ca_fit" model="hr.salary.rule">
+            <field name="name">Federal Income Tax (FIT)</field>
+            <field name="sequence" eval="170"/>
+            <field name="code">FIT</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">taxable_income = BASIC - employee.td1
+if taxable_income &gt;= 132407:
+    res = (taxable_income - 132407) * 0.29 + (132407-85415) * 0.26 + (85414-42708) * 0.22 + 42707 * 0.15
+if taxable_income &gt;= 85415 and taxable_income &lt; 132407:
+    res = (taxable_income - 85415) * 0.26 + (85414-42708) * 0.22 + 42707 * 0.15
+if taxable_income &gt;= 42708 and taxable_income &lt; 85414:
+    res = (taxable_income - 42708) * 0.22 + 42707 * 0.15
+if taxable_income &lt; 42707:
+    res = (taxable_income - 42707) * 0.15
+result = res / P
+	    </field>
+        </record>
+
+        <record id="hr_salary_rule_ca_eimaxie" model="hr.salary.rule">
+            <field name="name">Employment Insurance Maximum Insurable Earnings (EIMaxIE)</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">EIMaxIE</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">45900</field>
+        </record>
+
+        <record id="hr_salary_rule_ca_erei" model="hr.salary.rule">
+            <field name="name">Employer EI Contribution (ErEI)</field>
+            <field name="sequence" eval="146"/>
+            <field name="code">ErEI</field>
+            <field name="category_id" ref="EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.ei_exempt</field>
+            <field name="amount_select">percentage</field>
+            <field name="amount_percentage_base">EeEI</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_percentage">140.0</field>
+        </record>
+
+	<!-- Base for Canadian Salary Structure -->
+
+        <record id="hr_structure_ca_base" model="hr.payroll.structure">
+            <field name="code">CA</field>
+            <field name="name">Canadian Base</field>
+            <field eval="[(6, 0, [ref('hr_salary_rule_ca_p'), ref('hr_salary_rule_ca_pocc'), ref('hr_salary_rule_ca_basic'), ref('hr_salary_rule_ca_gross'), ref('hr_salary_rule_ca_eimaxie'), ref('hr_salary_rule_ca_erei'), ref('hr_salary_rule_ca_fit')])]" name="rule_ids"/>
+        </record>
 
     </data>
 </openerp>

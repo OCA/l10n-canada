@@ -4,20 +4,6 @@
 
 	<!-- Salary Rules for Ontario -->
 
-        <record id="hr_salary_rule_on_pocc" model="hr.salary.rule">
-            <field name="name">Payslip Counter(POCC)</field>
-            <field name="sequence" eval="1"/>
-            <field name="code">POCC</field>
-            <field eval="0" name="appears_on_payslip"/>
-            <field eval="1" name="active"/>
-            <field name="category_id" ref="CALC"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">fix</field>
-            <field name="quantity">1.0</field>
-            <field name="amount_fix">1.0</field>
-            <field name="notes">Sloppy way of counting payslips for use in PR calc</field>
-        </record>
-
         <record id="hr_salary_rule_on_cppmax" model="hr.salary.rule">
             <field name="name">CPP Maximum(CPPMAX)</field>
             <field name="sequence" eval="1"/>
@@ -29,7 +15,7 @@
             <field name="amount_select">fix</field>
             <field name="quantity">1.0</field>
             <field name="amount_fix">2306.70</field>
-            <field name="notes">Annual maximum employee CPP contribution</field>
+            <field name="note">Annual maximum employee CPP contribution</field>
         </record>
 
         <record id="hr_salary_rule_on_eimax" model="hr.salary.rule">
@@ -43,7 +29,7 @@
             <field name="amount_select">fix</field>
             <field name="quantity">1.0</field>
             <field name="amount_fix">839.97</field>
-            <field name="notes">Annual maximum employee EI contribution</field>
+            <field name="note">Annual maximum employee EI contribution</field>
         </record>
 
         <record id="hr_salary_rule_on_pr" model="hr.salary.rule">
@@ -64,7 +50,7 @@ result = P - payslip.sum('POCC',date_from,date_to)</field>
             <field name="name">Vacation Pay</field>
             <field name="sequence" eval="2"/>
             <field name="code">VPAY</field>
-            <field name="category_id" ref="I"/>
+            <field name="category_id" ref="VAC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = categories.I * 0.04</field>
@@ -265,21 +251,6 @@ result = payslip.sum('EI',date_from,date_to) + EI</field>
             <field name="amount_percentage">100.0</field>
         </record>
 
-        <record id="hr_salary_rule_on_empei" model="hr.salary.rule">
-            <field name="name">Employer EI Contribution(EMPEI)</field>
-            <field eval="146" name="sequence"/>
-            <field name="code">EMPEI</field>
-            <field name="category_id" ref="EMP"/>
-            <field eval="0" name="appears_on_payslip"/>
-            <field eval="1" name="active"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = not employee.ei_exempt</field>
-            <field name="amount_select">percentage</field>
-            <field name="amount_percentage_base">EI</field>
-            <field name="quantity">1.0</field>
-            <field name="amount_percentage">140.0</field>
-        </record>
-
         <record id="hr_salary_rule_on_k" model="hr.salary.rule">
             <field name="name">Annual Federal Constant(K)</field>
             <field eval="150" name="sequence"/>
@@ -302,7 +273,7 @@ result = payslip.sum('EI',date_from,date_to) + EI</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = employee.td1f == 1 and 1623.30 or employee.td1f == 2 and 1778.40 or employee.td1f == 3 and 2088.60 or employee.td1f == 4 and 2398.80 or employee.td1f == 5 and 2709.00 or employee.td1f == 6 and 3019.20 or employee.td1f == 7 and 3329.40 or employee.td1f == 8 and 3639.60 or employee.td1f == 9 and 3949.80 or employee.td1f == 10 and 4260.00 or employee.td1f == 0 and 0.0</field>
-            <field name="notes">Federal non-refundable personal tax credit.
+            <field name="note">Federal non-refundable personal tax credit.
 Appears on the Employee Form in Canadian Payroll.</field>
         </record>
 
@@ -316,7 +287,7 @@ Appears on the Employee Form in Canadian Payroll.</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = (0.15 * min(CPPYTD + (PR * C), CPPMAX)) + (0.15 * min(EIYTD + (PR * EI), EIMAX))</field>
-            <field name="notes">Federal Canada (or Quebec) Pension Plan contributions and employment insurance premiums tax credits for the year.
+            <field name="note">Federal Canada (or Quebec) Pension Plan contributions and employment insurance premiums tax credits for the year.
 Used for calculations only</field>
         </record>
 
@@ -330,7 +301,7 @@ Used for calculations only</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = employee.k3 or 0.0</field>
-            <field name="notes">Other federal tax credits (such as medical expenses and charitable donations authorized by a tax services office or tax centre) 
+            <field name="note">Other federal tax credits (such as medical expenses and charitable donations authorized by a tax services office or tax centre) 
 Appears on the Employee Form in Canadian Payroll.</field>
         </record>
 
@@ -344,7 +315,7 @@ Appears on the Employee Form in Canadian Payroll.</field>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = min(0.15 * A, 0.15 * 1095)</field>
-            <field name="notes">Canada employment credit.
+            <field name="note">Canada employment credit.
 Used for calculations only</field>
         </record>
 
@@ -515,9 +486,10 @@ Used for calculations only</field>
         <!-- Salary Structure -->
 
          <record id="hr_structure_on" model="hr.payroll.structure">
-            <field name="code">CABASE</field>
+            <field name="code">ON</field>
             <field name="name">Ontario Base - Non-Commisioned</field>
-            <field eval="[(6, 0, [ref('hr_salary_rule_on_pocc'), ref('hr_salary_rule_on_pr'), ref('hr_salary_rule_on_cppmax'), ref('hr_salary_rule_on_eimax'), ref('hr_salary_rule_on_vpay'), ref('hr_salary_rule_on_u1'), ref('hr_salary_rule_on_l'), ref('hr_salary_rule_on_hd'), ref('hr_salary_rule_on_f'), ref('hr_salary_rule_on_f1'),  ref('hr_salary_rule_on_f2'), ref('hr_salary_rule_on_pi_ytd'), ref('hr_salary_rule_on_ie_ytd'), ref('hr_salary_rule_on_a'), ref('hr_salary_rule_on_r'), ref('hr_salary_rule_on_c'), ref('hr_salary_rule_on_ei'), ref('hr_salary_rule_on_c_ytd'), ref('hr_salary_rule_on_ei_ytd'), ref('hr_salary_rule_on_empc'), ref('hr_salary_rule_on_empei'), ref('hr_salary_rule_on_k'), ref('hr_salary_rule_on_k1'), ref('hr_salary_rule_on_k2'), ref('hr_salary_rule_on_k3'), ref('hr_salary_rule_on_k4'), ref('hr_salary_rule_on_tcp'), ref('hr_salary_rule_on_v'),ref('hr_salary_rule_on_kp'), ref('hr_salary_rule_on_k1p'), ref('hr_salary_rule_on_k2p'), ref('hr_salary_rule_on_t4'), ref('hr_salary_rule_on_v1'), ref('hr_salary_rule_on_v2'), ref('hr_salary_rule_on_s'), ref('hr_salary_rule_on_t2'), ref('hr_salary_rule_on_t1'), ref('hr_salary_rule_on_t3'), ref('hr_salary_rule_on_t')])]" name="rule_ids"/>
+	    <field name="parent_id" ref="hr_structure_ca_base"/>
+            <field eval="[(6, 0, [ref('hr_salary_rule_on_pr'), ref('hr_salary_rule_on_cppmax'), ref('hr_salary_rule_on_eimax'), ref('hr_salary_rule_on_vpay'), ref('hr_salary_rule_on_u1'), ref('hr_salary_rule_on_l'), ref('hr_salary_rule_on_hd'), ref('hr_salary_rule_on_f'), ref('hr_salary_rule_on_f1'),  ref('hr_salary_rule_on_f2'), ref('hr_salary_rule_on_pi_ytd'), ref('hr_salary_rule_on_ie_ytd'), ref('hr_salary_rule_on_a'), ref('hr_salary_rule_on_r'), ref('hr_salary_rule_on_c'), ref('hr_salary_rule_on_ei'), ref('hr_salary_rule_on_c_ytd'), ref('hr_salary_rule_on_ei_ytd'), ref('hr_salary_rule_on_empc'), ref('hr_salary_rule_on_k'), ref('hr_salary_rule_on_k1'), ref('hr_salary_rule_on_k2'), ref('hr_salary_rule_on_k3'), ref('hr_salary_rule_on_k4'), ref('hr_salary_rule_on_tcp'), ref('hr_salary_rule_on_v'),ref('hr_salary_rule_on_kp'), ref('hr_salary_rule_on_k1p'), ref('hr_salary_rule_on_k2p'), ref('hr_salary_rule_on_t4'), ref('hr_salary_rule_on_v1'), ref('hr_salary_rule_on_v2'), ref('hr_salary_rule_on_s'), ref('hr_salary_rule_on_t2'), ref('hr_salary_rule_on_t1'), ref('hr_salary_rule_on_t3'), ref('hr_salary_rule_on_t')])]" name="rule_ids"/>
         </record>
 
     </data>

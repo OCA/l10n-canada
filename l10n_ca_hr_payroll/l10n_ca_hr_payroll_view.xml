@@ -169,6 +169,10 @@
                       <field name="u1"/>
                       <field name="y"/>
                       <field name="l"/>
+                      <field name="td1"/>
+                      <field name="tp10153"/>
+                      <field name="eeins"/>
+                      <field name="erins"/>
                   </page>
               </notebook>
           </field>

@@ -189,7 +189,7 @@ class hr_employee(osv.osv):
     _columns = {
         'ei_exempt': fields.boolean('EI Exempt'),
         'td1f': fields.selection([('code1',1),('code2',2),('code3',3),('code4',4),('code5',5),('code6',6),('code7',7),('code8',8),('code9',9),('code10',10),('code0',0)], 'Federal Claim Code', required=True),
-        'td1p': fields.selection([('codeA','A'),('codeB','B'),('codeC','C'),('codeD','D'),('codeE','E'),('codeF','F'),('codeG','G'),('codeH','H'),('codeI','I'),('codeJ','J'),('codeK','K'),('codeL','L'),('codeM','M'),('codeN','N'),('codeY','Y'),('codeZ','Z'),('code0',0)], 'Quebec Claim Code', required=True),
+        'td1p': fields.selection([('codeA','A'),('codeB','B'),('codeC','C'),('codeD','D'),('codeE','E'),('codeF','F'),('codeG','G'),('codeH','H'),('codeI','I'),('codeJ','J'),('codeK','K'),('codeL','L'),('codeM','M'),('codeN','N'),('codeY','Y'),('codeZ','Z'),('code0',0)], 'Provincial Claim Code', required=True),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
         'qpip_exempt': fields.boolean('QPIP Exempt'),
         'cpp_ytd_adj': fields.float('CPP/QPP YTD Adjustment', help="Amount to adjust CPP/QPP for calculations. Used if employee has contributed elsewhere and will be factored in when calculating maximum CPP payment"),
@@ -205,11 +205,19 @@ class hr_employee(osv.osv):
         'k3': fields.float('Federal Medical (K3)', digits=(16,2), help="Other federal tax credits, such as medical expenses and charitable donations authorized by a tax services office or tax centre"),
         'u1': fields.float('Union Dues (U1)', digits=(16,2), help="Union dues"),
         'y': fields.float('MB/ON Extra Tax Reduction(Y)', digits=(16,2), help="Extra provincial or territorial tax reduction based on applicable amounts reported on the provincial or territorial Form TD1"),
+        'td1': fields.float('Personal Tax Credits Return (TD1)', digits=(16,2), required=True, help="Personal Tax Credits Return"),
+        'tp10153': fields.float('Source Deductions Return (TP-1015.3)', digits=(16,2), required=True, help="Source Deductions Return"),
+        'eeins': fields.float('Insurance - Employee Contribution (EeINS)', digits=(16,2), required=True),
+        'erins': fields.float('Insurance - Employer Contribution (ErINS)', digits=(16,2), required=True),
             }
 
     _defaults = {
         'td1f': 'code1',
         'td1p': 'codeA',
+        'td1': 10822.00,
+        'tp10153': 10925.00,
+        'eeins': 0.00,
+        'erins': 0.00,
         }
 
 hr_employee()
