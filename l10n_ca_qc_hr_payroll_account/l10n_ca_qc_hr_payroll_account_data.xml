@@ -2,11 +2,17 @@
 <openerp>
     <data noupdate="1">
 
-	<!-- Tax codes -->
-
-	<!-- Financial accounts -->
-
 	<!-- Salary rules -->
+
+	<record id="l10n_ca_qc_hr_payroll.hr_salary_rule_qc_eeqpip" model="hr.salary.rule">
+	    <field name="account_debit" model='account.account' search="[('code','like','5126')]"/>
+	    <field name="account_credit" model='account.account' search="[('code','like','25311')]"/>
+	</record>
+
+	<record id="l10n_ca_qc_hr_payroll.hr_salary_rule_qc_erqpip" model="hr.salary.rule">
+	    <field name="account_debit" model='account.account' search="[('code','like','5126')]"/>
+	    <field name="account_credit" model='account.account' search="[('code','like','25312')]"/>
+	</record>
 
     </data>
 </openerp>

@@ -30,6 +30,13 @@ Quebec Payroll Accounting
 This module:
  * creates financial accounts for payroll
  * updates salary rules with accounting information
+
+    !!! Warning !!!
+
+Make sure to install AND CONFIGURE the canadian chart of accounts module (l10n_ca)
+before installing this module. Chart template needs to be selected to populate
+the account.account table and allow you to link salary rules with the financial 
+account.
     """,
     'author':'Savoir-faire Linux',
     'website':'http:/www.savoirfairelinux.com',
