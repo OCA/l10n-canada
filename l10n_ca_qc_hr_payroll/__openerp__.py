@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 OpenERP Canada. All Rights Reserved.
+#    Copyright (C) 2012 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -18,28 +18,24 @@
 #
 ##############################################################################
 {
-    'name': 'Canada - Payroll',
+    'name': 'Canada - Quebec - Payroll',
     'category': 'Localization',
     'version': '0.1',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'description': """
-Canada Payroll Rules
+Quebec Payroll Rules
 ==============================
- * Adds Federal Salary Rules
- * Adds Federal Salary Structure
- * Adds Federal Claim Codes, Deductions and Exemptions on the Employee Form
- * Adds 'Pays Per Year' field on the Contract Form
+ * Adds all Quebec Salary Rules
     """,
-    'author':'OpenERP Canada',
-    'website':'http://launchpad.net/openerp-canada',
+    'author':'Savoir-faire Linux',
+    'website':'http://www.savoirfairelinux.com',
     'depends': [
-        'hr_payroll',
-        'l10n_ca_toponyms',
+        'l10n_ca_hr_payroll',
     ],
     'data': [
-        'l10n_ca_hr_payroll_view.xml',
-        'l10n_ca_hr_payroll_data.xml',
+        'l10n_ca_qc_hr_payroll_view.xml',
+        'l10n_ca_qc_hr_payroll_data.xml',
     ],
     'test': [],
     'demo': [],

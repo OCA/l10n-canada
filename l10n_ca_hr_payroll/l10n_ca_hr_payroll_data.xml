@@ -124,7 +124,7 @@ if taxable_income &gt;= 85415 and taxable_income &lt; 132407:
 if taxable_income &gt;= 42708 and taxable_income &lt; 85414:
     res = (taxable_income - 42708) * 0.22 + 42707 * 0.15
 if taxable_income &lt; 42707:
-    res = (taxable_income - 42707) * 0.15
+    res = taxable_income * 0.15
 result = res / P
 	    </field>
         </record>

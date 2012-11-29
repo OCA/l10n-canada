@@ -8,7 +8,7 @@
             <field name="name">Vacation Pay per pay</field>
             <field name="sequence" eval="210"/>
             <field name="code">VPAYP</field>
-            <field name="category_id" ref="VAC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.VAC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = GROSS * 0.04 / P</field>
@@ -18,7 +18,7 @@
             <field name="name">Employee and Employer Maximum QPIP Insurable Earnings (MaxQPIP)</field>
             <field name="sequence" eval="130"/>
             <field name="code">MaxQPIP</field>
-            <field name="category_id" ref="CALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -31,7 +31,7 @@
             <field name="name">Employee and Employer Maximum QPP Insurable Earnings (MaxQPP)</field>
             <field name="sequence" eval="130"/>
             <field name="code">MaxQPP</field>
-            <field name="category_id" ref="CALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -44,7 +44,7 @@
             <field name="name">Employee Insurance Contribution (EeINS)</field>
             <field name="sequence" eval="130"/>
             <field name="code">EeINS</field>
-            <field name="category_id" ref="SDED"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -56,7 +56,7 @@
             <field name="name">Employer Insurance Contribution (ErINS)</field>
             <field name="sequence" eval="130"/>
             <field name="code">ErINS</field>
-            <field name="category_id" ref="EMP"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -84,7 +84,7 @@ else:
             <field name="name">Employer QPP Contribution (ErQPP)</field>
             <field name="sequence" eval="146"/>
             <field name="code">ErQPP</field>
-            <field name="category_id" ref="EMP"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -100,7 +100,7 @@ else:
             <field name="name">Annual Basic Provincial Tax (T4)</field>
             <field eval="154" name="sequence"/>
             <field name="code">T4</field>
-            <field name="category_id" ref="PCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field eval="0" name="appears_on_payslip"/>
             <field eval="1" name="active"/>
             <field name="condition_select">none</field>
@@ -112,7 +112,7 @@ else:
             <field name="name">Annual Basic Federal Tax (T3)</field>
             <field eval="170" name="sequence"/>
             <field name="code">T3</field>
-            <field name="category_id" ref="FCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
             <field eval="0" name="appears_on_payslip"/>
             <field eval="1" name="active"/>
             <field name="condition_select">none</field>
@@ -124,7 +124,7 @@ else:
             <field name="name">Annual Federal Tax (T1)</field>
             <field eval="170" name="sequence"/>
             <field name="code">T1</field>
-            <field name="category_id" ref="FCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
             <field eval="0" name="appears_on_payslip"/>
             <field eval="1" name="active"/>
             <field name="condition_select">none</field>
@@ -168,7 +168,7 @@ else:
             <field name="name">Employer QPIP Contribution (ErQPIP)</field>
             <field name="sequence" eval="146"/>
             <field name="code">ErQPIP</field>
-            <field name="category_id" ref="EMP"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -195,7 +195,7 @@ if taxable_income &gt;= 80200:
 if taxable_income &gt;= 40100 and taxable_income &lt; 80200:
     res = (taxable_income - 40100) * 0.2 + 40100 * 0.16
 if taxable_income &lt; 40100:
-    res = (taxable_income - 40100) * 0.16
+    res = taxable_income * 0.16
 result = res / P
             </field>
         </record>
@@ -205,7 +205,7 @@ result = res / P
          <record id="hr_structure_qc" model="hr.payroll.structure">
             <field name="code">QC</field>
             <field name="name">Quebec Base</field>
-            <field name="parent_id" ref="hr_structure_ca_base"/>
+            <field name="parent_id" ref="l10n_ca_hr_payroll.hr_structure_ca_base"/>
             <field eval="[(6, 0, [ref('hr_salary_rule_qc_vpayp'), ref('hr_salary_rule_qc_maxqpp'), ref('hr_salary_rule_qc_maxqpip'), ref('hr_salary_rule_qc_eeins'), ref('hr_salary_rule_qc_erins'), ref('hr_salary_rule_qc_eeei'), ref('hr_salary_rule_qc_erqpp'), ref('hr_salary_rule_qc_t4'), ref('hr_salary_rule_qc_t3'), ref('hr_salary_rule_qc_t1'), ref('hr_salary_rule_qc_eeqpp'), ref('hr_salary_rule_qc_eeqpip'), ref('hr_salary_rule_qc_erqpip'), ref('hr_salary_rule_qc_pit')])]" name="rule_ids"/>
         </record>
 
