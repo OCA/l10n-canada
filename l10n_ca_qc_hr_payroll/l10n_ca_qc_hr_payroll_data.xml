@@ -396,7 +396,7 @@ else:
             <field name="amount_python_compute">result = EIEEPYTDC + EIEEC</field>
         </record>
 
-	<!-- Insurance - 150 -->
+	<!-- Insurance -  Employee - 150 -->
 
         <record id="rule_qc_ins_eec" model="hr.salary.rule">
             <field name="name">Insurance - Employee Contribution (INSEEC)</field>
@@ -409,6 +409,23 @@ else:
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = employee.eeins</field>
         </record>
+
+        <record id="rule_qc_ins_ee_ytdc" model="hr.salary.rule">
+            <field name="name">Insurance - Employee - Year To Date Contribution (INSEEYTDC)</field>
+            <field name="sequence" eval="151"/>
+            <field name="code">INSEEYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('INSEEYTDC',date_from,date_to) + INSEEC
+	    </field>
+        </record>
+
+	<!-- Insurance - Employer - 155 -->
 
         <record id="rule_qc_ins_erc" model="hr.salary.rule">
             <field name="name">Insurance - Employer Contribution (INSERC)</field>
@@ -424,19 +441,6 @@ else:
 
 	<!-- Quebec Income Tax - 180 -->
 
-        <record id="rule_qc_qit_rate" model="hr.salary.rule">
-            <field name="name">QIT - Rate 16.5% (QITRATE)</field>
-            <field name="sequence" eval="180"/>
-            <field name="code">QITRATE</field>
-            <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="1"/>
-            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">fix</field>
-            <field name="quantity">1.0</field>
-            <field name="amount_fix">16.5</field>
-        </record>
-
         <record id="rule_qc_qit_ti" model="hr.salary.rule">
             <field name="name">QIT - Taxable Income (QITTI)</field>
             <field name="sequence" eval="181"/>
@@ -446,7 +450,7 @@ else:
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = GROSS - (employee.tp10153 + QPIPMAXIE + EIMAXIE + QPPMAXIE) * QITRATE * 1.01</field>
+            <field name="amount_python_compute">result = GROSS - employee.tp10153</field>
         </record>
 
         <record id="rule_qc_qit" model="hr.salary.rule">
@@ -469,16 +473,19 @@ result = res / P
             </field>
         </record>
 
-	<!-- Vacation - 210 -->
-
-        <record id="rule_qc_vpayp" model="hr.salary.rule">
-            <field name="name">Vacation Pay per pay</field>
-            <field name="sequence" eval="210"/>
-            <field name="code">VPAYP</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.VAC"/>
+        <record id="rule_qc_qit_ytd" model="hr.salary.rule">
+            <field name="name">QIT - Year To Date (QITYTD)</field>
+            <field name="sequence" eval="183"/>
+            <field name="code">QITYTD</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = GROSS * 0.04 / P</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('QITYTD',date_from,date_to) + QIT
+	    </field>
         </record>
 
         <!-- Salary Structure -->
@@ -517,10 +524,9 @@ result = res / P
 		ref('rule_qc_ei_ee_pytdc'),
 		ref('rule_qc_ei_ee_c'),
 		ref('rule_qc_ei_ee_ytdc'),
-		ref('rule_qc_qit_rate'),
 		ref('rule_qc_qit_ti'),
 		ref('rule_qc_qit'),
-		ref('rule_qc_vpayp')
+		ref('rule_qc_qit_ytd')
 		])]"/>
             <field name="parent_id" ref="l10n_ca_hr_payroll.hr_structure_ca_base"/>
         </record>

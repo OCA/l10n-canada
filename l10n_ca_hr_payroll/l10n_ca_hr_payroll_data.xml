@@ -169,7 +169,7 @@ result = payslip.sum('EIERYTDC',date_from,date_to)
 	<!-- Federal Income Tax - 170 -->
 
         <record id="rule_ca_fit_rate" model="hr.salary.rule">
-            <field name="name">FIT - Rate 1% (FITRATE)</field>
+            <field name="name">FIT - Rate 16.5% (FITRATE)</field>
             <field name="sequence" eval="170"/>
             <field name="code">FITRATE</field>
             <field name="appears_on_payslip" eval="0"/>
@@ -178,7 +178,7 @@ result = payslip.sum('EIERYTDC',date_from,date_to)
             <field name="condition_select">none</field>
             <field name="amount_select">fix</field>
             <field name="quantity">1.0</field>
-            <field name="amount_fix">1.0</field>
+            <field name="amount_fix">16.5</field>
         </record>
 
         <record id="rule_ca_fit_ti" model="hr.salary.rule">
@@ -190,7 +190,7 @@ result = payslip.sum('EIERYTDC',date_from,date_to)
             <field name="category_id" ref="FCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = BASIC - (employee.td1) * FITRATE * 1.01</field>
+            <field name="amount_python_compute">result = GROSS - (employee.td1 + QPIPEEMAXC + QPPEEMAXC + EIEEMAXC) * (1 + FITRATE * 0.01)</field>
         </record>
 
         <record id="rule_ca_fit" model="hr.salary.rule">
@@ -214,6 +214,48 @@ result = res / P
 	    </field>
         </record>
 
+        <record id="rule_ca_fit_ytd" model="hr.salary.rule">
+            <field name="name">FIT - Year To Date (FITYTD)</field>
+            <field name="sequence" eval="173"/>
+            <field name="code">FITYTD</field>
+            <field name="category_id" ref="FCALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('FITYTD',date_from,date_to) + FIT
+            </field>
+        </record>
+
+        <!-- Vacation - 210 -->
+
+        <record id="rule_ca_vac" model="hr.salary.rule">
+            <field name="name">Vacation (VAC)</field>
+            <field name="sequence" eval="210"/>
+            <field name="code">VAC</field>
+            <field name="category_id" ref="VAC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = GROSSP * contract.weeks_of_vacation * 0.02</field>
+        </record>
+
+        <record id="rule_ca_vac_ytd" model="hr.salary.rule">
+            <field name="name">Vacation - Year To Date (VACYTD)</field>
+            <field name="sequence" eval="211"/>
+            <field name="code">VACYTD</field>
+            <field name="category_id" ref="VAC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('VACYTD',date_from,date_to) + VAC
+            </field>
+        </record>
+
 	<!-- Base for Canadian Salary Structure -->
 
         <record id="hr_structure_ca_base" model="hr.payroll.structure">
@@ -230,7 +272,10 @@ result = res / P
 		ref('rule_ca_ei_er_ytdc'),
 		ref('rule_ca_fit_rate'),
 		ref('rule_ca_fit_ti'),
-		ref('rule_ca_fit')
+		ref('rule_ca_fit'),
+		ref('rule_ca_fit_ytd'),
+		ref('rule_ca_vac'),
+		ref('rule_ca_vac_ytd')
 		])]" name="rule_ids"/>
         </record>
 

@@ -186,6 +186,7 @@
           <field name="arch" type="xml">
                <xpath expr="/form/notebook/page/group/field[@name='working_hours']" position="after">
                   <field name="pays_per_year"/>
+                  <field name="weeks_of_vacation"/>
               </xpath>
           </field>
       </record>

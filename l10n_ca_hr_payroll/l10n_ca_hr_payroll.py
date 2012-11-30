@@ -206,7 +206,6 @@ class hr_employee(osv.osv):
         'u1': fields.float('Union Dues (U1)', digits=(16,2), help="Union dues"),
         'y': fields.float('MB/ON Extra Tax Reduction(Y)', digits=(16,2), help="Extra provincial or territorial tax reduction based on applicable amounts reported on the provincial or territorial Form TD1"),
         'td1': fields.float('Personal Tax Credits Return (TD1)', digits=(16,2), required=True, help="Personal Tax Credits Return"),
-        'tp10153': fields.float('Source Deductions Return (TP-1015.3)', digits=(16,2), required=True, help="Source Deductions Return"),
         'eeins': fields.float('Insurance - Employee Contribution (EeINS)', digits=(16,2), required=True),
         'erins': fields.float('Insurance - Employer Contribution (ErINS)', digits=(16,2), required=True),
             }
@@ -215,7 +214,6 @@ class hr_employee(osv.osv):
         'td1f': 'code1',
         'td1p': 'codeA',
         'td1': 10822.00,
-        'tp10153': 10925.00,
         'eeins': 0.00,
         'erins': 0.00,
         }
@@ -249,6 +247,11 @@ class hr_contract(osv.osv):
 
     _columns = {
         'pays_per_year': fields.function(_get_pays_per_year, method=True, string='Pays Per Year', type='float', readonly=True),
+        'weeks_of_vacation': fields.integer('Number of weeks of vacation', required=True),
+        }
+
+    _defaults = {
+        'weeks_of_vacation': 2,
         }
 
 hr_contract()
