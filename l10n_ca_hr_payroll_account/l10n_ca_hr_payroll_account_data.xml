@@ -11,5 +11,21 @@
 	    <field name="view_id" ref="account.account_journal_view"/>
 	</record>
 
+	<!-- Salary rules -->
+
+	<!-- Employment Insurance -->
+
+        <record id="l10n_ca_hr_payroll.rule_ca_ei_er_c" model="hr.salary.rule">
+            <field name="account_debit" model='account.account' search="[('code','like','51203')]"/>
+            <field name="account_credit" model='account.account' search="[('code','like','214112')]"/>
+        </record>
+
+        <!-- Federal Tax Income -->
+
+        <record id="l10n_ca_hr_payroll.rule_ca_fit" model="hr.salary.rule">
+            <field name="account_debit" model='account.account' search="[('code','like','51209')]"/>
+            <field name="account_credit" model='account.account' search="[('code','like','21441')]"/>
+        </record>
+
     </data>
 </openerp>
