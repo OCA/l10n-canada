@@ -1,10 +1,477 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="1">
+<!--     <data noupdate="1"> -->
+    <data>
 
-	<!-- Salary Rules for Quebec -->
+	<!-- Quebec Parental Insurance Plan - 120 -->
 
-        <record id="hr_salary_rule_qc_vpayp" model="hr.salary.rule">
+        <record id="rule_qc_qpip_maxie" model="hr.salary.rule">
+            <field name="name">QPIP - Employee and Employer Maximum Insurable Earnings (QPIPMAXIE)</field>
+            <field name="sequence" eval="120"/>
+            <field name="code">QPIPMAXIE</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = min(GROSS,66000)</field>
+        </record>
+
+	<!-- Quebec Parental Insurance Plan - Employee - 121 -->
+
+        <record id="rule_qc_qpip_ee_rate" model="hr.salary.rule">
+            <field name="name">QPIP - Employee Rate - 0.559 % (QPIPRATE)</field>
+            <field name="sequence" eval="121"/>
+            <field name="code">QPIPEERATE</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">0.559</field>
+        </record>
+
+        <record id="rule_qc_qpip_ee_maxc" model="hr.salary.rule">
+            <field name="name">QPIP - Employee Maximum Contribution (QPIPEEMAXC)</field>
+            <field name="sequence" eval="122"/>
+            <field name="code">QPIPEEMAXC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = QPIPMAXIE * QPIPEERATE * 0.01</field>
+        </record>
+
+        <record id="rule_qc_qpip_ee_pytdc" model="hr.salary.rule">
+            <field name="name">QPIP - Employee - Previous Year To Date Contribution (QPIPEEPYTDC)</field>
+            <field name="sequence" eval="122"/>
+            <field name="code">QPIPEEPYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('QPIPEEYTDC',date_from,date_to)
+	    </field>
+        </record>
+
+        <record id="rule_qc_qpip_ee_c" model="hr.salary.rule">
+            <field name="name">QPIP - Employee Contribution (QPIPEEC)</field>
+            <field name="sequence" eval="123"/>
+            <field name="code">QPIPEEC</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">if (QPIPEEPYTDC > QPIPEEMAXC): 
+    result = 0
+else:
+    if (QPIPEEMAXC - QPIPEEPYTDC - (GROSS * QPIPEERATE * 0.01 / P) &gt;= 0):
+        result = GROSS * QPIPEERATE * 0.01 / P
+    else:
+        result = QPIPEEMAXC - QPIPEEPYTDC
+	    </field>
+        </record>
+
+        <record id="rule_qc_qpip_ee_ytdc" model="hr.salary.rule">
+            <field name="name">QPIP - Employee - Year To Date Contribution (QPIPEEYTDC)</field>
+            <field name="sequence" eval="124"/>
+            <field name="code">QPIPEEYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = QPIPEEPYTDC + QPIPEEC</field>
+        </record>
+
+	<!-- Quebec Parental Insurance Plan - Employer - 125 -->
+
+        <record id="rule_qc_qpip_er_rate" model="hr.salary.rule">
+            <field name="name">QPIP - Employer Rate - 0.782 % (QPIPERRATE)</field>
+            <field name="sequence" eval="125"/>
+            <field name="code">QPIPERRATE</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">0.782</field>
+        </record>
+
+        <record id="rule_qc_qpip_er_maxc" model="hr.salary.rule">
+            <field name="name">QPIP - Employer Maximum Contribution (QPIPERMAXC)</field>
+            <field name="sequence" eval="126"/>
+            <field name="code">QPIPERMAXC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = QPIPMAXIE * QPIPERRATE * 0.01</field>
+        </record>
+
+        <record id="rule_qc_qpip_er_pytdc" model="hr.salary.rule">
+            <field name="name">QPIP - Employer - Previous Year To Date Contribution (QPIPERPYTDC)</field>
+            <field name="sequence" eval="126"/>
+            <field name="code">QPIPERPYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('QPIPERYTDC',date_from,date_to)
+	    </field>
+        </record>
+
+        <record id="rule_qc_qpip_er_c" model="hr.salary.rule">
+            <field name="name">QPIP - Employer Contribution (QPIPERC)</field>
+            <field name="sequence" eval="127"/>
+            <field name="code">QPIPERC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">if (QPIPERPYTDC > QPIPERMAXC): 
+    result = 0
+else:
+    if (QPIPERMAXC - QPIPERPYTDC - (GROSS * QPIPERRATE * 0.01 / P) &gt;= 0):
+        result = GROSS * QPIPERRATE * 0.01 / P
+    else:
+        result = QPIPERMAXC - QPIPERPYTDC
+	    </field>
+        </record>
+
+        <record id="rule_qc_qpip_er_ytdc" model="hr.salary.rule">
+            <field name="name">QPIP - Employer - Year To Date Contribution (QPIPERYTDC)</field>
+            <field name="sequence" eval="128"/>
+            <field name="code">QPIPERYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = QPIPERPYTDC + QPIPERC</field>
+        </record>
+
+	<!-- Quebec Pension Plan - 130 -->
+
+        <record id="rule_qc_qpp_maxie" model="hr.salary.rule">
+            <field name="name">QPP - Employee and Employer Maximum Insurable Earnings (QPPMAXIE)</field>
+            <field name="sequence" eval="130"/>
+            <field name="code">QPPMAXIE</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = min(GROSS,55100)</field>
+        </record>
+
+	<!-- Quebec Pension Plan - Employee - 130 -->
+
+        <record id="rule_qc_qpp_ee_rate" model="hr.salary.rule">
+            <field name="name">QPP - Employee - Rate 5.025% (QPPEERATE)</field>
+            <field name="sequence" eval="130"/>
+            <field name="code">QPPEERATE</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">5.025</field>
+        </record>
+
+        <record id="rule_qc_qpp_ee_maxc" model="hr.salary.rule">
+            <field name="name">QPP - Employee - Maximum Contribution (QPPEEMAXC)</field>
+            <field name="sequence" eval="131"/>
+            <field name="code">QPPEEMAXC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = QPPMAXIE * QPPEERATE * 0.01</field>
+        </record>
+
+        <record id="rule_qc_qpp_ee_pytdc" model="hr.salary.rule">
+            <field name="name">QPP - Employee - Previous Year To Date Contribution (QPPEEPYTDC)</field>
+            <field name="sequence" eval="132"/>
+            <field name="code">QPPEEPYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('QPPEEYTDC',date_from,date_to)
+            </field>
+        </record>
+
+        <record id="rule_qc_qpp_ee_c" model="hr.salary.rule">
+            <field name="name">QPP - Employee Contribution (QPPEEC)</field>
+            <field name="sequence" eval="133"/>
+            <field name="code">QPPEEC</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">if (QPPEEPYTDC > QPPEEMAXC):
+    result = 0
+else:
+    if (QPPEEMAXC - QPPEEPYTDC - (GROSS * QPPEERATE * 0.01 / P) &gt;= 0):
+        result = GROSS * QPPEERATE * 0.01 / P
+    else:
+        result = QPPEEMAXC - QPPEEPYTDC
+            </field>
+        </record>
+
+        <record id="rule_qc_qpp_ee_ytdc" model="hr.salary.rule">
+            <field name="name">QPP - Employee - Year To Date Contribution (QPPEEYTDC)</field>
+            <field name="sequence" eval="134"/>
+            <field name="code">QPPEEYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = QPPEEPYTDC + QPPEEC</field>
+        </record>
+
+	<!-- Quebec Pension Plan - Employer - 135 -->
+
+        <record id="rule_qc_qpp_er_rate" model="hr.salary.rule">
+            <field name="name">QPP - Employer - Rate 5.025% (QPPERRATE)</field>
+            <field name="sequence" eval="135"/>
+            <field name="code">QPPERRATE</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">5.025</field>
+        </record>
+
+        <record id="rule_qc_qpp_er_maxc" model="hr.salary.rule">
+            <field name="name">QPP - Employer - Maximum Contribution (QPPERMAXC)</field>
+            <field name="sequence" eval="136"/>
+            <field name="code">QPPERMAXC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = QPPMAXIE * QPPERRATE * 0.01</field>
+        </record>
+
+        <record id="rule_qc_qpp_er_pytdc" model="hr.salary.rule">
+            <field name="name">QPP - Employer - Previous Year To Date Contribution (QPPERPYTDC)</field>
+            <field name="sequence" eval="137"/>
+            <field name="code">QPPERPYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('QPPERYTDC',date_from,date_to)
+            </field>
+        </record>
+
+        <record id="rule_qc_qpp_er_c" model="hr.salary.rule">
+            <field name="name">QPP - Employer Contribution (QPPERC)</field>
+            <field name="sequence" eval="138"/>
+            <field name="code">QPPERC</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">if (QPPERPYTDC > QPPERMAXC):
+    result = 0
+else:
+    if (QPPERMAXC - QPPERPYTDC - (GROSS * QPPERRATE * 0.01 / P) &gt;= 0):
+        result = GROSS * QPPERRATE * 0.01 / P
+    else:
+        result = QPPERMAXC - QPPERPYTDC
+            </field>
+        </record>
+
+        <record id="rule_qc_qpp_er_ytdc" model="hr.salary.rule">
+            <field name="name">QPP - Employer - Year To Date Contribution (QPPERYTDC)</field>
+            <field name="sequence" eval="139"/>
+            <field name="code">QPPERYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = QPPERPYTDC + QPPERC</field>
+        </record>
+
+	<!-- Employment insurance - Employee - 140 -->
+
+        <record id="rule_qc_ei_ee_rate" model="hr.salary.rule">
+            <field name="name">EI - Employee - Rate 1.47% (EIEERATE)</field>
+            <field name="sequence" eval="140"/>
+            <field name="code">EIEERATE</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">1.47</field>
+        </record>
+
+        <record id="rule_qc_ei_ee_maxc" model="hr.salary.rule">
+            <field name="name">EI - Employee - Maximum Contribution (EIEEMAXC)</field>
+            <field name="sequence" eval="141"/>
+            <field name="code">EIEEMAXC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = EIMAXIE * EIEERATE * 0.01</field>
+        </record>
+
+        <record id="rule_qc_ei_ee_pytdc" model="hr.salary.rule">
+            <field name="name">EI - Employee - Previous Year To Date Contribution (EIEEPYTDC)</field>
+            <field name="sequence" eval="141"/>
+            <field name="code">EIEEPYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('EIEEYTDC',date_from,date_to)
+            </field>
+        </record>
+
+        <record id="rule_qc_ei_ee_c" model="hr.salary.rule">
+            <field name="name">EI - Employee Contribution (EIEEC)</field>
+            <field name="sequence" eval="142"/>
+            <field name="code">EIEEC</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">if (EIEEPYTDC > EIEEMAXC):
+    result = 0
+else:
+    if (EIEEMAXC - EIEEPYTDC - (GROSS * EIEERATE * 0.01 / P) &gt;= 0):
+        result = GROSS * EIEERATE * 0.01 / P
+    else:
+        result = EIEEMAXC - EIEEPYTDC
+</field>
+        </record>
+
+        <record id="rule_qc_ei_ee_ytdc" model="hr.salary.rule">
+            <field name="name">EI - Employee - Year To Date Contribution (EIEEYTDC)</field>
+            <field name="sequence" eval="143"/>
+            <field name="code">EIEEYTDC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = EIEEPYTDC + EIEEC</field>
+        </record>
+
+	<!-- Insurance - 150 -->
+
+        <record id="rule_qc_ins_eec" model="hr.salary.rule">
+            <field name="name">Insurance - Employee Contribution (INSEEC)</field>
+            <field name="sequence" eval="150"/>
+            <field name="code">INSEEC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = employee.eeins</field>
+        </record>
+
+        <record id="rule_qc_ins_erc" model="hr.salary.rule">
+            <field name="name">Insurance - Employer Contribution (INSERC)</field>
+            <field name="sequence" eval="150"/>
+            <field name="code">INSERC</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = employee.erins</field>
+        </record>
+
+	<!-- Quebec Income Tax - 180 -->
+
+        <record id="rule_qc_qit_rate" model="hr.salary.rule">
+            <field name="name">QIT - Rate 16.5% (QITRATE)</field>
+            <field name="sequence" eval="180"/>
+            <field name="code">QITRATE</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">16.5</field>
+        </record>
+
+        <record id="rule_qc_qit_ti" model="hr.salary.rule">
+            <field name="name">QIT - Taxable Income (QITTI)</field>
+            <field name="sequence" eval="181"/>
+            <field name="code">QITTI</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = GROSS - (employee.tp10153 + QPIPMAXIE + EIMAXIE + QPPMAXIE) * QITRATE * 1.01</field>
+        </record>
+
+        <record id="rule_qc_qit" model="hr.salary.rule">
+            <field name="name">QIT - Quebec Income Tax (QIT)</field>
+            <field name="sequence" eval="182"/>
+            <field name="code">QIT</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if QITTI &gt;= 80200:
+    res = (QITTI - 80200) * 0.24 + 40100 * 0.24 + 40100 * 0.16
+if QITTI &gt;= 40100 and QITTI &lt; 80200:
+    res = (QITTI - 40100) * 0.2 + 40100 * 0.16
+if QITTI &lt; 40100:
+    res = QITTI * 0.16
+result = res / P
+            </field>
+        </record>
+
+	<!-- Vacation - 210 -->
+
+        <record id="rule_qc_vpayp" model="hr.salary.rule">
             <field name="name">Vacation Pay per pay</field>
             <field name="sequence" eval="210"/>
             <field name="code">VPAYP</field>
@@ -14,199 +481,48 @@
             <field name="amount_python_compute">result = GROSS * 0.04 / P</field>
         </record>
 
-        <record id="hr_salary_rule_qc_maxqpip" model="hr.salary.rule">
-            <field name="name">Employee and Employer Maximum QPIP Insurable Earnings (MaxQPIP)</field>
-            <field name="sequence" eval="130"/>
-            <field name="code">MaxQPIP</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
-            <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">fix</field>
-            <field name="quantity">1.0</field>
-            <field name="amount_fix">66000</field>
-        </record>
-
-        <record id="hr_salary_rule_qc_maxqpp" model="hr.salary.rule">
-            <field name="name">Employee and Employer Maximum QPP Insurable Earnings (MaxQPP)</field>
-            <field name="sequence" eval="130"/>
-            <field name="code">MaxQPP</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
-            <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">fix</field>
-            <field name="quantity">1.0</field>
-            <field name="amount_fix">50100</field>
-        </record>
-
-        <record id="hr_salary_rule_qc_eeins" model="hr.salary.rule">
-            <field name="name">Employee Insurance Contribution (EeINS)</field>
-            <field name="sequence" eval="130"/>
-            <field name="code">EeINS</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = employee.eeins</field>
-        </record>
-
-        <record id="hr_salary_rule_qc_erins" model="hr.salary.rule">
-            <field name="name">Employer Insurance Contribution (ErINS)</field>
-            <field name="sequence" eval="130"/>
-            <field name="code">ErINS</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
-            <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = employee.erins</field>
-        </record>
-
-        <record id="hr_salary_rule_qc_eeei" model="hr.salary.rule">
-            <field name="name">Employee EI Contribution (EeEI)</field>
-            <field name="sequence" eval="140"/>
-            <field name="code">EeEI</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">if GROSS &gt; EIMaxIE:
-    result = EIMaxIE * 1.47 * 0.01 / P
-else:
-    result = GROSS * 1.47 * 0.01 / P
-	    </field>
-        </record>
-
-        <record id="hr_salary_rule_qc_erqpp" model="hr.salary.rule">
-            <field name="name">Employer QPP Contribution (ErQPP)</field>
-            <field name="sequence" eval="146"/>
-            <field name="code">ErQPP</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
-            <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">if GROSS &gt; MaxQPP:
-    result = MaxQPP * 5.025 * 0.01 / P
-else:
-    result = GROSS * 5.025 * 0.01 / P
-	    </field>
-        </record>
-
-        <record id="hr_salary_rule_qc_t4" model="hr.salary.rule">
-            <field name="name">Annual Basic Provincial Tax (T4)</field>
-            <field eval="154" name="sequence"/>
-            <field name="code">T4</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
-            <field eval="0" name="appears_on_payslip"/>
-            <field eval="1" name="active"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = 1</field>
-        </record>
-
-        <record id="hr_salary_rule_qc_t3" model="hr.salary.rule">
-            <field name="name">Annual Basic Federal Tax (T3)</field>
-            <field eval="170" name="sequence"/>
-            <field name="code">T3</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
-            <field eval="0" name="appears_on_payslip"/>
-            <field eval="1" name="active"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = 1</field>
-        </record>
-
-        <record id="hr_salary_rule_qc_t1" model="hr.salary.rule">
-            <field name="name">Annual Federal Tax (T1)</field>
-            <field eval="170" name="sequence"/>
-            <field name="code">T1</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
-            <field eval="0" name="appears_on_payslip"/>
-            <field eval="1" name="active"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = max(T3 - employee.lcf, 0.0)</field>
-        </record>
-
-        <record id="hr_salary_rule_qc_eeqpp" model="hr.salary.rule">
-            <field name="name">Employee QPP Contribution (EeQPP)</field>
-            <field name="sequence" eval="146"/>
-            <field name="code">EeQPP</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">if GROSS &gt; MaxQPP:
-    result = MaxQPP * 5.025 * 0.01 / P
-else:
-    result = GROSS * 5.025 * 0.01 / P
-	    </field>
-        </record>
-
-        <record id="hr_salary_rule_qc_eeqpip" model="hr.salary.rule">
-            <field name="name">Employee QPIP Contribution (EeQPIP)</field>
-            <field name="sequence" eval="146"/>
-            <field name="code">EeQPIP</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">if GROSS &gt; MaxQPIP:
-    result = MaxQPIP * 0.559 * 0.01 / P
-else:
-    result = GROSS * 0.559 * 0.01 / P
-	    </field>
-        </record>
-
-        <record id="hr_salary_rule_qc_erqpip" model="hr.salary.rule">
-            <field name="name">Employer QPIP Contribution (ErQPIP)</field>
-            <field name="sequence" eval="146"/>
-            <field name="code">ErQPIP</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
-            <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">if GROSS &gt; MaxQPIP:
-    result = MaxQPIP * 0.782 * 0.01 / P
-else:
-    result = GROSS * 0.782 * 0.01 / P
-	    </field>
-        </record>
-
-        <record id="hr_salary_rule_qc_pit" model="hr.salary.rule">
-            <field name="name">Provincial Income Tax (PIT)</field>
-            <field name="sequence" eval="180"/>
-            <field name="code">PIT</field>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="category_id" ref="hr_payroll.DED"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">taxable_income = BASIC - employee.tp10153
-if taxable_income &gt;= 80200:
-    res = (taxable_income - 80200) * 0.24 + 40100 * 0.24 + 40100 * 0.16
-if taxable_income &gt;= 40100 and taxable_income &lt; 80200:
-    res = (taxable_income - 40100) * 0.2 + 40100 * 0.16
-if taxable_income &lt; 40100:
-    res = taxable_income * 0.16
-result = res / P
-            </field>
-        </record>
-
         <!-- Salary Structure -->
 
          <record id="hr_structure_qc" model="hr.payroll.structure">
             <field name="code">QC</field>
             <field name="name">Quebec Base</field>
+            <field name="rule_ids"
+		eval="[(6, 0, [
+		ref('rule_qc_qpip_maxie'),
+		ref('rule_qc_qpip_ee_rate'),
+		ref('rule_qc_qpip_ee_maxc'),
+		ref('rule_qc_qpip_ee_pytdc'),
+		ref('rule_qc_qpip_ee_c'),
+		ref('rule_qc_qpip_ee_ytdc'),
+		ref('rule_qc_qpip_er_rate'),
+		ref('rule_qc_qpip_er_maxc'),
+		ref('rule_qc_qpip_er_pytdc'),
+		ref('rule_qc_qpip_er_c'),
+		ref('rule_qc_qpip_er_ytdc'),
+		ref('rule_qc_qpp_maxie'),
+		ref('rule_qc_qpp_ee_rate'),
+		ref('rule_qc_qpp_ee_maxc'),
+		ref('rule_qc_qpp_ee_pytdc'),
+		ref('rule_qc_qpp_ee_c'),
+		ref('rule_qc_qpp_ee_ytdc'),
+		ref('rule_qc_qpp_er_rate'),
+		ref('rule_qc_qpp_er_maxc'),
+		ref('rule_qc_qpp_er_pytdc'),
+		ref('rule_qc_qpp_er_c'),
+		ref('rule_qc_qpp_er_ytdc'),
+		ref('rule_qc_ins_eec'),
+		ref('rule_qc_ins_erc'),
+		ref('rule_qc_ei_ee_rate'),
+		ref('rule_qc_ei_ee_maxc'),
+		ref('rule_qc_ei_ee_pytdc'),
+		ref('rule_qc_ei_ee_c'),
+		ref('rule_qc_ei_ee_ytdc'),
+		ref('rule_qc_qit_rate'),
+		ref('rule_qc_qit_ti'),
+		ref('rule_qc_qit'),
+		ref('rule_qc_vpayp')
+		])]"/>
             <field name="parent_id" ref="l10n_ca_hr_payroll.hr_structure_ca_base"/>
-            <field eval="[(6, 0, [ref('hr_salary_rule_qc_vpayp'), ref('hr_salary_rule_qc_maxqpp'), ref('hr_salary_rule_qc_maxqpip'), ref('hr_salary_rule_qc_eeins'), ref('hr_salary_rule_qc_erins'), ref('hr_salary_rule_qc_eeei'), ref('hr_salary_rule_qc_erqpp'), ref('hr_salary_rule_qc_t4'), ref('hr_salary_rule_qc_t3'), ref('hr_salary_rule_qc_t1'), ref('hr_salary_rule_qc_eeqpp'), ref('hr_salary_rule_qc_eeqpip'), ref('hr_salary_rule_qc_erqpip'), ref('hr_salary_rule_qc_pit')])]" name="rule_ids"/>
         </record>
 
     </data>
