@@ -53,7 +53,7 @@ class hr_expense_expense(osv.osv):
                     tax_tmp = [x.id for x in l.product_id.supplier_taxes_id]
 
                     tmp_dict = {}
-                    print l.partner_id.property_account_position
+
                     if l.partner_id.property_account_position:
                         for i in l.partner_id.property_account_position.tax_ids:
                             tmp_dict[i.tax_src_id.id] = i.tax_dest_id.id
