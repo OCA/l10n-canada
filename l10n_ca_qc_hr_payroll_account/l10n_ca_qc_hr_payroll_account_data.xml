@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+	<!-- Quebec Parental Insurance Plan -->
+
+	<record id="l10n_ca_qc_hr_payroll.rule_qc_qpip_ee_c" model="hr.salary.rule">
+	    <field name="account_debit" model='account.account' search="[('code','like','51206')]"/>
+	    <field name="account_credit" model='account.account' search="[('code','like','214231')]"/>
+	</record>
+
+	<record id="l10n_ca_qc_hr_payroll.rule_qc_qpip_er_c" model="hr.salary.rule">
+	    <field name="account_debit" model='account.account' search="[('code','like','51206')]"/>
+	    <field name="account_credit" model='account.account' search="[('code','like','214232')]"/>
+	</record>
+
+	<!-- Quebec Pension Plan -->
+
+	<record id="l10n_ca_qc_hr_payroll.rule_qc_qpp_ee_c" model="hr.salary.rule">
+	    <field name="account_debit" model='account.account' search="[('code','like','51205')]"/>
+	    <field name="account_credit" model='account.account' search="[('code','like','214221')]"/>
+	</record>
+
+	<record id="l10n_ca_qc_hr_payroll.rule_qc_qpp_er_c" model="hr.salary.rule">
+	    <field name="account_debit" model='account.account' search="[('code','like','51205')]"/>
+	    <field name="account_credit" model='account.account' search="[('code','like','214222')]"/>
+	</record>
+
+	<!-- Employment Insurance -->
+
+	<record id="l10n_ca_qc_hr_payroll.rule_qc_ei_ee_c" model="hr.salary.rule">
+	    <field name="account_debit" model='account.account' search="[('code','like','51203')]"/>
+	    <field name="account_credit" model='account.account' search="[('code','like','214111')]"/>
+	</record>
+
+	<!-- Quebec Tax Income -->
+
+	<record id="l10n_ca_qc_hr_payroll.rule_qc_qit" model="hr.salary.rule">
+	    <field name="account_debit" model='account.account' search="[('code','like','51210')]"/>
+	    <field name="account_credit" model='account.account' search="[('code','like','21426')]"/>
+	</record>
+
+    </data>
+</openerp>

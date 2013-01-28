@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+      <!--
+      <record id="hr_payroll_tax_table_form" model="ir.ui.view">
+          <field name="name">hr.payroll.tax.table.form</field>
+          <field name="model">hr.payroll.tax.table</field>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+              <form string="Canadian Tax Table">
+                   <field name="name" select="1" readonly="1"/>
+                   <field name="year" select="1" on_change="onchange_year(year,province)"/>
+                   <field name="date_from"/>
+                   <field name="date_to"/>
+                   <field name="fed_prov"/>
+                   <field name="province" attrs="{'readonly': [('fed_prov','!=','provincial')], 'required': [('fed_prov','=','provincial')]}" on_change="onchange_year(year,province)"/>
+                   <field name="line_ids" nolabel="1" colspan="4" widget="one2many_list"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_payroll_tax_table_tree" model="ir.ui.view">
+          <field name="name">hr.payroll.tax.table.tree</field>
+          <field name="model">hr.payroll.tax.table</field>
+          <field name="type">tree</field>
+          <field name="arch" type="xml">
+              <tree string="Canadian Tax Table">
+                   <field name="name" />
+                   <field name="year" />
+                   <field name="fed_prov"/>
+                   <field name="province" />
+                </tree>
+            </field>
+        </record>
+                
+      <record id="hr_payroll_tax_table_line_form" model="ir.ui.view">
+          <field name="name">hr.payroll.tax.table.line.form</field>
+          <field name="model">hr.payroll.tax.table.line</field>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+              <form string="Canadian Tax Table">
+                   <group col="6" colspan="4">
+                       <field name="name" readonly="1"/>
+                       <field name="code" select="1" colspan="1"/>
+                       <field name="inc_from"/>
+                       <field name="inc_to" />
+                       <field name="rate" />
+                   </group>
+                </form>
+            </field>
+        </record>
+
+      <record id="hr_payroll_tax_table_line_tree" model="ir.ui.view">
+          <field name="name">hr.payroll.tax.table.line.tree</field>
+          <field name="model">hr.payroll.tax.table.line</field>
+          <field name="type">tree</field>
+          <field name="arch" type="xml">
+              <tree string="Canadian Tax Table">
+                   <field name="name" readonly="1"/>
+                   <field name="code" select="1" colspan="1"/>
+                   <field name="inc_from"/>
+                   <field name="inc_to" />
+                   <field name="rate" />
+                </tree>
+            </field>
+        </record>
+
+    <record id="action_hr_payroll_tax_table_tree" model="ir.actions.act_window">
+      <field name="name">Canadian Tax Table</field>
+      <field name="res_model">hr.payroll.tax.table</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="hr_payroll_tax_table_tree"/>
+    </record>
+
+    <menuitem id="menu_hr_payroll_tax_table_tree" action="action_hr_payroll_tax_table_tree" parent="hr_payroll.payroll_configure"/>
+    -->
+
+    <record id="hr_employee_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Canadian Payroll">
+                    <group colspan="1" col="2">
+                        <separator string="Claim Codes" colspan="2"/>
+                        <field name="td1f" colspan="1"/>
+                        <field name="td1p" colspan="1"/>
+                    </group>
+                    <group colspan="3" col="2">
+                        <separator string="Exemptions" colspan="2"/>
+                        <group colspan="1" col="2">
+                            <field name="ei_ytd_adj"/>
+                            <field name="cpp_ytd_adj"/>
+                        </group>
+                        <group colspan="1" col="2">
+                            <field name="ei_exempt"/>
+                            <field name="cpp_exempt"/>
+                            <field name="qpip_exempt"/>
+                        </group>
+                    </group>
+                    <separator string="Deductions" colspan="4"/>
+                    <field name="f1"/>
+                    <field name="f2"/>
+                    <field name="hd"/>
+                    <field name="lcf"/>
+                    <field name="lcp"/>
+                    <field name="f"/>
+                    <field name="k3"/>
+                    <field name="u1"/>
+                    <field name="y"/>
+                    <field name="l"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <!-- Contract View -->
+    <record id="hr_contract_form_inherit" model="ir.ui.view">
+        <field name="name">hr.contract.view.form.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="/form/notebook/page/group/field[@name='working_hours']" position="after">
+                <field name="pays_per_year"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- End Contract View-->
+
+    <!-- Salary Rules - unhide the sequence, not sure why it's invisible -->
+    <record id="hr_salary_rule_list_inherit" model="ir.ui.view">
+        <field name="name">hr.salary.rule.list.inherit</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sequence']" position="replace">
+                <field name="sequence" groups="base.group_extended"/>
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</openerp>
