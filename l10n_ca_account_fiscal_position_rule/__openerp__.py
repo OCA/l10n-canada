@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name" : "Account Fiscal Position Rules for Canada",
-    "version" : "0.1",
+    "version" : "0.11",
     "author" : "Savoir-faire Linux",
     "website" : "http://www.savoirfairelinux.com",
     "license" : "AGPL-3",

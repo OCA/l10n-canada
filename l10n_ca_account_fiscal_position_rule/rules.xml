@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data noupdate="1">
+    <data>
 
-        <!-- Rules from Quebec -->
-
+   <!-- Rules from Quebec -->
+   
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2qc">
+            <field name="name">Du Québec vers le Québec</field>
+            <field name="description">De la compagnie au Québec vers un partenaire au Québec</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%PROV%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+        
         <record model="account.fiscal.position.rule" id="rule_fr_qc2on">
             <field name="name">Du Québec vers l'Ontario</field>
             <field name="description">De la compagnie au Québec vers un partenaire en Ontario</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Harmonisées (13%)')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%ON%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -23,7 +38,7 @@
             <field name="name">Du Québec vers la Colombie-Britannique</field>
             <field name="description">De la compagnie au Québec vers un partenaire en Colombie-Britannique</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Harmonisées (12%)')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%BC%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -38,7 +53,7 @@
             <field name="name">Du Québec vers le Nouveau-Brunswick</field>
             <field name="description">De la compagnie au Québec vers un partenaire au Nouveau-Brunswick</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Harmonisées (13%)')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%NB%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -53,7 +68,7 @@
             <field name="name">Du Québec vers Terre-Neuve et Labrador</field>
             <field name="description">De la compagnie au Québec vers un partenaire à Terre-Neuve et Labrador</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Harmonisées (13%)')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%NL%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -68,7 +83,7 @@
             <field name="name">Du Québec vers la Nouvelle-Écosse</field>
             <field name="description">De la compagnie au Québec vers un partenaire en Nouvelle-Écosse</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Harmonisées (15%)')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%NS%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -83,7 +98,7 @@
             <field name="name">Du Québec vers l'Alberta</field>
             <field name="description">De la compagnie au Québec vers un partenaire en Alberta</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Non-Harmonisées')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%AB%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -98,7 +113,7 @@
             <field name="name">Du Québec vers le Manitoba</field>
             <field name="description">De la compagnie au Québec vers un partenaire au Manitoba</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Non-Harmonisées')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%MB%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -113,7 +128,7 @@
             <field name="name">Du Québec vers la Saskatchewan</field>
             <field name="description">De la compagnie au Québec vers un partenaire en Saskatchewan</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Non-Harmonisées')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%SK%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -128,7 +143,7 @@
             <field name="name">Du Québec vers les Îles du Prince Édouard</field>
             <field name="description">De la compagnie au Québec vers un partenaire aux Îles du Prince Edouard</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Non-Harmonisées')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%PE%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -143,7 +158,7 @@
             <field name="name">Du Québec vers les Territoires du Nord-Ouest</field>
             <field name="description">De la compagnie au Québec vers un partenaire dans les Territoires du Nord-Ouest</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Non-Harmonisées')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%NT%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -158,7 +173,7 @@
             <field name="name">Du Québec vers le Nunavut</field>
             <field name="description">De la compagnie au Québec vers un partenaire au Nunavut</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Non-Harmonisées')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%NU%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -173,7 +188,7 @@
             <field name="name">Du Québec vers le Yukon</field>
             <field name="description">De la compagnie au Québec vers un partenaire au Yukon</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime Provinces Non-Harmonisées')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%YT%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="to_country" model="res.country" search="[('code','=','CA')]"/>
@@ -188,7 +203,7 @@
             <field name="name">Du Québec vers le reste du monde</field>
             <field name="description">De la compagnie au Québec vers un partenaire étranger</field>
             <field name="company_id">1</field>
-            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','=','Régime International')]"/>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%INTL%')]"/>
             <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
             <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
             <field name="use_invoice">TRUE</field>
