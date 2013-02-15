@@ -91,7 +91,22 @@
                 </form>
           </field>
         </record>
-
+        
+        <record id="hr_payroll_tax_table_search" model="ir.ui.view">
+            <field name="name">hr.payroll.tax.table.search</field>
+            <field name="model">hr.payroll.tax.table</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Canadian Tax Table">
+                    <field name="name"/>
+                    <field name="year"/>
+                    <field name="jurisdiction"/>
+                    <field name="state_id"/>
+                    <field name="type"/>
+                </search>
+            </field>
+        </record>
+        
         <record id="hr_payroll_tax_table_tree" model="ir.ui.view">
           <field name="name">hr.payroll.tax.table.tree</field>
           <field name="model">hr.payroll.tax.table</field>
@@ -161,6 +176,18 @@
   
 
    <!-- End Contract View-->
+   <record id="hr_contract_form_inherit" model="ir.ui.view">
+       <field name="name">hr.contract.view.form.inherit</field>
+       <field name="model">hr.contract</field>
+       <field name="type">form</field>
+       <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+       <field name="arch" type="xml">
+           <xpath expr="//field[@name='working_hours']" position="after">
+               <field name="pays_per_year"/>
+               <field name="weeks_of_vacation"/>
+           </xpath>
+       </field>
+   </record>
   
       <!-- Salary Rules - unhide the sequence, not sure why it's invisible -->
       <record id="hr_salary_rule_list_inherit" model="ir.ui.view">
