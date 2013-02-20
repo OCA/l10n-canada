@@ -21,7 +21,8 @@
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
 from osv import osv, fields
- 
+from openerp.tools.float_utils import float_round
+
 class account_tax(osv.osv):
     _inherit = 'account.tax'
     _columns = {
@@ -30,32 +31,48 @@ class account_tax(osv.osv):
                                             included in the expense amount."),
     }
 
-    def compute_all(self, cr, uid, taxes, price_unit, quantity, address_id=None, product=None, partner=None):
+    def compute_all(self, cr, uid, taxes, price_unit, quantity, product=None, partner=None, force_excluded=False):
         """
+        :param force_excluded: boolean used to say that we don't want to consider the value of field price_include of
+            tax. It's used in encoding by line where you don't matter if you encoded a tax with that boolean to True or
+            False
         RETURN: {
                 'total': 0.0,                # Total without taxes
                 'total_included: 0.0,        # Total with taxes
                 'taxes': []                  # List of taxes, see compute for the format
             }
         """
+
+        # By default, for each tax, tax amount will first be computed
+        # and rounded at the 'Account' decimal precision for each
+        # PO/SO/invoice line and then these rounded amounts will be
+        # summed, leading to the total amount for that tax. But, if the
+        # company has tax_calculation_rounding_method = round_globally,
+        # we still follow the same method, but we use a much larger
+        # precision when we round the tax amount for each line (we use
+        # the 'Account' decimal precision + 5), and that way it's like
+        # rounding after the sum of the tax amounts of each line
         precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
-        totalin = totalex = round(price_unit * quantity, precision)
+        tax_compute_precision = precision
+        if taxes and taxes[0].company_id.tax_calculation_rounding_method == 'round_globally':
+            tax_compute_precision += 5
+        totalin = totalex = float_round(price_unit * quantity, precision)
         tin = []
         tex = []
         for tax in taxes:
-            if (partner and partner.employee and tax.expense_include) or tax.price_include:
-                tin.append(tax)
-            else:
+            if not tax.price_include or force_excluded:
                 tex.append(tax)
-        tin = self.compute_inv(cr, uid, tin, price_unit, quantity, address_id=address_id, product=product, partner=partner)
+            else:
+                tin.append(tax)
+        tin = self.compute_inv(cr, uid, tin, price_unit, quantity, product=product, partner=partner, precision=tax_compute_precision)
         for r in tin:
             totalex -= r.get('amount', 0.0)
         totlex_qty = 0.0
         try:
-            totlex_qty=totalex/quantity
+            totlex_qty = totalex/quantity
         except:
             pass
-        tex = self._compute(cr, uid, tex, totlex_qty, quantity, address_id=address_id, product=product, partner=partner)
+        tex = self._compute(cr, uid, tex, totlex_qty, quantity, product=product, partner=partner, precision=tax_compute_precision)
         for r in tex:
             totalin += r.get('amount', 0.0)
         return {
