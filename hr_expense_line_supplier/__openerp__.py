@@ -25,8 +25,15 @@
     "website" : "http://www.savoirfairelinux.com",
     "category" : "Human Resources",
     "description": """
-	This module adds a supplier field on the expense line and set the taxes of
-        the employee invoice based on the fiscal position of the supplier.	
+        This module adds a supplier field on the expense line and set the taxes of
+        the employee invoice based on the fiscal position of the supplier.
+        
+        The tax calculation doesn't work in v7 for an expense. The expense now 
+        create a voucher that only has one tax rate by voucher and we can't 
+        safely select one tax rate per expense form. To fix this situation the
+        expense form should suport the taxes like a supplier invoice form and a 
+        the end of the workflow produce a voucher and the journal entries like
+        what is done when a supplier invoice is open.
     """,
     "depends" : ['hr_expense'],
     "init_xml" : [],
@@ -34,7 +41,7 @@
 	'hr_expense.xml',
     ],
     "demo_xml" : [],
-    "installable" : True,
+    "installable" : False,
     "certificate" : ''
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
