@@ -22,7 +22,7 @@
 
 {
     "name" : "Taxes included in expense",
-    "version" : "1.0",
+    "version" : "1.1",
     "author" : "Savoir-faire Linux",
     "category" : "Account",
     "website": "http://wwww.savoirfairelinux.com",

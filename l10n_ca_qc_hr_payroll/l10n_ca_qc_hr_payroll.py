@@ -21,7 +21,7 @@
 
 from osv import fields, osv
 
-class hr_employee(osv.osv):
+class hr_employee(osv.Model):
     _name = 'hr.employee'
     _inherit = 'hr.employee'
 
@@ -32,7 +32,5 @@ class hr_employee(osv.osv):
     _defaults = {
         'tp10153': 10925.00,
         }
-
-hr_employee()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

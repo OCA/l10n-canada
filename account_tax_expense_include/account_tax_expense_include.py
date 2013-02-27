@@ -23,7 +23,7 @@
 from osv import osv, fields
 from openerp.tools.float_utils import float_round
 
-class account_tax(osv.osv):
+class account_tax(osv.Model):
     _inherit = 'account.tax'
     _columns = {
         'expense_include': fields.boolean('Tax Included in Expense',
@@ -80,6 +80,3 @@ class account_tax(osv.osv):
             'total_included': totalin,
             'taxes': tin + tex
         }
-
-
-account_tax()

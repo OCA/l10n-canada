@@ -34,7 +34,7 @@ def get_type(self, cursor, user_id, context=None):
         ('rqap', 'RQAP / RRQ'),
         ('csst', 'CSST'))
 
-class hr_payroll_tax_table(osv.osv):
+class hr_payroll_tax_table(osv.Model):
     '''
     Canadian Tax Payroll Table
     '''
@@ -72,9 +72,7 @@ class hr_payroll_tax_table(osv.osv):
             'type': 'federal',
             }
 
-hr_payroll_tax_table()
-
-class hr_payroll_tax_table_federal_line(osv.osv):
+class hr_payroll_tax_table_federal_line(osv.Model):
     '''
     Federal Lines
     '''
@@ -99,9 +97,7 @@ class hr_payroll_tax_table_federal_line(osv.osv):
 
     _rec_name = 'inc_from'
 
-hr_payroll_tax_table_federal_line()
-
-class hr_payroll_tax_table_ei_line(osv.osv):
+class hr_payroll_tax_table_ei_line(osv.Model):
     '''
     Employment Insurance Lines
     '''
@@ -117,9 +113,7 @@ class hr_payroll_tax_table_ei_line(osv.osv):
 
     _rec_name = 'inc_from'
 
-hr_payroll_tax_table_ei_line()
-
-class hr_payroll_tax_table_qc_line(osv.osv):
+class hr_payroll_tax_table_qc_line(osv.Model):
     '''
     Quebec Lines
     '''
@@ -150,9 +144,7 @@ class hr_payroll_tax_table_qc_line(osv.osv):
 
     _rec_name = 'inc_from'
 
-hr_payroll_tax_table_qc_line()
-
-class hr_payroll_tax_table_rqap_line(osv.osv):
+class hr_payroll_tax_table_rqap_line(osv.Model):
     '''
     RQAP Lines
     '''
@@ -167,9 +159,7 @@ class hr_payroll_tax_table_rqap_line(osv.osv):
         'max_annual_insurable_earnings': fields.float('Maximum Annual Insurable Earnings', digits=(16, 2)),
         }
 
-hr_payroll_tax_table_rqap_line()
-
-class hr_payroll_tax_table_csst_line(osv.osv):
+class hr_payroll_tax_table_csst_line(osv.Model):
     '''
     CSST Lines
     '''
@@ -180,9 +170,7 @@ class hr_payroll_tax_table_csst_line(osv.osv):
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
         }
 
-hr_payroll_tax_table_csst_line()
-
-class hr_employee(osv.osv):
+class hr_employee(osv.Model):
     _name = 'hr.employee'
     _inherit = 'hr.employee'
 
@@ -218,9 +206,7 @@ class hr_employee(osv.osv):
         'erins': 0.00,
         }
 
-hr_employee()
-
-class hr_contract(osv.osv):
+class hr_contract(osv.Model):
     _inherit = 'hr.contract'
 
     def _get_pays_per_year(self, cr, uid, ids, names, arg, context=None):
@@ -253,8 +239,5 @@ class hr_contract(osv.osv):
     _defaults = {
         'weeks_of_vacation': 2,
         }
-
-hr_contract()
-
             
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

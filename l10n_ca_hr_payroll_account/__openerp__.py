@@ -20,7 +20,7 @@
 {
     'name': 'Canada - Payroll Accounting',
     'category': 'Localization',
-    'version': '0.1',
+    'version': '0.2',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'description': """
