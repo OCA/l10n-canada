@@ -23,15 +23,13 @@ import netsvc
 
 from osv import osv, fields
 
-class hr_expense_line(osv.osv):
+class hr_expense_line(osv.Model):
     _inherit = 'hr.expense.line'
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Supplier', required=True),
     }
 
-hr_expense_line()
-
-class hr_expense_expense(osv.osv):
+class hr_expense_expense(osv.Model):
     _inherit = 'hr.expense.expense'
 
     def action_invoice_create(self, cr, uid, ids):
@@ -119,7 +117,5 @@ class hr_expense_expense(osv.osv):
             self.write(cr, uid, [exp.id], {'invoice_id': inv_id, 'state': 'invoiced'})
             res = inv_id
         return res
-
-hr_expense_expense()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
