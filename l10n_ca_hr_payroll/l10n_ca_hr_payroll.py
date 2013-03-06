@@ -213,7 +213,7 @@ class hr_employee(osv.osv):
     _defaults = {
         'td1f': 'code1',
         'td1p': 'codeA',
-        'td1': 10822.00,
+        'td1': 11038.00,
         'eeins': 0.00,
         'erins': 0.00,
         }
