@@ -118,7 +118,7 @@
             <field name="category_id" ref="FCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = min(GROSS,45900)</field>
+            <field name="amount_python_compute">result = min(GROSS,47400)</field>
         </record>
 
 	<!-- Employment Insurance - Employer - 145 -->
@@ -201,14 +201,24 @@ result = payslip.sum('EIERYTDC',date_from,date_to)
             <field name="category_id" ref="hr_payroll.DED"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">if FITTI &gt;= 132407:
-    res = (FITTI - 132407) * 0.29 + (132407-85415) * 0.26 + (85414-42708) * 0.22 + 42707 * 0.15
-if FITTI &gt;= 85415 and FITTI &lt; 132407:
-    res = (FITTI - 85415) * 0.26 + (85414-42708) * 0.22 + 42707 * 0.15
-if FITTI &gt;= 42708 and FITTI &lt; 85414:
-    res = (FITTI - 42708) * 0.22 + 42707 * 0.15
-if FITTI &lt; 42707:
-    res = FITTI * 0.15
+            <field name="amount_python_compute">
+#(max range, rate)
+levelRates = [(43561, 0.15),
+			(87123, 0.22),
+			(135054, 0.26),
+			(10**15, 0.29)]
+
+minRange = 0
+res = 0
+for levelRate in levelRates:
+	maxRange = levelRate[0]
+	rate = levelRate[1]
+	if FITTI &gt; minRange and FITTI &lt;= maxRange:
+		res += (FITTI - minRange) * rate
+	elif FITTI &gt; maxRange:
+		res += (maxRange - minRange) * rate
+	minRange = maxRange
+
 result = res / P
 	    </field>
         </record>

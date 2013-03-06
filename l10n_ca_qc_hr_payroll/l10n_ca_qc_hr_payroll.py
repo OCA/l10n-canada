@@ -30,7 +30,7 @@ class hr_employee(osv.Model):
             }
 
     _defaults = {
-        'tp10153': 10925.00,
+        'tp10153': 11195.00,
         }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
