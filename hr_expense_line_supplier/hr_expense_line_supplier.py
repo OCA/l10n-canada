@@ -21,15 +21,15 @@
 
 import netsvc
 
-from osv import osv, fields
+from openerp.osv import orm, fields
 
-class hr_expense_line(osv.Model):
+class hr_expense_line(orm.Model):
     _inherit = 'hr.expense.line'
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Supplier', required=True),
     }
 
-class hr_expense_expense(osv.Model):
+class hr_expense_expense(orm.Model):
     _inherit = 'hr.expense.expense'
 
     def action_invoice_create(self, cr, uid, ids):
