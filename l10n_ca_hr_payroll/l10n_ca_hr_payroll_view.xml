@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+        <record id="hr_payroll_tax_table_form" model="ir.ui.view">
+            <field name="name">hr.payroll.tax.table.form</field>
+            <field name="model">hr.payroll.tax.table</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Canadian Tax Table">
+                   <field name="name" select="1"/>
+                   <field name="year" select="1" on_change="onchange_year(year,state_id)"/>
+                   <field name="date_from"/>
+                   <field name="date_to"/>
+                   <field name="jurisdiction"/>
+                   <field name="state_id" 
+                          attrs="{'invisible': [('jurisdiction','!=','provincial')], 'required': [('jurisdiction','=','provincial')]}" 
+                          on_change="onchange_year(year,state_id)" 
+                          domain="[('country_id.code', '=', 'CA')]"/> 
+                   <field name="type"/>
+                   <newline/>
+                   <separator colspan="4"/>
+                   <newline/>
+                   <field name="line_federal_ids" nolabel="1" colspan="4" widget="one2many_list"
+                          attrs="{'invisible': [('type','!=','federal')]}">
+                       <tree string="Federal Lines" editable="top">
+                           <field name="inc_from"/>
+                           <field name="inc_to"/>
+                           <field name="code0"/>
+                           <field name="code1"/>
+                           <field name="code2"/>
+                           <field name="code3"/>
+                           <field name="code4"/>
+                           <field name="code5"/>
+                           <field name="code6"/>
+                           <field name="code7"/>
+                           <field name="code8"/>
+                           <field name="code9"/>
+                           <field name="code10"/>
+                       </tree>
+                   </field>
+                   <field name="line_ei_ids" nolabel="1" colspan="4" widget="one2many_list" 
+                          attrs="{'invisible': [('type','!=','ei')]}">
+                       <tree string="Employment Insurance Lines" editable="top">
+                           <field name="inc_from"/>
+                           <field name="inc_to"/>
+                           <field name="rate"/>
+                           <field name="max_annual_insurable_earnings"/>
+                       </tree>
+                   </field>
+                   <field name="line_qc_ids" nolabel="1" colspan="4" widget="one2many_list" 
+                          attrs="{'invisible': [('type','!=','qc')]}">
+                       <tree string="Quebec Lines" editable="top">
+                           <field name="inc_from"/>
+                           <field name="inc_to"/>
+                           <field name="code0"/>
+                           <field name="codeA"/>
+                           <field name="codeB"/>
+                           <field name="codeC"/>
+                           <field name="codeD"/>
+                           <field name="codeE"/>
+                           <field name="codeF"/>
+                           <field name="codeG"/>
+                           <field name="codeH"/>
+                           <field name="codeI"/>
+                           <field name="codeJ"/>
+                           <field name="codeK"/>
+                           <field name="codeL"/>
+                           <field name="codeM"/>
+                           <field name="codeN"/>
+                           <field name="codeY"/>
+                           <field name="codeZ"/>
+                       </tree>
+                   </field>
+                   <field name="line_rqap_ids" nolabel="1" colspan="4" widget="one2many_list" 
+                          attrs="{'invisible': [('type','!=','rqap')]}">
+                       <tree string="RQAP / RRQ Lines" editable="top">
+                           <field name="inc_from"/>
+                           <field name="inc_to"/>
+                           <field name="employee_contrib"/>
+                           <field name="employer_contrib"/>
+                           <field name="max_annual_insurable_earnings"/>
+                       </tree>
+                   </field>
+                   <field name="line_csst_ids" nolabel="1" colspan="4" widget="one2many_list" 
+                          attrs="{'invisible': [('type','!=','csst')]}">
+                       <tree string="CSST Lines" editable="top">
+                           <field name="name"/>
+                       </tree>
+                   </field>
+                </form>
+          </field>
+        </record>
+        
+        <record id="hr_payroll_tax_table_search" model="ir.ui.view">
+            <field name="name">hr.payroll.tax.table.search</field>
+            <field name="model">hr.payroll.tax.table</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Canadian Tax Table">
+                    <field name="name"/>
+                    <field name="year"/>
+                    <field name="jurisdiction"/>
+                    <field name="state_id"/>
+                    <field name="type"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="hr_payroll_tax_table_tree" model="ir.ui.view">
+          <field name="name">hr.payroll.tax.table.tree</field>
+          <field name="model">hr.payroll.tax.table</field>
+          <field name="type">tree</field>
+          <field name="arch" type="xml">
+              <tree string="Canadian Tax Table">
+                   <field name="name"/>
+                   <field name="year"/>
+                   <field name="jurisdiction"/>
+                   <field name="state_id"/>
+                   <field name="type"/>
+                </tree>
+            </field>
+        </record>
+                
+      <record id="action_hr_payroll_tax_table_tree" model="ir.actions.act_window">
+          <field name="name">Canadian Tax Table</field>
+          <field name="res_model">hr.payroll.tax.table</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="view_id" ref="hr_payroll_tax_table_tree"/>
+          <field name="search_view_id" ref="hr_payroll_tax_table_search"/>
+      </record>
+  
+      <menuitem id="menu_hr_payroll_tax_table_tree" action="action_hr_payroll_tax_table_tree" parent="hr_payroll.payroll_configure"/>
+  
+      <record id="hr_employee_view_form_inherit" model="ir.ui.view">
+          <field name="name">hr.employee.view.form.inherit</field>
+          <field name="model">hr.employee</field>
+          <field name="type">form</field>
+          <field name="inherit_id" ref="hr.view_employee_form"/>
+          <field name="arch" type="xml">
+              <notebook position="inside">
+                  <page string="Canadian Payroll">
+                    <group>
+                        <group string="Claim Codes">
+                            <field name="td1f"/>
+                            <field name="td1p"/>
+                        </group>
+                        <group string="Exemptions">
+                            <field name="ei_ytd_adj"/>
+                            <field name="cpp_ytd_adj"/>
+                            <field name="ei_exempt"/>
+                            <field name="cpp_exempt"/>
+                            <field name="qpip_exempt"/>
+                        </group>
+                        <group string="Deductions">
+                            <field name="f1"/>
+                            <field name="f2"/>
+                            <field name="hd"/>
+                            <field name="lcf"/>
+                            <field name="lcp"/>
+                            <field name="f"/>
+                            <field name="k3"/>
+                            <field name="u1"/>
+                            <field name="y"/>
+                            <field name="l"/>
+                            <field name="td1"/>
+                            <field name="eeins"/>
+                            <field name="erins"/>
+                        </group>
+                    </group>
+                  </page>
+              </notebook>
+          </field>
+      </record>
+  
+
+   <!-- End Contract View-->
+   <record id="hr_contract_form_inherit" model="ir.ui.view">
+       <field name="name">hr.contract.view.form.inherit</field>
+       <field name="model">hr.contract</field>
+       <field name="type">form</field>
+       <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+       <field name="arch" type="xml">
+           <xpath expr="//field[@name='working_hours']" position="after">
+               <field name="pays_per_year"/>
+               <field name="weeks_of_vacation"/>
+           </xpath>
+       </field>
+   </record>
+  
+      <!-- Salary Rules - unhide the sequence, not sure why it's invisible -->
+      <record id="hr_salary_rule_list_inherit" model="ir.ui.view">
+          <field name="name">hr.salary.rule.list.inherit</field>
+          <field name="model">hr.salary.rule</field>
+          <field name="type">tree</field>
+          <field name="inherit_id" ref="hr_payroll.hr_salary_rule_list"/>
+          <field name="arch" type="xml">
+              <xpath expr="//field[@name='sequence']" position="attributes">
+                  <attribute name="invisible">False</attribute>
+              </xpath>
+          </field>
+      </record>
+  
+  </data>
+</openerp>

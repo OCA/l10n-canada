@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+      <record id="hr_employee_view_form_inherit" model="ir.ui.view">
+          <field name="name">hr.employee.view.form.inherit</field>
+          <field name="model">hr.employee</field>
+          <field name="type">form</field>
+          <field name="inherit_id" ref="l10n_ca_hr_payroll.hr_employee_view_form_inherit"/>
+          <field name="arch" type="xml">
+              <field name="td1" position="after">
+                  <field name="tp10153"/>
+              </field>
+          </field>
+      </record>
+  
+  </data>
+</openerp>

@@ -22,7 +22,7 @@
 
 {
     "name" : "Taxes included in expense",
-    "version" : "1.0",
+    "version" : "1.1",
     "author" : "Savoir-faire Linux",
     "category" : "Account",
     "website": "http://wwww.savoirfairelinux.com",
@@ -32,6 +32,13 @@
         It is useful if your taxes are not included in the price, but you
         want to ease the life of your employees by allowing them to enter 
         their expenses with the taxes included.
+        
+        The tax calculation doesn't work in v7 for an expense. The expense now 
+        create a voucher that only has one tax rate by voucher and we can't 
+        safely select one tax rate per expense form. To fix this situation the
+        expense form should suport the taxes like a supplier invoice form and a 
+        the end of the workflow produce a voucher and the journal entries like
+        what is done when a supplier invoice is open.
     """,
     "depends" : ["base", "account"],
     "init_xml" : [],
@@ -39,5 +46,5 @@
         "account_tax_expense_include_view.xml"
     ],
     "active": False,
-    "installable": True
+    "installable": False
 }
