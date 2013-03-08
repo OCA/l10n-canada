@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="1">
 
-	<!-- Salary Rules Category -->
+    <!-- Salary Rules Category -->
 
         <record id="I" model="hr.salary.rule.category">
             <field name="name">Taxable Income</field>
@@ -40,7 +40,7 @@
             <field name="name">Vacation Calculation</field>
         </record>
 
-	<!-- Update salary rules of hr_payroll -->
+    <!-- Update salary rules of hr_payroll -->
 
         <record id="hr_payroll.hr_rule_basic" model="hr.salary.rule">
             <field name="appears_on_payslip" eval="0"/>
@@ -54,7 +54,7 @@
             <field name="amount_python_compute">result = BASICP + categories.ALW - categories.DED - categories.SDED</field>
         </record>
 
-	<!-- Common rules to all canadian salary structures -->
+    <!-- Common rules to all canadian salary structures -->
 
         <record id="rule_ca_p" model="hr.salary.rule">
             <field name="name">Pays Per Year</field>
@@ -107,7 +107,7 @@
             <field name="amount_python_compute">result = GROSS / P</field>
         </record>
 
-	<!-- Employment Insurance - 140 -->
+    <!-- Employment Insurance - 140 -->
 
         <record id="rule_ca_ei_maxie" model="hr.salary.rule">
             <field name="name">EI - Maximum Insurable Earnings (EIMAXIE)</field>
@@ -121,7 +121,7 @@
             <field name="amount_python_compute">result = min(GROSS,47400)</field>
         </record>
 
-	<!-- Employment Insurance - Employer - 145 -->
+    <!-- Employment Insurance - Employer - 145 -->
 
         <record id="rule_ca_ei_er_c" model="hr.salary.rule">
             <field name="name">EI - Employer - Contribution (EIERC)</field>
@@ -165,7 +165,7 @@ result = payslip.sum('EIERYTDC',date_from,date_to)
             <field name="amount_python_compute">result = EIERPYTDC + EIERC</field>
         </record>
 
-	<!-- Federal Income Tax - 170 -->
+    <!-- Federal Income Tax - 170 -->
 
         <record id="rule_ca_fit_rate" model="hr.salary.rule">
             <field name="name">FIT - Rate 16.5% (FITRATE)</field>
@@ -204,24 +204,24 @@ result = payslip.sum('EIERYTDC',date_from,date_to)
             <field name="amount_python_compute">
 #(max range, rate)
 levelRates = [(43561, 0.15),
-			(87123, 0.22),
-			(135054, 0.26),
-			(10**15, 0.29)]
+            (87123, 0.22),
+            (135054, 0.26),
+            (10**15, 0.29)]
 
 minRange = 0
 res = 0
 for levelRate in levelRates:
-	maxRange = levelRate[0]
-	rate = levelRate[1]
-	if FITTI &gt; minRange and FITTI &lt;= maxRange:
-		res += (FITTI - minRange) * rate
-	elif FITTI &gt; maxRange:
-		res += (maxRange - minRange) * rate
-	minRange = maxRange
+    maxRange = levelRate[0]
+    rate = levelRate[1]
+    if FITTI &gt; minRange and FITTI &lt;= maxRange:
+        res += (FITTI - minRange) * rate
+    elif FITTI &gt; maxRange:
+        res += (maxRange - minRange) * rate
+    minRange = maxRange
 
 result = res / P
-	    </field>
-        </record>
+        </field>
+    </record>
 
         <record id="rule_ca_fit_ytd" model="hr.salary.rule">
             <field name="name">FIT - Year To Date (FITYTD)</field>
@@ -265,27 +265,27 @@ result = payslip.sum('VACYTD',date_from,date_to) + VAC
             </field>
         </record>
 
-	<!-- Base for Canadian Salary Structure -->
+    <!-- Base for Canadian Salary Structure -->
 
         <record id="hr_structure_ca_base" model="hr.payroll.structure">
             <field name="code">CA</field>
             <field name="name">Canadian Base</field>
             <field eval="[(6, 0, [
-		ref('rule_ca_p'),
-		ref('rule_ca_pocc'),
-		ref('rule_ca_basic'),
-		ref('rule_ca_gross'),
-		ref('rule_ca_ei_maxie'),
-		ref('rule_ca_ei_er_c'),
-		ref('rule_ca_ei_er_pytdc'),
-		ref('rule_ca_ei_er_ytdc'),
-		ref('rule_ca_fit_rate'),
-		ref('rule_ca_fit_ti'),
-		ref('rule_ca_fit'),
-		ref('rule_ca_fit_ytd'),
-		ref('rule_ca_vac'),
-		ref('rule_ca_vac_ytd')
-		])]" name="rule_ids"/>
+        ref('rule_ca_p'),
+        ref('rule_ca_pocc'),
+        ref('rule_ca_basic'),
+        ref('rule_ca_gross'),
+        ref('rule_ca_ei_maxie'),
+        ref('rule_ca_ei_er_c'),
+        ref('rule_ca_ei_er_pytdc'),
+        ref('rule_ca_ei_er_ytdc'),
+        ref('rule_ca_fit_rate'),
+        ref('rule_ca_fit_ti'),
+        ref('rule_ca_fit'),
+        ref('rule_ca_fit_ytd'),
+        ref('rule_ca_vac'),
+        ref('rule_ca_vac_ytd')
+        ])]" name="rule_ids"/>
         </record>
 
     </data>
