@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="1">
 
-	<!-- Quebec Parental Insurance Plan - 120 -->
+    <!-- Quebec Parental Insurance Plan - 120 -->
 
         <record id="rule_qc_qpip_maxie" model="hr.salary.rule">
             <field name="name">QPIP - Employee and Employer Maximum Insurable Earnings (QPIPMAXIE)</field>
@@ -16,7 +16,7 @@
             <field name="amount_python_compute">result = min(GROSS,67500)</field>
         </record>
 
-	<!-- Quebec Parental Insurance Plan - Employee - 121 -->
+    <!-- Quebec Parental Insurance Plan - Employee - 121 -->
 
         <record id="rule_qc_qpip_ee_rate" model="hr.salary.rule">
             <field name="name">QPIP - Employee Rate - 0.559 % (QPIPRATE)</field>
@@ -55,7 +55,7 @@
             <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
 date_to = payslip.date_to
 result = payslip.sum('QPIPEEYTDC',date_from,date_to)
-	    </field>
+        </field>
         </record>
 
         <record id="rule_qc_qpip_ee_c" model="hr.salary.rule">
@@ -74,7 +74,7 @@ else:
         result = GROSS * QPIPEERATE * 0.01 / P
     else:
         result = QPIPEEMAXC - QPIPEEPYTDC
-	    </field>
+        </field>
         </record>
 
         <record id="rule_qc_qpip_ee_ytdc" model="hr.salary.rule">
@@ -89,7 +89,7 @@ else:
             <field name="amount_python_compute">result = QPIPEEPYTDC + QPIPEEC</field>
         </record>
 
-	<!-- Quebec Parental Insurance Plan - Employer - 125 -->
+    <!-- Quebec Parental Insurance Plan - Employer - 125 -->
 
         <record id="rule_qc_qpip_er_rate" model="hr.salary.rule">
             <field name="name">QPIP - Employer Rate - 0.782 % (QPIPERRATE)</field>
@@ -128,7 +128,7 @@ else:
             <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
 date_to = payslip.date_to
 result = payslip.sum('QPIPERYTDC',date_from,date_to)
-	    </field>
+        </field>
         </record>
 
         <record id="rule_qc_qpip_er_c" model="hr.salary.rule">
@@ -147,7 +147,7 @@ else:
         result = GROSS * QPIPERRATE * 0.01 / P
     else:
         result = QPIPERMAXC - QPIPERPYTDC
-	    </field>
+        </field>
         </record>
 
         <record id="rule_qc_qpip_er_ytdc" model="hr.salary.rule">
@@ -162,7 +162,7 @@ else:
             <field name="amount_python_compute">result = QPIPERPYTDC + QPIPERC</field>
         </record>
 
-	<!-- Quebec Pension Plan - 130 -->
+    <!-- Quebec Pension Plan - 130 -->
 
         <record id="rule_qc_qpp_maxie" model="hr.salary.rule">
             <field name="name">QPP - Employee and Employer Maximum Insurable Earnings (QPPMAXIE)</field>
@@ -177,19 +177,19 @@ else:
         </record>
 
         <record id="rule_qc_qpp_be" model="hr.salary.rule">
-			<field name="name">QPP - basic exemption (QPPBE)</field>
+            <field name="name">QPP - basic exemption (QPPBE)</field>
             <field name="sequence" eval="130"/>
-			<field name="code">QPPBE</field>
+            <field name="code">QPPBE</field>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
-			<field name="amount_select">fix</field>
-			<field name="quantity">1.0</field>
-			<field name="amount_fix">3500</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">3500</field>
         </record>
 
-	<!-- Quebec Pension Plan - Employee - 130 -->
+    <!-- Quebec Pension Plan - Employee - 130 -->
 
         <record id="rule_qc_qpp_ee_rate" model="hr.salary.rule">
             <field name="name">QPP - Employee - Rate 5.10% (QPPEERATE)</field>
@@ -263,7 +263,7 @@ else:
             <field name="amount_python_compute">result = QPPEEPYTDC + QPPEEC</field>
         </record>
 
-	<!-- Quebec Pension Plan - Employer - 135 -->
+    <!-- Quebec Pension Plan - Employer - 135 -->
 
         <record id="rule_qc_qpp_er_rate" model="hr.salary.rule">
             <field name="name">QPP - Employer - Rate 5.10% (QPPERRATE)</field>
@@ -336,7 +336,7 @@ else:
             <field name="amount_python_compute">result = QPPERPYTDC + QPPERC</field>
         </record>
 
-	<!-- Employment insurance - Employee - 140 -->
+    <!-- Employment insurance - Employee - 140 -->
 
         <record id="rule_qc_ei_ee_rate" model="hr.salary.rule">
             <field name="name">EI - Employee - Rate 1.52% (EIEERATE)</field>
@@ -409,7 +409,7 @@ else:
             <field name="amount_python_compute">result = EIEEPYTDC + EIEEC</field>
         </record>
 
-	<!-- Insurance -  Employee - 150 -->
+    <!-- Insurance -  Employee - 150 -->
 
         <record id="rule_qc_ins_eec" model="hr.salary.rule">
             <field name="name">Insurance - Employee Contribution (INSEEC)</field>
@@ -435,10 +435,10 @@ else:
             <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
 date_to = payslip.date_to
 result = payslip.sum('INSEEYTDC',date_from,date_to) + INSEEC
-	    </field>
+        </field>
         </record>
 
-	<!-- Insurance - Employer - 155 -->
+    <!-- Insurance - Employer - 155 -->
 
         <record id="rule_qc_ins_erc" model="hr.salary.rule">
             <field name="name">Insurance - Employer Contribution (INSERC)</field>
@@ -452,7 +452,7 @@ result = payslip.sum('INSEEYTDC',date_from,date_to) + INSEEC
             <field name="amount_python_compute">result = employee.erins</field>
         </record>
 
-	<!-- Quebec Income Tax - 180 -->
+    <!-- Quebec Income Tax - 180 -->
 
         <record id="rule_qc_qit_ti" model="hr.salary.rule">
             <field name="name">QIT - Taxable Income (QITTI)</field>
@@ -478,20 +478,20 @@ result = payslip.sum('INSEEYTDC',date_from,date_to) + INSEEC
             <field name="amount_python_compute">
 #(max range, rate)
 levelRates = [(41095, 0.16),
-		(82190, 0.20),
-		(100000, 0.24),
-		(10**15, 0.2575)]
+        (82190, 0.20),
+        (100000, 0.24),
+        (10**15, 0.2575)]
 
 minRange = 0
 res = 0
 for levelRate in levelRates:
-	maxRange = levelRate[0]
-	rate = levelRate[1]
-	if QITTI &gt; minRange and (QITTI &lt;= maxRange):
-		res += (QITTI - minRange) * rate
-	elif QITTI &gt; maxRange:
-		res += (maxRange - minRange) * rate
-	minRange = maxRange
+    maxRange = levelRate[0]
+    rate = levelRate[1]
+    if QITTI &gt; minRange and (QITTI &lt;= maxRange):
+        res += (QITTI - minRange) * rate
+    elif QITTI &gt; maxRange:
+        res += (maxRange - minRange) * rate
+    minRange = maxRange
 
 result = res / P
             </field>
@@ -509,7 +509,7 @@ result = res / P
             <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
 date_to = payslip.date_to
 result = payslip.sum('QITYTD',date_from,date_to) + QIT
-	    </field>
+        </field>
         </record>
 
         <!-- Salary Structure -->
@@ -518,41 +518,41 @@ result = payslip.sum('QITYTD',date_from,date_to) + QIT
             <field name="code">QC</field>
             <field name="name">Quebec Base</field>
             <field name="rule_ids"
-		eval="[(6, 0, [
-		ref('rule_qc_qpip_maxie'),
-		ref('rule_qc_qpip_ee_rate'),
-		ref('rule_qc_qpip_ee_maxc'),
-		ref('rule_qc_qpip_ee_pytdc'),
-		ref('rule_qc_qpip_ee_c'),
-		ref('rule_qc_qpip_ee_ytdc'),
-		ref('rule_qc_qpip_er_rate'),
-		ref('rule_qc_qpip_er_maxc'),
-		ref('rule_qc_qpip_er_pytdc'),
-		ref('rule_qc_qpip_er_c'),
-		ref('rule_qc_qpip_er_ytdc'),
-		ref('rule_qc_qpp_maxie'),
-		ref('rule_qc_qpp_be'),
-		ref('rule_qc_qpp_ee_rate'),
-		ref('rule_qc_qpp_ee_maxc'),
-		ref('rule_qc_qpp_ee_pytdc'),
-		ref('rule_qc_qpp_ee_c'),
-		ref('rule_qc_qpp_ee_ytdc'),
-		ref('rule_qc_qpp_er_rate'),
-		ref('rule_qc_qpp_er_maxc'),
-		ref('rule_qc_qpp_er_pytdc'),
-		ref('rule_qc_qpp_er_c'),
-		ref('rule_qc_qpp_er_ytdc'),
-		ref('rule_qc_ins_eec'),
-		ref('rule_qc_ins_erc'),
-		ref('rule_qc_ei_ee_rate'),
-		ref('rule_qc_ei_ee_maxc'),
-		ref('rule_qc_ei_ee_pytdc'),
-		ref('rule_qc_ei_ee_c'),
-		ref('rule_qc_ei_ee_ytdc'),
-		ref('rule_qc_qit_ti'),
-		ref('rule_qc_qit'),
-		ref('rule_qc_qit_ytd')
-		])]"/>
+        eval="[(6, 0, [
+        ref('rule_qc_qpip_maxie'),
+        ref('rule_qc_qpip_ee_rate'),
+        ref('rule_qc_qpip_ee_maxc'),
+        ref('rule_qc_qpip_ee_pytdc'),
+        ref('rule_qc_qpip_ee_c'),
+        ref('rule_qc_qpip_ee_ytdc'),
+        ref('rule_qc_qpip_er_rate'),
+        ref('rule_qc_qpip_er_maxc'),
+        ref('rule_qc_qpip_er_pytdc'),
+        ref('rule_qc_qpip_er_c'),
+        ref('rule_qc_qpip_er_ytdc'),
+        ref('rule_qc_qpp_maxie'),
+        ref('rule_qc_qpp_be'),
+        ref('rule_qc_qpp_ee_rate'),
+        ref('rule_qc_qpp_ee_maxc'),
+        ref('rule_qc_qpp_ee_pytdc'),
+        ref('rule_qc_qpp_ee_c'),
+        ref('rule_qc_qpp_ee_ytdc'),
+        ref('rule_qc_qpp_er_rate'),
+        ref('rule_qc_qpp_er_maxc'),
+        ref('rule_qc_qpp_er_pytdc'),
+        ref('rule_qc_qpp_er_c'),
+        ref('rule_qc_qpp_er_ytdc'),
+        ref('rule_qc_ins_eec'),
+        ref('rule_qc_ins_erc'),
+        ref('rule_qc_ei_ee_rate'),
+        ref('rule_qc_ei_ee_maxc'),
+        ref('rule_qc_ei_ee_pytdc'),
+        ref('rule_qc_ei_ee_c'),
+        ref('rule_qc_ei_ee_ytdc'),
+        ref('rule_qc_qit_ti'),
+        ref('rule_qc_qit'),
+        ref('rule_qc_qit_ytd')
+        ])]"/>
             <field name="parent_id" ref="l10n_ca_hr_payroll.hr_structure_ca_base"/>
         </record>
 
