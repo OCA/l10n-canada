@@ -30,7 +30,7 @@ class hr_employee(osv.osv):
             }
 
     _defaults = {
-        'tp10153': 10925.00,
+        'tp10153': 11195.00,
         }
 
 hr_employee()
