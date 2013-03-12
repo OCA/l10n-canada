@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv import fields, orm
 
 def get_jurisdiction(self, cursor, user_id, context=None):
     return (
@@ -34,7 +34,7 @@ def get_type(self, cursor, user_id, context=None):
         ('rqap', 'RQAP / RRQ'),
         ('csst', 'CSST'))
 
-class hr_payroll_tax_table(osv.Model):
+class hr_payroll_tax_table(orm.Model):
     '''
     Canadian Tax Payroll Table
     '''
@@ -72,7 +72,7 @@ class hr_payroll_tax_table(osv.Model):
             'type': 'federal',
             }
 
-class hr_payroll_tax_table_federal_line(osv.Model):
+class hr_payroll_tax_table_federal_line(orm.Model):
     '''
     Federal Lines
     '''
@@ -97,7 +97,7 @@ class hr_payroll_tax_table_federal_line(osv.Model):
 
     _rec_name = 'inc_from'
 
-class hr_payroll_tax_table_ei_line(osv.Model):
+class hr_payroll_tax_table_ei_line(orm.Model):
     '''
     Employment Insurance Lines
     '''
@@ -113,7 +113,7 @@ class hr_payroll_tax_table_ei_line(osv.Model):
 
     _rec_name = 'inc_from'
 
-class hr_payroll_tax_table_qc_line(osv.Model):
+class hr_payroll_tax_table_qc_line(orm.Model):
     '''
     Quebec Lines
     '''
@@ -144,7 +144,7 @@ class hr_payroll_tax_table_qc_line(osv.Model):
 
     _rec_name = 'inc_from'
 
-class hr_payroll_tax_table_rqap_line(osv.Model):
+class hr_payroll_tax_table_rqap_line(orm.Model):
     '''
     RQAP Lines
     '''
@@ -159,7 +159,7 @@ class hr_payroll_tax_table_rqap_line(osv.Model):
         'max_annual_insurable_earnings': fields.float('Maximum Annual Insurable Earnings', digits=(16, 2)),
         }
 
-class hr_payroll_tax_table_csst_line(osv.Model):
+class hr_payroll_tax_table_csst_line(orm.Model):
     '''
     CSST Lines
     '''
@@ -170,7 +170,7 @@ class hr_payroll_tax_table_csst_line(osv.Model):
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
         }
 
-class hr_employee(osv.Model):
+class hr_employee(orm.Model):
     _name = 'hr.employee'
     _inherit = 'hr.employee'
 
@@ -206,7 +206,7 @@ class hr_employee(osv.Model):
         'erins': 0.00,
         }
 
-class hr_contract(osv.Model):
+class hr_contract(orm.Model):
     _inherit = 'hr.contract'
 
     def _get_pays_per_year(self, cr, uid, ids, names, arg, context=None):

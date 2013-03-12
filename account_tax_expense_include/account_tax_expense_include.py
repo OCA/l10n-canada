@@ -20,10 +20,10 @@
 ##############################################################################
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
-from osv import osv, fields
+from openerp.osv import orm, fields
 from openerp.tools.float_utils import float_round
 
-class account_tax(osv.Model):
+class account_tax(orm.Model):
     _inherit = 'account.tax'
     _columns = {
         'expense_include': fields.boolean('Tax Included in Expense',
