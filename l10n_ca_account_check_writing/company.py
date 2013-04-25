@@ -19,7 +19,21 @@
 #
 ##############################################################################
 
-import company
-import account_voucher
-import report
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from openerp.osv import orm, fields
+
+
+class res_company(orm.Model):
+    _inherit = 'res.company'
+
+    _columns = {
+        'check_layout': fields.selection([
+            ('top', 'Check on Top'),
+            ('middle', 'Check in middle'),
+            ('bottom', 'Check on bottom'),
+            ('top_ca', 'Check on top (CA)'),
+            ('middle_ca', 'Check in middle (CA)'),
+            ## ('bottom_ca', 'Check on bottom (CA)'),
+            ],
+            "Choose Check layout",
+        )
+    }

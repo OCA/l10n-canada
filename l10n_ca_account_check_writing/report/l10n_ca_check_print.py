@@ -66,10 +66,24 @@ class report_print_check(report_sxw.rml_parse):
         return result
 
 report_sxw.report_sxw(
+    'report.l10n.ca.account.print.check.top',
+    'account.voucher',
+    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_top.rml',
+    parser=report_print_check,header=False
+)
+
+report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.middle',
     'account.voucher',
     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml',
     parser=report_print_check,header=False
 )
+
+#report_sxw.report_sxw(
+#    'report.l10n.ca.account.print.check.bottom',
+#    'account.voucher',
+#    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
+#    parser=report_print_check,header=False
+#)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
