@@ -203,7 +203,7 @@
 	</tr>
     </blockTable>
 
-    <blockTable colWidths="30.0,538.0" rowHeights="15.0" style="Table5">
+    <blockTable colWidths="30.0,528.0" rowHeights="15.0" style="Table5">
 	<tr>
 	    <td>
                 <para style="P3"><font color="white"> </font></para>
@@ -235,7 +235,10 @@
               </td>
               <td>
                 <para style="P15">[[ voucher.partner_id.name ]]</para>
-                <para style="P15">[[ display_address(voucher.partner_id) or removeParentNode('para') ]]</para>
+                <para style="P15">[[ voucher.partner_id.address and voucher.partner_id.address[0] and voucher.partner_id.address[0].street or removeParentNode('para') ]]</para>
+                <para style="P15">[[ voucher.partner_id.address and voucher.partner_id.address[0] and voucher.partner_id.address[0].street2 or removeParentNode('para') ]]</para>
+                <para style="P15">[[ get_zip_line(voucher.partner_id.address[0]) ]] </para>
+                <para style="P15">[[ voucher.partner_id.address[0].country_id.name]]</para>                
               </td>
 	      <td>
 		  <para style="P3"><font color="white"> </font></para>
