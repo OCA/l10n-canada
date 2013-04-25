@@ -32,12 +32,13 @@ class report_print_check(report_sxw.rml_parse):
         self.localcontext.update({
             'time': time,
             'get_lines': self.get_lines,
+            'get_zip_line': self.get_zip_line,
             'fill_stars' : self.fill_stars,
         })
     def fill_stars(self, amount):
         amount = amount.replace('Dollars','')
-        if len(amount) < 100:
-            stars = 100 - len(amount)
+        if len(amount) < 90:
+            stars = 90 - len(amount)
             return ' '.join([amount,'*'*stars])
 
         else: return amount
@@ -64,6 +65,25 @@ class report_print_check(report_sxw.rml_parse):
                 }
             result.append(res)
         return result
+
+    def get_zip_line(self, address):
+        '''
+        Get the address line
+        '''
+        ret = ''
+        if address:
+            if address.city:
+                ret += address.city
+            if address.state_id:
+                if address.state_id.name:
+                    if ret:
+                        ret += ', '
+                    ret += address.state_id.name
+            if address.zip:
+                if ret:
+                    ret += ' '
+                ret += address.zip
+        return ret
 
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.top',
