@@ -20,10 +20,32 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-
+from openerp.tools.amount_to_text_en import amount_to_text
 
 class account_voucher(orm.Model):
     _inherit = 'account.voucher'
+
+    def onchange_amount(self, cr, uid, ids, amount, rate, partner_id,
+                        journal_id, currency_id, ttype, date,
+                        payment_rate_currency_id, company_id, context=None):
+        """ Inherited - add amount_in_word and allow_check_writting in returned value dictionary """
+        if not context:
+            context = {}
+        default = super(account_voucher, self).onchange_amount(
+            cr, uid, ids, amount, rate, partner_id, journal_id, currency_id,
+            ttype, date, payment_rate_currency_id, company_id, context=context)
+        if 'value' in default:
+            amount = 'amount' in default['value'] and default['value']['amount'] or amount
+
+            #TODO : generic amount_to_text is not ready yet, otherwise language (and country) and currency can be passed
+            #amount_in_word = amount_to_text(amount, context=context)
+            amount_in_word = amount_to_text(amount, currency='Canadian Dollars')
+            default['value'].update({'amount_in_word':amount_in_word})
+            if journal_id:
+                allow_check_writing = self.pool.get('account.journal').browse(
+                    cr, uid, journal_id, context=context).allow_check_writing
+                default['value'].update({'allow_check': allow_check_writing})
+        return default
 
     def print_check(self, cr, uid, ids, context=None):
         if not ids:
