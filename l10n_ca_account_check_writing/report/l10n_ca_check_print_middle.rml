@@ -99,6 +99,7 @@
   </stylesheet>
   <story>
     <para style="P1">[[repeatIn(objects,'voucher')]]</para>
+    <para style="P1">[[ setLang(voucher.partner_id.lang) ]]</para>
     <blockTable colWidths="568.0" style="Table2" rowHeights="280">
       <tr>
         <td>
