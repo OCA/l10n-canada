@@ -73,6 +73,12 @@ class account_voucher(orm.Model):
             'nodestroy': True
             }
 
+# By default, the supplier reference number is not so easily accessible from a voucher line because
+# there's no direct link between the voucher and the invoice. Fortunately, there was this recently
+# submitted patch from Lorenzo Battistini (Agile) BG at
+# https://code.launchpad.net/~elbati/account-payment/adding_account_voucher_supplier_invoice_number_7/+merge/165622
+# which solves this exact problem and I shamelessely copied that code, which works well.
+
 class voucher_line(orm.Model):
     _inherit = 'account.voucher.line'
     
