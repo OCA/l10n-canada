@@ -72,3 +72,22 @@ class account_voucher(orm.Model):
                 },
             'nodestroy': True
             }
+
+class voucher_line(orm.Model):
+    _inherit = 'account.voucher.line'
+    
+    def get_suppl_inv_num(self, cr, uid, move_line_id, context=None):
+        move_line = self.pool.get('account.move.line').browse(cr, uid, move_line_id, context)
+        return (move_line.invoice and move_line.invoice.supplier_invoice_number or '')
+
+    def _get_supplier_invoice_number(self, cr, uid, ids, name, args, context=None):
+        res={}
+        for line in self.browse(cr, uid, ids, context):
+            res[line.id] = ''
+            if line.move_line_id:
+                res[line.id] = self.get_suppl_inv_num(cr, uid, line.move_line_id.id, context=context)
+        return res
+    
+    _columns = {
+        'supplier_invoice_number': fields.function(_get_supplier_invoice_number, type='char', size=64, string="Supplier Invoice Number"),
+    }
