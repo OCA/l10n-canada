@@ -39,7 +39,7 @@ class account_voucher(orm.Model):
 
             #TODO : generic amount_to_text is not ready yet, otherwise language (and country) and currency can be passed
             #amount_in_word = amount_to_text(amount, context=context)
-            amount_in_word = amount_to_text(amount, currency='Canadian Dollars')
+            amount_in_word = amount_to_text(amount, currency='Dollars')
             default['value'].update({'amount_in_word':amount_in_word})
             if journal_id:
                 allow_check_writing = self.pool.get('account.journal').browse(
