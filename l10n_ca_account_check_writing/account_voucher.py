@@ -20,7 +20,10 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-from openerp.tools.amount_to_text_en import amount_to_text
+# OpenERP's built-in routines for converting numbers to words is pretty bad, especially in French
+# This is why we use the library below. You can get it at:
+# https://pypi.python.org/pypi/num2words
+from num2words import num2words
 
 class account_voucher(orm.Model):
     _inherit = 'account.voucher'
@@ -36,10 +39,16 @@ class account_voucher(orm.Model):
             ttype, date, payment_rate_currency_id, company_id, context=context)
         if 'value' in default:
             amount = 'amount' in default['value'] and default['value']['amount'] or amount
-
-            #TODO : generic amount_to_text is not ready yet, otherwise language (and country) and currency can be passed
-            #amount_in_word = amount_to_text(amount, context=context)
-            amount_in_word = amount_to_text(amount, currency='Dollars')
+            if ids:
+                supplier_lang = self.browse(cr, uid, ids[0], context=context).partner_id.lang[:2]
+            else:
+                # It's a new record and we don't have access to our supplier lang yet
+                supplier_lang = 'en'
+            try:
+                amount_in_word = num2words(int(amount), lang=supplier_lang)
+            except NotImplementedError:
+                amount_in_word = num2words(int(amount))
+            amount_in_word += ' Dollars'
             default['value'].update({'amount_in_word':amount_in_word})
             if journal_id:
                 allow_check_writing = self.pool.get('account.journal').browse(
