@@ -32,15 +32,7 @@ class report_print_check(report_sxw.rml_parse):
         self.localcontext.update({
             'time': time,
             'get_lines': self.get_lines,
-            'fill_stars' : self.fill_stars,
         })
-    def fill_stars(self, amount):
-        #amount = amount.replace('Dollars','')
-        if len(amount) < 90:
-            stars = 100 - len(amount)
-            return ' '.join([amount,'*'*stars])
-
-        else: return amount
     
     def get_lines(self, voucher_lines):
         result = []

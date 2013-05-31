@@ -143,7 +143,7 @@
           <blockTable colWidths="550.0" rowHeights="18" style="Table5">
             <tr>
               <td>
-                <para style="P9">[[ fill_stars(voucher.amount_in_word) ]]</para>
+                <para style="P9">[[ voucher.amount_in_word ]]</para>
               </td>
             </tr>
           </blockTable>
