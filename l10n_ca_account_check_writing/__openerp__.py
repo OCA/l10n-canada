@@ -31,6 +31,9 @@ Print checks in Canadian's format'
 This module provides reports to print check using the canadian format from:
 http://www.cdnpay.ca/imis15/pdf/pdfs_rules/standard_006_fr.pdf
 
+To use this module, you will need to install num2words Python library:
+https://pypi.python.org/pypi/num2words
+
     """,
     'depends': ['account_check_writing'],
     'data': [
