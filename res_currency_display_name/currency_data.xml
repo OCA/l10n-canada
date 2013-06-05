@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="base.USD" model="res.currency"><field name="display_name">U.S. dollar</field></record>
+        <record id="base.EUR" model="res.currency"><field name="display_name">European Euro</field></record>
+        <record id="base.GBP" model="res.currency"><field name="display_name">U.K. pound sterling</field></record>
+        <record id="base.CAD" model="res.currency"><field name="display_name">Canadian dollar</field></record>
+        <record id="base.AUD" model="res.currency"><field name="display_name">Australian dollar</field></record>
+        <record id="base.JPY" model="res.currency"><field name="display_name">Japanese yen</field></record>
+        <record id="base.INR" model="res.currency"><field name="display_name">Indian rupee</field></record>
+        <record id="base.NZD" model="res.currency"><field name="display_name">New Zealand dollar</field></record>
+        <record id="base.CHF" model="res.currency"><field name="display_name">Swiss franc</field></record>
+        <record id="base.ZAR" model="res.currency"><field name="display_name">South African rand</field></record>
+        <record id="base.AED" model="res.currency"><field name="display_name">U.A.E. dirham</field></record>
+        <record id="base.ANG" model="res.currency"><field name="display_name">Neth. Antilles florin</field></record>
+        <record id="base.ARS" model="res.currency"><field name="display_name">Argentine peso</field></record>
+        <record id="base.BBD" model="res.currency"><field name="display_name">Barbadian dollar</field></record>
+        <record id="base.BHD" model="res.currency"><field name="display_name">Bahraini dinar</field></record>
+        <record id="base.BRL" model="res.currency"><field name="display_name">Brazilian real</field></record>
+        <record id="base.BSD" model="res.currency"><field name="display_name">Bahamian dollar</field></record>
+        <record id="base.CLP" model="res.currency"><field name="display_name">Chilean peso</field></record>
+        <record id="base.CNY" model="res.currency"><field name="display_name">Chinese renminbi</field></record>
+        <record id="base.COP" model="res.currency"><field name="display_name">Colombian peso</field></record>
+        <record id="base.CZK" model="res.currency"><field name="display_name">Czech Republic koruna</field></record>
+        <record id="base.DKK" model="res.currency"><field name="display_name">Danish krone</field></record>
+        <record id="base.EGP" model="res.currency"><field name="display_name">Egyptian Pound</field></record>
+        <record id="base.FJD" model="res.currency"><field name="display_name">Fiji dollar</field></record>
+        <record id="base.GHS" model="res.currency"><field name="display_name">Ghanaian cedi</field></record>
+        <record id="base.HKD" model="res.currency"><field name="display_name">Hong Kong dollar</field></record>
+        <record id="base.HNL" model="res.currency"><field name="display_name">Honduran lempira</field></record>
+        <record id="base.HRK" model="res.currency"><field name="display_name">Croatian kuna</field></record>
+        <record id="base.HUF" model="res.currency"><field name="display_name">Hungarian forint</field></record>
+        <record id="base.IDR" model="res.currency"><field name="display_name">Indonesian rupiah</field></record>
+        <record id="base.ILS" model="res.currency"><field name="display_name">Israeli new shekel</field></record>
+        <record id="base.ISK" model="res.currency"><field name="display_name">Icelandic krona</field></record>
+        <record id="base.JMD" model="res.currency"><field name="display_name">Jamaican dollar</field></record>
+        <record id="base.KRW" model="res.currency"><field name="display_name">South Korean won</field></record>
+        <record id="base.LKR" model="res.currency"><field name="display_name">Sri Lanka rupee</field></record>
+        <record id="base.LTL" model="res.currency"><field name="display_name">Lithuanian litas</field></record>
+        <record id="base.LVL" model="res.currency"><field name="display_name">Latvian lats</field></record>
+        <record id="base.MAD" model="res.currency"><field name="display_name">Moroccan dirham</field></record>
+        <record id="base.MMK" model="res.currency"><field name="display_name">Myanmar (Burma) kyat</field></record>
+        <record id="base.MXN" model="res.currency"><field name="display_name">Mexican peso</field></record>
+        <record id="base.MYR" model="res.currency"><field name="display_name">Malaysian ringgit</field></record>
+        <record id="base.MZN" model="res.currency"><field name="display_name">Mozambican metical</field></record>
+        <record id="base.NIO" model="res.currency"><field name="display_name">Nicaraguan córdoba</field></record>
+        <record id="base.NOK" model="res.currency"><field name="display_name">Norwegian krone</field></record>
+        <record id="base.PAB" model="res.currency"><field name="display_name">Panamanian balboa</field></record>
+        <record id="base.PEN" model="res.currency"><field name="display_name">Peruvian new sol</field></record>
+        <record id="base.PHP" model="res.currency"><field name="display_name">Philippine peso</field></record>
+        <record id="base.PKR" model="res.currency"><field name="display_name">Pakistan rupee</field></record>
+        <record id="base.PLN" model="res.currency"><field name="display_name">Polish zloty</field></record>
+        <record id="base.RON" model="res.currency"><field name="display_name">Romanian new leu</field></record>
+        <record id="base.RSD" model="res.currency"><field name="display_name">Serbian dinar</field></record>
+        <record id="base.RUB" model="res.currency"><field name="display_name">Russian rouble</field></record>
+        <record id="base.SAR" model="res.currency"><field name="display_name">Saudi riyal</field></record>
+        <record id="base.SEK" model="res.currency"><field name="display_name">Swedish krona</field></record>
+        <record id="base.SGD" model="res.currency"><field name="display_name">Singapore dollar</field></record>
+        <record id="base.SIT" model="res.currency"><field name="display_name">Slovenian tolar</field></record>
+        <record id="base.SKK" model="res.currency"><field name="display_name">Slovak koruna</field></record>
+        <record id="base.THB" model="res.currency"><field name="display_name">Thai baht</field></record>
+        <record id="base.TND" model="res.currency"><field name="display_name">Tunisian dinar</field></record>
+        <record id="base.TRL" model="res.currency"><field name="display_name">Turkish lira</field></record>
+        <record id="base.TWD" model="res.currency"><field name="display_name">Taiwanese new dollar</field></record>
+        <record id="base.UAH" model="res.currency"><field name="display_name">Ukrainian hryvnia</field></record>
+        <record id="base.VEF" model="res.currency"><field name="display_name">Venezuelan bolivar fuerte</field></record>
+        <record id="base.VND" model="res.currency"><field name="display_name">Vietnamese dong</field></record>
+        <record id="base.XAF" model="res.currency"><field name="display_name">CFA franc</field></record>
+        <record id="base.XCD" model="res.currency"><field name="display_name">East Caribbean dollar</field></record>
+        <record id="base.XPF" model="res.currency"><field name="display_name">CFP franc</field></record>
+    </data>
+</openerp>

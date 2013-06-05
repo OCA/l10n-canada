@@ -32,6 +32,9 @@ This module improves res.currency by adding the "display_name" field, which is t
 name of the currency (US Dollar, Euro, Canadian Dollar, etc.)
 """,
     'depends': ['account'],
+    'data': [
+        'currency_data.xml',
+    ],
     'demo': [],
     'test': [],
     'installable': True,
