@@ -25,14 +25,15 @@
     'website': 'http://www.savoirfairelinux.com',
     'category': 'Generic Modules/Accounting',
     'description': """
-Supply res.currency.display_name
+Supply res.currency.print_on_check
 ================================
 
-This module improves res.currency by adding the "display_name" field, which is the human readable
+This module improves res.currency by adding the "print_on_check" field, which stores the human readable
 name of the currency (US Dollar, Euro, Canadian Dollar, etc.)
 """,
-    'depends': ['account'],
+    'depends': ['base'],
     'data': [
+        'currency_view.xml',
         'currency_data.xml',
     ],
     'demo': [],

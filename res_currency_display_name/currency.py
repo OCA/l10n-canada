@@ -24,5 +24,5 @@ from openerp.osv import orm, fields
 class res_currency(orm.Model):
     _inherit = 'res.currency'
     _columns = {
-        'display_name': fields.char('Display Name', size=64, translate=True),
+        'print_on_check': fields.char('Display Name', size=64, translate=True),
     }
