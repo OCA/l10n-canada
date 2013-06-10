@@ -18,6 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+# NOTE: The name of the supplied field was initially "display_name", but it seems that OpenERP,
+# whenever it seems "name" in the field, returns the value for "name". Well...
+
 {
     'name': 'Display name for currencies',
     'version': '1.0',
@@ -26,10 +30,10 @@
     'category': 'Generic Modules/Accounting',
     'description': """
 Supply res.currency.print_on_check
-================================
+==================================
 
-This module improves res.currency by adding the "print_on_check" field, which stores the human readable
-name of the currency (US Dollar, Euro, Canadian Dollar, etc.)
+This module improves res.currency by adding the "print_on_check" field, which stores the human
+readable name of the currency (US Dollar, Euro, Canadian Dollar, etc.)
 """,
     'depends': ['base'],
     'data': [

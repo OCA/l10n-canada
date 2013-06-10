@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* res_currency_display_name
+#	* res_currency_print_on_check
 #
 msgid ""
 msgstr ""
@@ -15,12 +15,12 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: res_currency_display_name
-#: model:ir.model,name:res_currency_display_name.model_res_currency
+#. module: res_currency_print_on_check
+#: model:ir.model,name:res_currency_print_on_check.model_res_currency
 msgid "Currency"
 msgstr "Currency"
 
-#. module: res_currency_display_name
+#. module: res_currency_print_on_check
 #: field:res.currency,print_on_check:0
 msgid "Display Name"
 msgstr "Display Name"
