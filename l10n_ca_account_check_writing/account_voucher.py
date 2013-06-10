@@ -48,13 +48,15 @@ class account_voucher(orm.Model):
                 amount_in_word = num2words(int(amount), lang=supplier_lang)
             except NotImplementedError:
                 amount_in_word = num2words(int(amount))
-            amount_in_word += ' Dollars'
+            currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=context)
+            currency_name = currency.print_on_check
             cents = int((amount - int(amount)) * 100)
-            if len(amount_in_word) < 83:
-                stars = '*' * (93 - len(amount_in_word))
+            total_length = len(amount_in_word) + len(currency_name)
+            if total_length < 87:
+                stars = '*' * (87 - total_length)
             else:
                 stars = ''
-            amount_in_word = '%s %s %d/100' % (amount_in_word, stars, cents)
+            amount_in_word = '%s %s %s %d/100' % (amount_in_word, currency_name, stars, cents)
             default['value'].update({'amount_in_word':amount_in_word})
             if journal_id:
                 allow_check_writing = self.pool.get('account.journal').browse(

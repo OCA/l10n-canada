@@ -35,7 +35,7 @@ To use this module, you will need to install num2words Python library:
 https://pypi.python.org/pypi/num2words
 
     """,
-    'depends': ['account_check_writing'],
+    'depends': ['account_check_writing', 'res_currency_print_on_check'],
     'data': [
         'l10n_ca_account_check_writing_report.xml',
     ],
