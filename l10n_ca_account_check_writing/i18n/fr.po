@@ -22,6 +22,12 @@ msgid "Check Amount"
 msgstr "Montant du chèque"
 
 #. module: l10n_ca_account_check_writing
+#: code:addons/l10n_ca_account_check_writing/account_voucher.py:31
+#, python-format
+msgid "and"
+msgstr "et"
+
+#. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.top:0
 msgid "Open Balance"
 msgstr "Solde ouvert"

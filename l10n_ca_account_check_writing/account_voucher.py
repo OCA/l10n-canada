@@ -20,10 +20,41 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 # OpenERP's built-in routines for converting numbers to words is pretty bad, especially in French
 # This is why we use the library below. You can get it at:
 # https://pypi.python.org/pypi/num2words
 from num2words import num2words
+
+# For the words we use in custom_translation(), we have to put dummy _() calls here so that OpenERP
+# picks them up during .pot generation
+_("and")
+
+def custom_translation(s, lang):
+    # OpenERP uses the current stack frame, yes, the *stack frame* to determine which language _()
+    # should translate a string in. If we want to translate a string in another language, such as
+    # a supplier's language, we have to resort to hacks such as this one. "context" is sought after
+    # in the stackframe, so we have to set it.
+    context = {'lang': lang}
+    return _(s)
+
+def get_amount_line(amount, currency, lang):
+    try:
+        amount_in_word = num2words(int(amount), lang=lang[:2])
+    except NotImplementedError:
+        amount_in_word = num2words(int(amount))
+    currency_name = currency.print_on_check
+    cents = int((amount - int(amount)) * 100)
+    total_length = len(amount_in_word) + len(currency_name)
+    if total_length < 87:
+        stars = '*' * (87 - total_length)
+    else:
+        stars = ''
+    AND = custom_translation("and", lang)
+    amount_line_fmt = '{amount_in_word} {AND} {cents}/100 {currency_name} {stars}'
+    if lang.startswith('fr'):
+        amount_line_fmt = '{amount_in_word} {currency_name} {AND} {cents}/100 {stars}'
+    return amount_line_fmt.format(**vars())
 
 class account_voucher(orm.Model):
     _inherit = 'account.voucher'
@@ -40,24 +71,17 @@ class account_voucher(orm.Model):
         if 'value' in default:
             amount = 'amount' in default['value'] and default['value']['amount'] or amount
             if ids:
-                supplier_lang = self.browse(cr, uid, ids[0], context=context).partner_id.lang[:2]
+                supplier_lang = self.browse(cr, uid, ids[0], context=context).partner_id.lang
             else:
                 # It's a new record and we don't have access to our supplier lang yet
-                supplier_lang = 'en'
-            try:
-                amount_in_word = num2words(int(amount), lang=supplier_lang)
-            except NotImplementedError:
-                amount_in_word = num2words(int(amount))
-            currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=context)
-            currency_name = currency.print_on_check
-            cents = int((amount - int(amount)) * 100)
-            total_length = len(amount_in_word) + len(currency_name)
-            if total_length < 87:
-                stars = '*' * (87 - total_length)
-            else:
-                stars = ''
-            amount_in_word = '%s %s %s %d/100' % (amount_in_word, currency_name, stars, cents)
-            default['value'].update({'amount_in_word':amount_in_word})
+                supplier_lang = 'en_US'
+            supplier_context = context.copy()
+            # for some calls, such as the currency browse() call, we want to separate our user's
+            # language from our supplier's. That's why we need a separate context.
+            supplier_context['lang'] = supplier_lang
+            currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=supplier_context)
+            amount_line = get_amount_line(amount, currency, supplier_lang)
+            default['value'].update({'amount_in_word':amount_line})
             if journal_id:
                 allow_check_writing = self.pool.get('account.journal').browse(
                     cr, uid, journal_id, context=context).allow_check_writing

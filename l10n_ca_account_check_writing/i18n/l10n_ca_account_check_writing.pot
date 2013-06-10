@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-25 15:57+0000\n"
-"PO-Revision-Date: 2013-05-25 15:57+0000\n"
+"POT-Creation-Date: 2013-06-10 18:26+0000\n"
+"PO-Revision-Date: 2013-06-10 18:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,70 +19,86 @@ msgstr ""
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Check Amount"
-msgstr "Check Amount"
+msgstr ""
+
+#. module: l10n_ca_account_check_writing
+#: code:addons/l10n_ca_account_check_writing/account_voucher.py:31
+#, python-format
+msgid "and"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.top:0
 msgid "Open Balance"
-msgstr "Open Balance"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Description"
-msgstr "Description"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Due Date"
-msgstr "Due Date"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_middle
 msgid "Print Check CA (Middle)"
-msgstr "Print Check CA (Middle)"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: model:ir.model,name:l10n_ca_account_check_writing.model_account_voucher
 msgid "Accounting Voucher"
-msgstr "Accounting Voucher"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: model:ir.model,name:l10n_ca_account_check_writing.model_res_company
 msgid "Companies"
-msgstr "Companies"
+msgstr ""
+
+#. module: l10n_ca_account_check_writing
+#: model:ir.model,name:l10n_ca_account_check_writing.model_account_voucher_line
+msgid "Voucher Lines"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Discount"
-msgstr "Discount"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Original Amount"
-msgstr "Original Amount"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 msgid "Date"
-msgstr "Date"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 msgid "Balance Due"
-msgstr "Balance Due"
+msgstr ""
+
+#. module: l10n_ca_account_check_writing
+#: field:account.voucher.line,supplier_invoice_number:0
+msgid "Supplier Invoice Number"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Payment"
-msgstr "Payment"
+msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_top
 msgid "Print Check CA (Top)"
-msgstr "Print Check CA (Top)"
+msgstr ""
 
