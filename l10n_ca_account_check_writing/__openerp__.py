@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    'name': 'Canadian Check Writing',
+    'name': 'Canada - Check Writing',
     'version': '1.1',
     'author': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
