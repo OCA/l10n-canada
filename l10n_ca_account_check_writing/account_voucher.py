@@ -44,7 +44,7 @@ def get_amount_line(amount, currency, lang):
     except NotImplementedError:
         amount_in_word = num2words(int(amount))
     currency_name = currency.print_on_check
-    cents = int((amount - int(amount)) * 100)
+    cents = int(amount * 100) % 100
     total_length = len(amount_in_word) + len(currency_name)
     if total_length < 87:
         stars = '*' * (87 - total_length)
