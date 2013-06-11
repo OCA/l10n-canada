@@ -99,6 +99,7 @@
   </stylesheet>
   <story>
     <para style="P1">[[repeatIn(objects,'voucher')]]</para>
+    <para style="P1">[[ setLang(voucher.partner_id.lang) ]]</para>
     <blockTable colWidths="568.0" style="Table2" rowHeights="280">
       <tr>
         <td>
@@ -149,7 +150,7 @@
                 <para style="P19">[[ l['name'] ]]</para>
               </td>
               <td>
-                <para style="P19">[[formatLang( l['amount_original']) ]]</para>
+                <para style="P19">[[ formatLang( l['amount_original']) ]]</para>
               </td>
               <td>
                 <para style="P19">[[ formatLang( l['amount_due']) ]]</para>
@@ -209,7 +210,7 @@
                 <para style="P3"><font color="white"> </font></para>
 	    </td>
 	    <td>
-                <para style="P26">[[ str(fill_stars(voucher.amount_in_word)) ]]</para>
+                <para style="P9">[[ voucher.amount_in_word ]]</para>
 	    </td>
 	</tr>
     </blockTable>

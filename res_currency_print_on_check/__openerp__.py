@@ -18,34 +18,30 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+# NOTE: The name of the supplied field was initially "display_name", but it seems that OpenERP,
+# whenever it seems "name" in the field, returns the value for "name". Well...
+
 {
-    'name': 'Canada - Check Writing',
-    'version': '1.1',
+    'name': 'Display name for currencies',
+    'version': '1.0',
     'author': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
     'category': 'Generic Modules/Accounting',
     'description': """
-Print checks in Canadian's format'
+Supply res.currency.print_on_check
 ==================================
 
-This module provides reports to print check using the canadian format from:
-http://www.cdnpay.ca/imis15/pdf/pdfs_rules/standard_006_fr.pdf
-
-To use this module, you will need to install num2words Python library:
-https://pypi.python.org/pypi/num2words
-
-Note that the amount in letter is generated when you enter/change the amount,
-not when you print. You will need to modify it if you change the language of 
-the supplier.
-
-    """,
-    'depends': ['account_check_writing', 'res_currency_print_on_check'],
+This module improves res.currency by adding the "print_on_check" field, which stores the human
+readable name of the currency (US Dollar, Euro, Canadian Dollar, etc.)
+""",
+    'depends': ['base'],
     'data': [
-        'l10n_ca_account_check_writing_report.xml',
+        'currency_view.xml',
+        'currency_data.xml',
     ],
     'demo': [],
     'test': [],
     'installable': True,
     'active': False,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -32,27 +32,27 @@ class report_print_check(report_sxw.rml_parse):
         self.localcontext.update({
             'time': time,
             'get_lines': self.get_lines,
-            'fill_stars' : self.fill_stars,
         })
-    def fill_stars(self, amount):
-        #amount = amount.replace('Dollars','')
-        if len(amount) < 90:
-            stars = 100 - len(amount)
-            return ' '.join([amount,'*'*stars])
-
-        else: return amount
     
     def get_lines(self, voucher_lines):
         result = []
         self.number_lines = len(voucher_lines)
         for i in range(0, min(10,self.number_lines)):
             if i < self.number_lines:
+                voucher_line = voucher_lines[i]
+                # In general, the supplier invoice reference number is a much better description
+                # for writing checks than our own reference number, but if we don't have it, we
+                # might as well use our internal number
+                if voucher_line.supplier_invoice_number:
+                    name = voucher_line.supplier_invoice_number
+                else:
+                    name = voucher_line.name
                 res = {
-                    'date_due' : voucher_lines[i].date_due,
-                    'name' : voucher_lines[i].name,
-                    'amount_original' : voucher_lines[i].amount_original and voucher_lines[i].amount_original or False,
-                    'amount_unreconciled' : voucher_lines[i].amount_unreconciled and voucher_lines[i].amount_unreconciled or False,
-                    'amount' : voucher_lines[i].amount and voucher_lines[i].amount or False,
+                    'date_due' : voucher_line.date_due,
+                    'name' : name,
+                    'amount_original' : voucher_line.amount_original and voucher_line.amount_original or False,
+                    'amount_unreconciled' : voucher_line.amount_unreconciled and voucher_line.amount_unreconciled or False,
+                    'amount' : voucher_line.amount and voucher_line.amount or False,
                 }
             else :
                 res = {
