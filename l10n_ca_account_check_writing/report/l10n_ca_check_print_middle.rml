@@ -144,7 +144,7 @@
             </tr>
             <tr>
               <td>
-                <para style="P19">[[ repeatIn(get_lines(voucher.line_dr_ids),'l') ]] [[ formatLang(l['date_original'] ,date=True) or '' ]]</para>
+                <para style="P19">[[ repeatIn(get_lines(voucher.line_dr_ids),'l') ]] [[ formatLang(l['date_due'] ,date=True) or '' ]]</para>
               </td>
               <td>
                 <para style="P19">[[ l['name'] ]]</para>
@@ -153,7 +153,7 @@
                 <para style="P19">[[ formatLang( l['amount_original']) ]]</para>
               </td>
               <td>
-                <para style="P19">[[ formatLang( l['amount_due']) ]]</para>
+                <para style="P19">[[ formatLang( l['amount_unreconciled']) ]]</para>
               </td>
               <td>
                 <para style="P19">
@@ -299,7 +299,7 @@
             </tr>
             <tr>
               <td>
-                <para style="P19">[[ repeatIn(get_lines(voucher.line_dr_ids),'l') ]] [[ formatLang(l['date_original'] ,date=True) or '' ]]</para>
+                <para style="P19">[[ repeatIn(get_lines(voucher.line_dr_ids),'l') ]] [[ formatLang(l['date_due'] ,date=True) or '' ]]</para>
               </td>
               <td>
                 <para style="P19">[[ l['name'] ]]</para>
@@ -308,7 +308,7 @@
                 <para style="P19">[[ formatLang (l['amount_original']) ]]</para>
               </td>
               <td>
-                <para style="P19">[[ formatLang (l['amount_due']) ]]</para>
+                <para style="P19">[[ formatLang (l['amount_unreconciled']) ]]</para>
               </td>
               <td>
                 <para style="P19">

@@ -59,7 +59,7 @@ class report_print_check(report_sxw.rml_parse):
                     'date_due' : False,
                     'name' : False,
                     'amount_original' : False,
-                    'amount_due' : False,
+                    'amount_unreconciled' : False,
                     'amount' : False,
                 }
             result.append(res)
