@@ -35,7 +35,7 @@ msgstr ""
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
-msgid "Description"
+msgid "Invoice"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
