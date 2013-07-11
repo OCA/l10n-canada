@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+                <record model="ir.ui.view" id="res_partner_attributes_add_NE_form_view">
+                        <field name="name">res_partner_attributes_add_NE</field>
+                        <field name="model">res.partner</field>
+                        <field name="inherit_id" ref="base.view_partner_form"/>
+                        <field name="arch" type="xml">
+                                <field name="email" position="after">
+                                        <field name="ne"  attrs="{'invisible': [('is_company','=', False)]}"/>
+                                </field>
+                        </field>
+                </record>
+
+	</data>
+</openerp>
