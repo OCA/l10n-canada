@@ -73,6 +73,12 @@ msgstr "Montant original"
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
+#: report:l10n.ca.account.print.check.top:0
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: l10n_ca_account_check_writing
+#: report:l10n.ca.account.print.check.middle:0
 msgid "Date"
 msgstr "Date"
 

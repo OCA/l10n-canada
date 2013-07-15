@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-10 18:26+0000\n"
-"PO-Revision-Date: 2013-06-10 18:26+0000\n"
+"POT-Creation-Date: 2013-07-15 20:02+0000\n"
+"PO-Revision-Date: 2013-07-15 20:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,11 @@ msgid "and"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
+#: field:account.voucher,currency_help_label:0
+msgid "Helping Sentence"
+msgstr ""
+
+#. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.top:0
 msgid "Open Balance"
 msgstr ""
@@ -35,13 +40,12 @@ msgstr ""
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
-msgid "Invoice"
+msgid "Due Date"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
-#: report:l10n.ca.account.print.check.middle:0
-#: report:l10n.ca.account.print.check.top:0
-msgid "Due Date"
+#: help:account.voucher,currency_help_label:0
+msgid "This sentence helps you to know how to specify the payment rate by giving you the direct effect it has"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
@@ -74,6 +78,12 @@ msgstr ""
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Original Amount"
+msgstr ""
+
+#. module: l10n_ca_account_check_writing
+#: report:l10n.ca.account.print.check.middle:0
+#: report:l10n.ca.account.print.check.top:0
+msgid "Invoice"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
