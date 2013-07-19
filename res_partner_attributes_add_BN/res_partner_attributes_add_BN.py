@@ -19,7 +19,17 @@
 #
 ##############################################################################
 
-import res_partner_attributes_add_NE
+from openerp.osv import fields, orm
+from openerp.tools.translate import _
+
+
+class res_partner(orm.Model):
+    _name = 'res.partner'
+    _inherit = 'res.partner'
+    _columns = {
+        'ne': fields.float('BN', digits=(9, 0),
+                           help="Canada Business identification Number (9 digits)"),
+    }
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

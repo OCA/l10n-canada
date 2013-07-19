@@ -19,21 +19,7 @@
 #
 ##############################################################################
 
-{
-	'name' : 'Business identification Number in Canada (BN)',
-	'version' : '1.0',
-	"author" : "Savoir-faire Linux (mcassuto@savoirfairelinux.com)",
-	"website" : "http://www.savoirfairelinux.com",
-	'license': 'AGPL-3',
-	'category' : 'Localisation/Canada',
-	'depends' : ['base'],
-	'description': """
-Add the Business identification Number (BN) to the partner form.
-""",
-	'auto_install': False,
-	'installable': True,
-	'data' : ['res_partner_attributes_add_NE_view.xml']
-}
+import res_partner_attributes_add_BN
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

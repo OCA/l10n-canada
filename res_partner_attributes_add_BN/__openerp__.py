@@ -19,15 +19,21 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
-from openerp.tools.translate import _
-
-class res_partner(orm.Model):
-	_name = 'res.partner'
-	_inherit = 'res.partner'
-	_columns = {
-		'ne' : fields.float('NE', digits=(9,0),help="Canada Business identification Number (9 digits)"),
-	}
+{
+	'name' : 'Business identification Number in Canada (BN/NE)',
+	'version' : '1.0',
+	"author" : "Savoir-faire Linux (mcassuto@savoirfairelinux.com)",
+	"website" : "http://www.savoirfairelinux.com",
+	'license': 'AGPL-3',
+	'category' : 'Localisation/Canada',
+	'depends' : ['base'],
+	'description': """
+Add the Business identification Number (BN/NE) to the partner form.
+""",
+	'auto_install': False,
+	'installable': True,
+	'data' : ['res_partner_attributes_add_BN_view.xml']
+}
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
