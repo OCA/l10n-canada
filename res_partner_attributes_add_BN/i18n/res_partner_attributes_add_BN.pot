@@ -1,13 +1,13 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* res_partner_attributes_add_NE
+#	* res_partner_attributes_add_BN
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-11 14:53+0000\n"
-"PO-Revision-Date: 2013-07-11 14:53+0000\n"
+"POT-Creation-Date: 2013-07-19 19:20+0000\n"
+"PO-Revision-Date: 2013-07-19 19:20+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,18 +15,18 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: res_partner_attributes_add_NE
-#: model:ir.model,name:res_partner_attributes_add_NE.model_res_partner
+#. module: res_partner_attributes_add_BN
+#: model:ir.model,name:res_partner_attributes_add_BN.model_res_partner
 msgid "Partner"
 msgstr ""
 
-#. module: res_partner_attributes_add_NE
-#: help:res.partner,ne:0
-msgid "Canada Business identification Number (9 digits)"
+#. module: res_partner_attributes_add_BN
+#: field:res.partner,ne:0
+msgid "BN"
 msgstr ""
 
-#. module: res_partner_attributes_add_NE
-#: field:res.partner,ne:0
-msgid "NE"
+#. module: res_partner_attributes_add_BN
+#: help:res.partner,ne:0
+msgid "Canada Business identification Number (9 digits)"
 msgstr ""
 

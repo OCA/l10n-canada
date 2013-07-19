@@ -1,13 +1,13 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* res_partner_attributes_add_NAS
+#	* res_partner_attributes_add_SIN
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-11 14:53+0000\n"
-"PO-Revision-Date: 2013-07-11 14:53+0000\n"
+"POT-Creation-Date: 2013-07-19 19:17+0000\n"
+"PO-Revision-Date: 2013-07-19 19:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,18 +15,18 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: res_partner_attributes_add_NAS
-#: field:res.partner,nas:0
-msgid "NAS"
+#. module: res_partner_attributes_add_SIN
+#: model:ir.model,name:res_partner_attributes_add_SIN.model_res_partner
+msgid "Partner"
 msgstr ""
 
-#. module: res_partner_attributes_add_NAS
+#. module: res_partner_attributes_add_SIN
 #: help:res.partner,nas:0
 msgid "Social Insurance Number (9 digits)"
 msgstr ""
 
-#. module: res_partner_attributes_add_NAS
-#: model:ir.model,name:res_partner_attributes_add_NAS.model_res_partner
-msgid "Partner"
+#. module: res_partner_attributes_add_SIN
+#: field:res.partner,nas:0
+msgid "SIN"
 msgstr ""
 
