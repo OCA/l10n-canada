@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-	'name' : 'Quebec Social Insurance Number (NAS)',
+	'name' : 'Canada Social Insurance Number (SIN/NAS)',
 	'version' : '1.0',
 	"author" : "Savoir-faire Linux (mcassuto@savoirfairelinux.com)",
 	"website" : "http://www.savoirfairelinux.com",
@@ -28,11 +28,11 @@
 	'category' : 'Localisation/Canada',
 	'depends' : ['base'],
 	'description': """
-Add the Social Insurance Number (NAS) to the partner form.
+Add the Social Insurance Number (SIN/NAS) to the partner form.
 """,
 	'auto_install': False,
 	'installable': True,
-	'data' : ['res_partner_attributes_add_NAS_view.xml']
+	'data' : ['res_partner_attributes_add_SIN_view.xml']
 }
 
 

@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-import res_partner_attributes_add_NAS
+import res_partner_attributes_add_SIN
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
