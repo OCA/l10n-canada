@@ -22,7 +22,7 @@
 {
 	'name' : 'Canada Social Insurance Number (SIN/NAS)',
 	'version' : '1.0',
-	"author" : "Savoir-faire Linux (mcassuto@savoirfairelinux.com)",
+	"author" : "Savoir-faire Linux",
 	"website" : "http://www.savoirfairelinux.com",
 	'license': 'AGPL-3',
 	'category' : 'Localisation/Canada',
