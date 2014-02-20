@@ -81,7 +81,7 @@ class account_voucher(orm.Model):
             supplier_context['lang'] = supplier_lang
             currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=supplier_context)
             amount_line = get_amount_line(amount, currency, supplier_lang)
-            default['value'].update({'amount_in_word':amount_line})
+            default['value'].update({'amount_in_word': amount_line})
             if journal_id:
                 allow_check_writing = self.pool.get('account.journal').browse(
                     cr, uid, journal_id, context=context).allow_check_writing
@@ -90,7 +90,7 @@ class account_voucher(orm.Model):
 
     def print_check(self, cr, uid, ids, context=None):
         if not ids:
-            return  {}
+            return {}
 
         check_layout_report = {
             'top': 'account.print.check.top',
@@ -114,6 +114,25 @@ class account_voucher(orm.Model):
             'nodestroy': True
             }
 
+    def proforma_voucher(self, cr, uid, ids, context=None):
+        # update all amount in word when perform a voucher
+        if type(context) is not dict:
+            context = {}
+        i_id = ids[0]
+        amount = self.browse(cr, uid, i_id, context=context).amount
+        supplier_lang = self.browse(cr, uid, i_id, context=context).partner_id.lang
+        supplier_context = context.copy()
+        # for some calls, such as the currency browse() call, we want to separate our user's
+        # language from our supplier's. That's why we need a separate context.
+        supplier_context['lang'] = supplier_lang
+        currency_id = self._get_current_currency(cr, uid, i_id, context)
+        currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=supplier_context)
+        # get the amount_in_word
+        amount_line = get_amount_line(amount, currency, supplier_lang)
+        self.write(cr, uid, [i_id], {'amount_in_word': amount_line})
+
+        return super(account_voucher, self).proforma_voucher(cr, uid, ids, context=context)
+
 # By default, the supplier reference number is not so easily accessible from a voucher line because
 # there's no direct link between the voucher and the invoice. Fortunately, there was this recently
 # submitted patch from Lorenzo Battistini (Agile) BG at
@@ -125,7 +144,7 @@ class voucher_line(orm.Model):
     
     def get_suppl_inv_num(self, cr, uid, move_line_id, context=None):
         move_line = self.pool.get('account.move.line').browse(cr, uid, move_line_id, context)
-        return (move_line.invoice and move_line.invoice.supplier_invoice_number or '')
+        return move_line.invoice and move_line.invoice.supplier_invoice_number or ''
 
     def _get_supplier_invoice_number(self, cr, uid, ids, name, args, context=None):
         res={}
