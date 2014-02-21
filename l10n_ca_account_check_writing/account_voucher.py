@@ -31,6 +31,7 @@ from num2words import num2words
 # picks them up during .pot generation
 _("and")
 
+
 def custom_translation(s, lang):
     # OpenERP uses the current stack frame, yes, the *stack frame* to determine which language _()
     # should translate a string in. If we want to translate a string in another language, such as
@@ -38,6 +39,7 @@ def custom_translation(s, lang):
     # in the stackframe, so we have to set it.
     context = {'lang': lang}
     return _(s)
+
 
 def get_amount_line(amount, currency, lang):
     try:
@@ -56,6 +58,7 @@ def get_amount_line(amount, currency, lang):
     if lang.startswith('fr'):
         amount_line_fmt = '{amount_in_word} {currency_name} {AND} {cents}/100 {stars}'
     return amount_line_fmt.format(**vars())
+
 
 class account_voucher(orm.Model):
     _inherit = 'account.voucher'
@@ -77,7 +80,8 @@ class account_voucher(orm.Model):
             amount_in_word = None
             if len(ids):
                 i_id = ids[0]
-                amount_in_word = self._get_amount_in_word(cr, uid, i_id=i_id, amount=amount, context=context)
+                amount_in_word = self._get_amount_in_word(cr, uid, i_id=i_id, amount=amount,
+                                                          context=context)
             else:
                 line_cr_ids = default["value"].get("line_cr_ids")
                 if line_cr_ids and len(line_cr_ids):
@@ -116,13 +120,13 @@ class account_voucher(orm.Model):
             'type': 'ir.actions.report.xml',
             'report_name': check_layout_report[check_layout],
             'datas': {
-                    'model': 'account.voucher',
-                    'id': ids and ids[0] or False,
-                    'ids': ids and ids or [],
-                    'report_type': 'pdf'
-                },
+                'model': 'account.voucher',
+                'id': ids and ids[0] or False,
+                'ids': ids and ids or [],
+                'report_type': 'pdf'
+            },
             'nodestroy': True
-            }
+        }
 
     def proforma_voucher(self, cr, uid, ids, context=None):
         # update all amount in word when perform a voucher
@@ -135,7 +139,6 @@ class account_voucher(orm.Model):
             self.write(cr, uid, i_id, {'amount_in_word': amount_in_word}, context=context)
 
         return super(account_voucher, self).proforma_voucher(cr, uid, ids, context=context)
-
 
     def _get_amount_in_word(self, cr, uid, i_id=None, currency_id=None, amount=None, context=None):
         if amount is None:
@@ -162,7 +165,8 @@ class account_voucher(orm.Model):
                 return None
             currency_id = self._get_current_currency(cr, uid, i_id, context=context)
 
-        currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=supplier_context)
+        currency = self.pool.get('res.currency').browse(cr, uid, currency_id,
+                                                        context=supplier_context)
         # get the amount_in_word
         return get_amount_line(amount, currency, supplier_lang)
 
@@ -172,21 +176,24 @@ class account_voucher(orm.Model):
 # https://code.launchpad.net/~elbati/account-payment/adding_account_voucher_supplier_invoice_number_7/+merge/165622
 # which solves this exact problem and I shamelessely copied that code, which works well.
 
+
 class voucher_line(orm.Model):
     _inherit = 'account.voucher.line'
-    
+
     def get_suppl_inv_num(self, cr, uid, move_line_id, context=None):
         move_line = self.pool.get('account.move.line').browse(cr, uid, move_line_id, context)
         return move_line.invoice and move_line.invoice.supplier_invoice_number or ''
 
     def _get_supplier_invoice_number(self, cr, uid, ids, name, args, context=None):
-        res={}
+        res = {}
         for line in self.browse(cr, uid, ids, context):
             res[line.id] = ''
             if line.move_line_id:
-                res[line.id] = self.get_suppl_inv_num(cr, uid, line.move_line_id.id, context=context)
+                res[line.id] = self.get_suppl_inv_num(cr, uid, line.move_line_id.id,
+                                                      context=context)
         return res
-    
+
     _columns = {
-        'supplier_invoice_number': fields.function(_get_supplier_invoice_number, type='char', size=64, string="Supplier Invoice Number"),
+        'supplier_invoice_number': fields.function(_get_supplier_invoice_number, type='char',
+                                                   size=64, string="Supplier Invoice Number"),
     }
