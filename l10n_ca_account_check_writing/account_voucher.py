@@ -21,6 +21,7 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import config
 # OpenERP's built-in routines for converting numbers to words is pretty bad, especially in French
 # This is why we use the library below. You can get it at:
 # https://pypi.python.org/pypi/num2words
@@ -63,25 +64,20 @@ class account_voucher(orm.Model):
                         journal_id, currency_id, ttype, date,
                         payment_rate_currency_id, company_id, context=None):
         """ Inherited - add amount_in_word and allow_check_writting in returned value dictionary """
-        if not context:
+        if context is None:
             context = {}
+        if isinstance(ids, (int, long)):
+            ids = [ids]
         default = super(account_voucher, self).onchange_amount(
             cr, uid, ids, amount, rate, partner_id, journal_id, currency_id,
             ttype, date, payment_rate_currency_id, company_id, context=context)
+
         if 'value' in default:
-            amount = 'amount' in default['value'] and default['value']['amount'] or amount
-            if ids:
-                supplier_lang = self.browse(cr, uid, ids[0], context=context).partner_id.lang
-            else:
-                # It's a new record and we don't have access to our supplier lang yet
-                supplier_lang = 'en_US'
-            supplier_context = context.copy()
-            # for some calls, such as the currency browse() call, we want to separate our user's
-            # language from our supplier's. That's why we need a separate context.
-            supplier_context['lang'] = supplier_lang
-            currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=supplier_context)
-            amount_line = get_amount_line(amount, currency, supplier_lang)
-            default['value'].update({'amount_in_word': amount_line})
+            if len(ids):
+                i_id = ids[0]
+                amount = 'amount' in default['value'] and default['value']['amount'] or amount
+                amount_in_word = self._get_amount_in_word(cr, uid, i_id, amount=amount, context=context)
+                default['value'].update({'amount_in_word': amount_in_word})
             if journal_id:
                 allow_check_writing = self.pool.get('account.journal').browse(
                     cr, uid, journal_id, context=context).allow_check_writing
@@ -116,22 +112,30 @@ class account_voucher(orm.Model):
 
     def proforma_voucher(self, cr, uid, ids, context=None):
         # update all amount in word when perform a voucher
-        if type(context) is not dict:
+        if context is None:
             context = {}
-        i_id = ids[0]
-        amount = self.browse(cr, uid, i_id, context=context).amount
-        supplier_lang = self.browse(cr, uid, i_id, context=context).partner_id.lang
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+        for i_id in ids:
+            amount_in_word = self._get_amount_in_word(cr, uid, i_id, context=context)
+            self.write(cr, uid, i_id, {'amount_in_word': amount_in_word}, context=context)
+
+        return super(account_voucher, self).proforma_voucher(cr, uid, ids, context=context)
+
+
+    def _get_amount_in_word(self, cr, uid, i_id, amount=None, context=None):
+        if amount is None:
+            amount = self.browse(cr, uid, i_id, context=context).amount
+        partner_id = self.browse(cr, uid, i_id, context=context).partner_id
+        supplier_lang = partner_id.lang if partner_id else config.get('lang')
         supplier_context = context.copy()
         # for some calls, such as the currency browse() call, we want to separate our user's
         # language from our supplier's. That's why we need a separate context.
         supplier_context['lang'] = supplier_lang
-        currency_id = self._get_current_currency(cr, uid, i_id, context)
+        currency_id = self._get_current_currency(cr, uid, i_id, context=context)
         currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=supplier_context)
         # get the amount_in_word
-        amount_line = get_amount_line(amount, currency, supplier_lang)
-        self.write(cr, uid, [i_id], {'amount_in_word': amount_line})
-
-        return super(account_voucher, self).proforma_voucher(cr, uid, ids, context=context)
+        return get_amount_line(amount, currency, supplier_lang)
 
 # By default, the supplier reference number is not so easily accessible from a voucher line because
 # there's no direct link between the voucher and the invoice. Fortunately, there was this recently
