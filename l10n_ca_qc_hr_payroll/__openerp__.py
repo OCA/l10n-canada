@@ -37,7 +37,7 @@ Quebec Payroll Rules
         'l10n_ca_qc_hr_payroll_view.xml',
         'l10n_ca_qc_hr_payroll_data.xml',
     ],
-    'test': [],
+    'test': ['l10n_ca_qc_hr_payroll.yml'],
     'demo': [],
     'installable': True,
     'active': False,
