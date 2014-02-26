@@ -77,22 +77,11 @@ class account_voucher(orm.Model):
 
         if 'value' in default:
             amount = default['value'].get('amount', amount)
-            amount_in_word = None
-            if len(ids):
-                i_id = ids[0]
-                amount_in_word = self._get_amount_in_word(cr, uid, i_id=i_id, amount=amount,
-                                                          context=context)
-            else:
-                line_cr_ids = default["value"].get("line_cr_ids")
-                if line_cr_ids and len(line_cr_ids):
-                    line_cr_id = line_cr_ids[0]
-                    currency_id = line_cr_id.get("currency_id")
-                    if currency_id is not None:
-                        amount_in_word = self._get_amount_in_word(cr,
-                                                                  uid,
-                                                                  currency_id=currency_id,
-                                                                  amount=amount,
-                                                                  context=context)
+            amount_in_word = self._get_amount_in_word(cr,
+                                                      uid,
+                                                      currency_id=currency_id,
+                                                      amount=amount,
+                                                      context=context)
 
             if amount_in_word is not None:
                 default['value'].update({'amount_in_word': amount_in_word})
@@ -141,32 +130,25 @@ class account_voucher(orm.Model):
         return super(account_voucher, self).proforma_voucher(cr, uid, ids, context=context)
 
     def _get_amount_in_word(self, cr, uid, i_id=None, currency_id=None, amount=None, context=None):
+        if context is None:
+            context = {}
         if amount is None:
             amount = self.browse(cr, uid, i_id, context=context).amount
 
         # get lang
-        supplier_lang = None
+        supplier_lang = context.get('lang', config.get('lang', None))
         if i_id is not None:
             partner_id = self.browse(cr, uid, i_id, context=context).partner_id
             if partner_id:
                 supplier_lang = partner_id.lang
-        if supplier_lang is None:
-            if context is not None:
-                supplier_lang = context.get('lang')
-            else:
-                supplier_lang = config.get('lang')
 
-        supplier_context = context.copy()
-        # for some calls, such as the currency browse() call, we want to separate our user's
-        # language from our supplier's. That's why we need a separate context.
-        supplier_context['lang'] = supplier_lang
+        context = dict(context, lang=supplier_lang)
         if currency_id is None:
             if i_id is None:
                 return None
             currency_id = self._get_current_currency(cr, uid, i_id, context=context)
 
-        currency = self.pool.get('res.currency').browse(cr, uid, currency_id,
-                                                        context=supplier_context)
+        currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=context)
         # get the amount_in_word
         return get_amount_line(amount, currency, supplier_lang)
 
