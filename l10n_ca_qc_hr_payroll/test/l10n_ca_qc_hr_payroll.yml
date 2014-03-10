@@ -1,0 +1,10 @@
+-
+  Check salary rule "QPP - Employer Contribution (QPPERC)", it's supposed to be
+  define in category "Employer Contribution".
+  https://bugs.launchpad.net/openerp-canada/+bug/1213406
+-
+  !python {model: hr.salary.rule}: |
+    rule_id = ref('l10n_ca_qc_hr_payroll.rule_qc_qpp_er_c')
+    rule = self.browse(cr, uid, rule_id)
+    category_id = ref('l10n_ca_hr_payroll.EMP')
+    assert (rule.category_id.id == category_id), "Expected the category Employer Contribution"

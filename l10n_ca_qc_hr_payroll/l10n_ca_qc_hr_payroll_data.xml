@@ -309,7 +309,7 @@ result = payslip.sum('QPPERYTDC',date_from,date_to)
             <field name="name">QPP - Employer Contribution (QPPERC)</field>
             <field name="sequence" eval="138"/>
             <field name="code">QPPERC</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
