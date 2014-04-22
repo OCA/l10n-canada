@@ -54,9 +54,9 @@ def get_amount_line(amount, currency, lang):
     else:
         stars = ''
     AND = custom_translation("and", lang)
-    amount_line_fmt = '{amount_in_word} {AND} {cents}/100 {currency_name} {stars}'
+    amount_line_fmt = u'{amount_in_word} {AND} {cents}/100 {currency_name} {stars}'
     if lang.startswith('fr'):
-        amount_line_fmt = '{amount_in_word} {currency_name} {AND} {cents}/100 {stars}'
+        amount_line_fmt = u'{amount_in_word} {currency_name} {AND} {cents}/100 {stars}'
     return amount_line_fmt.format(**vars())
 
 
