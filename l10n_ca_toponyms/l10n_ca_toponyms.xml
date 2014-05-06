@@ -38,7 +38,7 @@
 		</record>
 
 		<record model='res.country.state' id='BC'>
-			<field name='name'>British Colombia</field>
+			<field name='name'>British Columbia</field>
 			<field name='code'>BC</field>
 			<field search="[('code','=','CA')]" model='res.country' name='country_id'/>
 		</record>
