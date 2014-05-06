@@ -21,7 +21,7 @@
 
 import time
 from openerp.report import report_sxw
-from openerp.tools import amount_to_text_en
+
 
 class report_print_check(report_sxw.rml_parse):
 
@@ -31,9 +31,14 @@ class report_print_check(report_sxw.rml_parse):
         self.number_add = 0
         self.localcontext.update({
             'time': time,
-            'get_lines': self.get_lines,
+            'get_all_lines': self.get_all_lines,
         })
-    
+
+    def get_all_lines(self, voucher):
+        debit_lines = voucher.line_dr_ids
+        credit_lines = voucher.line_cr_ids
+        return self.get_lines(debit_lines + credit_lines)
+
     def get_lines(self, voucher_lines):
         result = []
         self.number_lines = len(voucher_lines)
