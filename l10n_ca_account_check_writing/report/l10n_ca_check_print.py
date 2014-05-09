@@ -24,7 +24,6 @@ from openerp.report import report_sxw
 
 
 class report_print_check(report_sxw.rml_parse):
-
     def __init__(self, cr, uid, name, context):
         super(report_print_check, self).__init__(cr, uid, name, context)
         self.number_lines = 0
@@ -42,46 +41,52 @@ class report_print_check(report_sxw.rml_parse):
     def get_lines(self, voucher_lines):
         result = []
         self.number_lines = len(voucher_lines)
-        for i in range(0, min(10,self.number_lines)):
+        for i in range(0, min(10, self.number_lines)):
             if i < self.number_lines:
                 voucher_line = voucher_lines[i]
-                # In general, the supplier invoice reference number is a much better description
-                # for writing checks than our own reference number, but if we don't have it, we
-                # might as well use our internal number
-                if voucher_line.supplier_invoice_number:
-                    name = voucher_line.supplier_invoice_number
-                else:
-                    name = voucher_line.name
+                # Don't show lines with amount=0; this means, an invoice/credit note has not been linked to this check
+                if voucher_line.amount != 0:
+                    # In general, the supplier invoice reference number is a much better description
+                    # for writing checks than our own reference number, but if we don't have it, we
+                    # might as well use our internal number
+                    if voucher_line.supplier_invoice_number:
+                        name = voucher_line.supplier_invoice_number
+                    else:
+                        name = voucher_line.name
+                    res = {
+                        'date_due': voucher_line.date_due,
+                        'name': name,
+                        'amount_original': voucher_line.amount_original and voucher_line.amount_original or False,
+                        'amount_unreconciled': voucher_line.amount_unreconciled and voucher_line.amount_unreconciled
+                        or False,
+                        'amount': voucher_line.amount and voucher_line.amount or False,
+                    }
+                    result.append(res)
+            else:
                 res = {
-                    'date_due' : voucher_line.date_due,
-                    'name' : name,
-                    'amount_original' : voucher_line.amount_original and voucher_line.amount_original or False,
-                    'amount_unreconciled' : voucher_line.amount_unreconciled and voucher_line.amount_unreconciled or False,
-                    'amount' : voucher_line.amount and voucher_line.amount or False,
+                    'date_due': False,
+                    'name': False,
+                    'amount_original': False,
+                    'amount_unreconciled': False,
+                    'amount': False,
                 }
-            else :
-                res = {
-                    'date_due' : False,
-                    'name' : False,
-                    'amount_original' : False,
-                    'amount_unreconciled' : False,
-                    'amount' : False,
-                }
-            result.append(res)
+                result.append(res)
+
         return result
+
 
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.top',
     'account.voucher',
     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_top.rml',
-    parser=report_print_check,header=False
+    parser=report_print_check, header=False
 )
 
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.middle',
     'account.voucher',
     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml',
-    parser=report_print_check,header=False
+    parser=report_print_check, header=False
 )
 
 #report_sxw.report_sxw(

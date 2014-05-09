@@ -38,6 +38,15 @@ Note that the amount in letter is generated when you enter/change the amount,
 not when you print. You will need to modify it if you change the language of 
 the supplier.
 
+Contributors
+------------
+* David Cormier (david.cormier@savoirfairelinux.com)
+* Joao Alfredo Gama Batista (joao.gama@savoirfairelinux.com)
+* Marc Cassuto (marc.cassuto@savoirfairelinux.com)
+* Mathieu Benoit (mathieu.benoit@savoirfairelinux.com)
+* Maxime Chambreuil (mchambreuil@savoirfairelinux.net)
+* Vincent Vinet (vincent.vinet@savoirfairelinux.com)
+* Virgil Dupras (virgil.dupras@savoirfairelinux.com)
     """,
     'depends': ['account_check_writing', 'res_currency_print_on_check'],
     'data': [
