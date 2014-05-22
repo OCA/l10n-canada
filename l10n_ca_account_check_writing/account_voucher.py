@@ -49,8 +49,8 @@ def get_amount_line(amount, currency, lang):
     currency_name = currency.print_on_check
     cents = int(amount * 100) % 100
     total_length = len(amount_in_word) + len(currency_name)
-    if total_length < 87:
-        stars = '*' * (87 - total_length)
+    if total_length < 67:
+        stars = '*' * (67 - total_length)
     else:
         stars = ''
     AND = custom_translation("and", lang)
