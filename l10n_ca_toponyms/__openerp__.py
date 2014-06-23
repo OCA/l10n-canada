@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2010 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
+#
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux
+#    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the Affero GNU General Public License as
@@ -15,23 +16,31 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the Affero GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name" : "Canada - Provinces and Territories",
-    "version" : "1.0",
-    "author" : "Savoir-faire Linux",
-    "website" : "http://www.savoirfairelinux.com",
-    "category" : "Localisation/Canada",
-    "description": "Provinces and territories of Canada.",
-    "depends" : ['base'],
-    "license" : "AGPL-3",
-    "init_xml" : ["l10n_ca_toponyms.xml"],
-    "update_xml" : [ ],
-    "active" : False,
-    "installable" : True,
-    "certificate" : ''
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
+{
+    "name": "Canada - Provinces and Territories",
+    "version": "1.0",
+    "author": "Savoir-faire Linux",
+    "website": "http://www.savoirfairelinux.com",
+    "category": "Localisation/Canada",
+    "license": "AGPL-3",
+    "description": """
+Provinces and territories of Canada.
+====================================
+
+Contributors
+------------
+* Virgil Dupras <virgil.dupras@savoirfairelinux.com>
+* Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
+* Sandy Carter <sandy.carter@savoirfairelinux.com>
+""",
+    "depends": ['base'],
+    "license": "AGPL-3",
+    "data": [
+        "l10n_ca_toponyms.xml",
+    ],
+    "installable": True,
+}
