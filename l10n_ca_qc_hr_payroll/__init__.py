@@ -1,7 +1,7 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 OpenERP Canada. All Rights Reserved.
+#    Copyright (C) 2010 - 2014 Odoo Canada. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,6 +19,6 @@
 #
 ##############################################################################
 
-import l10n_ca_qc_hr_payroll
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from . import (
+    l10n_ca_qc_hr_payroll,
+)
