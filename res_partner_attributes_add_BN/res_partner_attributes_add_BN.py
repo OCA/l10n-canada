@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux
+#    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +21,6 @@
 ##############################################################################
 
 from openerp.osv import fields, orm
-from openerp.tools.translate import _
 
 
 class res_partner(orm.Model):
@@ -30,6 +30,3 @@ class res_partner(orm.Model):
         'ne': fields.float('BN', digits=(9, 0),
                            help="Canada Business identification Number (9 digits)"),
     }
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
