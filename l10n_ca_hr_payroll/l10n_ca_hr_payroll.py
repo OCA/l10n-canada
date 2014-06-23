@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 ##############################################################################
 #
 #    Copyright (C) 2012 Amura Consulting. All Rights Reserved.
@@ -21,10 +21,12 @@
 
 from openerp.osv import fields, orm
 
+
 def get_jurisdiction(self, cursor, user_id, context=None):
     return (
         ('federal', 'Federal'),
         ('provincial', 'Provincial'))
+
 
 def get_type(self, cursor, user_id, context=None):
     return (
@@ -34,10 +36,11 @@ def get_type(self, cursor, user_id, context=None):
         ('rqap', 'RQAP / RRQ'),
         ('csst', 'CSST'))
 
+
 class hr_payroll_tax_table(orm.Model):
-    '''
+    """
     Canadian Tax Payroll Table
-    '''
+    """
     _name = 'hr.payroll.tax.table'
     _description = 'Canadian Tax Payroll Table'
 
@@ -51,33 +54,35 @@ class hr_payroll_tax_table(orm.Model):
             res['name'] += ' / Federal'
 
         return {'value': res}
-        
+
     _columns = {
-            'name': fields.char('Description', size=128),
-            'year': fields.integer('Year', required=True),
-            'date_from': fields.date('Date From'),
-            'date_to': fields.date('Date To'),
-            'jurisdiction': fields.selection(get_jurisdiction, 'Jurisdiction', required=True),
-            'state_id': fields.many2one('res.country.state', 'Province'),
-            'type': fields.selection(get_type, 'Type', required=True),
-            'line_federal_ids': fields.one2many('hr.payroll.tax.table.federal.line', 'table_id', 'Lines'),
-            'line_ei_ids': fields.one2many('hr.payroll.tax.table.ei.line', 'table_id', 'Lines'),
-            'line_qc_ids': fields.one2many('hr.payroll.tax.table.qc.line', 'table_id', 'Lines'),
-            'line_rqap_ids': fields.one2many('hr.payroll.tax.table.rqap.line', 'table_id', 'Lines'),
-            'line_csst_ids': fields.one2many('hr.payroll.tax.table.csst.line', 'table_id', 'Lines'),
-            }
+        'name': fields.char('Description', size=128),
+        'year': fields.integer('Year', required=True),
+        'date_from': fields.date('Date From'),
+        'date_to': fields.date('Date To'),
+        'jurisdiction': fields.selection(get_jurisdiction, 'Jurisdiction', required=True),
+        'state_id': fields.many2one('res.country.state', 'Province'),
+        'type': fields.selection(get_type, 'Type', required=True),
+        'line_federal_ids': fields.one2many('hr.payroll.tax.table.federal.line', 'table_id', 'Lines'),
+        'line_ei_ids': fields.one2many('hr.payroll.tax.table.ei.line', 'table_id', 'Lines'),
+        'line_qc_ids': fields.one2many('hr.payroll.tax.table.qc.line', 'table_id', 'Lines'),
+        'line_rqap_ids': fields.one2many('hr.payroll.tax.table.rqap.line', 'table_id', 'Lines'),
+        'line_csst_ids': fields.one2many('hr.payroll.tax.table.csst.line', 'table_id', 'Lines'),
+    }
 
     _defaults = {
-            'jurisdiction': 'federal',
-            'type': 'federal',
-            }
+        'jurisdiction': 'federal',
+        'type': 'federal',
+    }
+
 
 class hr_payroll_tax_table_federal_line(orm.Model):
-    '''
+    """
     Federal Lines
-    '''
+    """
     _name = 'hr.payroll.tax.table.federal.line'
     _description = 'Federal Lines'
+    _rec_name = 'inc_from'
     _columns = {
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
         'inc_from': fields.float('Income From', digits=(16, 2), required=True),
@@ -93,32 +98,32 @@ class hr_payroll_tax_table_federal_line(orm.Model):
         'code8': fields.float('Code 8', digits=(16, 2)),
         'code9': fields.float('Code 9', digits=(16, 2)),
         'code10': fields.float('Code 10', digits=(16, 2)),
-        }
+    }
 
-    _rec_name = 'inc_from'
 
 class hr_payroll_tax_table_ei_line(orm.Model):
-    '''
+    """
     Employment Insurance Lines
-    '''
+    """
     _name = 'hr.payroll.tax.table.ei.line'
     _description = 'Employment Insurance Lines'
+    _rec_name = 'inc_from'
     _columns = {
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
         'inc_from': fields.float('Income From', digits=(16, 2), required=True),
         'inc_to': fields.float('Income To', digits=(16, 2), required=True),
         'rate': fields.float('Rate', digits=(16, 2), required=True),
         'max_annual_insurable_earnings': fields.float('Maximum Annual Insurable Earnings', digits=(16, 2), required=True),
-        }
+    }
 
-    _rec_name = 'inc_from'
 
 class hr_payroll_tax_table_qc_line(orm.Model):
-    '''
+    """
     Quebec Lines
-    '''
+    """
     _name = 'hr.payroll.tax.table.qc.line'
     _description = 'Quebec Lines'
+    _rec_name = 'inc_from'
     _columns = {
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
         'inc_from': fields.float('Income From', digits=(16, 2), required=True),
@@ -140,14 +145,13 @@ class hr_payroll_tax_table_qc_line(orm.Model):
         'codeN': fields.float('Code N', digits=(16, 2)),
         'codeY': fields.float('Code Y', digits=(16, 2)),
         'codeZ': fields.float('Code Z', digits=(16, 2)),
-        }
+    }
 
-    _rec_name = 'inc_from'
 
 class hr_payroll_tax_table_rqap_line(orm.Model):
-    '''
+    """
     RQAP Lines
-    '''
+    """
     _name = 'hr.payroll.tax.table.rqap.line'
     _description = 'RQAP Lines'
     _columns = {
@@ -157,18 +161,20 @@ class hr_payroll_tax_table_rqap_line(orm.Model):
         'employee_contrib': fields.float('Employee contribution', digits=(16, 2)),
         'employer_contrib': fields.float('Employer contribution', digits=(16, 2)),
         'max_annual_insurable_earnings': fields.float('Maximum Annual Insurable Earnings', digits=(16, 2)),
-        }
+    }
+
 
 class hr_payroll_tax_table_csst_line(orm.Model):
-    '''
+    """
     CSST Lines
-    '''
+    """
     _name = 'hr.payroll.tax.table.csst.line'
     _description = 'CSST Lines'
     _columns = {
         'name': fields.char('Name', size=256, required=True),
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
-        }
+    }
+
 
 class hr_employee(orm.Model):
     _name = 'hr.employee'
@@ -176,27 +182,57 @@ class hr_employee(orm.Model):
 
     _columns = {
         'ei_exempt': fields.boolean('EI Exempt'),
-        'td1f': fields.selection([('code1',1),('code2',2),('code3',3),('code4',4),('code5',5),('code6',6),('code7',7),('code8',8),('code9',9),('code10',10),('code0',0)], 'Federal Claim Code', required=True),
-        'td1p': fields.selection([('codeA','A'),('codeB','B'),('codeC','C'),('codeD','D'),('codeE','E'),('codeF','F'),('codeG','G'),('codeH','H'),('codeI','I'),('codeJ','J'),('codeK','K'),('codeL','L'),('codeM','M'),('codeN','N'),('codeY','Y'),('codeZ','Z'),('code0',0)], 'Provincial Claim Code', required=True),
+        'td1f': fields.selection([
+            ('code1', '1'),
+            ('code2', '2'),
+            ('code3', '3'),
+            ('code4', '4'),
+            ('code5', '5'),
+            ('code6', '6'),
+            ('code7', '7'),
+            ('code8', '8'),
+            ('code9', '9'),
+            ('code10', '10'),
+            ('code0', '0')
+        ], 'Federal Claim Code', required=True),
+        'td1p': fields.selection([
+            ('codeA', 'A'),
+            ('codeB', 'B'),
+            ('codeC', 'C'),
+            ('codeD', 'D'),
+            ('codeE', 'E'),
+            ('codeF', 'F'),
+            ('codeG', 'G'),
+            ('codeH', 'H'),
+            ('codeI', 'I'),
+            ('codeJ', 'J'),
+            ('codeK', 'K'),
+            ('codeL', 'L'),
+            ('codeM', 'M'),
+            ('codeN', 'N'),
+            ('codeY', 'Y'),
+            ('codeZ', 'Z'),
+            ('code0', '0')
+        ], 'Provincial Claim Code', required=True),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
         'qpip_exempt': fields.boolean('QPIP Exempt'),
         'cpp_ytd_adj': fields.float('CPP/QPP YTD Adjustment', help="Amount to adjust CPP/QPP for calculations. Used if employee has contributed elsewhere and will be factored in when calculating maximum CPP payment"),
         'ei_ytd_adj': fields.float('EI YTD Adjustment', help="Amount to adjust EI for calculations. Used if employee has contributed elsewhere and will be factored in when calculating maximum EI payment"),
-        'vac_pay': fields.float('Vacation Pay %', digits=(16,2)),
-        'f1': fields.float(name='Childcare/Alimony (F1)', digits=(16,2), help="Annual deductions such as child care expenses and support payments, etc., authorized by a tax services office or tax centre"),
-        'f2': fields.float('Alimony/Maint Garnish (F2)', digits=(16,2), help="Alimony or maintenance payments required by a legal document to be payroll-deducted authorized by a tax services office or tax centre"),
-        'hd': fields.float('Prescribed Zone (HD)', digits=(16,2), help="Annual deduction for living in a prescribed zone as indicated on Form TD1"),
-        'lcf': fields.float('Fed Labour sponsored funds (LCF)', digits=(16,2), help="Federal labour-sponsored funds tax credit"),
-        'lcp': fields.float('Prov Labour sponsored funds (LCP)', digits=(16,2), help="Provincial or territorial labour-sponsored funds tax credit"),
-        'f': fields.float('RSP/RPP/RCA (F)', digits=(16,2), help="Payroll deductions for employee contributions to a registered pension plan (RPP), a registered retirement savings plan (RRSP), or a retirement compensation arrangement (RCA)"),
-        'l': fields.float('Extra Tax Deductions (L)', digits=(16,2), help="Extra tax deductions requested for the pay period."),
-        'k3': fields.float('Federal Medical (K3)', digits=(16,2), help="Other federal tax credits, such as medical expenses and charitable donations authorized by a tax services office or tax centre"),
-        'u1': fields.float('Union Dues (U1)', digits=(16,2), help="Union dues"),
-        'y': fields.float('MB/ON Extra Tax Reduction(Y)', digits=(16,2), help="Extra provincial or territorial tax reduction based on applicable amounts reported on the provincial or territorial Form TD1"),
-        'td1': fields.float('Personal Tax Credits Return (TD1)', digits=(16,2), required=True, help="Personal Tax Credits Return"),
-        'eeins': fields.float('Insurance - Employee Contribution (EeINS)', digits=(16,2), required=True),
-        'erins': fields.float('Insurance - Employer Contribution (ErINS)', digits=(16,2), required=True),
-            }
+        'vac_pay': fields.float('Vacation Pay %', digits=(16, 2)),
+        'f1': fields.float(name='Childcare/Alimony (F1)', digits=(16, 2), help="Annual deductions such as child care expenses and support payments, etc., authorized by a tax services office or tax centre"),
+        'f2': fields.float('Alimony/Maint Garnish (F2)', digits=(16, 2), help="Alimony or maintenance payments required by a legal document to be payroll-deducted authorized by a tax services office or tax centre"),
+        'hd': fields.float('Prescribed Zone (HD)', digits=(16, 2), help="Annual deduction for living in a prescribed zone as indicated on Form TD1"),
+        'lcf': fields.float('Fed Labour sponsored funds (LCF)', digits=(16, 2), help="Federal labour-sponsored funds tax credit"),
+        'lcp': fields.float('Prov Labour sponsored funds (LCP)', digits=(16, 2), help="Provincial or territorial labour-sponsored funds tax credit"),
+        'f': fields.float('RSP/RPP/RCA (F)', digits=(16, 2), help="Payroll deductions for employee contributions to a registered pension plan (RPP), a registered retirement savings plan (RRSP), or a retirement compensation arrangement (RCA)"),
+        'l': fields.float('Extra Tax Deductions (L)', digits=(16, 2), help="Extra tax deductions requested for the pay period."),
+        'k3': fields.float('Federal Medical (K3)', digits=(16, 2), help="Other federal tax credits, such as medical expenses and charitable donations authorized by a tax services office or tax centre"),
+        'u1': fields.float('Union Dues (U1)', digits=(16, 2), help="Union dues"),
+        'y': fields.float('MB/ON Extra Tax Reduction(Y)', digits=(16, 2), help="Extra provincial or territorial tax reduction based on applicable amounts reported on the provincial or territorial Form TD1"),
+        'td1': fields.float('Personal Tax Credits Return (TD1)', digits=(16, 2), required=True, help="Personal Tax Credits Return"),
+        'eeins': fields.float('Insurance - Employee Contribution (EeINS)', digits=(16, 2), required=True),
+        'erins': fields.float('Insurance - Employer Contribution (ErINS)', digits=(16, 2), required=True),
+    }
 
     _defaults = {
         'td1f': 'code1',
@@ -204,7 +240,8 @@ class hr_employee(orm.Model):
         'td1': 11038.00,
         'eeins': 0.00,
         'erins': 0.00,
-        }
+    }
+
 
 class hr_contract(orm.Model):
     _inherit = 'hr.contract'
@@ -215,7 +252,7 @@ class hr_contract(orm.Model):
         @return: The number of pays per year
         """
         res = {}
-        #FIXME: Should likely pull these values from somewhere else, depending on whether a 52 or 53 year week is used
+        # FIXME: Should likely pull these values from somewhere else, depending on whether a 52 or 53 year week is used
         schedule_pay = {
             'weekly': 52,
             'bi-weekly': 26,
@@ -224,7 +261,7 @@ class hr_contract(orm.Model):
             'quarterly': 4,
             'semi-annually': 2,
             'annually': 1,
-            }
+        }
         for contract in self.browse(cr, uid, ids, context):
             if contract.schedule_pay and schedule_pay.get(contract.schedule_pay, False):
                 res[contract.id] = schedule_pay[contract.schedule_pay]
@@ -234,10 +271,8 @@ class hr_contract(orm.Model):
     _columns = {
         'pays_per_year': fields.function(_get_pays_per_year, method=True, string='Pays Per Year', type='float', readonly=True),
         'weeks_of_vacation': fields.integer('Number of weeks of vacation', required=True),
-        }
+    }
 
     _defaults = {
         'weeks_of_vacation': 2,
-        }
-            
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    }
