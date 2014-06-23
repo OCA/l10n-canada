@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux
+#    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -24,7 +25,6 @@ from openerp.osv import orm, fields
 
 class res_company(orm.Model):
     _inherit = 'res.company'
-
     _columns = {
         'check_layout': fields.selection([
             ('top', 'Check on Top'),
@@ -32,8 +32,6 @@ class res_company(orm.Model):
             ('bottom', 'Check on bottom'),
             ('top_ca', 'Check on top (CA)'),
             ('middle_ca', 'Check in middle (CA)'),
-            ## ('bottom_ca', 'Check on bottom (CA)'),
-            ],
-            "Choose Check layout",
-        )
+            #  ('bottom_ca', 'Check on bottom (CA)'),
+        ], "Choose Check layout")
     }
