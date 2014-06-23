@@ -65,7 +65,10 @@ class account_tax(orm.Model):
                 tex.append(tax)
             else:
                 tin.append(tax)
-        tin = self.compute_inv(cr, uid, tin, price_unit, quantity, product=product, partner=partner, precision=tax_compute_precision)
+        tin = self.compute_inv(
+            cr, uid, tin, price_unit, quantity, product=product,
+            partner=partner, precision=tax_compute_precision
+        )
         for r in tin:
             totalex -= r.get('amount', 0.0)
         totlex_qty = 0.0
@@ -73,7 +76,10 @@ class account_tax(orm.Model):
             totlex_qty = totalex / quantity
         except:
             pass
-        tex = self._compute(cr, uid, tex, totlex_qty, quantity, product=product, partner=partner, precision=tax_compute_precision)
+        tex = self._compute(
+            cr, uid, tex, totlex_qty, quantity, product=product,
+            partner=partner, precision=tax_compute_precision
+        )
         for r in tex:
             totalin += r.get('amount', 0.0)
         return {

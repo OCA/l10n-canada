@@ -31,7 +31,9 @@
 Account Fiscal Position Rules for Quebec, Canada
 ================================================
 
-This module adds the fiscal position rules to set the fiscal position of a document (picking, invoice, sale order, purchase order) based on the canadian province or territory.
+This module adds the fiscal position rules to set the fiscal position of a
+document (picking, invoice, sale order, purchase order) based on the canadian
+province or territory.
 
 Contributors
 ------------
