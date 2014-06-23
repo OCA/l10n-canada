@@ -50,5 +50,5 @@ Contributors
     "data": [
         'rules.xml',
     ],
-    "installable": True,
+    "installable": False,
 }
