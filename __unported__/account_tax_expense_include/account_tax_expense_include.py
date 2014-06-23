@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2010 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
+#
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux
+#    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -15,13 +16,13 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
 from openerp.osv import orm, fields
 from openerp.tools.float_utils import float_round
+
 
 class account_tax(orm.Model):
     _inherit = 'account.tax'
@@ -69,7 +70,7 @@ class account_tax(orm.Model):
             totalex -= r.get('amount', 0.0)
         totlex_qty = 0.0
         try:
-            totlex_qty = totalex/quantity
+            totlex_qty = totalex / quantity
         except:
             pass
         tex = self._compute(cr, uid, tex, totlex_qty, quantity, product=product, partner=partner, precision=tax_compute_precision)
