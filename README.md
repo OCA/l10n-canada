@@ -8,3 +8,5 @@ Dependencies
 ------------
 * python
      * num2words
+* Odoo OCA repositories
+     * [account-fiscal-rules](https://github.com/OCA/account-fiscal-rules)
