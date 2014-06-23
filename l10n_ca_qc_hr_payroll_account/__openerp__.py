@@ -1,7 +1,7 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -20,11 +20,11 @@
 {
     'name': 'Canada - Quebec - Payroll Accounting',
     'category': 'Localization',
-    'version': '0.2',
+    'version': '1.0',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'description': """
-Quebec Payroll Accounting 
+Quebec Payroll Accounting
 =========================
 
 This module:
@@ -35,11 +35,16 @@ This module:
 
 Make sure to install AND CONFIGURE the canadian chart of accounts module (l10n_ca)
 before installing this module. Chart template needs to be selected to populate
-the account.account table and allow you to link salary rules with the financial 
+the account.account table and allow you to link salary rules with the financial
 account.
-    """,
-    'author':'Savoir-faire Linux',
-    'website':'http:/www.savoirfairelinux.com',
+
+Contributors
+------------
+* Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
+* Sandy Carter <sandy.carter@savoirfairelinux.com>
+""",
+    'author': 'Savoir-faire Linux',
+    'website': 'http:/www.savoirfairelinux.com',
     'depends': [
         'l10n_ca_qc_hr_payroll',
         'l10n_ca_hr_payroll_account',
@@ -50,7 +55,4 @@ account.
     'test': [],
     'demo': [],
     'installable': True,
-    'active': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
