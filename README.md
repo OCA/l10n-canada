@@ -3,3 +3,8 @@
 
 Odoo modules for Canada
 =======================
+
+Dependencies
+------------
+* python
+     * num2words
