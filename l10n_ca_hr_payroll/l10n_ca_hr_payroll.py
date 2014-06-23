@@ -113,7 +113,10 @@ class hr_payroll_tax_table_ei_line(orm.Model):
         'inc_from': fields.float('Income From', digits=(16, 2), required=True),
         'inc_to': fields.float('Income To', digits=(16, 2), required=True),
         'rate': fields.float('Rate', digits=(16, 2), required=True),
-        'max_annual_insurable_earnings': fields.float('Maximum Annual Insurable Earnings', digits=(16, 2), required=True),
+        'max_annual_insurable_earnings': fields.float(
+            'Maximum Annual Insurable Earnings',
+            digits=(16, 2), required=True,
+        ),
     }
 
 
@@ -216,20 +219,43 @@ class hr_employee(orm.Model):
         ], 'Provincial Claim Code', required=True),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
         'qpip_exempt': fields.boolean('QPIP Exempt'),
-        'cpp_ytd_adj': fields.float('CPP/QPP YTD Adjustment', help="Amount to adjust CPP/QPP for calculations. Used if employee has contributed elsewhere and will be factored in when calculating maximum CPP payment"),
-        'ei_ytd_adj': fields.float('EI YTD Adjustment', help="Amount to adjust EI for calculations. Used if employee has contributed elsewhere and will be factored in when calculating maximum EI payment"),
+        'cpp_ytd_adj': fields.float('CPP/QPP YTD Adjustment', help="""\
+Amount to adjust CPP/QPP for calculations.
+Used if employee has contributed elsewhere and will be factored in when
+calculating maximum CPP payment"""),
+        'ei_ytd_adj': fields.float('EI YTD Adjustment', help="""\
+Amount to adjust EI for calculations.
+Used if employee has contributed elsewhere and will be factored in when
+calculating maximum EI payment"""),
         'vac_pay': fields.float('Vacation Pay %', digits=(16, 2)),
-        'f1': fields.float(name='Childcare/Alimony (F1)', digits=(16, 2), help="Annual deductions such as child care expenses and support payments, etc., authorized by a tax services office or tax centre"),
-        'f2': fields.float('Alimony/Maint Garnish (F2)', digits=(16, 2), help="Alimony or maintenance payments required by a legal document to be payroll-deducted authorized by a tax services office or tax centre"),
-        'hd': fields.float('Prescribed Zone (HD)', digits=(16, 2), help="Annual deduction for living in a prescribed zone as indicated on Form TD1"),
-        'lcf': fields.float('Fed Labour sponsored funds (LCF)', digits=(16, 2), help="Federal labour-sponsored funds tax credit"),
-        'lcp': fields.float('Prov Labour sponsored funds (LCP)', digits=(16, 2), help="Provincial or territorial labour-sponsored funds tax credit"),
-        'f': fields.float('RSP/RPP/RCA (F)', digits=(16, 2), help="Payroll deductions for employee contributions to a registered pension plan (RPP), a registered retirement savings plan (RRSP), or a retirement compensation arrangement (RCA)"),
-        'l': fields.float('Extra Tax Deductions (L)', digits=(16, 2), help="Extra tax deductions requested for the pay period."),
-        'k3': fields.float('Federal Medical (K3)', digits=(16, 2), help="Other federal tax credits, such as medical expenses and charitable donations authorized by a tax services office or tax centre"),
+        'f1': fields.float(name='Childcare/Alimony (F1)', digits=(16, 2), help="""\
+Annual deductions such as child care expenses and support payments, etc.,
+authorized by a tax services office or tax centre"""),
+        'f2': fields.float('Alimony/Maint Garnish (F2)', digits=(16, 2), help="""\
+Alimony or maintenance payments required by a legal document to be
+payroll-deducted authorized by a tax services office or tax centre"""),
+        'hd': fields.float('Prescribed Zone (HD)', digits=(16, 2), help="""\
+Annual deduction for living in a prescribed zone as indicated on Form TD1"""),
+        'lcf': fields.float('Fed Labour sponsored funds (LCF)', digits=(16, 2),
+                            help="Federal labour-sponsored funds tax credit"),
+        'lcp': fields.float(
+            'Prov Labour sponsored funds (LCP)', digits=(16, 2),
+            help="Provincial or territorial labour-sponsored funds tax credit"),
+        'f': fields.float('RSP/RPP/RCA (F)', digits=(16, 2), help="""
+Payroll deductions for employee contributions to a registered pension plan (RPP),
+a registered retirement savings plan (RRSP),
+or a retirement compensation arrangement (RCA)"""),
+        'l': fields.float('Extra Tax Deductions (L)', digits=(16, 2),
+                          help="Extra tax deductions requested for the pay period."),
+        'k3': fields.float('Federal Medical (K3)', digits=(16, 2), help="""\
+Other federal tax credits, such as medical expenses and charitable donations
+authorized by a tax services office or tax centre"""),
         'u1': fields.float('Union Dues (U1)', digits=(16, 2), help="Union dues"),
-        'y': fields.float('MB/ON Extra Tax Reduction(Y)', digits=(16, 2), help="Extra provincial or territorial tax reduction based on applicable amounts reported on the provincial or territorial Form TD1"),
-        'td1': fields.float('Personal Tax Credits Return (TD1)', digits=(16, 2), required=True, help="Personal Tax Credits Return"),
+        'y': fields.float('MB/ON Extra Tax Reduction(Y)', digits=(16, 2), help="""\
+Extra provincial or territorial tax reduction based on applicable amounts
+reported on the provincial or territorial Form TD1"""),
+        'td1': fields.float('Personal Tax Credits Return (TD1)', digits=(16, 2),
+                            required=True, help="Personal Tax Credits Return"),
         'eeins': fields.float('Insurance - Employee Contribution (EeINS)', digits=(16, 2), required=True),
         'erins': fields.float('Insurance - Employer Contribution (ErINS)', digits=(16, 2), required=True),
     }
@@ -269,7 +295,10 @@ class hr_contract(orm.Model):
         return res
 
     _columns = {
-        'pays_per_year': fields.function(_get_pays_per_year, method=True, string='Pays Per Year', type='float', readonly=True),
+        'pays_per_year': fields.function(
+            _get_pays_per_year, method=True, string='Pays Per Year',
+            type='float', readonly=True,
+        ),
         'weeks_of_vacation': fields.integer('Number of weeks of vacation', required=True),
     }
 

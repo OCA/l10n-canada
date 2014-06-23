@@ -25,6 +25,7 @@
     "author": "Savoir-faire Linux",
     "website": "http://www.savoirfairelinux.com",
     "category": "Human Resources",
+    "license": "AGPL-3",
     "description": """
 Supplier on expense line
 ========================

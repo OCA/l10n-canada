@@ -66,7 +66,11 @@ class hr_expense_expense(orm.Model):
                 else:
                     acc = property_obj.get(cr, uid, 'property_account_expense_categ', 'product.category')
                     if not acc:
-                        raise orm.except_orm(_('Error !'), _('Please configure Default Expanse account for Product purchase, `property_account_expense_categ`'))
+                        raise orm.except_orm(
+                            _('Error !'),
+                            _('Please configure Default Expanse account for '
+                              'Product purchase, `property_account_expense_categ`')
+                        )
 
                 lines.append((0, False, {
                     'name': l.name,
