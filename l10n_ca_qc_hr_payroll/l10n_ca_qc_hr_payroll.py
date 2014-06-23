@@ -1,7 +1,7 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -21,16 +21,19 @@
 
 from openerp.osv import fields, orm
 
+
 class hr_employee(orm.Model):
     _name = 'hr.employee'
     _inherit = 'hr.employee'
-
     _columns = {
-        'tp10153': fields.float('Source Deductions Return (TP-1015.3)', digits=(16,2), required=True, help="Source Deductions Return"),
-            }
+        'tp10153': fields.float(
+            'Source Deductions Return (TP-1015.3)',
+            digits=(16, 2),
+            required=True,
+            help="Source Deductions Return",
+        ),
+    }
 
     _defaults = {
         'tp10153': 11195.00,
-        }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    }

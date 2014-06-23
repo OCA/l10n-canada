@@ -1,7 +1,7 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -17,19 +17,27 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
     'name': 'Canada - Quebec - Payroll',
     'category': 'Localization',
-    'version': '0.2',
+    'version': '1.0',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'description': """
 Quebec Payroll Rules
-==============================
+====================
  * Adds all Quebec Salary Rules
-    """,
-    'author':'Savoir-faire Linux',
-    'website':'http://www.savoirfairelinux.com',
+
+Contributors
+------------
+* Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
+* Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
+* Mathieu Benoit <mathieu.benoit@savoirfairelinux.com>
+* Sandy Carter <sandy.carter@savoirfairelinux.com>
+""",
+    'author': 'Savoir-faire Linux',
+    'website': 'http://www.savoirfairelinux.com',
     'depends': [
         'l10n_ca_hr_payroll',
     ],
@@ -37,10 +45,9 @@ Quebec Payroll Rules
         'l10n_ca_qc_hr_payroll_view.xml',
         'l10n_ca_qc_hr_payroll_data.xml',
     ],
-    'test': ['l10n_ca_qc_hr_payroll.yml'],
     'demo': [],
+    'test': [
+        'l10n_ca_qc_hr_payroll.yml',
+    ],
     'installable': True,
-    'active': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
