@@ -1,7 +1,7 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 OpenERP Canada. All Rights Reserved.
+#    Copyright (C) 2012 - 2014 Odoo Canada. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -20,20 +20,25 @@
 {
     'name': 'Canada - Payroll Accounting',
     'category': 'Localization',
-    'version': '0.2',
+    'version': '1.0',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'description': """
-Canada Payroll Accounting 
+Canada Payroll Accounting
 =========================
 
 This module:
  * creates salary journal
  * creates financial accounts for payroll
  * updates salary rules with accounting information
-    """,
-    'author':'OpenERP Canada',
-    'website':'http://launchpad.net/openerp-canada',
+
+Contributors
+------------
+* Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
+* Sandy Carter <sandy.carter@savoirfairelinux.com>
+""",
+    'author': 'Odoo Canada',
+    'website': 'https://community.odoo.com/project/42',
     'depends': [
         'l10n_ca',
         'l10n_ca_hr_payroll',
@@ -45,7 +50,4 @@ This module:
     'test': [],
     'demo': [],
     'installable': True,
-    'active': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
