@@ -19,14 +19,12 @@ env:
 # Manually get PyChart
 # Install tested version of odoo (official or ocb)
 # Get modules from other repos which have dependencies (in this case travel requires modules from lp:partner-contact-management and lp:openerp-hr
-# TODO: when account-fiscal-rules is properly ported, get from OCA's github, not branch
 install: 
     - pip install coveralls flake8
     - pip install http://download.gna.org/pychart/PyChart-1.39.tar.gz
     - pip install num2words
     - pip install ${ODOO}
-    - git clone --depth=1 https://github.com/bwrsandman/account-fiscal-rules.git ~/fiscal-rules -b 8.0
-#    - git clone --depth=1 https://github.com/OCA/account-fiscal-rules.git ~/fiscal-rules -b 8.0
+    - git clone --depth=1 https://github.com/OCA/account-fiscal-rules.git ~/fiscal-rules -b 8.0
 
 # Create databae
 # Pre-install modules and dependencies
