@@ -1,11 +1,3 @@
-# SFL-OpenERP buildout
-tools/.*
-tools/bin
-tools/develop-eggs
-tools/eggs
-tools/etc
-tools/parts
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
