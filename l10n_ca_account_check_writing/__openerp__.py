@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,11 +20,10 @@
 ##############################################################################
 {
     'name': 'Canada - Check Writing',
-    'version': '1.0',
+    'version': '1.2',
     'author': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
     'category': 'Generic Modules/Accounting',
-    "license": "AGPL-3",
     'description': """
 Print checks in Canadian's format'
 ==================================
@@ -48,8 +47,7 @@ Contributors
 * Maxime Chambreuil (maxime.chambreuil@savoirfairelinux.com)
 * Vincent Vinet (vincent.vinet@savoirfairelinux.com)
 * Virgil Dupras (virgil.dupras@savoirfairelinux.com)
-* Sandy Carter (sandyt.carter@savoirfairelinux.com)
-""",
+    """,
     'depends': [
         'account_check_writing',
         'res_currency_print_on_check'
@@ -59,8 +57,10 @@ Contributors
     ],
     'demo': [],
     'test': [],
+    'installable': True,
+    'active': False,
     'external_dependencies': {
         'python': ['num2words'],
-    },
-    'installable': True,
+    }
 }
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution
-#    Copyright (C) 2010 - 2014 Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -23,22 +22,22 @@
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import config
-# Odoo's built-in routines for converting numbers to words is pretty bad, especially in French
+# OpenERP's built-in routines for converting numbers to words is pretty bad, especially in French
 # This is why we use the library below. You can get it at:
 # https://pypi.python.org/pypi/num2words
 from num2words import num2words
 
-# For the words we use in custom_translation(), we have to put dummy _() calls here so that Odoo
+# For the words we use in custom_translation(), we have to put dummy _() calls here so that OpenERP
 # picks them up during .pot generation
 _("and")
 
 
 def custom_translation(s, lang):
-    # Odoo uses the current stack frame, yes, the *stack frame* to determine which language _()
+    # OpenERP uses the current stack frame, yes, the *stack frame* to determine which language _()
     # should translate a string in. If we want to translate a string in another language, such as
     # a supplier's language, we have to resort to hacks such as this one. "context" is sought after
     # in the stackframe, so we have to set it.
-    context = {'lang': lang}  # NOQA
+    context = {'lang': lang}
     return _(s)
 
 
@@ -48,13 +47,13 @@ def get_amount_line(amount, currency, lang):
     except NotImplementedError:
         amount_in_word = num2words(int(amount))
     currency_name = currency.print_on_check
-    cents = int(amount * 100) % 100  # NOQA
+    cents = int(amount * 100) % 100
     total_length = len(amount_in_word) + len(currency_name)
     if total_length < 67:
         stars = '*' * (67 - total_length)
     else:
-        stars = ''  # NOQA
-    AND = custom_translation("and", lang)  # NOQA
+        stars = ''
+    AND = custom_translation("and", lang)
     amount_line_fmt = u'{amount_in_word} {AND} {cents}/100 {currency_name} {stars}'
     if lang.startswith('fr'):
         amount_line_fmt = u'{amount_in_word} {currency_name} {AND} {cents}/100 {stars}'
@@ -102,7 +101,7 @@ class account_voucher(orm.Model):
             'bottom': 'account.print.check.bottom',
             'top_ca': 'l10n.ca.account.print.check.top',
             'middle_ca': 'l10n.ca.account.print.check.middle',
-            # 'bottom_ca': 'l10n.ca.account.print.check.bottom',
+            #'bottom_ca': 'l10n.ca.account.print.check.bottom',
         }
 
         check_layout = self.browse(cr, uid, ids[0], context=context).company_id.check_layout

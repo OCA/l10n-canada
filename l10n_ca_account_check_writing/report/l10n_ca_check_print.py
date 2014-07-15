@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -89,9 +89,11 @@ report_sxw.report_sxw(
     parser=report_print_check, header=False
 )
 
-# report_sxw.report_sxw(
-#     'report.l10n.ca.account.print.check.bottom',
-#     'account.voucher',
-#     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
-#     parser=report_print_check,header=False
-# )
+#report_sxw.report_sxw(
+#    'report.l10n.ca.account.print.check.bottom',
+#    'account.voucher',
+#    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
+#    parser=report_print_check,header=False
+#)
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

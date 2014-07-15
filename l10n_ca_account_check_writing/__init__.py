@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution
-#    Copyright (C) 2010 - 2014 Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,9 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from . import (
-    company,
-    account_voucher,
-    report,
-)
+import company
+import account_voucher
+import report
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
