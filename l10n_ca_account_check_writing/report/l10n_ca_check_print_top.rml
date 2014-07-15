@@ -354,7 +354,7 @@
             </tr>
             <tr>
               <td>
-                <para style="P6">[[ repeatIn(get_all_lines(voucher),'l') ]] [[ formatLang(l['date_original'] ,date=True) or '' ]]</para>
+                <para style="P6">[[ repeatIn(get_all_lines(voucher),'l') ]] [[ formatLang(l['date_due'] ,date=True) or '' ]]</para>
               </td>
               <td>
                 <para style="P6">[[ l['name'] ]]</para>
@@ -431,7 +431,7 @@
             </tr>
             <tr>
               <td>
-                <para style="P6">[[ repeatIn(get_all_lines(voucher),'l') ]] [[ formatLang(l['date_original'] ,date=True) or '' ]]</para>
+                <para style="P6">[[ repeatIn(get_all_lines(voucher),'l') ]] [[ formatLang(l['date_due'] ,date=True) or '' ]]</para>
               </td>
               <td>
                 <para style="P6">[[ l['name'] ]]</para>
