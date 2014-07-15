@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux
+#    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,20 +21,26 @@
 ##############################################################################
 
 {
-	'name' : 'Quebec Enterprise Number (NEQ)',
-	'version' : '1.1',
-	"author" : "Savoir-faire Linux",
-	"website" : "http://www.savoirfairelinux.com",
-	'license': 'AGPL-3',
-	'category' : 'Localisation/Canada',
-	'depends' : ['base'],
-	'description': """
+    'name': 'Quebec Enterprise Number (NEQ)',
+    'version': '1.0',
+    "author": "Savoir-faire Linux",
+    "website": "http://www.savoirfairelinux.com",
+    'license': 'AGPL-3',
+    'category': 'Localisation/Canada',
+    'depends': ['base'],
+    'description': """
+Quebec Enterprise Number (NEQ)
+==============================
+
 Add the Quebec Enterprise Number (NEQ) to the partner form.
+
+Contibutors
+-----------
+* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
+* Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-	'auto_install': False,
-	'installable': True,
-	'data' : ['res_partner_attributes_add_NEQ_view.xml']
+    'data': [
+        'res_partner_attributes_add_NEQ_view.xml',
+    ],
+    'installable': True,
 }
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

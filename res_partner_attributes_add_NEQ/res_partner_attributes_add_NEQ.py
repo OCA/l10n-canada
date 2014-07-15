@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux
+#    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,14 +21,11 @@
 ##############################################################################
 
 from openerp.osv import fields, orm
-from openerp.tools.translate import _
+
 
 class res_partner(orm.Model):
-	_name = 'res.partner'
-	_inherit = 'res.partner'
-	_columns = {
-		'neq': fields.float('NEQ', digits=(10,0), help="Quebec Enterprise Number (10 digits)"),
-	}
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    _name = 'res.partner'
+    _inherit = 'res.partner'
+    _columns = {
+        'neq': fields.float('NEQ', digits=(10, 0), help="Quebec Enterprise Number (10 digits)"),
+    }

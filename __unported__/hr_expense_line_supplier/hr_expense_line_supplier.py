@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2010 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
+#
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux
+#    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as
@@ -15,19 +16,22 @@
 #    GNU General Public License for more details.
 #
 #    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
 import netsvc
 
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
+
 
 class hr_expense_line(orm.Model):
     _inherit = 'hr.expense.line'
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Supplier', required=True),
     }
+
 
 class hr_expense_expense(orm.Model):
     _inherit = 'hr.expense.expense'
@@ -62,7 +66,11 @@ class hr_expense_expense(orm.Model):
                 else:
                     acc = property_obj.get(cr, uid, 'property_account_expense_categ', 'product.category')
                     if not acc:
-                        raise osv.except_osv(_('Error !'), _('Please configure Default Expanse account for Product purchase, `property_account_expense_categ`'))
+                        raise orm.except_orm(
+                            _('Error !'),
+                            _('Please configure Default Expanse account for '
+                              'Product purchase, `property_account_expense_categ`')
+                        )
 
                 lines.append((0, False, {
                     'name': l.name,
@@ -75,7 +83,7 @@ class hr_expense_expense(orm.Model):
                     'account_analytic_id': l.analytic_account.id,
                 }))
             if not exp.employee_id.address_home_id:
-                raise osv.except_osv(_('Error !'), _('The employee must have a home address'))
+                raise orm.except_orm(_('Error !'), _('The employee must have a home address'))
             acc = exp.employee_id.address_home_id.partner_id.property_account_payable.id
             payment_term_id = exp.employee_id.address_home_id.partner_id.property_payment_term.id
             inv = {
@@ -98,7 +106,7 @@ class hr_expense_expense(orm.Model):
                     inv.update(to_update['value'])
             journal = False
             if exp.journal_id:
-                inv['journal_id']=exp.journal_id.id
+                inv['journal_id'] = exp.journal_id.id
                 journal = exp.journal_id
             else:
                 journal_id = invoice_obj._get_journal(cr, uid, context={'type': 'in_invoice'})
@@ -106,9 +114,9 @@ class hr_expense_expense(orm.Model):
                     inv['journal_id'] = journal_id
                     journal = account_journal.browse(cr, uid, journal_id)
             if journal and not journal.analytic_journal_id:
-                analytic_journal_ids = analytic_journal_obj.search(cr, uid, [('type','=','purchase')])
+                analytic_journal_ids = analytic_journal_obj.search(cr, uid, [('type', '=', 'purchase')])
                 if analytic_journal_ids:
-                    account_journal.write(cr, uid, [journal.id],{'analytic_journal_id':analytic_journal_ids[0]})
+                    account_journal.write(cr, uid, [journal.id], {'analytic_journal_id': analytic_journal_ids[0]})
             inv_id = invoice_obj.create(cr, uid, inv, {'type': 'in_invoice'})
             invoice_obj.button_compute(cr, uid, [inv_id], {'type': 'in_invoice'}, set_total=True)
             wf_service = netsvc.LocalService("workflow")
@@ -117,5 +125,3 @@ class hr_expense_expense(orm.Model):
             self.write(cr, uid, [exp.id], {'invoice_id': inv_id, 'state': 'invoiced'})
             res = inv_id
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
