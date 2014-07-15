@@ -21,17 +21,25 @@
 
 import time
 from openerp.report import report_sxw
+from openerp.tools.translate import _
 
 
 class report_print_check(report_sxw.rml_parse):
+    MAX_LINES = 10
+
     def __init__(self, cr, uid, name, context):
         super(report_print_check, self).__init__(cr, uid, name, context)
         self.number_lines = 0
         self.number_add = 0
+        self.extra_message = ''
         self.localcontext.update({
             'time': time,
             'get_all_lines': self.get_all_lines,
+            'get_extra_messages': self.get_extra_messages,
         })
+
+    def get_extra_messages(self):
+        return self.extra_message
 
     def get_all_lines(self, voucher):
         debit_lines = voucher.line_dr_ids
@@ -41,39 +49,39 @@ class report_print_check(report_sxw.rml_parse):
     def get_lines(self, voucher_lines):
         result = []
         self.number_lines = len(voucher_lines)
-        for i in range(0, min(10, self.number_lines)):
-            if i < self.number_lines:
-                voucher_line = voucher_lines[i]
-                # Don't show lines with amount=0; this means, an invoice/credit note has not been linked to this check
-                if voucher_line.amount != 0:
-                    # In general, the supplier invoice reference number is a much better description
-                    # for writing checks than our own reference number, but if we don't have it, we
-                    # might as well use our internal number
-                    if voucher_line.supplier_invoice_number:
-                        name = voucher_line.supplier_invoice_number
-                    else:
-                        name = voucher_line.name
-                    res = {
-                        'date_due': voucher_line.date_due,
-                        'name': name,
-                        'amount_original': voucher_line.amount_original and voucher_line.amount_original or False,
-                        'amount_unreconciled': voucher_line.amount_unreconciled and voucher_line.amount_unreconciled
-                        or False,
-                        'amount': voucher_line.amount and voucher_line.amount or False,
-                    }
-                    result.append(res)
-            else:
+        for voucher_line in voucher_lines:
+            # Don't show lines with amount=0; this means, an invoice/credit note has not been linked to this check
+            if voucher_line.amount != 0:
+                # In general, the supplier invoice reference number is a much better description
+                # for writing checks than our own reference number, but if we don't have it, we
+                # might as well use our internal number
+                if voucher_line.supplier_invoice_number:
+                    name = voucher_line.supplier_invoice_number
+                else:
+                    name = voucher_line.name
                 res = {
-                    'date_due': False,
-                    'name': False,
-                    'amount_original': False,
-                    'amount_unreconciled': False,
-                    'amount': False,
+                    'date_due': voucher_line.date_due,
+                    'name': name,
+                    'amount_original': voucher_line.amount_original and voucher_line.amount_original or False,
+                    'amount_unreconciled': voucher_line.amount_unreconciled and voucher_line.amount_unreconciled
+                    or False,
+                    'amount': voucher_line.amount and voucher_line.amount or False,
                 }
                 result.append(res)
 
+        res_len = len(result)
+        if self.MAX_LINES is not None and res_len > self.MAX_LINES:
+            self.extra_message = _(
+                "More than %d lines in voucher, print Check Stubs"
+                " to have all %d lines",
+            ) % (self.MAX_LINES, res_len)
+            result = result[:self.MAX_LINES]
+
         return result
 
+
+class report_print_stub(report_print_check):
+    MAX_LINES = None
 
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.top',
@@ -87,6 +95,13 @@ report_sxw.report_sxw(
     'account.voucher',
     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml',
     parser=report_print_check, header=False
+)
+
+report_sxw.report_sxw(
+    'report.l10n.ca.account.print.check.stubs',
+    'account.voucher',
+    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_stubs.rml',
+    parser=report_print_stub, header=False
 )
 
 #report_sxw.report_sxw(

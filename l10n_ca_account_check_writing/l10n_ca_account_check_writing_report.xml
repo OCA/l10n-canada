@@ -16,6 +16,14 @@
             rml="l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml"
             multi="True"
             auto="False"/>
+
+    <report id="l10n_ca_account_print_check_stubs"
+            string="Print Check Stubs"
+            model="account.voucher"
+            name="l10n.ca.account.print.check.stubs"
+            rml="l10n_ca_account_check_writing/report/l10n_ca_check_print_stubs.rml"
+            multi="True"
+            auto="False"/>
 <!--
     <report id="l10n_ca_account_print_check_bottom"
             string="Print Check (CA)"
