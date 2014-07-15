@@ -80,7 +80,7 @@
     <paraStyle name="P16" fontName="Helvetica-Bold" fontSize="9.0" leading="11"/>
     <paraStyle name="P17" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="RIGHT"/>
     <paraStyle name="P18" fontName="Helvetica" fontSize="9.0" leading="11"/>
-    <paraStyle name="P19" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT"/>
+    <paraStyle name="P19" fontName="Courier" fontSize="9.0" leading="11" alignment="LEFT"/>
     <paraStyle name="P20" fontName="Helvetica" fontSize="9.0" leading="11" alignment="RIGHT"/>
     <paraStyle name="P21" fontName="Helvetica" fontSize="8.0" leading="10"/>
     <paraStyle name="P22" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT"/>

@@ -73,7 +73,7 @@
     <paraStyle name="P14" rightIndent="-5.0" leftIndent="0.0" fontName="Helvetica"/>
     <paraStyle name="P15" fontName="Helvetica" fontSize="11.0" leading="14" alignment="RIGHT"/>
     <paraStyle name="P16" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT"/>
-    <paraStyle name="P17" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT"/>
+    <paraStyle name="P17" fontName="Courier" fontSize="9.0" leading="11" alignment="LEFT"/>
     <paraStyle name="P18" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT"/>
     <paraStyle name="P19" fontName="Helvetica" fontSize="3.0" leading="4" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="P20" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="11.0" leading="14" textColor="#ffffff"/>

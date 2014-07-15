@@ -42,22 +42,33 @@ def custom_translation(s, lang):
 
 
 def get_amount_line(amount, currency, lang):
+    # max char with font Courier 9.0
+    max_char = 72
     try:
         amount_in_word = num2words(int(amount), lang=lang[:2])
     except NotImplementedError:
         amount_in_word = num2words(int(amount))
     currency_name = currency.print_on_check
     cents = int(amount * 100) % 100
-    total_length = len(amount_in_word) + len(currency_name)
-    if total_length < 67:
-        stars = '*' * (67 - total_length)
+    AND = custom_translation("and", lang)
+
+    if lang.startswith('fr'):
+        first_line = u'{amount_in_word} {currency_name} {AND} {cents}/100 '
+    else:
+        first_line = u'{amount_in_word} {AND} {cents}/100 {currency_name} '
+
+    first_line = first_line.format(AND=AND, currency_name=currency_name,
+                                   amount_in_word=amount_in_word, cents=cents)
+
+    first_line = first_line.title()
+
+    nb_missing_char = max_char - len(first_line)
+    if nb_missing_char:
+        stars = '*' * nb_missing_char
     else:
         stars = ''
-    AND = custom_translation("and", lang)
-    amount_line_fmt = u'{amount_in_word} {AND} {cents}/100 {currency_name} {stars}'
-    if lang.startswith('fr'):
-        amount_line_fmt = u'{amount_in_word} {currency_name} {AND} {cents}/100 {stars}'
-    return amount_line_fmt.format(**vars())
+    amount_line_fmt = first_line + stars
+    return amount_line_fmt
 
 
 class account_voucher(orm.Model):

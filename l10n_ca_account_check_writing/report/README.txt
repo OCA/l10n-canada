@@ -7,3 +7,6 @@ is adding a rowHeights attribute for the second table :
 
     <blockTable rowHeights="80.0mm" colWidths="591.0" style="Table2">
 
+
+The amount line need to be in Courier font 9.
+    <paraStyle name="P17" fontName="Courier" fontSize="9.0" leading="11" alignment="LEFT"/>
