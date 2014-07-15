@@ -47,7 +47,7 @@ Contributors
     ],
     'demo': [],
     'test': [
-        'l10n_ca_qc_hr_payroll.yml',
+        'test/l10n_ca_qc_hr_payroll.yml',
     ],
     'installable': True,
 }
