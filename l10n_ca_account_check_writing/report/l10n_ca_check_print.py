@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+# #############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
+# Odoo, Open Source Management Solution
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux
+#    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -63,8 +64,7 @@ class report_print_check(report_sxw.rml_parse):
                     'date_due': voucher_line.date_due,
                     'name': name,
                     'amount_original': voucher_line.amount_original and voucher_line.amount_original or False,
-                    'amount_unreconciled': voucher_line.amount_unreconciled and voucher_line.amount_unreconciled
-                    or False,
+                    'amount_unreconciled': voucher_line.amount_unreconciled and voucher_line.amount_unreconciled or False,
                     'amount': voucher_line.amount and voucher_line.amount or False,
                 }
                 result.append(res)
@@ -82,6 +82,7 @@ class report_print_check(report_sxw.rml_parse):
 
 class report_print_stub(report_print_check):
     MAX_LINES = None
+
 
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.top',
@@ -104,11 +105,9 @@ report_sxw.report_sxw(
     parser=report_print_stub, header=False
 )
 
-#report_sxw.report_sxw(
-#    'report.l10n.ca.account.print.check.bottom',
-#    'account.voucher',
-#    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
-#    parser=report_print_check,header=False
-#)
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+# report_sxw.report_sxw(
+#     'report.l10n.ca.account.print.check.bottom',
+#     'account.voucher',
+#     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
+#     parser=report_print_check,header=False
+# )
