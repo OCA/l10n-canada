@@ -148,7 +148,7 @@ class report_print_check(report_sxw.rml_parse):
             stars = '*' * nb_missing_char
         else:
             stars = ''
-        amount_line_fmt = first_line + stars
+        amount_line_fmt = stars + first_line
         return amount_line_fmt
 
     def _get_current_currency(self, cr, uid, voucher_id, context=None):
