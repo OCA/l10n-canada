@@ -183,7 +183,7 @@
                 </para>
               </td>
               <td>
-                <para style="P17">[[ voucher.amount_in_word ]]</para>
+                <para style="P17">[[ get_amount_in_word(voucher.id) ]]</para>
               </td>
               <td>
                 <para style="P15">

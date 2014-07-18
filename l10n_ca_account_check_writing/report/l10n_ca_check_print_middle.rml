@@ -214,7 +214,7 @@
                 <para style="P3"><font color="white"> </font></para>
 	    </td>
 	    <td>
-                <para style="P9">[[ voucher.amount_in_word ]]</para>
+                <para style="P17">[[ get_amount_in_word(voucher.id) ]]</para>
 	    </td>
 	</tr>
     </blockTable>
