@@ -1,12 +1,10 @@
 # Config file .coveragerc
 
 [report]
+include =
+    */l10n-canada/*
+
 omit =
-    /usr/*
-    */bin/*
-    */lib/*
-    */odoo/*
-    */openerp/*
     */tests/*
     *__init__.py
 
