@@ -31,6 +31,8 @@
 Provinces and territories of Canada.
 ====================================
 
+This module provides the list of provinces and territories of Canada.
+
 Contributors
 ------------
 * Virgil Dupras <virgil.dupras@savoirfairelinux.com>
@@ -42,5 +44,5 @@ Contributors
     'data': [
         'l10n_ca_toponyms.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
