@@ -17,38 +17,37 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 {
-    'name': 'Canada - Payroll',
+    'name': 'Canada - Payroll Accounting',
     'category': 'Localization',
     'version': '1.0',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'description': """
-Canada Payroll Rules
-====================
- * Adds Federal Salary Rules
- * Adds Federal Salary Structure
- * Adds Federal Claim Codes, Deductions and Exemptions on the Employee Form
- * Adds 'Pays Per Year' field on the Contract Form
+Canada Payroll Accounting
+=========================
+
+This module:
+ * creates salary journal
+ * creates financial accounts for payroll
+ * updates salary rules with accounting information
 
 Contributors
 ------------
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
-* Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
     'author': 'Odoo Canada',
     'website': 'https://community.odoo.com/project/42',
     'depends': [
-        'hr_payroll',
-        'l10n_ca_toponyms',
+        'l10n_ca',
+        'l10n_ca_hr_payroll',
+        'hr_payroll_account',
     ],
     'data': [
-        'l10n_ca_hr_payroll_view.xml',
-        'l10n_ca_hr_payroll_data.xml',
+        'l10n_ca_hr_payroll_account_data.xml',
     ],
     'test': [],
     'demo': [],
-    'installable': True,
+    'installable': False,
 }

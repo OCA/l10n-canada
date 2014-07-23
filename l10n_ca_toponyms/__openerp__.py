@@ -21,15 +21,17 @@
 ##############################################################################
 
 {
-    "name": "Canada - Provinces and Territories",
-    "version": "1.0",
-    "author": "Savoir-faire Linux",
-    "website": "http://www.savoirfairelinux.com",
-    "category": "Localisation/Canada",
-    "license": "AGPL-3",
-    "description": """
+    'name': 'Canada - Provinces and Territories',
+    'version': '1.0',
+    'author': 'Savoir-faire Linux',
+    'website': 'http://www.savoirfairelinux.com',
+    'category': 'Localisation/Canada',
+    'license': 'AGPL-3',
+    'description': """
 Provinces and territories of Canada.
 ====================================
+
+This module provides the list of provinces and territories of Canada.
 
 Contributors
 ------------
@@ -37,10 +39,10 @@ Contributors
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    "depends": ['base'],
-    "license": "AGPL-3",
-    "data": [
-        "l10n_ca_toponyms.xml",
+    'depends': ['base'],
+    'license': 'AGPL-3',
+    'data': [
+        'l10n_ca_toponyms.xml',
     ],
-    "installable": True,
+    'installable': True,
 }

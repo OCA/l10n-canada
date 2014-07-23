@@ -20,35 +20,28 @@
 #
 ##############################################################################
 
-# NOTE: The name of the supplied field was initially "display_name", but it seems that Odoo,
-# whenever it seems "name" in the field, returns the value for "name". Well...
-
 {
-    'name': 'Display name for currencies',
+    'name': 'Canada Social Insurance Number (SIN/NAS)',
     'version': '1.0',
     'author': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
-    'category': 'Generic Modules/Accounting',
-    "license": "AGPL-3",
+    'license': 'AGPL-3',
+    'category': 'Localisation/Canada',
+    'depends': ['base'],
     'description': """
-Supply res.currency.print_on_check
-==================================
+Canada Social Insurance Number (SIN/NAS)
+========================================
 
-This module improves res.currency by adding the "print_on_check" field, which stores the human
-readable name of the currency (US Dollar, Euro, Canadian Dollar, etc.)
+Add the Social Insurance Number (SIN/NAS) to the partner form.
 
 Contributors
 ------------
 * Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
-* Virgil Dupras <virgil.dupras@savoirfairelinux.com>
+* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    'depends': ['base'],
     'data': [
-        'currency_view.xml',
-        'currency_data.xml',
+        'res_partner_attributes_add_SIN_view.xml',
     ],
-    'demo': [],
-    'test': [],
-    'installable': True,
+    'installable': False,
 }

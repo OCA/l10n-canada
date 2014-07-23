@@ -21,26 +21,27 @@
 ##############################################################################
 
 {
-    'name': 'Quebec Enterprise Number (NEQ)',
+    'name': 'Business identification Number in Canada (BN/NE)',
     'version': '1.0',
-    "author": "Savoir-faire Linux",
-    "website": "http://www.savoirfairelinux.com",
+    'author': 'Savoir-faire Linux',
+    'website': 'http://www.savoirfairelinux.com',
     'license': 'AGPL-3',
     'category': 'Localisation/Canada',
     'depends': ['base'],
     'description': """
-Quebec Enterprise Number (NEQ)
-==============================
+Business identification Number in Canada (BN/NE)
+================================================
 
-Add the Quebec Enterprise Number (NEQ) to the partner form.
+Add the Business identification Number (BN/NE) to the partner form.
 
-Contibutors
------------
+Contributors
+------------
+* Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
 * Marc Cassuto <marc.cassuto@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
     'data': [
-        'res_partner_attributes_add_NEQ_view.xml',
+        'res_partner_attributes_add_BN_view.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

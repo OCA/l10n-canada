@@ -21,13 +21,13 @@
 ##############################################################################
 
 {
-    "name": "Account Fiscal Position Rules for Quebec, Canada",
-    "version": "1.0",
-    "author": "Savoir-faire Linux",
-    "website": "http://www.savoirfairelinux.com",
-    "license": "AGPL-3",
-    "category": "Localization/Accounting",
-    "description": """
+    'name': 'Account Fiscal Position Rules for Quebec, Canada',
+    'version': '1.0',
+    'author': 'Savoir-faire Linux',
+    'website': 'http://www.savoirfairelinux.com',
+    'license': 'AGPL-3',
+    'category': 'Localization/Accounting',
+    'description': """
 Account Fiscal Position Rules for Quebec, Canada
 ================================================
 
@@ -40,15 +40,15 @@ Contributors
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    "depends": [
+    'depends': [
         'account_fiscal_position_rule_sale',
         'account_fiscal_position_rule_purchase',
         'account_fiscal_position_rule_stock',
         'l10n_ca_toponyms',
         'l10n_ca',
     ],
-    "data": [
+    'data': [
         'rules.xml',
     ],
-    "installable": False,
+    'installable': False,
 }

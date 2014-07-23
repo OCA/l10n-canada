@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -20,28 +20,35 @@
 #
 ##############################################################################
 
-{
-    'name': 'Business identification Number in Canada (BN/NE)',
-    'version': '1.0',
-    "author": "Savoir-faire Linux",
-    "website": "http://www.savoirfairelinux.com",
-    'license': 'AGPL-3',
-    'category': 'Localisation/Canada',
-    'depends': ['base'],
-    'description': """
-Business identification Number in Canada (BN/NE)
-================================================
+# NOTE: The name of the supplied field was initially "display_name", but it seems that Odoo,
+# whenever it seems "name" in the field, returns the value for "name". Well...
 
-Add the Business identification Number (BN/NE) to the partner form.
+{
+    'name': 'Display name for currencies',
+    'version': '1.0',
+    'author': 'Savoir-faire Linux',
+    'website': 'http://www.savoirfairelinux.com',
+    'category': 'Generic Modules/Accounting',
+    'license': 'AGPL-3',
+    'description': """
+Supply res.currency.print_on_check
+==================================
+
+This module improves res.currency by adding the "print_on_check" field, which stores the human
+readable name of the currency (US Dollar, Euro, Canadian Dollar, etc.)
 
 Contributors
 ------------
 * Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
-* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
+* Virgil Dupras <virgil.dupras@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
+    'depends': ['base'],
     'data': [
-        'res_partner_attributes_add_BN_view.xml',
+        'currency_view.xml',
+        'currency_data.xml',
     ],
-    'installable': True,
+    'demo': [],
+    'test': [],
+    'installable': False,
 }
