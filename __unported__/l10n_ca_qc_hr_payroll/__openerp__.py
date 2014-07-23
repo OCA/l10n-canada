@@ -49,5 +49,5 @@ Contributors
     'test': [
         'test/l10n_ca_qc_hr_payroll.yml',
     ],
-    'installable': True,
+    'installable': False,
 }

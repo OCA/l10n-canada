@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2012 - 2014 Odoo Canada. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -17,42 +17,38 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
-    'name': 'Canada - Quebec - Payroll Accounting',
+    'name': 'Canada - Payroll',
     'category': 'Localization',
     'version': '1.0',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'description': """
-Quebec Payroll Accounting
-=========================
-
-This module:
- * creates financial accounts for payroll
- * updates salary rules with accounting information
-
-    !!! Warning !!!
-
-Make sure to install AND CONFIGURE the canadian chart of accounts module (l10n_ca)
-before installing this module. Chart template needs to be selected to populate
-the account.account table and allow you to link salary rules with the financial
-account.
+Canada Payroll Rules
+====================
+ * Adds Federal Salary Rules
+ * Adds Federal Salary Structure
+ * Adds Federal Claim Codes, Deductions and Exemptions on the Employee Form
+ * Adds 'Pays Per Year' field on the Contract Form
 
 Contributors
 ------------
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
+* Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    'author': 'Savoir-faire Linux',
-    'website': 'http:/www.savoirfairelinux.com',
+    'author': 'Odoo Canada',
+    'website': 'https://community.odoo.com/project/42',
     'depends': [
-        'l10n_ca_qc_hr_payroll',
-        'l10n_ca_hr_payroll_account',
+        'hr_payroll',
+        'l10n_ca_toponyms',
     ],
     'data': [
-        'l10n_ca_qc_hr_payroll_account_data.xml',
+        'l10n_ca_hr_payroll_view.xml',
+        'l10n_ca_hr_payroll_data.xml',
     ],
     'test': [],
     'demo': [],
-    'installable': True,
+    'installable': False,
 }

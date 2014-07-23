@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 - 2014 Odoo Canada. All Rights Reserved.
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -18,36 +18,41 @@
 #
 ##############################################################################
 {
-    'name': 'Canada - Payroll Accounting',
+    'name': 'Canada - Quebec - Payroll Accounting',
     'category': 'Localization',
     'version': '1.0',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'description': """
-Canada Payroll Accounting
+Quebec Payroll Accounting
 =========================
 
 This module:
- * creates salary journal
  * creates financial accounts for payroll
  * updates salary rules with accounting information
+
+    !!! Warning !!!
+
+Make sure to install AND CONFIGURE the canadian chart of accounts module (l10n_ca)
+before installing this module. Chart template needs to be selected to populate
+the account.account table and allow you to link salary rules with the financial
+account.
 
 Contributors
 ------------
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    'author': 'Odoo Canada',
-    'website': 'https://community.odoo.com/project/42',
+    'author': 'Savoir-faire Linux',
+    'website': 'http:/www.savoirfairelinux.com',
     'depends': [
-        'l10n_ca',
-        'l10n_ca_hr_payroll',
-        'hr_payroll_account',
+        'l10n_ca_qc_hr_payroll',
+        'l10n_ca_hr_payroll_account',
     ],
     'data': [
-        'l10n_ca_hr_payroll_account_data.xml',
+        'l10n_ca_qc_hr_payroll_account_data.xml',
     ],
     'test': [],
     'demo': [],
-    'installable': True,
+    'installable': False,
 }

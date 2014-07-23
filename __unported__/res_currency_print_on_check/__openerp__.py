@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -20,27 +20,35 @@
 #
 ##############################################################################
 
+# NOTE: The name of the supplied field was initially "display_name", but it seems that Odoo,
+# whenever it seems "name" in the field, returns the value for "name". Well...
+
 {
-    'name': 'Quebec Enterprise Number (NEQ)',
+    'name': 'Display name for currencies',
     'version': '1.0',
-    "author": "Savoir-faire Linux",
-    "website": "http://www.savoirfairelinux.com",
+    'author': 'Savoir-faire Linux',
+    'website': 'http://www.savoirfairelinux.com',
+    'category': 'Generic Modules/Accounting',
     'license': 'AGPL-3',
-    'category': 'Localisation/Canada',
-    'depends': ['base'],
     'description': """
-Quebec Enterprise Number (NEQ)
-==============================
+Supply res.currency.print_on_check
+==================================
 
-Add the Quebec Enterprise Number (NEQ) to the partner form.
+This module improves res.currency by adding the "print_on_check" field, which stores the human
+readable name of the currency (US Dollar, Euro, Canadian Dollar, etc.)
 
-Contibutors
------------
-* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
+Contributors
+------------
+* Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
+* Virgil Dupras <virgil.dupras@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
+    'depends': ['base'],
     'data': [
-        'res_partner_attributes_add_NEQ_view.xml',
+        'currency_view.xml',
+        'currency_data.xml',
     ],
-    'installable': True,
+    'demo': [],
+    'test': [],
+    'installable': False,
 }

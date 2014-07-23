@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -21,27 +21,26 @@
 ##############################################################################
 
 {
-    'name': 'Canada Social Insurance Number (SIN/NAS)',
+    'name': 'Quebec Enterprise Number (NEQ)',
     'version': '1.0',
-    "author": "Savoir-faire Linux",
-    "website": "http://www.savoirfairelinux.com",
+    'author': 'Savoir-faire Linux',
+    'website': 'http://www.savoirfairelinux.com',
     'license': 'AGPL-3',
     'category': 'Localisation/Canada',
     'depends': ['base'],
     'description': """
-Canada Social Insurance Number (SIN/NAS)
-========================================
+Quebec Enterprise Number (NEQ)
+==============================
 
-Add the Social Insurance Number (SIN/NAS) to the partner form.
+Add the Quebec Enterprise Number (NEQ) to the partner form.
 
-Contributors
-------------
-* Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
+Contibutors
+-----------
 * Marc Cassuto <marc.cassuto@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
     'data': [
-        'res_partner_attributes_add_SIN_view.xml',
+        'res_partner_attributes_add_NEQ_view.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

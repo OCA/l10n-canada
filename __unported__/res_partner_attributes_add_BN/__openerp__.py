@@ -6,7 +6,7 @@
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License as
+#    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
 #    License, or (at your option) any later version.
 #
@@ -15,32 +15,33 @@
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU Affero General Public License for more details.
 #
-#    You should have received a copy of the Affero GNU General Public License
+#    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
 {
-    "name": "Canada - Provinces and Territories",
-    "version": "1.0",
-    "author": "Savoir-faire Linux",
-    "website": "http://www.savoirfairelinux.com",
-    "category": "Localisation/Canada",
-    "license": "AGPL-3",
-    "description": """
-Provinces and territories of Canada.
-====================================
+    'name': 'Business identification Number in Canada (BN/NE)',
+    'version': '1.0',
+    'author': 'Savoir-faire Linux',
+    'website': 'http://www.savoirfairelinux.com',
+    'license': 'AGPL-3',
+    'category': 'Localisation/Canada',
+    'depends': ['base'],
+    'description': """
+Business identification Number in Canada (BN/NE)
+================================================
+
+Add the Business identification Number (BN/NE) to the partner form.
 
 Contributors
 ------------
-* Virgil Dupras <virgil.dupras@savoirfairelinux.com>
-* Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
+* Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
+* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    "depends": ['base'],
-    "license": "AGPL-3",
-    "data": [
-        "l10n_ca_toponyms.xml",
+    'data': [
+        'res_partner_attributes_add_BN_view.xml',
     ],
-    "installable": True,
+    'installable': False,
 }

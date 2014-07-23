@@ -21,13 +21,13 @@
 ##############################################################################
 
 {
-    "name": "Taxes included in expense",
-    "version": "1.0",
-    "author": "Savoir-faire Linux",
-    "category": "Account",
-    "website": "http://wwww.savoirfairelinux.com",
-    "license": "AGPL-3",
-    "description": """
+    'name': 'Taxes included in expense',
+    'version': '1.0',
+    'author': 'Savoir-faire Linux',
+    'category': 'Account',
+    'website': 'http://wwww.savoirfairelinux.com',
+    'license': 'AGPL-3',
+    'description': """
 Taxes included in expense
 =========================
 This module adds a checkbox to tax to include tax in expense invoices.
@@ -48,9 +48,9 @@ Contributors
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    "depends": ["base", "account"],
-    "data": [
-        "account_tax_expense_include_view.xml",
+    'depends': ['base', 'account'],
+    'data': [
+        'account_tax_expense_include_view.xml',
     ],
-    "installable": False
+    'installable': False
 }

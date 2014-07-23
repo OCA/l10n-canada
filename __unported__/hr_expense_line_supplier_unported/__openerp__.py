@@ -20,13 +20,13 @@
 #
 ##############################################################################
 {
-    "name": "Supplier on expense line",
-    "version": "1.0",
-    "author": "Savoir-faire Linux",
-    "website": "http://www.savoirfairelinux.com",
-    "category": "Human Resources",
-    "license": "AGPL-3",
-    "description": """
+    'name': 'Supplier on expense line',
+    'version': '1.0',
+    'author': 'Savoir-faire Linux',
+    'website': 'http://www.savoirfairelinux.com',
+    'category': 'Human Resources',
+    'license': 'AGPL-3',
+    'description': """
 Supplier on expense line
 ========================
 This module adds a supplier field on the expense line and set the taxes of
@@ -45,9 +45,9 @@ Contributors
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    "depends": ['hr_expense'],
-    "data": [
+    'depends': ['hr_expense'],
+    'data': [
         'hr_expense.xml',
     ],
-    "installable": False,
+    'installable': False,
 }
