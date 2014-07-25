@@ -21,55 +21,6 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
-from openerp.tools import config
-# Odoo's built-in routines for converting numbers to words is pretty bad, especially in French
-# This is why we use the library below. You can get it at:
-# https://pypi.python.org/pypi/num2words
-from num2words import num2words
-
-# For the words we use in custom_translation(), we have to put dummy _() calls here so that Odoo
-# picks them up during .pot generation
-_("and")
-
-
-def custom_translation(s, lang):
-    # Odoo uses the current stack frame, yes, the *stack frame* to determine which language _()
-    # should translate a string in. If we want to translate a string in another language, such as
-    # a supplier's language, we have to resort to hacks such as this one. "context" is sought after
-    # in the stackframe, so we have to set it.
-    context = {'lang': lang}  # noqa: _() checks local frame for context
-    return _(s)
-
-
-def get_amount_line(amount, currency, lang):
-    # max char with font Courier 9.0
-    max_char = 72
-    try:
-        amount_in_word = num2words(int(amount), lang=lang[:2])
-    except NotImplementedError:
-        amount_in_word = num2words(int(amount))
-    currency_name = currency.print_on_check
-    cents = int(amount * 100) % 100
-    AND = custom_translation("and", lang)
-
-    if lang.startswith('fr'):
-        first_line = u'{amount_in_word} {currency_name} {AND} {cents}/100 '
-    else:
-        first_line = u'{amount_in_word} {AND} {cents}/100 {currency_name} '
-
-    first_line = first_line.format(AND=AND, currency_name=currency_name,
-                                   amount_in_word=amount_in_word, cents=cents)
-
-    first_line = first_line.title()
-
-    nb_missing_char = max_char - len(first_line)
-    if nb_missing_char:
-        stars = '*' * nb_missing_char
-    else:
-        stars = ''
-    amount_line_fmt = first_line + stars
-    return amount_line_fmt
 
 
 class account_voucher(orm.Model):
@@ -88,15 +39,6 @@ class account_voucher(orm.Model):
             ttype, date, payment_rate_currency_id, company_id, context=context)
 
         if 'value' in default:
-            amount = default['value'].get('amount', amount)
-            amount_in_word = self._get_amount_in_word(cr,
-                                                      uid,
-                                                      currency_id=currency_id,
-                                                      amount=amount,
-                                                      context=context)
-
-            if amount_in_word is not None:
-                default['value'].update({'amount_in_word': amount_in_word})
             if journal_id:
                 allow_check_writing = self.pool.get('account.journal').browse(
                     cr, uid, journal_id, context=context).allow_check_writing
@@ -113,7 +55,6 @@ class account_voucher(orm.Model):
             'bottom': 'account.print.check.bottom',
             'top_ca': 'l10n.ca.account.print.check.top',
             'middle_ca': 'l10n.ca.account.print.check.middle',
-            # 'bottom_ca': 'l10n.ca.account.print.check.bottom',
         }
 
         check_layout = self.browse(cr, uid, ids[0],
@@ -129,47 +70,6 @@ class account_voucher(orm.Model):
             },
             'nodestroy': True
         }
-
-    def proforma_voucher(self, cr, uid, ids, context=None):
-        # update all amount in word when perform a voucher
-        if context is None:
-            context = {}
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        for i_id in ids:
-            amount_in_word = self._get_amount_in_word(cr, uid, i_id,
-                                                      context=context)
-            self.write(cr, uid, i_id, {'amount_in_word': amount_in_word},
-                       context=context)
-
-        return super(account_voucher, self).proforma_voucher(cr, uid, ids,
-                                                             context=context)
-
-    def _get_amount_in_word(self, cr, uid, i_id=None, currency_id=None,
-                            amount=None, context=None):
-        if context is None:
-            context = {}
-        if amount is None:
-            amount = self.browse(cr, uid, i_id, context=context).amount
-
-        # get lang
-        supplier_lang = context.get('lang', config.get('lang', None))
-        if i_id is not None:
-            partner_id = self.browse(cr, uid, i_id, context=context).partner_id
-            if partner_id:
-                supplier_lang = partner_id.lang
-
-        context = dict(context, lang=supplier_lang)
-        if currency_id is None:
-            if i_id is None:
-                return None
-            currency_id = self._get_current_currency(cr, uid, i_id,
-                                                     context=context)
-
-        currency = self.pool.get('res.currency').browse(cr, uid, currency_id,
-                                                        context=context)
-        # get the amount_in_word
-        return get_amount_line(amount, currency, supplier_lang)
 
 
 # By default, the supplier reference number is not so easily accessible from a voucher line because
