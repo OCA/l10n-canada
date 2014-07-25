@@ -45,6 +45,7 @@ Contributors
         'l10n_ca_toponyms',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'l10n_ca_hr_payroll_view.xml',
         'l10n_ca_hr_payroll_data.xml',
     ],

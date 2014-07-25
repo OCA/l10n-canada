@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+# #############################################################################
 #
-#    Odoo, Open Source Management Solution
+# Odoo, Open Source Management Solution
 #    Copyright (C) 2010 - 2014 Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
@@ -19,7 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from . import (
     company,
     account_voucher,

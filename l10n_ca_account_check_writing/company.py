@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+# #############################################################################
 #
-#    Odoo, Open Source Management Solution
-#    Copyright (C) 2010 - 2014 Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
+# Odoo, Open Source Management Solution
+# Copyright (C) 2010 - 2014 Savoir-faire Linux
+# (<http://www.savoirfairelinux.com>).
 #
-#    This program is free software: you can redistribute it and/or modify
+# This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
 #    License, or (at your option) any later version.
@@ -25,13 +25,16 @@ from openerp.osv import orm, fields
 
 class res_company(orm.Model):
     _inherit = 'res.company'
+
     _columns = {
-        'check_layout': fields.selection([
-            ('top', 'Check on Top'),
-            ('middle', 'Check in middle'),
-            ('bottom', 'Check on bottom'),
-            ('top_ca', 'Check on top (CA)'),
-            ('middle_ca', 'Check in middle (CA)'),
-            #  ('bottom_ca', 'Check on bottom (CA)'),
-        ], "Choose Check layout")
+        'check_layout': fields.selection(
+            [
+                ('top', 'Check on Top'),
+                ('middle', 'Check in middle'),
+                ('bottom', 'Check on bottom'),
+                ('top_ca', 'Check on top (CA)'),
+                ('middle_ca', 'Check in middle (CA)'),
+            ],
+            "Choose Check layout",
+        )
     }

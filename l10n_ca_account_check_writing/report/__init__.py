@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+# #############################################################################
 #
 #    Odoo, Open Source Management Solution
 #    Copyright (C) 2010 - 2014 Savoir-faire Linux
@@ -19,7 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from . import (
     l10n_ca_check_print,
 )
