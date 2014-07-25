@@ -34,7 +34,6 @@ class res_company(orm.Model):
                 ('bottom', 'Check on bottom'),
                 ('top_ca', 'Check on top (CA)'),
                 ('middle_ca', 'Check in middle (CA)'),
-                # ('bottom_ca', 'Check on bottom (CA)'),
             ],
             "Choose Check layout",
         )
