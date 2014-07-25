@@ -38,7 +38,7 @@ def custom_translation(s, lang):
     # should translate a string in. If we want to translate a string in another language, such as
     # a supplier's language, we have to resort to hacks such as this one. "context" is sought after
     # in the stackframe, so we have to set it.
-    context = {'lang': lang}
+    context = {'lang': lang}  # noqa: _() checks local frame for context
     return _(s)
 
 
@@ -186,7 +186,8 @@ class voucher_line(orm.Model):
         move_line = self.pool.get('account.move.line').browse(cr, uid,
                                                               move_line_id,
                                                               context)
-        return move_line.invoice and move_line.invoice.supplier_invoice_number or ''
+        invoice = move_line.invoice
+        return invoice.supplier_invoice_number if invoice else ''
 
     def _get_supplier_invoice_number(self, cr, uid, ids, name, args,
                                      context=None):

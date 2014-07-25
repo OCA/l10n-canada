@@ -72,9 +72,9 @@ class report_print_check(report_sxw.rml_parse):
                 res = {
                     'date_due': voucher_line.date_due,
                     'name': name,
-                    'amount_original': voucher_line.amount_original and voucher_line.amount_original or False,
-                    'amount_unreconciled': voucher_line.amount_unreconciled and voucher_line.amount_unreconciled or False,
-                    'amount': voucher_line.amount and voucher_line.amount or False,
+                    'amount_original': voucher_line.amount_original,
+                    'amount_unreconciled': voucher_line.amount_unreconciled,
+                    'amount': voucher_line.amount,
                 }
                 result.append(res)
 
@@ -183,7 +183,7 @@ def custom_translation(s, lang):
     # should translate a string in. If we want to translate a string in another language, such as
     # a supplier's language, we have to resort to hacks such as this one. "context" is sought after
     # in the stackframe, so we have to set it.
-    context = {'lang': lang}
+    context = {'lang': lang}  # noqa: _() checks local frame for context
     return _(s)
 
 
