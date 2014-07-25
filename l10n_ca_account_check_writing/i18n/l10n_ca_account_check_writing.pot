@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-15 20:02+0000\n"
-"PO-Revision-Date: 2013-07-15 20:02+0000\n"
+"POT-Creation-Date: 2014-07-25 19:26+0000\n"
+"PO-Revision-Date: 2014-07-25 19:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,40 +17,42 @@ msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
+#: report:l10n.ca.account.print.check.stubs:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Check Amount"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
-#: code:addons/l10n_ca_account_check_writing/account_voucher.py:31
+#: code:addons/l10n_ca_account_check_writing/account_voucher.py:27
 #, python-format
 msgid "and"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
-#: field:account.voucher,currency_help_label:0
-msgid "Helping Sentence"
+#: report:l10n.ca.account.print.check.top:0
+msgid "Y Y Y Y – M M – D D"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
-#: report:l10n.ca.account.print.check.top:0
-msgid "Open Balance"
+#: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_top
+msgid "Print Check CA (Top)"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
-#: report:l10n.ca.account.print.check.middle:0
-#: report:l10n.ca.account.print.check.top:0
+#: report:l10n.ca.account.print.check.stubs:0
 msgid "Due Date"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
-#: help:account.voucher,currency_help_label:0
-msgid "This sentence helps you to know how to specify the payment rate by giving you the direct effect it has"
+#: report:l10n.ca.account.print.check.middle:0
+#: report:l10n.ca.account.print.check.stubs:0
+#: report:l10n.ca.account.print.check.top:0
+msgid "Discount"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
-#: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_middle
-msgid "Print Check CA (Middle)"
+#: report:l10n.ca.account.print.check.top:0
+msgid "MEMO"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
@@ -69,30 +71,37 @@ msgid "Voucher Lines"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
-#: report:l10n.ca.account.print.check.middle:0
-#: report:l10n.ca.account.print.check.top:0
-msgid "Discount"
+#: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_stubs
+msgid "Print Check Stubs"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
-msgid "Original Amount"
-msgstr ""
-
-#. module: l10n_ca_account_check_writing
-#: report:l10n.ca.account.print.check.middle:0
-#: report:l10n.ca.account.print.check.top:0
-msgid "Invoice"
-msgstr ""
-
-#. module: l10n_ca_account_check_writing
-#: report:l10n.ca.account.print.check.middle:0
 msgid "Date"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
+msgid "Original Amount"
+msgstr ""
+
+#. module: l10n_ca_account_check_writing
+#: report:l10n.ca.account.print.check.middle:0
+#: report:l10n.ca.account.print.check.stubs:0
+#: report:l10n.ca.account.print.check.top:0
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_ca_account_check_writing
+#: report:l10n.ca.account.print.check.top:0
+msgid "DATE"
+msgstr ""
+
+#. module: l10n_ca_account_check_writing
+#: report:l10n.ca.account.print.check.middle:0
+#: report:l10n.ca.account.print.check.stubs:0
+#: report:l10n.ca.account.print.check.top:0
 msgid "Balance Due"
 msgstr ""
 
@@ -103,12 +112,19 @@ msgstr ""
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
+#: report:l10n.ca.account.print.check.stubs:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Payment"
 msgstr ""
 
 #. module: l10n_ca_account_check_writing
-#: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_top
-msgid "Print Check CA (Top)"
+#: report:l10n.ca.account.print.check.stubs:0
+#: report:l10n.ca.account.print.check.top:0
+msgid "Original Amt."
+msgstr ""
+
+#. module: l10n_ca_account_check_writing
+#: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_middle
+msgid "Print Check CA (Middle)"
 msgstr ""
 

@@ -29,6 +29,10 @@ from openerp.tools.translate import _
 # https://pypi.python.org/pypi/num2words
 from num2words import num2words
 
+# For the words we use in custom_translation(), we have to put dummy _() calls here so that Odoo
+# picks them up during .pot generation
+_("and")
+
 
 class report_print_check(report_sxw.rml_parse):
     MAX_LINES = 10

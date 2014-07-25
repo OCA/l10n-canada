@@ -21,6 +21,10 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
+# For the words we use in custom_translation(), we have to put dummy _() calls here so that Odoo
+# picks them up during .pot generation
+_("and")
 
 
 class account_voucher(orm.Model):
