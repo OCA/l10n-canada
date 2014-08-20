@@ -24,13 +24,14 @@ import time
 from openerp.tools import config
 from openerp.report import report_sxw
 from openerp.tools.translate import _
-# Odoo's built-in routines for converting numbers to words is pretty bad, especially in French
+# Odoo's built-in routines for converting numbers to words is pretty bad,
+# especially in French
 # This is why we use the library below. You can get it at:
 # https://pypi.python.org/pypi/num2words
 from num2words import num2words
 
-# For the words we use in custom_translation(), we have to put dummy _() calls here so that Odoo
-# picks them up during .pot generation
+# For the words we use in custom_translation(), we have to put dummy _()
+# calls here so that Odoo picks them up during .pot generation
 _("and")
 
 
@@ -64,11 +65,13 @@ class report_print_check(report_sxw.rml_parse):
         result = []
         self.number_lines = len(voucher_lines)
         for voucher_line in voucher_lines:
-            # Don't show lines with amount=0; this means, an invoice/credit note has not been linked to this check
+            # Don't show lines with amount=0; this means, an invoice/credit
+            # note has not been linked to this check
             if voucher_line.amount != 0:
-                # In general, the supplier invoice reference number is a much better description
-                # for writing checks than our own reference number, but if we don't have it, we
-                # might as well use our internal number
+                # In general, the supplier invoice reference number is a much
+                # better description for writing checks than our own reference
+                # number, but if we don't have it, we might as well use our
+                # internal number
                 if voucher_line.supplier_invoice_number:
                     name = voucher_line.supplier_invoice_number
                 else:
@@ -159,7 +162,8 @@ class report_print_check(report_sxw.rml_parse):
         """
         Get the currency of the voucher.
 
-        :param voucher_id: Id of the voucher what i want to obtain current currency.
+        :param voucher_id: Id of the voucher what i want to obtain current
+                           currency.
         :return: currency id of the voucher
         :rtype: int
         """
@@ -173,7 +177,8 @@ class report_print_check(report_sxw.rml_parse):
         """
         Get the currency of the actual company.
 
-        :param voucher_id: Id of the voucher what i want to obtain company currency.
+        :param voucher_id: Id of the voucher what i want to obtain company
+                           currency.
         :return: currency id of the company of the voucher
         :rtype: int
         """
@@ -183,10 +188,11 @@ class report_print_check(report_sxw.rml_parse):
 
 
 def custom_translation(s, lang):
-    # Odoo uses the current stack frame, yes, the *stack frame* to determine which language _()
-    # should translate a string in. If we want to translate a string in another language, such as
-    # a supplier's language, we have to resort to hacks such as this one. "context" is sought after
-    # in the stackframe, so we have to set it.
+    # Odoo uses the current stack frame, yes, the *stack frame* to determine
+    # which language _() should translate a string in. If we want to translate
+    # a string in another language, such as a supplier's language, we have to
+    # resort to hacks such as this one. "context" is sought after in the
+    # stackframe, so we have to set it.
     context = {'lang': lang}  # noqa: _() checks local frame for context
     return _(s)
 

@@ -33,10 +33,10 @@ This module:
 
     !!! Warning !!!
 
-Make sure to install AND CONFIGURE the canadian chart of accounts module (l10n_ca)
-before installing this module. Chart template needs to be selected to populate
-the account.account table and allow you to link salary rules with the financial
-account.
+Make sure to install AND CONFIGURE the canadian chart of accounts module
+(l10n_ca) before installing this module. Chart template needs to be selected
+to populate the account.account table and allow you to link salary rules with
+the financial account.
 
 Contributors
 ------------

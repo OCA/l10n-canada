@@ -28,5 +28,6 @@ class res_partner(orm.Model):
     _inherit = 'res.partner'
     _columns = {
         'ne': fields.float('BN', digits=(9, 0),
-                           help="Canada Business identification Number (9 digits)"),
+                           help="Canada Business identification Number \
+                           (9 digits)"),
     }
