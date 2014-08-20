@@ -211,14 +211,16 @@ report_sxw.report_sxw(
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.middle',
     'account.voucher',
-    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml',
+    'addons/l10n_ca_account_check_writing/report/'
+    'l10n_ca_check_print_middle.rml',
     parser=report_print_check, header=False
 )
 
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.stubs',
     'account.voucher',
-    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_stubs.rml',
+    'addons/l10n_ca_account_check_writing/report/'
+    'l10n_ca_check_print_stubs.rml',
     parser=report_print_stub, header=False
 )
 
