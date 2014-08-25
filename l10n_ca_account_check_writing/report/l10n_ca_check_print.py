@@ -129,7 +129,10 @@ class report_print_check(report_sxw.rml_parse):
         # max char with font Courier 9.0
         max_char = 72
         try:
-            amount_in_word = num2words(int(amount), lang=lang[:2])
+            if type(lang) is str:
+                amount_in_word = num2words(int(amount), lang=lang[:2])
+            else:
+                amount_in_word = num2words(int(amount))
         except NotImplementedError:
             amount_in_word = num2words(int(amount))
         currency_name = currency.print_on_check
