@@ -93,7 +93,7 @@
                 <para style="P2">[[voucher.partner_id.name]]</para>
               </td>
               <td>
-                <para style="P2">[[ formatLang(voucher.date , date=True) or '' ]] [[ voucher.journal_id.use_preprint_check and voucher.chk_seq or '' ]]</para>
+                <para style="P2">[[ formatLang(voucher.date , date=True) or '' ]] [[ voucher.journal_id.use_preprint_check and voucher.number or '' ]]</para>
               </td>
             </tr>
           </blockTable>
@@ -171,7 +171,7 @@
                 <para style="P2">[[voucher.partner_id.name]]</para>
               </td>
               <td>
-                <para style="P2">[[ formatLang(voucher.date , date=True) or '' ]] [[ voucher.journal_id.use_preprint_check and voucher.chk_seq or '' ]]</para>
+                <para style="P2">[[ formatLang(voucher.date , date=True) or '' ]] [[ voucher.journal_id.use_preprint_check and voucher.number or '' ]]</para>
               </td>
             </tr>
           </blockTable>
