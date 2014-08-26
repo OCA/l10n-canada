@@ -31,7 +31,10 @@ from num2words import num2words
 
 # For the words we use in custom_translation(), we have to put dummy _() calls here so that Odoo
 # picks them up during .pot generation
-_("and")
+AND = "and"
+AMOUNT_WORD_TEMPLATE = "{amount_in_word} {AND} {cents}/100 {currency_name}"
+_(AND)
+_(AMOUNT_WORD_TEMPLATE)
 
 
 class report_print_check(report_sxw.rml_parse):
@@ -129,7 +132,7 @@ class report_print_check(report_sxw.rml_parse):
         # max char with font Courier 9.0
         max_char = 72
         try:
-            if type(lang) is str:
+            if type(lang) is str or type(lang) is unicode:
                 amount_in_word = num2words(int(amount), lang=lang[:2])
             else:
                 amount_in_word = num2words(int(amount))
@@ -137,24 +140,17 @@ class report_print_check(report_sxw.rml_parse):
             amount_in_word = num2words(int(amount))
         currency_name = currency.print_on_check
         cents = int(amount * 100) % 100
-        AND = custom_translation("and", lang)
+        s_and = custom_translation(AND, lang)
+        first_line = custom_translation(AMOUNT_WORD_TEMPLATE, lang)
 
-        if lang.startswith('fr'):
-            first_line = u'{amount_in_word} {currency_name} {AND} {cents}/100 '
-        else:
-            first_line = u'{amount_in_word} {AND} {cents}/100 {currency_name} '
-
-        first_line = first_line.format(AND=AND, currency_name=currency_name,
+        first_line = first_line.format(AND=s_and, currency_name=currency_name,
                                        amount_in_word=amount_in_word,
                                        cents=cents)
 
         first_line = first_line.title()
 
         nb_missing_char = max_char - len(first_line)
-        if nb_missing_char:
-            stars = '*' * nb_missing_char
-        else:
-            stars = ''
+        stars = '*' * nb_missing_char
         amount_line_fmt = stars + first_line
         return amount_line_fmt
 

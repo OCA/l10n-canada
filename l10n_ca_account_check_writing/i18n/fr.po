@@ -30,6 +30,19 @@ msgid "and"
 msgstr "et"
 
 #. module: l10n_ca_account_check_writing
+#: code:addons/l10n_ca_account_check_writing/report/l10n_ca_check_print.py:87
+#, python-format
+msgid "Plus que %d lignes dans voucher, Imprimer les talons de chèques pour obtenir toutes les %d lines"
+msgstr ""
+
+
+#. module: l10n_ca_account_check_writing
+#: code:addons/l10n_ca_account_check_writing/report/l10n_ca_check_print.py:148
+#, python-format
+msgid "{amount_in_word} {AND} {cents}/100 {currency_name}"
+msgstr "{amount_in_word} {currency_name} {AND} {cents}/100"
+
+#. module: l10n_ca_account_check_writing
 #: field:account.voucher,currency_help_label:0
 msgid "Helping Sentence"
 msgstr "Phrase d'aide"
