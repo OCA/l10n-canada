@@ -22,6 +22,9 @@ install:
   - git clone --depth=1 https://github.com/OCA/account-financial-tools.git ${HOME}/financial-tools -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/bank-statement-reconcile.git ${HOME}/bank-statement-reconcile -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/webkit-tools.git ${HOME}/webkit-tools -b ${VERSION}
+  - bzr branch lp:~savoirfairelinux-openerp/openerp-usa/npg_bank_account_reconciliation-add_unclear_entries_summation ${HOME}/openerp-usa
+  - bzr branch lp:~noviat/openobject-addons/extra-7.0 ${HOME}/noviat
+  
 
 script:
   - travis_run_flake8
