@@ -16,7 +16,7 @@ install:
   - export PATH=${HOME}/maintainer-quality-tools/travis:$PATH
   - travis_install_nightly
   - pip install coveralls flake8
-  - sudo pip install num2words
+  - sudo pip install num2words xlrd
   - bzr branch lp:~noviat/openobject-addons/extra-7.0 ${HOME}/noviat
   - bzr branch lp:~rcarnes/openerp-shared/7.0 ${HOME}/shared
   - bzr branch lp:~savoirfairelinux-openerp/openerp-usa/npg_bank_account_reconciliation-add_unclear_entries_summation ${HOME}/usa
