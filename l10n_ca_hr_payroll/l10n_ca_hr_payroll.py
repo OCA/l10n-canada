@@ -64,8 +64,8 @@ class hr_payroll_tax_table(orm.Model):
                                          required=True),
         'state_id': fields.many2one('res.country.state', 'Province'),
         'type': fields.selection(get_type, 'Type', required=True),
-        'line_federal_ids': fields.one2many('hr.payroll.tax.table.federal.line',
-                                            'table_id', 'Lines'),
+        'line_federal_ids': fields.one2many(
+            'hr.payroll.tax.table.federal.line', 'table_id', 'Lines'),
         'line_ei_ids': fields.one2many('hr.payroll.tax.table.ei.line',
                                        'table_id', 'Lines'),
         'line_qc_ids': fields.one2many('hr.payroll.tax.table.qc.line',
@@ -171,8 +171,8 @@ class hr_payroll_tax_table_rqap_line(orm.Model):
                                          digits=(16, 2)),
         'employer_contrib': fields.float('Employer contribution',
                                          digits=(16, 2)),
-        'max_annual_insurable_earnings': fields.float('Maximum Annual Insurable\
-                                                       Earnings',
+        'max_annual_insurable_earnings': fields.float('Maximum Annual\
+                                                      Insurable Earnings',
                                                       digits=(16, 2)),
     }
 
@@ -253,7 +253,8 @@ Annual deduction for living in a prescribed zone as indicated on Form TD1"""),
                             help="Federal labour-sponsored funds tax credit"),
         'lcp': fields.float(
             'Prov Labour sponsored funds (LCP)', digits=(16, 2),
-            help="Provincial or territorial labour-sponsored funds tax credit"),
+            help="""Provincial or territorial labour-sponsored funds tax\
+                    credit"""),
         'f': fields.float('RSP/RPP/RCA (F)', digits=(16, 2), help="""\
 Payroll deductions for employee contributions to a registered pension plan
  (RPP), a registered retirement savings plan (RRSP), or a retirement
@@ -269,7 +270,8 @@ authorized by a tax services office or tax centre"""),
                           help="""\
 Extra provincial or territorial tax reduction based on applicable amounts
 reported on the provincial or territorial Form TD1"""),
-        'td1': fields.float('Personal Tax Credits Return (TD1)', digits=(16, 2),
+        'td1': fields.float('Personal Tax Credits Return (TD1)',
+                            digits=(16, 2),
                             required=True, help="Personal Tax Credits Return"),
         'eeins': fields.float('Insurance - Employee Contribution (EeINS)',
                               digits=(16, 2), required=True),
@@ -307,8 +309,8 @@ class hr_contract(orm.Model):
             'annually': 1,
         }
         for contract in self.browse(cr, uid, ids, context):
-            if contract.schedule_pay and schedule_pay.get(contract.schedule_pay,
-                                                          False):
+            if contract.schedule_pay and \
+                    schedule_pay.get(contract.schedule_pay, False):
                 res[contract.id] = schedule_pay[contract.schedule_pay]
 
         return res
