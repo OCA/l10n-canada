@@ -1,0 +1,16 @@
+<openerp>
+	<data>
+
+        	<record id="view_expenses_form" model="ir.ui.view">
+			<field name="name">hr.expense.form.inherit</field>
+			<field name="model">hr.expense.expense</field>
+			<field name="inherit_id" ref="hr_expense.view_expenses_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Description']/field[@name='line_ids']/tree/field[@name='analytic_account']" position="before">
+					<field name="partner_id" domain="[('supplier','=',True)]"/>
+				</xpath>
+            		</field>
+        	</record>
+
+	</data>
+</openerp>
