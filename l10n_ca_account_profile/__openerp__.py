@@ -42,6 +42,7 @@ Contributors
 """,
     "depends": [
         'l10n_ca_toponyms',
+        'l10n_ca_account_check_writing',
         'currency_rate_update',
         'report_xls',
         'account_financial_report_webkit',
