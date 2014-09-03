@@ -22,7 +22,7 @@
 
 {
     "name": "Taxes included in expense",
-    "version": "1.1",
+    "version": "1.2",
     "author": "Savoir-faire Linux",
     "category": "Account",
     "website": "http://wwww.savoirfairelinux.com",
@@ -43,7 +43,7 @@ Contributors
 """,
     "depends": ["account"],
     "data": [
-        "account_tax_expense_include_view.xml",
+        "account_tax_view.xml",
     ],
-    "installable": False
+    "installable": True
 }

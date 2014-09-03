@@ -21,7 +21,7 @@
 ##############################################################################
 {
     "name": "Supplier on expense line",
-    "version": "1.1",
+    "version": "1.2",
     "author": "Savoir-faire Linux",
     "website": "http://www.savoirfairelinux.com",
     "category": "Human Resources",
@@ -39,7 +39,7 @@ Contributors
 """,
     "depends": ['hr_expense'],
     "data": [
-        'hr_expense.xml',
+        'hr_expense_line_view.xml',
     ],
-    "installable": False,
+    "installable": True
 }
