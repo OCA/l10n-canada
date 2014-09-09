@@ -286,9 +286,26 @@ reported on the provincial or territorial Form TD1"""),
     }
 
 
+class hr_contract_allowance(orm.Model):
+    _name = 'hr.contract.allowance'
+    _description = 'The allowances in an employee contract'
+    
+    _columns = {
+        'name': fields.char('Description', size=256, required=True),
+        'contract_id': fields.many2one('hr.contract', 'Contract', required=True, ondelete='cascade', select=True),
+        'sequence': fields.integer('Sequence', required=True, select=True),
+        'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules"),
+        'amount': fields.float('Amount', help="It is used in computation. For e.g. A rule for sales having 1% commission of basic salary for per product can defined in expression like result = inputs.SALEURO.amount * contract.wage*0.01."),
+    }
+    _order = 'contract_id, sequence'
+    _defaults = {
+        'sequence': 10,
+        'amount' : 0.0,
+    }
+
+
 class hr_contract(orm.Model):
     _inherit = 'hr.contract'
-
     def _get_pays_per_year(self, cr, uid, ids, names, arg, context=None):
         """
         @param ids: ID of contract
@@ -320,6 +337,7 @@ class hr_contract(orm.Model):
         ),
         'weeks_of_vacation': fields.integer('Number of weeks of vacation',
                                             required=True),
+        'allowances_line_ids': fields.one2many('hr.contract.allowance', 'contract_id', 'Allowances', required=False, readonly=False,),
     }
 
     _defaults = {
