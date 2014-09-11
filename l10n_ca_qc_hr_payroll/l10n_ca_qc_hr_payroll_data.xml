@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
+    
+    <!-- Deduction Category-->
+    	<record id="QITF" model="hr.deduction.category">
+            <field name="name">Contributions to pension plans (QIT-F)</field>
+            <field name="code">QIT-F</field>
+            <field name="description">Deductions related to the variable F of Revenu Quebec</field>
+            <field name="default_amount">0.0</field>
+            <field name="parent">none</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        <record id="QITF2" model="hr.deduction.category">
+            <field name="name">Contributions to pension (estimated income) (QIT-F2)</field>
+            <field name="code">QIT-F2</field>
+            <field name="description">Deductions related to the variable F2 of Revenu Quebec (used for estimated annual income)</field>
+            <field name="default_amount">0.0</field>
+            <field name="parent">none</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        <record id="QITJ" model="hr.deduction.category">
+            <field name="name">Source Deduction Return (QIT-J)</field>
+            <field name="code">QIT-J</field>
+            <field name="description">Line 19 of the form TP-1015.3 if authorized before the first period of pay. Otherwise, see the documentation from Revenu Quebec</field>
+            <field name="default_amount">0.0</field>
+            <field name="parent">none</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        <record id="QITJ1" model="hr.deduction.category">
+            <field name="name">Reduction in Source Deductions (QIT-J1)</field>
+            <field name="code">QIT-J1</field>
+            <field name="description">Total of the form TP-1016 if authorized before the first period of pay. Otherwise, see the documentation from Revenu Quebec</field>
+            <field name="default_amount">0.0</field>
+            <field name="parent">none</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        <record id="QITH" model="hr.deduction.category">
+            <field name="name">Deduction for employment income (QIT-H)</field>
+            <field name="code">QIT-H</field>
+            <field name="description">Deduction for employment income</field>
+            <field name="default_amount">0.0</field>
+            <field name="parent">none</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+
 
     <!-- Quebec Parental Insurance Plan - 120 -->
-
         <record id="rule_qc_qpip_maxie" model="hr.salary.rule">
             <field name="name">QPIP - Employee and Employer Maximum Insurable Earnings (QPIPMAXIE)</field>
             <field name="sequence" eval="120"/>
@@ -13,7 +55,9 @@
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = min(GROSS,67500)</field>
+            <field name="amount_python_compute">
+result = min(GROSS,67500)
+            </field>
         </record>
 
     <!-- Quebec Parental Insurance Plan - Employee - 121 -->
@@ -420,7 +464,7 @@ else:
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = employee.eeins</field>
+            <field name="amount_python_compute">result = 0</field>
         </record>
 
         <record id="rule_qc_ins_ee_ytdc" model="hr.salary.rule">
@@ -449,21 +493,27 @@ result = payslip.sum('INSEEYTDC',date_from,date_to) + INSEEC
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = employee.erins</field>
+            <field name="amount_python_compute">result = 0</field>
         </record>
 
     <!-- Quebec Income Tax - 180 -->
 
-        <record id="rule_qc_qit_ti" model="hr.salary.rule">
-            <field name="name">QIT - Taxable Income (QITTI)</field>
+        <record id="rule_qc_qit_i" model="hr.salary.rule">
+            <field name="name">QIT_I - Annual Taxable Income (QIT_I)</field>
             <field name="sequence" eval="181"/>
-            <field name="code">QITTI</field>
+            <field name="code">QIT_I</field>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = GROSS - employee.tp10153</field>
+            <field name="amount_python_compute">
+deductions = employee.sum_deductions()
+
+
+result = GROSS - deductions
+            
+            </field>
         </record>
 
         <record id="rule_qc_qit" model="hr.salary.rule">
@@ -487,9 +537,9 @@ res = 0
 for levelRate in levelRates:
     maxRange = levelRate[0]
     rate = levelRate[1]
-    if QITTI &gt; minRange and (QITTI &lt;= maxRange):
-        res += (QITTI - minRange) * rate
-    elif QITTI &gt; maxRange:
+    if QIT_I &gt; minRange and (QIT_I &lt;= maxRange):
+        res += (QIT_I - minRange) * rate
+    elif QIT_I &gt; maxRange:
         res += (maxRange - minRange) * rate
     minRange = maxRange
 
@@ -549,7 +599,7 @@ result = payslip.sum('QITYTD',date_from,date_to) + QIT
         ref('rule_qc_ei_ee_pytdc'),
         ref('rule_qc_ei_ee_c'),
         ref('rule_qc_ei_ee_ytdc'),
-        ref('rule_qc_qit_ti'),
+        ref('rule_qc_qit_i'),
         ref('rule_qc_qit'),
         ref('rule_qc_qit_ytd')
         ])]"/>

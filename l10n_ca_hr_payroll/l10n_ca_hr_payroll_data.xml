@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
+    
 
     <!-- Salary Rules Category -->
 
@@ -167,10 +168,10 @@ result = payslip.sum('EIERYTDC',date_from,date_to)
 
     <!-- Federal Income Tax - 170 -->
 
-        <record id="rule_ca_fit_rate" model="hr.salary.rule">
-            <field name="name">FIT - Rate 16.5% (FITRATE)</field>
+        <record id="rule_ca_abatement" model="hr.salary.rule">
+            <field name="name">FIT - Abatement 16.5% (FIT-ABAT)</field>
             <field name="sequence" eval="170"/>
-            <field name="code">FITRATE</field>
+            <field name="code">FIT-ABAT</field>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="category_id" ref="FCALC"/>
@@ -189,7 +190,7 @@ result = payslip.sum('EIERYTDC',date_from,date_to)
             <field name="category_id" ref="FCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = GROSS - (employee.td1 + QPIPEEMAXC + QPPEEMAXC + EIEEMAXC) * (1 + FITRATE * 0.01)</field>
+            <field name="amount_python_compute">result = GROSS - (0 + QPIPEEMAXC + QPPEEMAXC + EIEEMAXC) * (1 + 0 * 0.01)</field>
         </record>
 
         <record id="rule_ca_fit" model="hr.salary.rule">
@@ -279,7 +280,7 @@ result = payslip.sum('VACYTD',date_from,date_to) + VAC
         ref('rule_ca_ei_er_c'),
         ref('rule_ca_ei_er_pytdc'),
         ref('rule_ca_ei_er_ytdc'),
-        ref('rule_ca_fit_rate'),
+        ref('rule_ca_abatement'),
         ref('rule_ca_fit_ti'),
         ref('rule_ca_fit'),
         ref('rule_ca_fit_ytd'),

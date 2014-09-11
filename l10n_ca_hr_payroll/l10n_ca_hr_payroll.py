@@ -19,8 +19,8 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
-
+from openerp.osv import fields, orm, osv
+import time
 
 def get_jurisdiction(self, cursor, user_id, context=None):
     return (
@@ -36,11 +36,10 @@ def get_type(self, cursor, user_id, context=None):
         ('rqap', 'RQAP / RRQ'),
         ('csst', 'CSST'))
 
-
 class hr_payroll_tax_table(orm.Model):
-    """
+    '''
     Canadian Tax Payroll Table
-    """
+    '''
     _name = 'hr.payroll.tax.table'
     _description = 'Canadian Tax Payroll Table'
 
@@ -54,41 +53,33 @@ class hr_payroll_tax_table(orm.Model):
             res['name'] += ' / Federal'
 
         return {'value': res}
-
+        
     _columns = {
-        'name': fields.char('Description', size=128),
-        'year': fields.integer('Year', required=True),
-        'date_from': fields.date('Date From'),
-        'date_to': fields.date('Date To'),
-        'jurisdiction': fields.selection(get_jurisdiction, 'Jurisdiction',
-                                         required=True),
-        'state_id': fields.many2one('res.country.state', 'Province'),
-        'type': fields.selection(get_type, 'Type', required=True),
-        'line_federal_ids': fields.one2many('hr.payroll.tax.table.federal.line',
-                                            'table_id', 'Lines'),
-        'line_ei_ids': fields.one2many('hr.payroll.tax.table.ei.line',
-                                       'table_id', 'Lines'),
-        'line_qc_ids': fields.one2many('hr.payroll.tax.table.qc.line',
-                                       'table_id', 'Lines'),
-        'line_rqap_ids': fields.one2many('hr.payroll.tax.table.rqap.line',
-                                         'table_id', 'Lines'),
-        'line_csst_ids': fields.one2many('hr.payroll.tax.table.csst.line',
-                                         'table_id', 'Lines'),
-    }
+            'name': fields.char('Description', size=128),
+            'year': fields.integer('Year', required=True),
+            'date_from': fields.date('Date From'),
+            'date_to': fields.date('Date To'),
+            'jurisdiction': fields.selection(get_jurisdiction, 'Jurisdiction', required=True),
+            'state_id': fields.many2one('res.country.state', 'Province'),
+            'type': fields.selection(get_type, 'Type', required=True),
+            'line_federal_ids': fields.one2many('hr.payroll.tax.table.federal.line', 'table_id', 'Lines'),
+            'line_ei_ids': fields.one2many('hr.payroll.tax.table.ei.line', 'table_id', 'Lines'),
+            'line_qc_ids': fields.one2many('hr.payroll.tax.table.qc.line', 'table_id', 'Lines'),
+            'line_rqap_ids': fields.one2many('hr.payroll.tax.table.rqap.line', 'table_id', 'Lines'),
+            'line_csst_ids': fields.one2many('hr.payroll.tax.table.csst.line', 'table_id', 'Lines'),
+            }
 
     _defaults = {
-        'jurisdiction': 'federal',
-        'type': 'federal',
-    }
-
+            'jurisdiction': 'federal',
+            'type': 'federal',
+            }
 
 class hr_payroll_tax_table_federal_line(orm.Model):
-    """
+    '''
     Federal Lines
-    """
+    '''
     _name = 'hr.payroll.tax.table.federal.line'
     _description = 'Federal Lines'
-    _rec_name = 'inc_from'
     _columns = {
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
         'inc_from': fields.float('Income From', digits=(16, 2), required=True),
@@ -104,35 +95,32 @@ class hr_payroll_tax_table_federal_line(orm.Model):
         'code8': fields.float('Code 8', digits=(16, 2)),
         'code9': fields.float('Code 9', digits=(16, 2)),
         'code10': fields.float('Code 10', digits=(16, 2)),
-    }
+        }
 
+    _rec_name = 'inc_from'
 
 class hr_payroll_tax_table_ei_line(orm.Model):
-    """
+    '''
     Employment Insurance Lines
-    """
+    '''
     _name = 'hr.payroll.tax.table.ei.line'
     _description = 'Employment Insurance Lines'
-    _rec_name = 'inc_from'
     _columns = {
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
         'inc_from': fields.float('Income From', digits=(16, 2), required=True),
         'inc_to': fields.float('Income To', digits=(16, 2), required=True),
         'rate': fields.float('Rate', digits=(16, 2), required=True),
-        'max_annual_insurable_earnings': fields.float(
-            'Maximum Annual Insurable Earnings',
-            digits=(16, 2), required=True,
-        ),
-    }
+        'max_annual_insurable_earnings': fields.float('Maximum Annual Insurable Earnings', digits=(16, 2), required=True),
+        }
 
+    _rec_name = 'inc_from'
 
 class hr_payroll_tax_table_qc_line(orm.Model):
-    """
+    '''
     Quebec Lines
-    """
+    '''
     _name = 'hr.payroll.tax.table.qc.line'
     _description = 'Quebec Lines'
-    _rec_name = 'inc_from'
     _columns = {
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
         'inc_from': fields.float('Income From', digits=(16, 2), required=True),
@@ -154,39 +142,144 @@ class hr_payroll_tax_table_qc_line(orm.Model):
         'codeN': fields.float('Code N', digits=(16, 2)),
         'codeY': fields.float('Code Y', digits=(16, 2)),
         'codeZ': fields.float('Code Z', digits=(16, 2)),
-    }
+        }
 
+    _rec_name = 'inc_from'
 
 class hr_payroll_tax_table_rqap_line(orm.Model):
-    """
+    '''
     RQAP Lines
-    """
+    '''
     _name = 'hr.payroll.tax.table.rqap.line'
     _description = 'RQAP Lines'
     _columns = {
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
         'inc_from': fields.float('Income From', digits=(16, 2), required=True),
         'inc_to': fields.float('Income To', digits=(16, 2), required=True),
-        'employee_contrib': fields.float('Employee contribution',
-                                         digits=(16, 2)),
-        'employer_contrib': fields.float('Employer contribution',
-                                         digits=(16, 2)),
-        'max_annual_insurable_earnings': fields.float('Maximum Annual Insurable\
-                                                       Earnings',
-                                                      digits=(16, 2)),
-    }
-
+        'employee_contrib': fields.float('Employee contribution', digits=(16, 2)),
+        'employer_contrib': fields.float('Employer contribution', digits=(16, 2)),
+        'max_annual_insurable_earnings': fields.float('Maximum Annual Insurable Earnings', digits=(16, 2)),
+        }
 
 class hr_payroll_tax_table_csst_line(orm.Model):
-    """
+    '''
     CSST Lines
-    """
+    '''
     _name = 'hr.payroll.tax.table.csst.line'
     _description = 'CSST Lines'
     _columns = {
         'name': fields.char('Name', size=256, required=True),
         'table_id': fields.many2one('hr.payroll.tax.table', 'Table'),
+        }
+
+
+class hr_deduction_category(orm.Model):
+    _name = 'hr.deduction.category'
+    _description = 'Categories of employee deductions used for salary rules'
+    _columns = {
+		'name': fields.char('Deduction Name', size=52, required=True),
+		'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules to identify the deduction"),
+		'description': fields.char('Description', size=256, required=True, help="Brief explanation of which benefits the category contains."),
+		'default_amount': fields.float('Default Amount', required=True),
+		'parent_id':fields.many2one('hr.deduction.category', 'Parent'),
+        'child_ids':fields.one2many('hr.deduction.category', 'parent_id', 'Children'),
+        'jurisdiction': fields.selection(get_jurisdiction, 'Jurisdiction', required=True),
+	}
+    _defaults = {
+        'default_amount': 0.0,
+        'jurisdiction': 'federal',
     }
+    _constraints = [
+        (osv.osv._check_recursion, 'Error ! The parent can not be', ['parent_id']) 
+    ]
+    
+    def _recursive_search_of_deductions(self, cr, uid, deduction_ids, context=None):
+        """
+        @param deductions_ids: list of browse record
+        @return: returns a list of ids which are all the children of the passed deduction_ids
+        """
+        children_deductions = []
+        for d in deduction_ids:
+            if d.child_ids:
+                children_deductions += self._recursive_search_of_deductions(cr, uid, d.child_ids, context=context)
+        return [d.id for d in deduction_ids] + children_deductions
+        
+    def onchange_jurisdiction(self, cr, uid, ids, jurisdiction=False):
+		res = {}
+		parent = self.browse(cr, uid, ids)
+		children = self._recursive_search_of_deductions(cr, uid, parent)
+		self.write(cr, uid, children, {'jurisdiction': jurisdiction})
+		return res
+    	
+    def onchange_parent_id(self, cr, uid, ids, parent_id=False):
+		res = {'value':{'jurisdiction': 'federal',}}
+		if parent_id:
+			parent = self.pool.get('hr.deduction.category').browse(cr, uid, parent_id)
+			res['value']['jurisdiction'] = parent.jurisdiction
+		return res
+
+class hr_employee_deduction(orm.Model):
+    _name = 'hr.employee.deduction'
+    _description = 'Employee deductions used for salary rules'
+    _columns = {
+        'employee_id': fields.many2one('hr.employee', 'Employee', required=True, readonly=True),
+        'category_id': fields.many2one('hr.deduction.category', 'Deduction', required=True, ondelete='cascade', select=True),
+        'amount': fields.float('Annual Amount', required=True, help="It is used in computation of the payslip."),
+        'date_start': fields.date('Start Date', required=True),
+        'date_end': fields.date('End Date'),
+        'code': fields.related('category_id', 'code', type='char', size=52, string='Code'),
+    }
+    _defaults = {
+        'amount' : 0.0,
+        'date_start': lambda *a: time.strftime('%Y-%m-%d'),
+    }
+    def onchange_category_id(self, cr, uid, ids, category_id=False):
+        res = {'value':{'amount': 0.0,}}
+        if category_id:
+            category = self.pool.get('hr.deduction.category').browse(cr, uid, category_id)
+            res['value']['amount'] = category.default_amount
+        return res
+
+
+class hr_benefit_category(orm.Model):
+	_name = 'hr.benefit.category'
+	_description = 'Categories of employee benefits'
+	_columns = {
+		'name': fields.char('Benefit Name', size=52, required=True),
+		'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules to identify the benefit"),
+		'description': fields.char('Description', size=256, required=True, help="Brief explanation of which benefits the category contains."),
+		'is_cash': fields.boolean('Is Cash', help="True if the benefit is paid in cash to the employee, False if paid in Kind."),
+		'default_amount': fields.float('Default Amount', required=True),
+		'ei_exempt': fields.boolean('EI Exempt'),
+		'fit_exempt': fields.boolean('FIT Exempt'),
+	}
+	_defaults = {
+		'is_cash': True,
+		'default_amount': 0.0,
+		'ei_exempt': False,
+		'fit_exempt': False,
+	}
+	
+class hr_contract_benefit(orm.Model):
+    _name = 'hr.contract.benefit'
+    _description = 'The benefits in an employee contract'
+    _columns = {
+        'contract_id': fields.many2one('hr.contract', 'Contract', required=True, ondelete='cascade', select=True),
+        'category_id': fields.many2one('hr.benefit.category', 'Benefit', required=True, ondelete='cascade', select=True),
+        'amount': fields.float('Annual Amount', required=True, help="It is used in computation of the payslip."),
+        'date_start': fields.date('Start Date', required=True),
+        'date_end': fields.date('End Date'),
+    }
+    _defaults = {
+        'amount' : 0.0,
+        'date_start': lambda *a: time.strftime('%Y-%m-%d'),
+    }
+    def onchange_category_id(self, cr, uid, ids, category_id=False):
+        res = {'value':{'amount': 0.0,}}
+        if category_id:
+            category = self.pool.get('hr.benefit.category').browse(cr, uid, category_id)
+            res['value']['amount'] = category.default_amount
+        return res
 
 
 class hr_employee(orm.Model):
@@ -195,38 +288,6 @@ class hr_employee(orm.Model):
 
     _columns = {
         'ei_exempt': fields.boolean('EI Exempt'),
-        'td1f': fields.selection([
-            ('code1', '1'),
-            ('code2', '2'),
-            ('code3', '3'),
-            ('code4', '4'),
-            ('code5', '5'),
-            ('code6', '6'),
-            ('code7', '7'),
-            ('code8', '8'),
-            ('code9', '9'),
-            ('code10', '10'),
-            ('code0', '0')
-        ], 'Federal Claim Code', required=True),
-        'td1p': fields.selection([
-            ('codeA', 'A'),
-            ('codeB', 'B'),
-            ('codeC', 'C'),
-            ('codeD', 'D'),
-            ('codeE', 'E'),
-            ('codeF', 'F'),
-            ('codeG', 'G'),
-            ('codeH', 'H'),
-            ('codeI', 'I'),
-            ('codeJ', 'J'),
-            ('codeK', 'K'),
-            ('codeL', 'L'),
-            ('codeM', 'M'),
-            ('codeN', 'N'),
-            ('codeY', 'Y'),
-            ('codeZ', 'Z'),
-            ('code0', '0')
-        ], 'Provincial Claim Code', required=True),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
         'qpip_exempt': fields.boolean('QPIP Exempt'),
         'cpp_ytd_adj': fields.float('CPP/QPP YTD Adjustment', help="""\
@@ -238,69 +299,30 @@ Amount to adjust EI for calculations.
 Used if employee has contributed elsewhere and will be factored in when
 calculating maximum EI payment"""),
         'vac_pay': fields.float('Vacation Pay %', digits=(16, 2)),
-        'f1': fields.float(name='Childcare/Alimony (F1)', digits=(16, 2),
-                           help="""\
-Annual deductions such as child care expenses and support payments, etc.,
-authorized by a tax services office or tax centre"""),
-        'f2': fields.float('Alimony/Maint Garnish (F2)', digits=(16, 2),
-                           help="""\
-Alimony or maintenance payments required by a legal document to be
-payroll-deducted authorized by a tax services office or tax centre"""),
-        'hd': fields.float('Prescribed Zone (HD)', digits=(16, 2),
-                           help="""\
-Annual deduction for living in a prescribed zone as indicated on Form TD1"""),
-        'lcf': fields.float('Fed Labour sponsored funds (LCF)', digits=(16, 2),
-                            help="Federal labour-sponsored funds tax credit"),
-        'lcp': fields.float(
-            'Prov Labour sponsored funds (LCP)', digits=(16, 2),
-            help="Provincial or territorial labour-sponsored funds tax credit"),
-        'f': fields.float('RSP/RPP/RCA (F)', digits=(16, 2), help="""\
-Payroll deductions for employee contributions to a registered pension plan
- (RPP), a registered retirement savings plan (RRSP), or a retirement
-compensation arrangement (RCA)"""),
-        'l': fields.float('Extra Tax Deductions (L)', digits=(16, 2), help="""\
-Extra tax deductions requested for the pay period."""),
-        'k3': fields.float('Federal Medical (K3)', digits=(16, 2), help="""\
-Other federal tax credits, such as medical expenses and charitable donations
-authorized by a tax services office or tax centre"""),
-        'u1': fields.float('Union Dues (U1)', digits=(16, 2),
-                           help="Union dues"),
-        'y': fields.float('MB/ON Extra Tax Reduction(Y)', digits=(16, 2),
-                          help="""\
-Extra provincial or territorial tax reduction based on applicable amounts
-reported on the provincial or territorial Form TD1"""),
-        'td1': fields.float('Personal Tax Credits Return (TD1)', digits=(16, 2),
-                            required=True, help="Personal Tax Credits Return"),
-        'eeins': fields.float('Insurance - Employee Contribution (EeINS)',
-                              digits=(16, 2), required=True),
-        'erins': fields.float('Insurance - Employer Contribution (ErINS)',
-                              digits=(16, 2), required=True),
+		'deduction_ids':fields.one2many('hr.employee.deduction', 'employee_id', 'Deductions', help="Deductions for the computation of the employee's payslips"),
     }
 
+    def sum_deductions(self, cr, uid, ids, employee_id, deduction_code, context=None):
+    	
+		employee = self.read(cr, uid, employee_id, ['deduction_ids'], context)
+		
+		deduction_ids = employee['deduction_ids']
+		obj = self.pool.get('hr.employee.deduction')
+		deductions = obj.read(cr, uid, deduction_ids, ['code', 'amount', 'category_id'], context)
+		
+		res = 0
+		for d in deductions:
+			if d['code'] == deduction_code:
+			obj = self.pool.get('hr.deduction.category')
+			parent = obj.browse(cr, uid, d['category_id'][0], context)
+			children_ids = obj._recursive_search_of_deductions(cr, uid, [parent], context)
+			children = obj.read(cr, uid, children_ids, ['code', 'amount', 'category_id'], context)
+			for c in children:
+				print c
+				res += c['amount']
+		return res
+    	
     _defaults = {
-        'td1f': 'code1',
-        'td1p': 'codeA',
-        'td1': 11038.00,
-        'eeins': 0.00,
-        'erins': 0.00,
-    }
-
-
-class hr_contract_allowance(orm.Model):
-    _name = 'hr.contract.allowance'
-    _description = 'The allowances in an employee contract'
-    
-    _columns = {
-        'name': fields.char('Description', size=256, required=True),
-        'contract_id': fields.many2one('hr.contract', 'Contract', required=True, ondelete='cascade', select=True),
-        'sequence': fields.integer('Sequence', required=True, select=True),
-        'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules"),
-        'amount': fields.float('Amount', help="It is used in computation. For e.g. A rule for sales having 1% commission of basic salary for per product can defined in expression like result = inputs.SALEURO.amount * contract.wage*0.01."),
-    }
-    _order = 'contract_id, sequence'
-    _defaults = {
-        'sequence': 10,
-        'amount' : 0.0,
     }
 
 
@@ -337,7 +359,7 @@ class hr_contract(orm.Model):
         ),
         'weeks_of_vacation': fields.integer('Number of weeks of vacation',
                                             required=True),
-        'allowances_line_ids': fields.one2many('hr.contract.allowance', 'contract_id', 'Allowances', required=False, readonly=False,),
+		'benefit_line_ids': fields.one2many('hr.contract.benefit', 'contract_id','Employee Benefits'),
     }
 
     _defaults = {
