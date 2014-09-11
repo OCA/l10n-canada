@@ -21,5 +21,6 @@
 ##############################################################################
 
 from . import (
-    account_tax
+    account_tax,
+    hr_expense_expense
 )

@@ -41,7 +41,7 @@ Contributors
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    "depends": ["account"],
+    "depends": ["account", "hr_expense"],
     "data": [
         "account_tax_view.xml",
     ],
