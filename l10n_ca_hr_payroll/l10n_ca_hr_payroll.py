@@ -177,53 +177,26 @@ class hr_deduction_category(orm.Model):
     _name = 'hr.deduction.category'
     _description = 'Categories of employee deductions used for salary rules'
     _columns = {
-		'name': fields.char('Deduction Name', size=52, required=True),
+		'name': fields.char('Category Name', size=52, required=True),
 		'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules to identify the deduction"),
 		'description': fields.char('Description', size=256, required=True, help="Brief explanation of which benefits the category contains."),
 		'default_amount': fields.float('Default Amount', required=True),
-		'parent_id':fields.many2one('hr.deduction.category', 'Parent'),
-        'child_ids':fields.one2many('hr.deduction.category', 'parent_id', 'Children'),
         'jurisdiction': fields.selection(get_jurisdiction, 'Jurisdiction', required=True),
+        'note': fields.text('Note'),
 	}
     _defaults = {
         'default_amount': 0.0,
         'jurisdiction': 'federal',
     }
-    _constraints = [
-        (osv.osv._check_recursion, 'Error ! The parent can not be', ['parent_id']) 
-    ]
-    
-    def _recursive_search_of_deductions(self, cr, uid, deduction_ids, context=None):
-        """
-        @param deductions_ids: list of browse record
-        @return: returns a list of ids which are all the children of the passed deduction_ids
-        """
-        children_deductions = []
-        for d in deduction_ids:
-            if d.child_ids:
-                children_deductions += self._recursive_search_of_deductions(cr, uid, d.child_ids, context=context)
-        return [d.id for d in deduction_ids] + children_deductions
-        
-    def onchange_jurisdiction(self, cr, uid, ids, jurisdiction=False):
-		res = {}
-		parent = self.browse(cr, uid, ids)
-		children = self._recursive_search_of_deductions(cr, uid, parent)
-		self.write(cr, uid, children, {'jurisdiction': jurisdiction})
-		return res
-    	
-    def onchange_parent_id(self, cr, uid, ids, parent_id=False):
-		res = {'value':{'jurisdiction': 'federal',}}
-		if parent_id:
-			parent = self.pool.get('hr.deduction.category').browse(cr, uid, parent_id)
-			res['value']['jurisdiction'] = parent.jurisdiction
-		return res
-
+	
+	
 class hr_employee_deduction(orm.Model):
     _name = 'hr.employee.deduction'
     _description = 'Employee deductions used for salary rules'
     _columns = {
+        'name': fields.char('Deduction Name', size=52, required=True),
         'employee_id': fields.many2one('hr.employee', 'Employee', required=True, readonly=True),
-        'category_id': fields.many2one('hr.deduction.category', 'Deduction', required=True, ondelete='cascade', select=True),
+        'category_id': fields.many2one('hr.deduction.category', 'Category', required=True, ondelete='cascade', select=True),
         'amount': fields.float('Annual Amount', required=True, help="It is used in computation of the payslip."),
         'date_start': fields.date('Start Date', required=True),
         'date_end': fields.date('End Date'),
@@ -238,6 +211,7 @@ class hr_employee_deduction(orm.Model):
         if category_id:
             category = self.pool.get('hr.deduction.category').browse(cr, uid, category_id)
             res['value']['amount'] = category.default_amount
+            res['value']['name'] = category.name
         return res
 
 
@@ -249,7 +223,8 @@ class hr_benefit_category(orm.Model):
 		'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules to identify the benefit"),
 		'description': fields.char('Description', size=256, required=True, help="Brief explanation of which benefits the category contains."),
 		'is_cash': fields.boolean('Is Cash', help="True if the benefit is paid in cash to the employee, False if paid in Kind."),
-		'default_amount': fields.float('Default Amount', required=True),
+		'default_amount': fields.float('Default Employee Contribution', required=True, help="Default annual amount that the employee contributes"),
+		'default_er_amount': fields.float('Default Employer Contribution', required=True, help="Default annual amount that the employer contributes"),
 		'ei_exempt': fields.boolean('EI Exempt'),
 		'fit_exempt': fields.boolean('FIT Exempt'),
 	}
@@ -264,14 +239,22 @@ class hr_contract_benefit(orm.Model):
     _name = 'hr.contract.benefit'
     _description = 'The benefits in an employee contract'
     _columns = {
+    	'name': fields.char('Deduction Name', size=52, required=True),
         'contract_id': fields.many2one('hr.contract', 'Contract', required=True, ondelete='cascade', select=True),
         'category_id': fields.many2one('hr.benefit.category', 'Benefit', required=True, ondelete='cascade', select=True),
-        'amount': fields.float('Annual Amount', required=True, help="It is used in computation of the payslip."),
+        'amount': fields.float('Employee Contribution', required=True, help="Enter the amount that you would pay for a complete year, even if the duration is lower that a year."),
+        'er_amount': fields.float('Employer Contribution', required=True, help="Enter the amount that you would pay for a complete year, even if the duration is lower that a year."),
         'date_start': fields.date('Start Date', required=True),
         'date_end': fields.date('End Date'),
+        'ei_exempt': fields.related('category_id', 'ei_exempt', type='char', size=52, string='EI Exempt'),
+        'fit_exempt': fields.related('category_id', 'fit_exempt', type='char', size=52, string='FIT Exempt'),
+        'code': fields.related('category_id', 'code', type='char', size=52, string='Code'),
+        'estimated_income': fields.boolean('Estimated Income', help="True if included in the calculation of the estimated annual net income, False otherwise")
     }
     _defaults = {
-        'amount' : 0.0,
+        'amount' : 0,
+        'er_amount' : 0,
+        'estimated_income': True,
         'date_start': lambda *a: time.strftime('%Y-%m-%d'),
     }
     def onchange_category_id(self, cr, uid, ids, category_id=False):
@@ -279,6 +262,8 @@ class hr_contract_benefit(orm.Model):
         if category_id:
             category = self.pool.get('hr.benefit.category').browse(cr, uid, category_id)
             res['value']['amount'] = category.default_amount
+            res['value']['er_amount'] = category.default_er_amount
+            res['value']['name'] = category.name
         return res
 
 
@@ -302,24 +287,34 @@ calculating maximum EI payment"""),
 		'deduction_ids':fields.one2many('hr.employee.deduction', 'employee_id', 'Deductions', help="Deductions for the computation of the employee's payslips"),
     }
 
-    def sum_deductions(self, cr, uid, ids, employee_id, deduction_code, context=None):
+    def sum_deductions(self, cr, uid, ids, date_from, date_to, employee_id, deduction_code, estimated_income=False, context=None):
     	
 		employee = self.read(cr, uid, employee_id, ['deduction_ids'], context)
 		
 		deduction_ids = employee['deduction_ids']
-		obj = self.pool.get('hr.employee.deduction')
-		deductions = obj.read(cr, uid, deduction_ids, ['code', 'amount', 'category_id'], context)
+		
+		attrs = ['code', 'amount', 'category_id', 'date_from', 'date_to']
+		if estimated_income:
+			attrs.append('estimated_income')
+			
+		deductions = self.pool.get('hr.employee.deduction').read(cr, uid, deduction_ids, attrs, context)
 		
 		res = 0
+		
 		for d in deductions:
-			if d['code'] == deduction_code:
-			obj = self.pool.get('hr.deduction.category')
-			parent = obj.browse(cr, uid, d['category_id'][0], context)
-			children_ids = obj._recursive_search_of_deductions(cr, uid, [parent], context)
-			children = obj.read(cr, uid, children_ids, ['code', 'amount', 'category_id'], context)
-			for c in children:
-				print c
-				res += c['amount']
+			if d['code'] == deduction_code and (estimated_income == False or d['estimated_income'] == True):
+				if d['date_start'] <= date_from and (d['date_end'] == False or d['date_end'] >= date_start):
+					res += d['amount']
+					
+				elif b['date_start'] > date_from and (d['date_end'] or d['date_end'] >= date_to):
+					res += d['amount'] * (date_to - d['date_start'])/(date_to - date_from)
+					
+				elif b['date_start'] <= date_from and d['date_end'] < date_to:
+					res += d['amount'] * (d['date_end'] - date_from)/(date_to - date_from)
+				
+				else:
+					res += d['amount'] * (d['date_end'] - d['date_start'])/(date_to - date_from)
+				
 		return res
     	
     _defaults = {
@@ -365,3 +360,55 @@ class hr_contract(orm.Model):
     _defaults = {
         'weeks_of_vacation': 2,
     }
+    
+    def sum_benefits(self, cr, uid, ids, contract_id, date_from, date_to, exemption=False, benefit_code=False, employer=False, context=None):
+    	
+		contract = self.read(cr, uid, contract_id, ['benefit_line_ids'], context)
+		
+		benefit_ids = contract['benefit_line_ids']
+		
+		attrs = ['code', 'amount', 'category_id', 'date_start', 'date_end']
+		if exemption:
+			attrs.append(exemption)
+		
+		benefits = self.pool.get('hr.contract.benefit').read(cr, uid, benefit_ids, attrs, context)
+		
+		res = 0
+		for b in benefits:
+			if (exemption == False or b[exemption] == False) and (benefit_code == False or b['code'] == benefit_code):
+				amount = employer and b['er_amount'] or b['amount']
+				
+				if b['date_start'] <= date_from and (b['date_end'] == False or b['date_end'] >= date_start):
+					res += amount
+					
+				elif b['date_start'] > date_from and (b['date_end'] == False or b['date_end'] >= date_to):
+					res += amount * (date_to - b['date_start'])/(date_to - date_from)
+					
+				elif b['date_start'] <= date_from and b['date_end'] < date_to:
+					res += amount * (b['date_end'] - date_from)/(date_to - date_from)
+				
+				else:
+					res += amount * (b['date_end'] - b['date_start'])/(date_to - date_from)
+				
+		return res
+		
+		
+    	
+    _defaults = {
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

@@ -151,6 +151,7 @@
                     <group string="Deductions">
 	                    <field name="deduction_ids" nolabel="1">
 	                   		<tree string="Deduction Lines" editable="bottom">
+   								<field name="name"/>
 	                   			<field name="category_id" on_change="onchange_category_id(category_id)"/>
 	                   			<field name="date_start"/>
 	                   			<field name="date_end"/>
@@ -176,6 +177,7 @@
 		        <label for="benefit_line_ids" string="Employee Benefits" colspan="2"/>
 				<field name="benefit_line_ids" nolabel="1" colspan="2">
 					<tree string="Employee Benefits" editable="bottom">
+						<field name="name"/>
 						<field name="category_id" on_change="onchange_category_id(category_id)"/>
 						<field name="date_start"/>
 						<field name="date_end"/>
@@ -208,17 +210,13 @@
       		<field name="name">hr.deduction.category.form</field>
             <field name="model">hr.deduction.category</field>
             <field name="arch" type="xml">
-                <form string="Deductions">
+                <form string="Deduction Category">
                     <group col="2">
                         <field name="name"/>
                         <field name="code"/>
                         <field name="description"/>
                         <field name="default_amount"/>
-                        <field name="parent_id" on_change="onchange_parent_id(parent_id)" domain="[('id','!=',id)]"/>
-                        <field name="jurisdiction" on_change="onchange_jurisdiction(jurisdiction)" attrs="{'readonly':[('parent_id','!=',False)]}"/>
-                        <group string="Deduction Details" colspan="2">
-			                <field name="child_ids" nolabel="1"/>
-                    	</group>
+                        <field name="jurisdiction"/>
                     </group>
                 </form>
             </field>
@@ -228,11 +226,11 @@
       		<field name="name">hr.deduction.category.tree</field>
             <field name="model">hr.deduction.category</field>
             <field name="arch" type="xml">
-                <tree string="Deduction">
+                <tree string="Deduction Category">
                     <field name="name"/>
                     <field name="code"/>
                     <field name="default_amount"/>
-                    <field name="parent_id"/>
+                    <field name="jurisdiction"/>
                 </tree>
             </field>
       </record>
@@ -241,7 +239,7 @@
             <field name="name">hr.deduction.category.select</field>
             <field name="model">hr.deduction.category</field>
             <field name="arch" type="xml">
-                <search string="Search Employee Deductions">
+                <search string="Search Employee Deduction Categories">
                     <field name="name" string="Deduction Category" filter_domain="['|',('name','ilike',self),('code','ilike',self)]"/>
                 </search>
             </field>
