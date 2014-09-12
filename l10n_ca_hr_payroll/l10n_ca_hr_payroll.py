@@ -179,7 +179,7 @@ class hr_deduction_category(orm.Model):
     _columns = {
 		'name': fields.char('Category Name', size=52, required=True),
 		'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules to identify the deduction"),
-		'description': fields.char('Description', size=256, required=True, help="Brief explanation of which benefits the category contains."),
+		'description': fields.char('Description', size=512, required=True, help="Brief explanation of which benefits the category contains."),
 		'default_amount': fields.float('Default Amount', required=True),
         'jurisdiction': fields.selection(get_jurisdiction, 'Jurisdiction', required=True),
         'note': fields.text('Note'),
@@ -197,7 +197,7 @@ class hr_employee_deduction(orm.Model):
         'name': fields.char('Deduction Name', size=52, required=True),
         'employee_id': fields.many2one('hr.employee', 'Employee', required=True, readonly=True),
         'category_id': fields.many2one('hr.deduction.category', 'Category', required=True, ondelete='cascade', select=True),
-        'amount': fields.float('Annual Amount', required=True, help="It is used in computation of the payslip."),
+        'amount': fields.float('Amount', required=True, help="It is used in computation of the payslip. May be an annual or periodic amount depending on the category. The deduction may be a tax credit."),
         'date_start': fields.date('Start Date', required=True),
         'date_end': fields.date('End Date'),
         'code': fields.related('category_id', 'code', type='char', size=52, string='Code'),
@@ -221,7 +221,7 @@ class hr_benefit_category(orm.Model):
 	_columns = {
 		'name': fields.char('Benefit Name', size=52, required=True),
 		'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules to identify the benefit"),
-		'description': fields.char('Description', size=256, required=True, help="Brief explanation of which benefits the category contains."),
+		'description': fields.char('Description', size=512, required=True, help="Brief explanation of which benefits the category contains."),
 		'is_cash': fields.boolean('Is Cash', help="True if the benefit is paid in cash to the employee, False if paid in Kind."),
 		'default_amount': fields.float('Default Employee Contribution', required=True, help="Default annual amount that the employee contributes"),
 		'default_er_amount': fields.float('Default Employer Contribution', required=True, help="Default annual amount that the employer contributes"),
