@@ -276,6 +276,8 @@ class hr_employee(orm.Model):
     _inherit = 'hr.employee'
 
     _columns = {
+        'fit_exempt': fields.boolean('Federal Income Tax Exempt'),
+        'pit_exempt': fields.boolean('Provincial Income Tax Exempt'),
         'ei_exempt': fields.boolean('EI Exempt'),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
         'qpip_exempt': fields.boolean('QPIP Exempt'),
@@ -316,19 +318,13 @@ calculating maximum EI payment"""),
 				d['date_start'] = strptime(d['date_start'], "%Y-%m-%d").date()
 				d['date_end'] = d['date_end'] and strptime(d['date_end'], "%Y-%m-%d").date()
 				
-				if d['date_start'] <= payslip_from and (d['date_end'] == False or d['date_end'] >= payslip_to):
-					duration = payslip_duration
+				start_offset = max((b['date_start'] - payslip_from).days, 0)
+				end_offset = b['date_end'] and max((payslip_to - b['date_end']).days, 0) or 0			
 				
-				elif d['date_start'] > payslip_from and (d['date_end'] == False or d['date_end'] >= date_to):
-					duration = max((payslip_to - d['date_start']).days + 1, 0)
-					
-				elif d['date_start'] <= payslip_from and d['date_end'] < date_to:
-					duration = max((d['date_end'] - payslip_from).days + 1, 0)
+				ratio = 1 - (start_offset + end_offset)/payslip_duration
+				amount = amount * ratio
 				
-				else:
-					duration = (d['date_end'] - d['date_start']).days + 1
-				
-				res += amount * duration/payslip_duration
+				res += amount
 				
 		return res
     	
@@ -349,6 +345,7 @@ class hr_contract(orm.Model):
         schedule_pay = {
             'weekly': 52,
             'bi-weekly': 26,
+            'semi-monthly': 24,
             'monthly': 12,
             'bi-monthly': 6,
             'quarterly': 4,
@@ -376,49 +373,52 @@ class hr_contract(orm.Model):
         'weeks_of_vacation': 2,
     }
     
-    def sum_benefits(self, cr, uid, ids, contract_id, date_from, date_to, exemption=False, benefit_code=False, employer=False, context=None):
-    	
+    def sum_benefits(self, cr, uid, ids, contract_id, date_from, date_to, exemption=False, benefit_code=False, employer=False, annual=True, pays_per_year=False, context=None):
+
+		#convert string dates to date objects    	
 		payslip_from = strptime(date_from, "%Y-%m-%d").date()
 		payslip_to = strptime(date_to, "%Y-%m-%d").date()
+		
 		payslip_duration = (payslip_to - payslip_from).days + 1
-		
-		days_in_year = calendar.isleap(payslip_from.year) and 366 or 365
-    	
+
 		contract = self.read(cr, uid, contract_id, ['benefit_line_ids'], context)
-		
 		benefit_ids = contract['benefit_line_ids']
-		
+
 		attrs = ['code', 'amount', 'er_amount', 'category_id', 'date_start', 'date_end', 'is_annual']
 		if exemption:
 			attrs.append(exemption)
 		
 		benefits = self.pool.get('hr.contract.benefit').read(cr, uid, benefit_ids, attrs, context)
-		
+
 		res = 0
 		for b in benefits:
 			if (exemption == False or b[exemption] == False) and (benefit_code == False or b['code'] == benefit_code):
-
+				
+				#convert string dates to date objects
 				b['date_start'] = strptime(b['date_start'], "%Y-%m-%d").date()
 				b['date_end'] = b['date_end'] and strptime(b['date_end'], "%Y-%m-%d").date()
 				
 				amount = employer and b['er_amount'] or b['amount']
-				if not b['is_annual']:
-					periodic_ratio = days_in_year/((b['date_end'] - b['date_start']).days + 1)
-					amount = periodic_ratio * amount
-
-				if b['date_start'] <= payslip_from and (b['date_end'] == False or b['date_end'] >= payslip_to):
-					duration = payslip_duration
 				
-				elif b['date_start'] > payslip_from and (b['date_end'] == False or b['date_end'] >= date_to):
-					duration = max((payslip_to - b['date_start']).days + 1, 0)
-					
-				elif b['date_start'] <= payslip_from and b['date_end'] < date_to:
-					duration = max((b['date_end'] - payslip_from).days + 1, 0)
+				#some calculations need annual benefit amounts, other need the periodic amount
+				#benefits can have an annual amount or a periodic amount
+				if annual and not b['is_annual']:
+					amount = pays_per_year * amount
+				elif not annual and b['is_annual']:
+					amount = amount/pays_per_year
 				
+				#Ponderate the amount of benefit in regard to the payslip dates
+				if b['is_annual']:
+					start_offset = max((b['date_start'] - payslip_from).days, 0)
+					end_offset = b['date_end'] and max((payslip_to - b['date_end']).days, 0) or 0			
 				else:
-					duration = (b['date_end'] - b['date_start']).days + 1
+					start_offset = max((payslip_from - b['date_start']).days, 0)
+					end_offset = max((b['date_end'] - payslip_to).days, 0)
 				
-				res += amount * duration/payslip_duration
+				ratio = 1 - (start_offset + end_offset)/payslip_duration
+				amount = amount * ratio
+					
+				res += amount
 				
 		return res
 		

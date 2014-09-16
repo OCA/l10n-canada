@@ -96,7 +96,7 @@
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qpip_exempt', employer=True) + GROSS)/P
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qpip_exempt', employer=True, pays_per_year=P) + GROSS)/P
             </field>
         </record>
 
@@ -140,6 +140,8 @@ result = payslip.sum('QPIP_Ap',date_from,date_to)
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 result = min(0.00559 * QPIP_S4, QPIP_N - QPIP_A6)
+if employee.qpip_exempt:
+	result = 0
 result = max(result, 0)
         </field>
         </record>
@@ -198,6 +200,8 @@ result = payslip.sum('QPIP_Ap1',date_from,date_to)
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 result = min(0.00782 * QPIP_S4, QPIP_N1 - QPIP_A7)
+if employee.qpip_exempt:
+	result = 0
 result = max(result, 0)
         </field>
         </record>
@@ -228,7 +232,7 @@ result = QPIP_Ap1 + QPIP_A7
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qpip_exempt', employer=True) + GROSS)/P
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qpip_exempt', employer=True, pays_per_year=P) + GROSS)/P
 			</field>
         </record>
 
@@ -286,6 +290,8 @@ result = payslip.sum('QPP_C',date_from,date_to)
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 result = min(0.05175 * (QPP_S3 - QPP_V/P), QPP_M - QPP_A5)
+if employee.cpp_exempt:
+	result = 0
 result = max(result, 0)
             </field>
         </record>
@@ -372,7 +378,7 @@ result = payslip.sum('QPP_C',date_from,date_to)
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-benefits = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qpip_exempt', employer=True)
+benefits = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qpip_exempt', employer=True, pays_per_year=P)
 result = min((benefits + GROSS)/P, 48600 - EI_EE_PYTD)
 result = max(result, 0)
             </field>
@@ -402,6 +408,8 @@ result = max(result, 0)
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 result = min(0.0153 * EI_EE_MAXIE, EI_EE_M)  
+if employee.ei_exempt:
+	result = 0
             </field>
         </record>
         
@@ -462,10 +470,6 @@ result = payslip.sum('EI_ER_C',date_from,date_to) + EI_ER_C
             </field>
         </record>
 
-        
-
-
-
     <!-- Quebec Income Tax - 180 -->
     
     	<record id="rule_qc_qit_g" model="hr.salary.rule">
@@ -478,7 +482,7 @@ result = payslip.sum('EI_ER_C',date_from,date_to) + EI_ER_C
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qit_exempt', employer=True) + GROSS)/P
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qit_exempt', employer=True, pays_per_year=P) + GROSS)/P
             </field>
         </record>
         
@@ -520,7 +524,7 @@ result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = min(0.06 * QIT_G, 1100/P)
+result = min(0.06 * QIT_G, 1110/P)
             </field>
         </record>
 
@@ -710,6 +714,8 @@ result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 result = QIT_Y/P + QIT_L
+if employee.pit_exempt:
+	result = 0
         	</field>
         </record>
 
