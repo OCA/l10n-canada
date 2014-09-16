@@ -107,15 +107,6 @@
             <field name="name">Vacation Calculation</field>
         </record>
 
-    <!-- Update salary rules of hr_payroll -->
-
-        <record id="hr_payroll.hr_rule_basic" model="hr.salary.rule">
-            <field name="appears_on_payslip" eval="0"/>
-        </record>
-
-        <record id="hr_payroll.hr_rule_taxable" model="hr.salary.rule">
-            <field name="appears_on_payslip" eval="0"/>
-        </record>
 
     <!-- Common rules to all canadian salary structures -->
 
@@ -161,7 +152,7 @@
     <!-- Federal Income Tax - 170 -->
 
         <record id="rule_ca_fit_i" model="hr.salary.rule">
-            <field name="name">FIT - Taxable Income (FIT_I)</field>
+            <field name="name">FIT - Gross remuneration for the pay period (FIT_I)</field>
             <field name="sequence" eval="170"/>
             <field name="code">FIT_I</field>
             <field name="appears_on_payslip" eval="0"/>
@@ -170,12 +161,12 @@
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='fit_exempt', employer=True) + GROSS
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='fit_exempt', employer=True) + GROSS)/P
             </field>
         </record>
         
         <record id="rule_ca_fit_f" model="hr.salary.rule">
-            <field name="name">FIT - Taxable Income (FIT_F)</field>
+            <field name="name">FIT - Deduction for contributions to pension plans (FIT_F)</field>
             <field name="sequence" eval="171"/>
             <field name="code">FIT_F</field>
             <field name="appears_on_payslip" eval="0"/>
@@ -184,12 +175,12 @@ result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, 
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='FIT_F')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='FIT_F')
             </field>
         </record>
         
         <record id="rule_ca_fit_f2" model="hr.salary.rule">
-            <field name="name">FIT - Taxable Income (FIT_F2)</field>
+            <field name="name">FIT - Deduction for alimony or maintenance payments (FIT_F2)</field>
             <field name="sequence" eval="171"/>
             <field name="code">FIT_F2</field>
             <field name="appears_on_payslip" eval="0"/>
@@ -198,12 +189,12 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='FIT_F2')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='FIT_F2')
             </field>
         </record>
         
-        <record id="rule_ca_fit_U1" model="hr.salary.rule">
-            <field name="name">FIT - Taxable Income (FIT_U1)</field>
+        <record id="rule_ca_fit_u1" model="hr.salary.rule">
+            <field name="name">FIT - Deduction for union dues (FIT_U1)</field>
             <field name="sequence" eval="171"/>
             <field name="code">FIT_U1</field>
             <field name="appears_on_payslip" eval="0"/>
@@ -212,12 +203,12 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='FIT_U1')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='FIT_U1')
             </field>
         </record>
         
         <record id="rule_ca_fit_hd" model="hr.salary.rule">
-            <field name="name">FIT - Taxable Income (FIT_HD)</field>
+            <field name="name">FIT - Annual deduction for living in a prescribed zone (FIT_HD)</field>
             <field name="sequence" eval="171"/>
             <field name="code">FIT_HD</field>
             <field name="appears_on_payslip" eval="0"/>
@@ -226,12 +217,12 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='FIT_HD')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='FIT_HD')
             </field>
         </record>
         
         <record id="rule_ca_fit_f1" model="hr.salary.rule">
-            <field name="name">FIT - Taxable Income (FIT_F1)</field>
+            <field name="name">FIT - Annual deductions for child care and support payments (FIT_F1)</field>
             <field name="sequence" eval="171"/>
             <field name="code">FIT_F1</field>
             <field name="appears_on_payslip" eval="0"/>
@@ -240,12 +231,12 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='FIT_F1')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='FIT_F1')
             </field>
         </record>
         
         <record id="rule_ca_fit_a" model="hr.salary.rule">
-            <field name="name">FIT - Taxable Income (FIT_A)</field>
+            <field name="name">FIT - Annual taxable income (FIT_A)</field>
             <field name="sequence" eval="171"/>
             <field name="code">FIT_A</field>
             <field name="appears_on_payslip" eval="0"/>
@@ -260,7 +251,7 @@ result = max(result, 0)
         </record>
         
         <record id="rule_ca_fit_k1" model="hr.salary.rule">
-            <field name="name">FIT - Taxable Income (FIT_K1)</field>
+            <field name="name">FIT - Federal personal tax credit (FIT_K1)</field>
             <field name="sequence" eval="171"/>
             <field name="code">FIT_K1</field>
             <field name="appears_on_payslip" eval="0"/>
@@ -269,7 +260,7 @@ result = max(result, 0)
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='FIT_K1')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='FIT_K1')
             </field>
         </record>
         
@@ -290,7 +281,7 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='FIT_K3')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='FIT_K3')
             </field>
         </record>
         
@@ -304,7 +295,7 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = min(FIT_A, 1127) * 15%
+result = min(FIT_A, 1127) * 0.15
             </field>
         </record>
         
@@ -318,31 +309,30 @@ result = min(FIT_A, 1127) * 15%
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='FIT_LCF')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='FIT_LCF')
             </field>
         </record>
         
         <record id="rule_ca_fit_t3" model="hr.salary.rule">
-            <field name="name">FIT - Federal Income Tax (FIT_T3)</field>
+            <field name="name">FIT - Annual basic federal tax (FIT_T3)</field>
             <field name="sequence" eval="172"/>
             <field name="code">FIT_T3</field>
-            <field name="appears_on_payslip" eval="1"/>
+            <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
-            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="category_id" ref="FCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 brackets = [
-	{'max': 43953, 'R': 15%, 'K': 0},
-	{'max': 87907, 'R': 22%, 'K': 3077},
-	{'max': 136270, 'R': 26%, 'K': 6593},
-	{'max': 10**15, 'R': 29%, 'K': 10681}
+	{'min': 0, 'max': 43953, 'R': 0.15, 'K': 0},
+	{'min': 43953, 'max': 87907, 'R': 0.22, 'K': 3077},
+	{'min': 87907, 'max': 136270, 'R': 0.26, 'K': 6593},
+	{'min': 136270, 'max': 10**15, 'R': 0.29, 'K': 10681}
 ]
 
 for b in brackets:
-	if FIT_A <= b['max']:
-		result = FIT_A * b['R'] - b['K'] - QIT_K1 - QIT_K2 - QIT_K3 - QIT_K4
-		break
+	if b['min'] &lt; FIT_A &lt;= b['max']:
+		result = FIT_A * b['R'] - b['K'] - FIT_K1 - FIT_K2 - FIT_K3 - FIT_K4
 
 result = max(result, 0)
 
@@ -354,10 +344,23 @@ result = max(result, 0)
 			It corresponds to Federal income tax for the period
 		 	For Quebec, it is implemented in l10n_ca_hr_payroll_data.xml 
 		-->
+		
+		<record id="rule_ca_fit_t" model="hr.salary.rule">
+            <field name="name">FIT - Federal income tax for the period (FIT_T)</field>
+            <field name="sequence" eval="174"/>
+            <field name="code">FIT_T</field>
+            <field name="category_id" ref="SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = FIT_T1/P
+            </field>
+        </record>
 
         <record id="rule_ca_fit_ytd" model="hr.salary.rule">
-            <field name="name">FIT - Year To Date (FIT_YTD)</field>
-            <field name="sequence" eval="173"/>
+            <field name="name">FIT - Federal income tax year to date (FIT_YTD)</field>
+            <field name="sequence" eval="175"/>
             <field name="code">FIT_YTD</field>
             <field name="category_id" ref="FCALC"/>
             <field name="appears_on_payslip" eval="1"/>
@@ -366,7 +369,7 @@ result = max(result, 0)
             <field name="amount_select">code</field>
             <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
 date_to = payslip.date_to
-result = payslip.sum('FIT_T1',date_from,date_to) + FIT_T1
+result = payslip.sum('FIT_T',date_from,date_to) + FIT_T
             </field>
         </record>
 
@@ -399,6 +402,145 @@ date_to = payslip.date_to
 result = payslip.sum('VAC',date_from,date_to) + VAC
             </field>
         </record>
+        
+            <!-- Insurance -  Employee - 150 -->
+
+        <record id="rule_ca_ins_ee_c" model="hr.salary.rule">
+            <field name="name">Insurance - Employee Contribution (INS_EE_C)</field>
+            <field name="sequence" eval="150"/>
+            <field name="code">INS_EE_C</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, benefit_code='INS'))/P
+            </field>
+        </record>
+
+        <record id="rule_ca_ins_ee_ytd" model="hr.salary.rule">
+            <field name="name">Insurance - Employee - Year To Date Contribution (INS_EE_YTD)</field>
+            <field name="sequence" eval="151"/>
+            <field name="code">INS_EE_YTD</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('INS_EE_C',date_from,date_to) + INS_EE_C
+        </field>
+        </record>
+
+    <!-- Insurance - Employer - 152 -->
+
+        <record id="rule_ca_ins_er_c" model="hr.salary.rule">
+            <field name="name">Insurance - Employer Contribution (INS_ER_C)</field>
+            <field name="sequence" eval="152"/>
+            <field name="code">INS_ER_C</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, benefit_code='INS', employer=True))/P
+            </field>
+        </record>
+        
+        <record id="rule_ca_ins_er_ytd" model="hr.salary.rule">
+            <field name="name">Insurance - Employee - Year To Date Contribution (INS_ER_YTD)</field>
+            <field name="sequence" eval="153"/>
+            <field name="code">INS_ER_YTD</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('INS_ER_C',date_from,date_to) + INS_ER_C
+        	</field>
+        </record>
+        
+        <!-- Other Benefits -  Employee - 155 -->
+
+        <record id="rule_ca_ben_ee_c" model="hr.salary.rule">
+            <field name="name">Benefits except insurance - Employee Contribution (BEN_EE_C)</field>
+            <field name="sequence" eval="155"/>
+            <field name="code">BEN_EE_C</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to))/P - INS_EE_C
+            </field>
+        </record>
+
+        <record id="rule_ca_ben_ee_ytd" model="hr.salary.rule">
+            <field name="name">Employee Benefits except insurance - Employee Year To Date Contribution (BEN_EE_YTD)</field>
+            <field name="sequence" eval="156"/>
+            <field name="code">BEN_EE_YTD</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('BEN_EE_C',date_from,date_to) + BEN_EE_C
+        	</field>
+        </record>
+
+    <!-- Other benefits - Employer - 157 -->
+
+        <record id="rule_ca_ben_er_c" model="hr.salary.rule">
+            <field name="name">Employee Benefits except insurance - Employer Contribution (BEN_ER_C)</field>
+            <field name="sequence" eval="157"/>
+            <field name="code">BEN_ER_C</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, employer=True))/P - INS_ER_C
+            </field>
+        </record>
+        
+        <record id="rule_ca_ben_er_ytd" model="hr.salary.rule">
+            <field name="name">Employee Benefits except insurance - Employee Year To Date Contribution (BEN_ER_YTD)</field>
+            <field name="sequence" eval="158"/>
+            <field name="code">BEN_ER_YTD</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('BEN_ER_C',date_from,date_to) + BEN_ER_C
+        	</field>
+        </record>
+        
+        
+    <!-- Update salary rules of hr_payroll -->
+
+        <record id="hr_payroll.hr_rule_basic" model="hr.salary.rule">
+            <field name="appears_on_payslip" eval="0"/>
+        </record>
+
+        <record id="hr_payroll.hr_rule_taxable" model="hr.salary.rule">
+            <field name="appears_on_payslip" eval="0"/>
+        </record>
+        
+        <record id="hr_payroll.hr_rule_net" model="hr.salary.rule">
+            <field name="amount_python_compute">result = BASICP + BEN_ER_C + INS_ER_C - categories.DED - categories.SDED</field>
+        </record>
 
     <!-- Base for Canadian Salary Structure -->
 
@@ -409,7 +551,6 @@ result = payslip.sum('VAC',date_from,date_to) + VAC
         ref('rule_ca_p'),
         ref('rule_ca_pocc'),
         ref('rule_ca_basic'),
-        ref('rule_ca_gross'),
         ref('rule_ca_fit_i'),
         ref('rule_ca_fit_f'),
         ref('rule_ca_fit_f2'),
@@ -422,9 +563,18 @@ result = payslip.sum('VAC',date_from,date_to) + VAC
         ref('rule_ca_fit_k4'),
         ref('rule_ca_fit_lcf'),
         ref('rule_ca_fit_t3'),
+        ref('rule_ca_fit_t'),
         ref('rule_ca_fit_ytd'),
         ref('rule_ca_vac'),
-        ref('rule_ca_vac_ytd')
+        ref('rule_ca_vac_ytd'),
+        ref('rule_ca_ins_ee_c'),
+        ref('rule_ca_ins_ee_ytd'),
+        ref('rule_ca_ins_er_c'),
+        ref('rule_ca_ins_er_ytd'),
+        ref('rule_ca_ben_ee_c'),
+        ref('rule_ca_ben_ee_ytd'),
+        ref('rule_ca_ben_er_c'),
+        ref('rule_ca_ben_er_ytd'),
         ])]" name="rule_ids"/>
         </record>
 

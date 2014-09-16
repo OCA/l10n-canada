@@ -46,14 +46,14 @@
         </record>
         
         <record id="QITQ" model="hr.deduction.category">
-            <field name="name">Quebec - Purchase of class A FTQ shares (QIT_Q)</field>
+            <field name="name">Quebec - Tax credit for purchase of class A FTQ shares (QIT_Q)</field>
             <field name="code">QIT_Q</field>
             <field name="description">Amount withheld for the pay period for the purchase of class A shares in the Fonds de Solidarité des Travailleurs du Québec (FTQ).</field>
             <field name="jurisdiction">provincial</field>
         </record>
         
         <record id="QITQ1" model="hr.deduction.category">
-            <field name="name">Quebec - Purchase of class A or class B Fondaction shares (QIT_Q1)</field>
+            <field name="name">Quebec - Tax credit for purchase of class A or class B Fondaction shares (QIT_Q1)</field>
             <field name="code">QIT_Q1</field>
             <field name="description">Amount withheld for the pay period for the purchase of class A or class B shares in Fondaction, le Fonds de développement de la Confédération des syndicats nationaux pour la coopération et l’emploi.</field>
             <field name="jurisdiction">provincial</field>
@@ -71,6 +71,7 @@
             <field name="code">FP</field>
             <field name="description">Free Parking</field>
             <field name="default_amount">0</field>
+            <field name="default_er_amount">0</field>
             <field name="is_cash">false</field>
         </record>
         
@@ -79,6 +80,7 @@
             <field name="code">INS</field>
             <field name="description">Free Parking</field>
             <field name="default_amount">0</field>
+            <field name="default_er_amount">0</field>
             <field name="is_cash">false</field>
         </record>
 
@@ -131,20 +133,21 @@ result = payslip.sum('QPIP_Ap',date_from,date_to)
             <field name="name">QPIP - Employee Contribution (QPIP_Ap)</field>
             <field name="sequence" eval="123"/>
             <field name="code">QPIP_Ap</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = max(0.00559 * QPIP_S4, QPIP_N - QPIP_A)
+result = min(0.00559 * QPIP_S4, QPIP_N - QPIP_A6)
+result = max(result, 0)
         </field>
         </record>
         
-        <record id="rule_qc_qpip_ytd_ee" model="hr.salary.rule">
-            <field name="name">QPIP - Employee - Year To Date Contribution (QPIP_YTD_EE)</field>
+        <record id="rule_qc_qpip_ee_ytd" model="hr.salary.rule">
+            <field name="name">QPIP - Employee - Year To Date Contribution (QPIP_EE_YTD)</field>
             <field name="sequence" eval="124"/>
-            <field name="code">QPIP_YTD_EE</field>
+            <field name="code">QPIP_EE_YTD</field>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
@@ -188,20 +191,21 @@ result = payslip.sum('QPIP_Ap1',date_from,date_to)
             <field name="name">QPIP - Employer Contribution (QPIP_Ap1)</field>
             <field name="sequence" eval="127"/>
             <field name="code">QPIP_Ap1</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = max(0.00782 * QPIP_S4, QPIP_N1 - QPIP_A7)
+result = min(0.00782 * QPIP_S4, QPIP_N1 - QPIP_A7)
+result = max(result, 0)
         </field>
         </record>
         
-        <record id="rule_qc_qpip_ytd_er" model="hr.salary.rule">
-            <field name="name">QPIP - Employer - Year To Date Contribution (QPIP_YTD_ER)</field>
+        <record id="rule_qc_qpip_er_ytd" model="hr.salary.rule">
+            <field name="name">QPIP - Employer - Year To Date Contribution (QPIP_ER_YTD)</field>
             <field name="sequence" eval="128"/>
-            <field name="code">QPIP_YTD_ER</field>
+            <field name="code">QPIP_ER_YTD</field>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
@@ -272,23 +276,24 @@ result = payslip.sum('QPP_C',date_from,date_to)
         </record>
 
         <record id="rule_qc_qpp_c" model="hr.salary.rule">
-            <field name="name">QPP - Employee Contribution (QPPC)</field>
+            <field name="name">QPP - Employee Contribution (QPP_C)</field>
             <field name="sequence" eval="133"/>
-            <field name="code">QPPEEC</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">QPP_C</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = max(0.05175 * (QPP_S3 - QPP_V/P), QPP_M - QPP_A5)
+result = min(0.05175 * (QPP_S3 - QPP_V/P), QPP_M - QPP_A5)
+result = max(result, 0)
             </field>
         </record>
 
-        <record id="rule_qc_qpp_ytd_ee" model="hr.salary.rule">
-            <field name="name">QPP - Employee - Year To Date Contribution (QPP_YTD_EE)</field>
+        <record id="rule_qc_qpp_ee_ytd" model="hr.salary.rule">
+            <field name="name">QPP - Employee - Year To Date Contribution (QPP_EE_YTD)</field>
             <field name="sequence" eval="134"/>
-            <field name="code">QPP_YTD_EE</field>
+            <field name="code">QPP_EE_YTD</field>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
@@ -318,7 +323,7 @@ result = payslip.sum('QPP_C_ER',date_from,date_to)
             <field name="name">QPP - Employer Contribution (QPP_C_ER)</field>
             <field name="sequence" eval="136"/>
             <field name="code">QPP_C_ER</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -328,10 +333,10 @@ result = QPP_C
             </field>
         </record>
 
-        <record id="rule_qc_qpp_ytd_er" model="hr.salary.rule">
-            <field name="name">QPP - Employer - Year To Date Contribution (QPP_YTD_ER)</field>
+        <record id="rule_qc_qpp_er_ytd" model="hr.salary.rule">
+            <field name="name">QPP - Employer - Year To Date Contribution (QPP_ER_YTD)</field>
             <field name="sequence" eval="137"/>
-            <field name="code">QPP_YTD_ER</field>
+            <field name="code">QPP_ER_YTD</field>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
@@ -346,7 +351,7 @@ result = QPP_C
             <field name="name">EI - Employee - Previous Year To Date Contribution (EI_EE_PYTD)</field>
             <field name="sequence" eval="140"/>
             <field name="code">EI_EE_PYTD</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -357,41 +362,54 @@ result = payslip.sum('QPP_C',date_from,date_to)
             </field>
         </record>
         
-        <record id="rule_qc_ei_ee_maxc" model="hr.salary.rule">
+        <record id="rule_qc_ie_ee_maxc" model="hr.salary.rule">
             <field name="name">EI - Employee - Maximum Insurable Earnings (EI_EE_MAXIE)</field>
             <field name="sequence" eval="141"/>
             <field name="code">EI_EE_MAXIE</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 benefits = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qpip_exempt', employer=True)
-result = min(benefits + GROSS)/P, 48600 - EI_EE_PYTD)
+result = min((benefits + GROSS)/P, 48600 - EI_EE_PYTD)
 result = max(result, 0)
             </field>
         </record>
+        
+        <record id="rule_qc_ie_ee_m" model="hr.salary.rule">
+            <field name="name">EI - Employee - Maximum Contribution (EI_EE_M)</field>
+            <field name="sequence" eval="131"/>
+            <field name="code">EI_EE_M</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">743.58</field>
+        </record>
 
-        <record id="rule_qc_ei_ee_c" model="hr.salary.rule">
+        <record id="rule_qc_ie_ee_c" model="hr.salary.rule">
             <field name="name">EI - Employee Contribution (EI_EE_C)</field>
             <field name="sequence" eval="142"/>
             <field name="code">EI_EE_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>	
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = min(0.0153 * EI_EE_MAXIE, 743.58)  
+result = min(0.0153 * EI_EE_MAXIE, EI_EE_M)  
             </field>
         </record>
         
-        <record id="rule_qc_ei_ee_ytd" model="hr.salary.rule">
+        <record id="rule_qc_ie_ee_ytd" model="hr.salary.rule">
             <field name="name">EI - Employee Year to Date Contribution (EI_EE_YTD)</field>
             <field name="sequence" eval="143"/>
             <field name="code">EI_EE_YTD</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>	
@@ -401,25 +419,38 @@ result = EI_EE_PYTD + EI_EE_C
             </field>
         </record>
         
-        <record id="rule_qc_ei_er_c" model="hr.salary.rule">
-            <field name="name">EI - Employee Contribution (EI_ER_C)</field>
+        <record id="rule_qc_ie_er_m" model="hr.salary.rule">
+            <field name="name">EI - Employer - Maximum Contribution (EI_ER_M)</field>
+            <field name="sequence" eval="131"/>
+            <field name="code">EI_ER_M</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">1041.01</field>
+        </record>
+        
+        <record id="rule_qc_ie_er_c" model="hr.salary.rule">
+            <field name="name">EI - Employer Contribution (EI_ER_C)</field>
             <field name="sequence" eval="144"/>
-            <field name="code">EI_EE_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="code">EI_ER_C</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>	
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = min(EI_EE_C * 1.4, 1041.01)
+result = min(EI_EE_C * 1.4, EI_ER_M)
             </field>
         </record>
         
-        <record id="rule_qc_ei_ee_ytd" model="hr.salary.rule">
-            <field name="name">EI - Employee Contribution (EI_EE_YTD)</field>
+        <record id="rule_qc_ie_er_ytd" model="hr.salary.rule">
+            <field name="name">EI - Employer Contribution (EI_ER_YTD)</field>
             <field name="sequence" eval="145"/>
-            <field name="code">EI_EE_YTD</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="code">EI_ER_YTD</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>	
@@ -427,149 +458,27 @@ result = min(EI_EE_C * 1.4, 1041.01)
             <field name="amount_python_compute">
 date_from = payslip.date_to.split('-')[0] + '-01-01'
 date_to = payslip.date_to
-result = payslip.sum('QPP_C',date_from,date_to) + EI_ER_C
+result = payslip.sum('EI_ER_C',date_from,date_to) + EI_ER_C
             </field>
         </record>
 
         
 
-    <!-- Insurance -  Employee - 150 -->
 
-        <record id="rule_qc_ins_ee_c" model="hr.salary.rule">
-            <field name="name">Insurance - Employee Contribution (INS_EE_C)</field>
-            <field name="sequence" eval="150"/>
-            <field name="code">INS_EE_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">
-result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, benefit_code='INS'))/P
-            </field>
-        </record>
-
-        <record id="rule_qc_ins_ee_ytd" model="hr.salary.rule">
-            <field name="name">Insurance - Employee - Year To Date Contribution (INS_EE_YTD)</field>
-            <field name="sequence" eval="151"/>
-            <field name="code">INS_EE_YTD</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
-date_to = payslip.date_to
-result = payslip.sum('INS_EE_C',date_from,date_to) + INS_EE_C
-        </field>
-        </record>
-
-    <!-- Insurance - Employer - 152 -->
-
-        <record id="rule_qc_ins_er_c" model="hr.salary.rule">
-            <field name="name">Insurance - Employer Contribution (INS_ER_C)</field>
-            <field name="sequence" eval="152"/>
-            <field name="code">INS_ER_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">
-result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, benefit_code='INS', employer=True))/P
-            </field>
-        </record>
-        
-        <record id="rule_qc_ins_er_ytd" model="hr.salary.rule">
-            <field name="name">Insurance - Employee - Year To Date Contribution (INS_ER_YTD)</field>
-            <field name="sequence" eval="153"/>
-            <field name="code">INS_ER_YTD</field>
-            <field name="category_ avantages id" ref="l10n_ca_hr_payroll.CALC"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
-date_to = payslip.date_to
-result = payslip.sum('INS_ER_C',date_from,date_to) + INS_ER_C
-        	</field>
-        </record>
-        
-        <!-- Other Benefits -  Employee - 155 -->
-
-        <record id="rule_qc_ben_ee_c" model="hr.salary.rule">
-            <field name="name">Benefits except insurance - Employee Contribution (BEN_EE_C)</field>
-            <field name="sequence" eval="155"/>
-            <field name="code">BEN_EE_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">
-result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to))/P - INS_EE_C
-            </field>
-        </record>
-
-        <record id="rule_qc_ben_ee_ytd" model="hr.salary.rule">
-            <field name="name">Employee Benefits except insurance - Employee Year To Date Contribution (BEN_EE_YTD)</field>
-            <field name="sequence" eval="156"/>
-            <field name="code">BEN_EE_YTD</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
-date_to = payslip.date_to
-result = payslip.sum('BEN_EE_C',date_from,date_to) + BEN_EE_C - INS_EE_YTD
-        	</field>
-        </record>
-
-    <!-- Other benefits - Employer - 157 -->
-
-        <record id="rule_qc_ben_er_c" model="hr.salary.rule">
-            <field name="name">Employee Benefits except insurance - Employer Contribution (BEN_ER_C)</field>
-            <field name="sequence" eval="157"/>
-            <field name="code">BEN_ER_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">
-result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, employer=True))/P - INS_ER_C
-            </field>
-        </record>
-        
-        <record id="rule_qc_ben_er_ytd" model="hr.salary.rule">
-            <field name="name">Employee Benefits except insurance - Employee Year To Date Contribution (BEN_ER_YTD)</field>
-            <field name="sequence" eval="158"/>
-            <field name="code">BEN_ER_YTD</field>
-            <field name="category_ avantages id" ref="l10n_ca_hr_payroll.CALC"/>
-            <field name="appears_on_payslip" eval="1"/>
-            <field name="active" eval="1"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
-date_to = payslip.date_to
-result = payslip.sum('BEN_ER_C',date_from,date_to) + BEN_ER_C - INS_ER_YTD
-        	</field>
-        </record>
 
     <!-- Quebec Income Tax - 180 -->
     
     	<record id="rule_qc_qit_g" model="hr.salary.rule">
-            <field name="name">QIT - Gross remuneration subject to income tax (QIT_G)</field>
+            <field name="name">QIT - Gross remuneration subject to income tax for the pay period (QIT_G)</field>
             <field name="sequence" eval="180"/>
             <field name="code">QIT_G</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qit_exempt', employer=True) + GROSS
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qit_exempt', employer=True) + GROSS)/P
             </field>
         </record>
         
@@ -578,12 +487,12 @@ result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, 
             <field name="sequence" eval="181"/>
             <field name="code">QIT_F</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='QIT_F')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='QIT_F')
             </field>
         </record>
         
@@ -592,12 +501,12 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="sequence" eval="182"/>
             <field name="code">QIT_F2</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='QIT_F2', estimated_income=True)
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='QIT_F2', estimated_income=True)
             </field>
         </record>
         
@@ -606,7 +515,7 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="sequence" eval="183"/>
             <field name="code">QIT_H</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
@@ -620,12 +529,12 @@ result = min(0.06 * QIT_G, 1100/P)
             <field name="sequence" eval="184"/>
             <field name="code">QIT_J</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='QIT_J')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='QIT_J')
             </field>
         </record>
         
@@ -634,26 +543,68 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="sequence" eval="185"/>
             <field name="code">QIT_J1</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='QIT_J1')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='QIT_J1')
             </field>
         </record>
         
         <record id="rule_qc_qit_k1" model="hr.salary.rule">
-            <field name="name">QIT - Non-refundable tax credit relative to TP-1016-V (QIT-K1)</field>
+            <field name="name">QIT - Non-refundable tax credit relative to TP-1016-V (QIT_K1)</field>
             <field name="sequence" eval="186"/>
             <field name="code">QIT_K1</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='QIT_K1')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='QIT_K1')
+            </field>
+        </record>
+        
+        <record id="rule_qc_qit_e" model="hr.salary.rule">
+            <field name="name">QIT - Personal Tax Credit (QIT_E)</field>
+            <field name="sequence" eval="186"/>
+            <field name="code">QIT_E</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='QIT_E')
+            </field>
+        </record>
+        
+        <record id="rule_qc_qit_q" model="hr.salary.rule">
+            <field name="name">QIT - Tax credit for purchase of class A FTQ shares (QIT_Q)</field>
+            <field name="sequence" eval="186"/>
+            <field name="code">QIT_Q</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='QIT_Q')
+            </field>
+        </record>
+        
+        <record id="rule_qc_qit_q1" model="hr.salary.rule">
+            <field name="name">QIT - Tax credit for purchase of class A or class B Fondaction shares (QIT_Q1)</field>
+            <field name="sequence" eval="186"/>
+            <field name="code">QIT_Q1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='QIT_Q1')
             </field>
         </record>
 		
@@ -662,7 +613,7 @@ result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to
             <field name="sequence" eval="187"/>
             <field name="code">QIT_I</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
@@ -676,7 +627,7 @@ result = P * (QIT_G - QIT_F - QIT_H) - QIT_J - QIT_J1
             <field name="sequence" eval="188"/>
             <field name="code">QIT_R</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
@@ -690,23 +641,22 @@ result = P * (QIT_G - QIT_F2 - QIT_H) - QIT_J - QIT_J1
             <field name="sequence" eval="189"/>
             <field name="code">QIT_Z</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 brackets = [
-	{'max': 18175, 'Z': 0},
-	{'max': 40390, 'Z': min(100, 5% * (QIT_R - 18175))},
-	{'max': 131260, 'Z': min(200, 100 + 5% * (QIT_R - 40390))},
-	{'max': 10**15, 'Z': min(1000, 200 + 4% * (QIT_R - 131260))}
+	{'min': 0, 'max': 18175, 'Z': 0},
+	{'min': 18175, 'max': 40390, 'Z': min(100, 0.05 * (QIT_R - 18175))},
+	{'min': 40390, 'max': 131260, 'Z': min(200, 100 + 0.05 * (QIT_R - 40390))},
+	{'min': 131260, 'max': 10**15, 'Z': min(1000, 200 + 0.04 * (QIT_R - 131260))}
 ]
 for b in brackets:
-	if QIT_R <= b['max']:
+	if b['min'] &lt; QIT_R &lt;= b['max']:
 		result = b['Z']
-		break
 
-        </field>
+        	</field>
         </record>
 
         <record id="rule_qc_qit_y" model="hr.salary.rule">
@@ -715,21 +665,20 @@ for b in brackets:
             <field name="code">QIT_Y</field>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
-            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 brackets = [
-	{'max': 41495, 'T': 16%, 'K': 0},
-	{'max': 82985, 'T': 20%, 'K': 1659},
-	{'max': 100970, 'T': 24%, 'K': 4979},
-	{'max': 10**15, 'T': 25.75%, 'K': 6746}
+	{'min': 0, 'max': 41495, 'T': 0.16, 'K': 0},
+	{'min': 41495, 'max': 82985, 'T': 0.20, 'K': 1659},
+	{'min': 82985, 'max': 100970, 'T': 0.24, 'K': 4979},
+	{'min': 100970, 'max': 10**15, 'T': 0.2575, 'K': 6746}
 ]
 
 for b in brackets:
-	if QIT_I <= b['max']:
+	if b['min'] &lt; QIT_I &lt;= b['max']:
 		result = QIT_I * b['T'] - b['K'] - QIT_K1 - (0.20 * QIT_E) - (0.15 * QIT_Q) - (0.25 * QIT_Q1) 
-		break
 
 result = max(result, 0) + QIT_Z
 
@@ -741,31 +690,31 @@ result = max(result, 0) + QIT_Z
             <field name="sequence" eval="186"/>
             <field name="code">QIT_L</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="active" eval="0"/>
+            <field name="active" eval="1"/>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = employee.sum_deductions(contract.id, payslip.date_from, payslip.date_to, deduction_code='QIT_L')
+result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to, deduction_code='QIT_L')
             </field>
         </record>
         
         <record id="rule_qc_qit_a" model="hr.salary.rule">
-            <field name="name">QIT - Year To Date (QIT_A)</field>
+            <field name="name">QIT - Quebec income tax for the period (QIT_A)</field>
             <field name="sequence" eval="191"/>
             <field name="code">QIT_A</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = QIT_L/P + QIT_L
+result = QIT_Y/P + QIT_L
         	</field>
         </record>
 
         <record id="rule_qc_qit_ytd" model="hr.salary.rule">
-            <field name="name">QIT - Year To Date (QIT_YTD)</field>
+            <field name="name">QIT - Quebec income tax year to date (QIT_YTD)</field>
             <field name="sequence" eval="191"/>
             <field name="code">QIT_YTD</field>
             <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
@@ -781,28 +730,49 @@ result = payslip.sum('QIT_A',date_from,date_to) + QIT_A
         
         <!-- Rule for the calculation of the federal QPP, QPIP and EI tax credit -->
         
-        <record id="rule_ca_fit_k2q" model="hr.salary.rule">
+        <record id="rule_qc_fit_k2q" model="hr.salary.rule">
             <field name="name">FIT - Year to date amount contributed QPP, QPIP and EI (FIT_K2Q)</field>
             <field name="sequence" eval="171"/>
             <field name="code">FIT_K2</field>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
-            <field name="category_id" ref="FCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = QPP_YTD_EE + QPIP_YTD_EE + IE_EE_YTD
+deductions = [
+	{'C': QPP_C, 'PYTD': QPP_A5, 'YTD': QPP_EE_YTD, 'max': QPP_M},
+	{'C': QPIP_Ap, 'PYTD': QPIP_A6, 'YTD': QPIP_EE_YTD, 'max': QPIP_N},
+	{'C': EI_EE_C, 'PYTD': EI_EE_PYTD, 'YTD': EI_EE_YTD, 'max': EI_EE_M}
+]
+
+result = 0
+
+for d in deductions:
+	if d['YTD'] &lt; d['max']:
+		result += d['C']
+	
+	elif d['PYTD'] &gt;= d['max']:
+		result += d['max']
+	
+	elif (d['C'] * P) &lt; d['max']:
+		result += d['max']
+
+	else:
+		result += d['C']
+		
+result = result * 0.15
             </field>
         </record>
         
         <!-- Rule for the calculation of the federal income tax for the period -->
-         <record id="rule_ca_fit_t1" model="hr.salary.rule">
+         <record id="rule_qc_fit_t1" model="hr.salary.rule">
             <field name="name">FIT - Federal income tax (FIT_T1)</field>
-            <field name="sequence" eval="171"/>
+            <field name="sequence" eval="173"/>
             <field name="code">FIT_T1</field>
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
-            <field name="category_id" ref="FCALC"/>
+            <field name="category_id" ref="l10n_ca_hr_payroll.FCALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
@@ -818,39 +788,32 @@ result = max(FIT_T3 - FIT_LCF, 0) - FIT_T3 * 0.165
             <field name="name">Quebec Base</field>
             <field name="rule_ids"
         eval="[(6, 0, [
-        ref('rule_qc_qpip_maxie'),
         ref('rule_qc_qpip_s4'),
         ref('rule_qc_qpip_n'),
         ref('rule_qc_qpip_a6'),
         ref('rule_qc_qpip_ap'),
-        ref('rule_qc_qpip_ytd_ee'),
+        ref('rule_qc_qpip_ee_ytd'),
         ref('rule_qc_qpip_n1'),
         ref('rule_qc_qpip_a7'),
         ref('rule_qc_qpip_ap1'),
-        ref('rule_qc_qpip_ytd_er'),
+        ref('rule_qc_qpip_er_ytd'),
         ref('rule_qc_qpp_s3'),
         ref('rule_qc_qpp_v'),
         ref('rule_qc_qpp_m'),
         ref('rule_qc_qpp_a5'),
         ref('rule_qc_qpp_c'),
-        ref('rule_qc_qpp_ytd_ee'),
+        ref('rule_qc_qpp_ee_ytd'),
         ref('rule_qc_qpp_a5_er'),
         ref('rule_qc_qpp_c_er'),
-        ref('rule_qc_qpp_ytd_er'),
+        ref('rule_qc_qpp_er_ytd'),
         ref('rule_qc_ie_ee_pytd'),
         ref('rule_qc_ie_ee_maxc'),
+        ref('rule_qc_ie_ee_m'),
         ref('rule_qc_ie_ee_c'),
         ref('rule_qc_ie_ee_ytd'),
+        ref('rule_qc_ie_er_m'),
         ref('rule_qc_ie_er_c'),
         ref('rule_qc_ie_er_ytd'),
-        ref('rule_qc_ins_ee_c'),
-        ref('rule_qc_ins_ee_ytd'),
-        ref('rule_qc_ins_er_c'),
-        ref('rule_qc_ins_er_ytd'),
-        ref('rule_qc_ben_ee_c'),
-        ref('rule_qc_ben_ee_ytd'),
-        ref('rule_qc_ben_er_c'),
-        ref('rule_qc_ben_er_ytd'),
         ref('rule_qc_qit_g'),
         ref('rule_qc_qit_f'),
         ref('rule_qc_qit_f2'),
@@ -858,14 +821,18 @@ result = max(FIT_T3 - FIT_LCF, 0) - FIT_T3 * 0.165
         ref('rule_qc_qit_j'),
         ref('rule_qc_qit_j1'),
         ref('rule_qc_qit_k1'),
+        ref('rule_qc_qit_e'),
+        ref('rule_qc_qit_q'),
+        ref('rule_qc_qit_q1'),
         ref('rule_qc_qit_i'),
         ref('rule_qc_qit_r'),
         ref('rule_qc_qit_z'),
         ref('rule_qc_qit_y'),
         ref('rule_qc_qit_ytd'),
+        ref('rule_qc_qit_l'),
         ref('rule_qc_qit_a'),
-        ref('rule_ca_fit_k2'),
-        ref('rule_ca_fit_t1'),
+        ref('rule_qc_fit_k2q'),
+        ref('rule_qc_fit_t1'),
         ])]"/>
             <field name="parent_id" ref="l10n_ca_hr_payroll.hr_structure_ca_base"/>
         </record>

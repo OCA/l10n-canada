@@ -20,7 +20,8 @@
 ##############################################################################
 
 from openerp.osv import fields, orm, osv
-import time
+import time, datetime, calendar
+strptime = datetime.datetime.strptime
 
 def get_jurisdiction(self, cursor, user_id, context=None):
     return (
@@ -177,7 +178,7 @@ class hr_deduction_category(orm.Model):
     _name = 'hr.deduction.category'
     _description = 'Categories of employee deductions used for salary rules'
     _columns = {
-		'name': fields.char('Category Name', size=52, required=True),
+		'name': fields.char('Category Name', size=256, required=True),
 		'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules to identify the deduction"),
 		'description': fields.char('Description', size=512, required=True, help="Brief explanation of which benefits the category contains."),
 		'default_amount': fields.float('Default Amount', required=True),
@@ -194,13 +195,14 @@ class hr_employee_deduction(orm.Model):
     _name = 'hr.employee.deduction'
     _description = 'Employee deductions used for salary rules'
     _columns = {
-        'name': fields.char('Deduction Name', size=52, required=True),
+        'name': fields.char('Deduction Name', size=256, required=True),
         'employee_id': fields.many2one('hr.employee', 'Employee', required=True, readonly=True),
         'category_id': fields.many2one('hr.deduction.category', 'Category', required=True, ondelete='cascade', select=True),
         'amount': fields.float('Amount', required=True, help="It is used in computation of the payslip. May be an annual or periodic amount depending on the category. The deduction may be a tax credit."),
         'date_start': fields.date('Start Date', required=True),
         'date_end': fields.date('End Date'),
         'code': fields.related('category_id', 'code', type='char', size=52, string='Code'),
+        'jurisdiction': fields.related('category_id', 'jurisdiction', type='selection', selection=get_jurisdiction),
     }
     _defaults = {
         'amount' : 0.0,
@@ -219,7 +221,7 @@ class hr_benefit_category(orm.Model):
 	_name = 'hr.benefit.category'
 	_description = 'Categories of employee benefits'
 	_columns = {
-		'name': fields.char('Benefit Name', size=52, required=True),
+		'name': fields.char('Benefit Name', size=256, required=True),
 		'code': fields.char('Code', size=52, required=True, help="The code that can be used in the salary rules to identify the benefit"),
 		'description': fields.char('Description', size=512, required=True, help="Brief explanation of which benefits the category contains."),
 		'is_cash': fields.boolean('Is Cash', help="True if the benefit is paid in cash to the employee, False if paid in Kind."),
@@ -239,13 +241,14 @@ class hr_contract_benefit(orm.Model):
     _name = 'hr.contract.benefit'
     _description = 'The benefits in an employee contract'
     _columns = {
-    	'name': fields.char('Deduction Name', size=52, required=True),
+    	'name': fields.char('Deduction Name', size=256, required=True),
         'contract_id': fields.many2one('hr.contract', 'Contract', required=True, ondelete='cascade', select=True),
         'category_id': fields.many2one('hr.benefit.category', 'Benefit', required=True, ondelete='cascade', select=True),
         'amount': fields.float('Employee Contribution', required=True, help="Enter the amount that you would pay for a complete year, even if the duration is lower that a year."),
         'er_amount': fields.float('Employer Contribution', required=True, help="Enter the amount that you would pay for a complete year, even if the duration is lower that a year."),
         'date_start': fields.date('Start Date', required=True),
         'date_end': fields.date('End Date'),
+        'is_annual': fields.boolean('Annual', help="True if the entered amounts of contribution for employee and employer are annual, False if they are entered for the period."),
         'ei_exempt': fields.related('category_id', 'ei_exempt', type='char', size=52, string='EI Exempt'),
         'fit_exempt': fields.related('category_id', 'fit_exempt', type='char', size=52, string='FIT Exempt'),
         'code': fields.related('category_id', 'code', type='char', size=52, string='Code'),
@@ -256,6 +259,7 @@ class hr_contract_benefit(orm.Model):
         'er_amount' : 0,
         'estimated_income': True,
         'date_start': lambda *a: time.strftime('%Y-%m-%d'),
+        'is_annual': True,
     }
     def onchange_category_id(self, cr, uid, ids, category_id=False):
         res = {'value':{'amount': 0.0,}}
@@ -284,14 +288,19 @@ Amount to adjust EI for calculations.
 Used if employee has contributed elsewhere and will be factored in when
 calculating maximum EI payment"""),
         'vac_pay': fields.float('Vacation Pay %', digits=(16, 2)),
-		'deduction_ids':fields.one2many('hr.employee.deduction', 'employee_id', 'Deductions', help="Deductions for the computation of the employee's payslips"),
+		'federal_deduction_ids':fields.one2many('hr.employee.deduction', 'employee_id', 'Federal Income Tax Deductions', help="Income Tax deductions for the computation of the employee's payslips"),
+		'provincial_deduction_ids':fields.one2many('hr.employee.deduction', 'employee_id', 'Provincial Income Tax Deductions', help="Income Tax deductions for the computation of the employee's payslips"),
     }
 
-    def sum_deductions(self, cr, uid, ids, date_from, date_to, employee_id, deduction_code, estimated_income=False, context=None):
+    def sum_deductions(self, cr, uid, ids, employee_id, date_from, date_to, deduction_code, estimated_income=False, context=None):
+    
+		payslip_from = strptime(date_from, "%Y-%m-%d").date()
+		payslip_to = strptime(date_to, "%Y-%m-%d").date()
+		payslip_duration = (payslip_to - payslip_from).days + 1
     	
-		employee = self.read(cr, uid, employee_id, ['deduction_ids'], context)
+		employee = self.read(cr, uid, employee_id, ['federal_deduction_ids', 'provincial_deduction_ids'], context)
 		
-		deduction_ids = employee['deduction_ids']
+		deduction_ids = employee['federal_deduction_ids'] + employee['provincial_deduction_ids']
 		
 		attrs = ['code', 'amount', 'category_id', 'date_from', 'date_to']
 		if estimated_income:
@@ -303,17 +312,23 @@ calculating maximum EI payment"""),
 		
 		for d in deductions:
 			if d['code'] == deduction_code and (estimated_income == False or d['estimated_income'] == True):
-				if d['date_start'] <= date_from and (d['date_end'] == False or d['date_end'] >= date_start):
-					res += d['amount']
+				
+				d['date_start'] = strptime(d['date_start'], "%Y-%m-%d").date()
+				d['date_end'] = d['date_end'] and strptime(d['date_end'], "%Y-%m-%d").date()
+				
+				if d['date_start'] <= payslip_from and (d['date_end'] == False or d['date_end'] >= payslip_to):
+					duration = payslip_duration
+				
+				elif d['date_start'] > payslip_from and (d['date_end'] == False or d['date_end'] >= date_to):
+					duration = max((payslip_to - d['date_start']).days + 1, 0)
 					
-				elif b['date_start'] > date_from and (d['date_end'] or d['date_end'] >= date_to):
-					res += d['amount'] * (date_to - d['date_start'])/(date_to - date_from)
-					
-				elif b['date_start'] <= date_from and d['date_end'] < date_to:
-					res += d['amount'] * (d['date_end'] - date_from)/(date_to - date_from)
+				elif d['date_start'] <= payslip_from and d['date_end'] < date_to:
+					duration = max((d['date_end'] - payslip_from).days + 1, 0)
 				
 				else:
-					res += d['amount'] * (d['date_end'] - d['date_start'])/(date_to - date_from)
+					duration = (d['date_end'] - d['date_start']).days + 1
+				
+				res += amount * duration/payslip_duration
 				
 		return res
     	
@@ -363,11 +378,17 @@ class hr_contract(orm.Model):
     
     def sum_benefits(self, cr, uid, ids, contract_id, date_from, date_to, exemption=False, benefit_code=False, employer=False, context=None):
     	
+		payslip_from = strptime(date_from, "%Y-%m-%d").date()
+		payslip_to = strptime(date_to, "%Y-%m-%d").date()
+		payslip_duration = (payslip_to - payslip_from).days + 1
+		
+		days_in_year = calendar.isleap(payslip_from.year) and 366 or 365
+    	
 		contract = self.read(cr, uid, contract_id, ['benefit_line_ids'], context)
 		
 		benefit_ids = contract['benefit_line_ids']
 		
-		attrs = ['code', 'amount', 'category_id', 'date_start', 'date_end']
+		attrs = ['code', 'amount', 'er_amount', 'category_id', 'date_start', 'date_end', 'is_annual']
 		if exemption:
 			attrs.append(exemption)
 		
@@ -376,19 +397,28 @@ class hr_contract(orm.Model):
 		res = 0
 		for b in benefits:
 			if (exemption == False or b[exemption] == False) and (benefit_code == False or b['code'] == benefit_code):
-				amount = employer and b['er_amount'] or b['amount']
+
+				b['date_start'] = strptime(b['date_start'], "%Y-%m-%d").date()
+				b['date_end'] = b['date_end'] and strptime(b['date_end'], "%Y-%m-%d").date()
 				
-				if b['date_start'] <= date_from and (b['date_end'] == False or b['date_end'] >= date_start):
-					res += amount
+				amount = employer and b['er_amount'] or b['amount']
+				if not b['is_annual']:
+					periodic_ratio = days_in_year/((b['date_end'] - b['date_start']).days + 1)
+					amount = periodic_ratio * amount
+
+				if b['date_start'] <= payslip_from and (b['date_end'] == False or b['date_end'] >= payslip_to):
+					duration = payslip_duration
+				
+				elif b['date_start'] > payslip_from and (b['date_end'] == False or b['date_end'] >= date_to):
+					duration = max((payslip_to - b['date_start']).days + 1, 0)
 					
-				elif b['date_start'] > date_from and (b['date_end'] == False or b['date_end'] >= date_to):
-					res += amount * (date_to - b['date_start'])/(date_to - date_from)
-					
-				elif b['date_start'] <= date_from and b['date_end'] < date_to:
-					res += amount * (b['date_end'] - date_from)/(date_to - date_from)
+				elif b['date_start'] <= payslip_from and b['date_end'] < date_to:
+					duration = max((b['date_end'] - payslip_from).days + 1, 0)
 				
 				else:
-					res += amount * (b['date_end'] - b['date_start'])/(date_to - date_from)
+					duration = (b['date_end'] - b['date_start']).days + 1
+				
+				res += amount * duration/payslip_duration
 				
 		return res
 		
@@ -396,19 +426,4 @@ class hr_contract(orm.Model):
     	
     _defaults = {
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
