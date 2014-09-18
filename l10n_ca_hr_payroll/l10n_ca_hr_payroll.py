@@ -237,10 +237,15 @@ a tax credit."""),
             size=52, string='Code'),
         'jurisdiction': fields.related('category_id', 'jurisdiction',
             type='selection', selection=get_jurisdiction),
+        'estimated_income': fields.boolean('Estimated Income',
+            help="""\
+True if included in the calculation of the estimated annual net income,
+False otherwise"""),
     }
     _defaults = {
         'amount':   0.0,
         'date_start': lambda *a: time.strftime('%Y-%m-%d'),
+        'estimated_income': True,
     }
     def onchange_category_id(self, cr, uid, ids, category_id=False):
         res = {'value': {'amount': 0.0}}
@@ -309,22 +314,17 @@ employer are annual, False if they are entered for the period."""),
             type='char', size=52, string='FIT Exempt'),
         'code': fields.related('category_id', 'code',
             type='char', size=52, string='Code'),
-        'estimated_income': fields.boolean('Estimated Income',
-            help="""\
-True if included in the calculation of the estimated annual net income,
-False otherwise"""),
     }
     _defaults = {
         'amount': 0,
         'er_amount': 0,
-        'estimated_income': True,
         'date_start': lambda *a: time.strftime('%Y-%m-%d'),
         'is_annual': True,
     }
     def onchange_category_id(self, cr, uid, ids, category_id=False):
         res = {'value': {'amount': 0.0}}
         if category_id:
-            category = self.pool.get('hr.benefit.category').
+            category = self.pool.get('hr.benefit.category')
             category = category.browse(cr, uid, category_id)
             res['value']['amount'] = category.default_amount
             res['value']['er_amount'] = category.default_er_amount
@@ -372,7 +372,7 @@ Income Tax deductions for the computation of the employee's payslips"""),
         deduction_ids = employee['federal_deduction_ids'] + \
             employee['provincial_deduction_ids']
         
-        attrs = ['code', 'amount', 'category_id', 'date_from', 'date_to']
+        attrs = ['code', 'amount', 'category_id', 'date_start', 'date_end']
         if estimated_income:
             attrs.append('estimated_income')
             
@@ -394,7 +394,7 @@ Income Tax deductions for the computation of the employee's payslips"""),
                     max((payslip_to - d['date_end']).days, 0) or 0
                 
                 ratio = 1 - (start_offset + end_offset)/payslip_duration
-                amount = amount * ratio
+                amount = d['amount'] * ratio
                 
                 res += amount
         return res
