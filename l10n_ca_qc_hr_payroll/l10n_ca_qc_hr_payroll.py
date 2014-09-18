@@ -21,29 +21,31 @@
 
 from openerp.osv import fields, orm
 
+
 class hr_benefit_category(orm.Model):
-	_inherit = 'hr.benefit.category'
-	_columns = {
-		'qpp_exempt': fields.boolean('QPP Exempt', help="Exemption from Quebec Pension Plan"),
-		'qpip_exempt': fields.boolean('QPIP Exempt', help="Exemption from Quebec Parental Insurance Plan"),
-		'qit_exempt': fields.boolean('QIT Exempt', help="Exemption from Quebec Income Tax"),
-	}
-	_defaults = {
-		'qpp_exempt': False,
-		'qpip_exempt': False,
-		'qit_exempt': False,
-	}
-    
-    
-    
-class hr_contract_benefit(orm.Model):  
+    _inherit = 'hr.benefit.category'
+    _columns = {
+        'qpp_exempt': fields.boolean('QPP Exempt',
+            help="Exemption from Quebec Pension Plan"),
+        'qpip_exempt': fields.boolean('QPIP Exempt',
+            help="Exemption from Quebec Parental Insurance Plan"),
+        'qit_exempt': fields.boolean('QIT Exempt',
+            help="Exemption from Quebec Income Tax"),
+    }
+    _defaults = {
+        'qpp_exempt': False,
+        'qpip_exempt': False,
+        'qit_exempt': False,
+    }
+
+
+class hr_contract_benefit(orm.Model):
     _inherit = 'hr.contract.benefit'
     _columns = {
-		'qpp_exempt': fields.related('category_id', 'qpp_exempt', type='char', size=52, string='QPP Exempt'),
-		'qpip_exempt': fields.related('category_id', 'qpip_exempt', type='char', size=52, string='QPIP Exempt'),
-		'qit_exempt': fields.related('category_id', 'qit_exempt', type='char', size=52, string='QIT Exempt'),
-	}
-    
-    
-    
-    
+        'qpp_exempt': fields.related('category_id', 'qpp_exempt',
+            type='char', size=52, string='QPP Exempt'),
+        'qpip_exempt': fields.related('category_id', 'qpip_exempt',
+            type='char', size=52, string='QPIP Exempt'),
+        'qit_exempt': fields.related('category_id', 'qit_exempt',
+            type='char', size=52, string='QIT Exempt'),
+    }
