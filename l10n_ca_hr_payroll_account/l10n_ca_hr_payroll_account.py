@@ -26,10 +26,15 @@ class hr_benefit_category(orm.Model):
     _inherit = 'hr.benefit.category'
     _columns = {
         'account_tax_id': fields.many2one('account.tax.code', 'Tax Code'),
-        'account_debit': fields.many2one('account.account', 'Debit Account',
-            help="The expense account"),
-        'account_credit': fields.many2one('account.account', 'Credit Account',
-            help="The payable account"),
+        'account_debit': fields.many2one(
+            'account.account', 'Debit Account',
+            help="The expense account"
+        ),
+        'account_credit': fields.many2one(
+            'account.account',
+            'Credit Account',
+            help="The payable account"
+        ),
     }
     _defaults = {
     }
