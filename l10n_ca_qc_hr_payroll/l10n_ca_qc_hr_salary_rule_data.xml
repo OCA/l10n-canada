@@ -270,7 +270,7 @@ result = QPP_C
 
     <!-- Employment insurance - Employee - 140 -->
           
-        <record id="rule_qc_ie_ee_pytd" model="hr.salary.rule">
+        <record id="rule_qc_ei_ee_pytd" model="hr.salary.rule">
             <field name="name">EI - Employee - Previous Year To Date Contribution (EI_EE_PYTD)</field>
             <field name="sequence" eval="140"/>
             <field name="code">EI_EE_PYTD</field>
@@ -285,7 +285,7 @@ result = payslip.sum('QPP_C',date_from,date_to)
             </field>
         </record>
         
-        <record id="rule_qc_ie_ee_maxc" model="hr.salary.rule">
+        <record id="rule_qc_ei_ee_maxc" model="hr.salary.rule">
             <field name="name">EI - Employee - Maximum Insurable Earnings (EI_EE_MAXIE)</field>
             <field name="sequence" eval="141"/>
             <field name="code">EI_EE_MAXIE</field>
@@ -301,7 +301,7 @@ result = max(result, 0)
             </field>
         </record>
         
-        <record id="rule_qc_ie_ee_m" model="hr.salary.rule">
+        <record id="rule_qc_ei_ee_m" model="hr.salary.rule">
             <field name="name">EI - Employee - Maximum Contribution (EI_EE_M)</field>
             <field name="sequence" eval="131"/>
             <field name="code">EI_EE_M</field>
@@ -314,7 +314,7 @@ result = max(result, 0)
             <field name="amount_fix">743.58</field>
         </record>
 
-        <record id="rule_qc_ie_ee_c" model="hr.salary.rule">
+        <record id="rule_qc_ei_ee_c" model="hr.salary.rule">
             <field name="name">EI - Employee Contribution (EI_EE_C)</field>
             <field name="sequence" eval="142"/>
             <field name="code">EI_EE_C</field>
@@ -330,7 +330,7 @@ if employee.ei_exempt:
             </field>
         </record>
         
-        <record id="rule_qc_ie_ee_ytd" model="hr.salary.rule">
+        <record id="rule_qc_ei_ee_ytd" model="hr.salary.rule">
             <field name="name">EI - Employee Year to Date Contribution (EI_EE_YTD)</field>
             <field name="sequence" eval="143"/>
             <field name="code">EI_EE_YTD</field>
@@ -344,7 +344,7 @@ result = EI_EE_PYTD + EI_EE_C
             </field>
         </record>
         
-        <record id="rule_qc_ie_er_m" model="hr.salary.rule">
+        <record id="rule_qc_ei_er_m" model="hr.salary.rule">
             <field name="name">EI - Employer - Maximum Contribution (EI_ER_M)</field>
             <field name="sequence" eval="131"/>
             <field name="code">EI_ER_M</field>
@@ -357,7 +357,7 @@ result = EI_EE_PYTD + EI_EE_C
             <field name="amount_fix">1041.01</field>
         </record>
         
-        <record id="rule_qc_ie_er_c" model="hr.salary.rule">
+        <record id="rule_qc_ei_er_c" model="hr.salary.rule">
             <field name="name">EI - Employer Contribution (EI_ER_C)</field>
             <field name="sequence" eval="144"/>
             <field name="code">EI_ER_C</field>
@@ -371,7 +371,7 @@ result = min(EI_EE_C * 1.4, EI_ER_M)
             </field>
         </record>
         
-        <record id="rule_qc_ie_er_ytd" model="hr.salary.rule">
+        <record id="rule_qc_ei_er_ytd" model="hr.salary.rule">
             <field name="name">EI - Employer Contribution (EI_ER_YTD)</field>
             <field name="sequence" eval="145"/>
             <field name="code">EI_ER_YTD</field>
