@@ -20,5 +20,6 @@
 ##############################################################################
 
 from . import (
-    l10n_ca_qc_hr_payroll,
+    l10n_ca_qc_hr_benefit_category,
+    l10n_ca_qc_hr_contract_benefit,
 )

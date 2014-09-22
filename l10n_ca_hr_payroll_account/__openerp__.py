@@ -46,7 +46,7 @@ Contributors
     ],
     'data': [
         'l10n_ca_hr_payroll_account_data.xml',
-        'l10n_ca_hr_payroll_account_view.xml',
+        'l10n_ca_hr_benefit_category_view.xml',
     ],
     'test': [],
     'demo': [],
