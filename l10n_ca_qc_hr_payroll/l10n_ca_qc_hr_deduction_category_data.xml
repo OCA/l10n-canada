@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    
+    <!-- Deduction Category-->
+    	<record id="QITF" model="hr.deduction.category">
+            <field name="name">Quebec - Contributions to pension plans (QIT_F)</field>
+            <field name="code">QIT_F</field>
+            <field name="description">Annual deductions related to the variable F of Revenu Quebec. Mostly contributions to pension plans, but other deductions are included in this category.</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        <record id="QITF2" model="hr.deduction.category">
+            <field name="name">Quebec - Contributions to pension (estimated income) (QIT_F2)</field>
+            <field name="code">QIT_F2</field>
+            <field name="description">Annual deductions related to the variable F2 of Revenu Quebec (used for estimated annual income). Mostly contributions to pension plans, but other deductions are included in this category.</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        <record id="QITJ" model="hr.deduction.category">
+            <field name="name">Quebec - Source Deduction Return (QIT_J)</field>
+            <field name="code">QIT_J</field>
+            <field name="description">Line 19 of the form TP-1015.3 if authorized before the first period of pay. Otherwise, see the documentation from Revenu Quebec. The amount is periodic.</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        <record id="QITJ1" model="hr.deduction.category">
+            <field name="name">Quebec - Reduction in Source Deductions (QIT_J1)</field>
+            <field name="code">QIT_J1</field>
+            <field name="description">Total of the form TP-1016 if authorized before the first period of pay. Otherwise, see the documentation from Revenu Quebec. The amount is periodic.</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        
+        <record id="QITK1" model="hr.deduction.category">
+            <field name="name">Quebec - Non-refundable tax credit relative to TP-1016-V (QIT_K1)</field>
+            <field name="code">QIT_K1</field>
+            <field name="description">Annual non-refundable tax credit. Total of the form TP-1016 if authorized before the first period of pay. Otherwise, see the documentation from Revenu Quebec.</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        
+        <record id="QITE" model="hr.deduction.category">
+            <field name="name">Quebec - Personal Tax Credit (QIT_E)</field>
+            <field name="code">QIT_E</field>
+            <field name="description">Annual Personal tax credit indicated on form TP-1016.</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        
+        <record id="QITQ" model="hr.deduction.category">
+            <field name="name">Quebec - Tax credit for purchase of class A FTQ shares (QIT_Q)</field>
+            <field name="code">QIT_Q</field>
+            <field name="description">Amount withheld for the pay period for the purchase of class A shares in the Fonds de Solidarité des Travailleurs du Québec (FTQ).</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        
+        <record id="QITQ1" model="hr.deduction.category">
+            <field name="name">Quebec - Tax credit for purchase of class A or class B Fondaction shares (QIT_Q1)</field>
+            <field name="code">QIT_Q1</field>
+            <field name="description">Amount withheld for the pay period for the purchase of class A or class B shares in Fondaction, le Fonds de développement de la Confédération des syndicats nationaux pour la coopération et l’emploi.</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        
+        <record id="QITL" model="hr.deduction.category">
+            <field name="name">Quebec - Additional source deduction (QIT_L)</field>
+            <field name="code">QIT_L</field>
+            <field name="description">Additional source deduction of income tax requested by the individual for the period.</field>
+            <field name="jurisdiction">provincial</field>
+        </record>
+        
+        <record id="FP" model="hr.benefit.category">
+            <field name="name">Free Parking</field>
+            <field name="code">FP</field>
+            <field name="description">Free Parking</field>
+            <field name="default_amount">0</field>
+            <field name="default_er_amount">0</field>
+            <field name="is_cash">false</field>
+        </record>
+        
+        <record id="INS" model="hr.benefit.category">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="description">Free Parking</field>
+            <field name="default_amount">0</field>
+            <field name="default_er_amount">0</field>
+            <field name="is_cash">false</field>
+        </record>
+        
+    </data>
+</openerp>

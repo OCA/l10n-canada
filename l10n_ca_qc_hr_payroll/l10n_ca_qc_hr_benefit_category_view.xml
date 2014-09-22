@@ -5,7 +5,6 @@
 	<record id="hr_benefit_category_view_form_inherit" model="ir.ui.view">
 		<field name="name">hr.benefit.category.view.form.inherit</field>
 		<field name="model">hr.benefit.category</field>
-		<field name="type">form</field>
 		<field name="inherit_id" ref="l10n_ca_hr_payroll.hr_benefit_category_form"/>
 		<field name="arch" type="xml">
 			<xpath expr="//field[@name='fit_exempt']" position="after">

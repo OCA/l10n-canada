@@ -57,8 +57,10 @@ class hr_contract(orm.Model):
             _get_pays_per_year, method=True, string='Pays Per Year',
             type='float', readonly=True,
         ),
-        'weeks_of_vacation': fields.integer('Number of weeks of vacation',
-                                            required=True),
+        'weeks_of_vacation': fields.integer(
+            'Number of weeks of vacation',
+            required=True
+        ),
         'benefit_line_ids': fields.one2many(
             'hr.contract.benefit',
             'contract_id',

@@ -44,7 +44,9 @@ Contributors
     ],
     'data': [
         'l10n_ca_qc_hr_benefit_category_view.xml',
-        'l10n_ca_qc_hr_payroll_data.xml',
+        'l10n_ca_qc_hr_deduction_category_data.xml',
+        'l10n_ca_qc_hr_salary_rule_data.xml',
+        'l10n_ca_qc_hr_structure_data.xml',
     ],
     'demo': [],
     'test': [],
