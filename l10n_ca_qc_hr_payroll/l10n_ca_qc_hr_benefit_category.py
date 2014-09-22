@@ -43,20 +43,3 @@ class hr_benefit_category(orm.Model):
         'qpip_exempt': False,
         'qit_exempt': False,
     }
-
-
-class hr_contract_benefit(orm.Model):
-    _inherit = 'hr.contract.benefit'
-    _columns = {
-        'qpp_exempt': fields.related(
-            'category_id', 'qpp_exempt',
-            type='char', size=52, string='QPP Exempt'
-        ),
-        'qpip_exempt': fields.related(
-            'category_id', 'qpip_exempt',
-            type='char', size=52, string='QPIP Exempt'),
-        'qit_exempt': fields.related(
-            'category_id', 'qit_exempt',
-            type='char', size=52, string='QIT Exempt'
-        ),
-    }

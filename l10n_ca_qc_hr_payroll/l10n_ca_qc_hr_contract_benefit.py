@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 - 2014 Odoo Canada. All Rights Reserved.
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,12 +19,21 @@
 #
 ##############################################################################
 
-from . import (
-    l10n_ca_hr_payroll,
-    l10n_ca_hr_employee,
-    l10n_ca_hr_contract,
-    l10n_ca_hr_deduction_category,
-    l10n_ca_hr_benefit_category,
-    l10n_ca_hr_employee_deduction,
-    l10n_ca_hr_contract_benefit,
-)
+from openerp.osv import fields, orm
+
+
+class hr_contract_benefit(orm.Model):
+    _inherit = 'hr.contract.benefit'
+    _columns = {
+        'qpp_exempt': fields.related(
+            'category_id', 'qpp_exempt',
+            type='char', string='QPP Exempt'
+        ),
+        'qpip_exempt': fields.related(
+            'category_id', 'qpip_exempt',
+            type='char', string='QPIP Exempt'),
+        'qit_exempt': fields.related(
+            'category_id', 'qit_exempt',
+            type='char', string='QIT Exempt'
+        ),
+    }
