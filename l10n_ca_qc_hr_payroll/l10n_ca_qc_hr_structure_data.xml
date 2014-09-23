@@ -7,6 +7,7 @@
             <field name="name">Quebec Base</field>
             <field name="rule_ids"
         eval="[(6, 0, [
+        ref('rule_qc_hsf_s'),
         ref('rule_qc_qpip_s4'),
         ref('rule_qc_qpip_n'),
         ref('rule_qc_qpip_a6'),
