@@ -11,6 +11,7 @@
 				<field name="qit_exempt"/>
 			  	<field name="qpp_exempt"/>
 			  	<field name="qpip_exempt"/>
+			  	<field name="hsf_exempt"/>
 			</xpath>
 		</field>
 	</record>

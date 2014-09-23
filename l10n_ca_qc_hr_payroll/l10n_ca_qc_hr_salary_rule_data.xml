@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
+
+    <!-- Quebec Heath Services Fund - 110 -->
+    <!-- The amount payable by the employer is calculated with the company payroll sum of HSF_S -->
+        <record id="rule_qc_hsf_s" model="hr.salary.rule">
+            <field name="name">HSF - Employee's gross eligible salary under the HSF for the pay period (HSF_S)</field>
+            <field name="sequence" eval="110"/>
+            <field name="code">HSF_S</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='hsf_exempt', employer=True, pays_per_year=P) + GROSS)/P
+            </field>
+        </record>
     
     <!-- Quebec Parental Insurance Plan - 120 -->
         <record id="rule_qc_qpip_s4" model="hr.salary.rule">

@@ -37,9 +37,14 @@ class hr_benefit_category(orm.Model):
             'QIT Exempt',
             help="Exemption from Quebec Income Tax"
         ),
+        'hsf_exempt': fields.boolean(
+            'HSF Exempt',
+            help="Exemption from Quebec Health Services Fund"
+        ),
     }
     _defaults = {
         'qpp_exempt': False,
         'qpip_exempt': False,
         'qit_exempt': False,
+        'hsf_exempt': False,
     }
