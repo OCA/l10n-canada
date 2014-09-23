@@ -20,11 +20,11 @@
 ##############################################################################
 
 from . import (
-    l10n_ca_hr_payroll,
-    l10n_ca_hr_employee,
-    l10n_ca_hr_contract,
-    l10n_ca_hr_deduction_category,
-    l10n_ca_hr_benefit_category,
-    l10n_ca_hr_employee_deduction,
-    l10n_ca_hr_contract_benefit,
+    hr_payroll,
+    hr_employee,
+    hr_contract,
+    hr_deduction_category,
+    hr_benefit_category,
+    hr_employee_deduction,
+    hr_contract_benefit,
 )

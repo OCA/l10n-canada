@@ -20,7 +20,7 @@
 ##############################################################################
 
 from openerp.osv import fields, orm
-from l10n_ca_hr_payroll import get_jurisdiction
+from hr_payroll import get_jurisdiction
 import time
 
 

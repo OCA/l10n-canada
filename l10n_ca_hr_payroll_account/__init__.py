@@ -20,5 +20,5 @@
 ##############################################################################
 
 from . import (
-    l10n_ca_hr_benefit_category,
+    hr_benefit_category,
 )
