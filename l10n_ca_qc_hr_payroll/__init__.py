@@ -22,4 +22,5 @@
 from . import (
     l10n_ca_qc_hr_benefit_category,
     l10n_ca_qc_hr_contract_benefit,
+    l10n_ca_qc_res_company,
 )
