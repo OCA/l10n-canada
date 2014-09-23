@@ -48,6 +48,7 @@ Contributors
         'l10n_ca_qc_hr_salary_rule_data.xml',
         'l10n_ca_qc_hr_structure_data.xml',
         'l10n_ca_qc_res_company_view.xml',
+        'l10n_ca_qc_hr_employee_view.xml',
     ],
     'demo': [],
     'test': [],
