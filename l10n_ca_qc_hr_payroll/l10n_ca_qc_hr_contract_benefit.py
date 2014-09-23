@@ -31,9 +31,22 @@ class hr_contract_benefit(orm.Model):
         ),
         'qpip_exempt': fields.related(
             'category_id', 'qpip_exempt',
-            type='char', string='QPIP Exempt'),
+            type='char', string='QPIP Exempt'
+        ),
         'qit_exempt': fields.related(
             'category_id', 'qit_exempt',
             type='char', string='QIT Exempt'
+        ),
+        'fss_exempt': fields.related(
+            'category_id', 'fss_exempt',
+            type='char', string='FSS Exempt'
+        ),
+        'cnt_exempt': fields.related(
+            'category_id', 'cnt_exempt',
+            type='char', string='CNT Exempt'
+        ),
+        'csst_exempt': fields.related(
+            'category_id', 'csst_exempt',
+            type='char', string='CSST Exempt'
         ),
     }

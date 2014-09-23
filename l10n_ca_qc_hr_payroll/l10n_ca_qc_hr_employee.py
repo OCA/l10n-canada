@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2010 - 2014 Odoo Canada. All Rights Reserved.
+#    Copyright (C) 2012 Amura Consulting. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,9 +19,15 @@
 #
 ##############################################################################
 
-from . import (
-    l10n_ca_qc_hr_benefit_category,
-    l10n_ca_qc_hr_contract_benefit,
-    l10n_ca_qc_res_company,
-    l10n_ca_qc_hr_employee,
-)
+from openerp.osv import fields, orm
+
+
+class hr_employee(orm.Model):
+    _name = 'hr.employee'
+    _inherit = 'hr.employee'
+    _columns = {
+        'qpip_exempt': fields.boolean('QPIP Exempt'),
+        'fss_exempt': fields.boolean('FSS Exempt'),
+        'cnt_exempt': fields.boolean('CNT Exempt'),
+        'csst_exempt': fields.boolean('CSST Exempt'),
+    }

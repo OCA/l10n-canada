@@ -2,8 +2,9 @@
 <openerp>
     <data noupdate="1">
 
-    <!-- Quebec Heath Services Fund - 110 -->
-    <!-- The amount payable by the employer is calculated with the company payroll sum of HSF_S -->
+    <!-- Eligible salaries for Employer contributions -->
+    <!-- based on global salaries and wages - 110 -->
+
         <record id="rule_qc_hsf_s" model="hr.salary.rule">
             <field name="name">HSF - Employee's gross eligible salary under the HSF for the pay period (HSF_S)</field>
             <field name="sequence" eval="110"/>
@@ -14,7 +15,50 @@
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='hsf_exempt', employer=True, pays_per_year=P) + GROSS)/P
+result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='hsf_exempt', employer=True, pays_per_year=P)
+
+if not employee.fss_exempt:
+    result += GROSS
+
+result = result / P
+            </field>
+        </record>
+
+        <record id="rule_qc_cnt_s" model="hr.salary.rule">
+            <field name="name">CNT - Employee's gross eligible salary under the CNT for the pay period (CNT_S)</field>
+            <field name="sequence" eval="111"/>
+            <field name="code">CNT_S</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='cnt_exempt', employer=True, pays_per_year=P)
+
+if not employee.cnt_exempt:
+    result += GROSS
+
+result = result / P
+            </field>
+        </record>
+
+        <record id="rule_qc_csst_s" model="hr.salary.rule">
+            <field name="name">CSST - Employee's gross eligible salary under the CSST for the pay period (CSST_S)</field>
+            <field name="sequence" eval="112"/>
+            <field name="code">CSST_S</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='csst_exempt', employer=True, pays_per_year=P)
+
+if not employee.csst_exempt:
+    result += GROSS
+
+result = result / P
             </field>
         </record>
     

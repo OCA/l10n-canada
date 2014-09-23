@@ -32,15 +32,6 @@ class hr_employee(orm.Model):
         'pit_exempt': fields.boolean('Provincial Income Tax Exempt'),
         'ei_exempt': fields.boolean('EI Exempt'),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
-        'qpip_exempt': fields.boolean('QPIP Exempt'),
-        'cpp_ytd_adj': fields.float('CPP/QPP YTD Adjustment', help="""\
-Amount to adjust CPP/QPP for calculations.
-Used if employee has contributed elsewhere and will be factored in when
-calculating maximum CPP payment"""),
-        'ei_ytd_adj': fields.float('EI YTD Adjustment', help="""\
-Amount to adjust EI for calculations.
-Used if employee has contributed elsewhere and will be factored in when
-calculating maximum EI payment"""),
         'vac_pay': fields.float('Vacation Pay %', digits=(16, 2)),
         'federal_deduction_ids': fields.one2many(
             'hr.employee.deduction',

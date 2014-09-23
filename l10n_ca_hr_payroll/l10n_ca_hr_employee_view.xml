@@ -10,11 +10,8 @@
               <notebook position="inside">
                   <page string="Canadian Payroll">
                     <group string="Exemptions">
-                        <field name="ei_ytd_adj"/>
-                        <field name="cpp_ytd_adj"/>
                         <field name="ei_exempt"/>
                         <field name="cpp_exempt"/>
-                        <field name="qpip_exempt"/>
                     </group>
                     <group string="Federal Income Tax Deductions">
 	                    <field name="federal_deduction_ids" nolabel="1">

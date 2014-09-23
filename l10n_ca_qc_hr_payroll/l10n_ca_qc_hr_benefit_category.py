@@ -41,10 +41,21 @@ class hr_benefit_category(orm.Model):
             'HSF Exempt',
             help="Exemption from Quebec Health Services Fund"
         ),
+        'cnt_exempt': fields.boolean(
+            'CNT Exempt',
+            help="Exemption from Quebec Commission des Normes du Travail"
+        ),
+        'csst_exempt': fields.boolean(
+            'CSST Exempt',
+            help="""\
+Exemption from Quebec Commission de la santé et de la sécurité du travail""",
+        ),
     }
     _defaults = {
         'qpp_exempt': False,
         'qpip_exempt': False,
         'qit_exempt': False,
         'hsf_exempt': False,
+        'cnt_exempt': False,
+        'csst_exempt': False,
     }
