@@ -21,7 +21,7 @@
 ##############################################################################
 {
     "name": "Supplier on expense line",
-    "version": "1.1",
+    "version": "1.2",
     "author": "Savoir-faire Linux",
     "website": "http://www.savoirfairelinux.com",
     "category": "Human Resources",
@@ -29,15 +29,7 @@
     "description": """
 Supplier on expense line
 ========================
-This module adds a supplier field on the expense line and set the taxes of
-the employee invoice based on the fiscal position of the supplier.
-
-The tax calculation doesn't work in v7 and v8 for an expense. The expense now
-create a voucher that only has one tax rate by voucher and we can't
-safely select one tax rate per expense form. To fix this situation the
-expense form should suport the taxes like a supplier invoice form and a
-the end of the workflow produce a voucher and the journal entries like
-what is done when a supplier invoice is open.
+This module adds a supplier field on the expense line.
 
 Contributors
 ------------
@@ -47,7 +39,7 @@ Contributors
 """,
     "depends": ['hr_expense'],
     "data": [
-        'hr_expense.xml',
+        'hr_expense_line_view.xml',
     ],
-    "installable": False,
+    "installable": True
 }

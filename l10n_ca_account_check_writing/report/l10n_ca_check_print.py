@@ -227,6 +227,6 @@ report_sxw.report_sxw(
 # report_sxw.report_sxw(
 #     'report.l10n.ca.account.print.check.bottom',
 #     'account.voucher',
-#     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
+# 'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
 #     parser=report_print_check,header=False
 # )
