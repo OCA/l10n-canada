@@ -53,4 +53,5 @@ Contributors
     'demo': [],
     'test': [],
     'installable': True,
+    'active': False,
 }

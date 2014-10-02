@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution
-#    Copyright (C) 2010 - 2014 Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,9 +21,8 @@
 
 from openerp.osv import orm, fields
 
-
 class res_currency(orm.Model):
     _inherit = 'res.currency'
     _columns = {
-        'print_on_check': fields.char('Display Name', size=64, translate=True),
+        'print_on_check': fields.char('New Display Name', size=64, translate=True),
     }
