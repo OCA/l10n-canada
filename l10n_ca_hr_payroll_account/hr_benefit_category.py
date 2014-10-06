@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 - 2014 Odoo Canada. All Rights Reserved.
+#    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,12 +19,22 @@
 #
 ##############################################################################
 
-from . import (
-    hr_payroll,
-    hr_employee,
-    hr_contract,
-    hr_deduction_category,
-    hr_benefit_category,
-    hr_employee_deduction,
-    hr_contract_benefit,
-)
+from openerp.osv import fields, orm
+
+
+class hr_benefit_category(orm.Model):
+    _inherit = 'hr.benefit.category'
+    _columns = {
+        'account_tax_id': fields.many2one('account.tax.code', 'Tax Code'),
+        'account_debit': fields.many2one(
+            'account.account', 'Debit Account',
+            help="The expense account"
+        ),
+        'account_credit': fields.many2one(
+            'account.account',
+            'Credit Account',
+            help="The payable account"
+        ),
+    }
+    _defaults = {
+    }

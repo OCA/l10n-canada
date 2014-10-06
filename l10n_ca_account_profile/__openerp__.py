@@ -51,7 +51,6 @@ Contributors
         'account_move_line_report_xls',
         'account_chart_report',
         'account_reversal',
-        'partner_aging',
         'npg_account_make_deposit',
         'npg_bank_account_reconciliation',
         'account_statement_base_import',

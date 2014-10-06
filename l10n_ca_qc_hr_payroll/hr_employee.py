@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 - 2014 Odoo Canada. All Rights Reserved.
+#    Copyright (C) 2012 Amura Consulting. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,12 +19,15 @@
 #
 ##############################################################################
 
-from . import (
-    hr_payroll,
-    hr_employee,
-    hr_contract,
-    hr_deduction_category,
-    hr_benefit_category,
-    hr_employee_deduction,
-    hr_contract_benefit,
-)
+from openerp.osv import fields, orm
+
+
+class hr_employee(orm.Model):
+    _name = 'hr.employee'
+    _inherit = 'hr.employee'
+    _columns = {
+        'qpip_exempt': fields.boolean('QPIP Exempt'),
+        'fss_exempt': fields.boolean('FSS Exempt'),
+        'cnt_exempt': fields.boolean('CNT Exempt'),
+        'csst_exempt': fields.boolean('CSST Exempt'),
+    }

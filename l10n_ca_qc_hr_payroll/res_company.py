@@ -22,18 +22,15 @@
 from openerp.osv import fields, orm
 
 
-class hr_employee(orm.Model):
-    _name = 'hr.employee'
-    _inherit = 'hr.employee'
+class res_company(orm.Model):
+    _name = 'res.company'
+    _inherit = 'res.company'
     _columns = {
-        'tp10153': fields.float(
-            'Source Deductions Return (TP-1015.3)',
-            digits=(16, 2),
-            required=True,
-            help="Source Deductions Return",
+        'hsf_computation_method': fields.selection(
+            (
+                ("ytd", "Year To Date Salaries and Wages"),
+                ("pytd", "Previous Year's Total Salaries and Wages"),
+            ),
+            "HSF Computation Method"
         ),
-    }
-
-    _defaults = {
-        'tp10153': 11195.00,
     }

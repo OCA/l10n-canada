@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+	<record id="hr_benefit_category_view_form" model="ir.ui.view">
+		<field name="name">hr.benefit.category.view.form.inherit</field>
+		<field name="model">hr.benefit.category</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="l10n_ca_hr_payroll.hr_benefit_category_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//group[@name='exemptions']" position="after">
+				<group name="accounting" string="Accounting">
+					<field name="account_tax_id" attrs="{'invisible': [('is_cash', '=', True)], 'required': [('is_cash', '=', False)]}"/>
+				  	<field name="account_debit"/>
+				  	<field name="account_credit"/>
+				</group>
+			</xpath>
+		</field>
+	</record>
+  
+  </data>
+</openerp>

@@ -31,6 +31,7 @@ Quebec Payroll Rules
 
 Contributors
 ------------
+* David Dufresne <david.dufresne@savoirfairelinux.com>
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Mathieu Benoit <mathieu.benoit@savoirfairelinux.com>
@@ -42,12 +43,14 @@ Contributors
         'l10n_ca_hr_payroll',
     ],
     'data': [
-        'l10n_ca_qc_hr_payroll_view.xml',
-        'l10n_ca_qc_hr_payroll_data.xml',
+        'hr_benefit_category_view.xml',
+        'hr_deduction_category_data.xml',
+        'hr_salary_rule_data.xml',
+        'hr_structure_data.xml',
+        'res_company_view.xml',
+        'hr_employee_view.xml',
     ],
     'demo': [],
-    'test': [
-        'test/l10n_ca_qc_hr_payroll.yml',
-    ],
+    'test': [],
     'installable': True,
 }
