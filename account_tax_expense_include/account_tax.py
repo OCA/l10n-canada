@@ -20,6 +20,13 @@
 #
 ##############################################################################
 
-from . import (
-    account_tax_expense_include
-)
+from openerp.osv import orm, fields
+
+
+class account_tax(orm.Model):
+    _inherit = 'account.tax'
+    _columns = {
+        'expense_include': fields.boolean('Tax Included in Expense',
+                                          help="Check this if this tax is \
+                                          included in the expense amount."),
+    }
