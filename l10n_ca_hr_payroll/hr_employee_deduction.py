@@ -57,6 +57,7 @@ a tax credit."""),
         'jurisdiction': fields.related(
             'category_id',
             'jurisdiction',
+            string="Jurisdiction",
             type='selection',
             selection=get_jurisdiction
         ),
@@ -72,6 +73,7 @@ False otherwise""",
         'date_start': lambda *a: time.strftime('%Y-%m-%d'),
         'estimated_income': True,
     }
+    _order = "name"
 
     def onchange_category_id(self, cr, uid, ids, category_id=False):
         res = {'value': {'amount': 0.0}}

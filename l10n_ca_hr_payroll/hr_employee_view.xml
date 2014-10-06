@@ -1,46 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-  <data>
-
-      <record id="hr_employee_view_form" model="ir.ui.view">
-          <field name="name">hr.employee.view.form.inherit</field>
-          <field name="model">hr.employee</field>
-          <field name="inherit_id" ref="hr.view_employee_form"/>
-          <field name="arch" type="xml">
-              <notebook position="inside">
-                  <page string="Canadian Payroll">
-                    <group string="Exemptions">
-                        <field name="ei_exempt"/>
-                        <field name="cpp_exempt"/>
-                    </group>
-                    <group string="Federal Income Tax Deductions">
-	                    <field name="federal_deduction_ids" nolabel="1">
-	                   		<tree string="Deduction Lines" editable="bottom">
-   								        <field name="name"/>
-	                   			<field name="category_id" on_change="onchange_category_id(category_id)" domain="[('jurisdiction', '=', 'federal')]"/>
-	                   			<field name="date_start"/>
-	                   			<field name="date_end"/>
-	                   			<field name="amount"/>
-	                   			<field name="code" attrs="{'readonly': True}"/>
-	                   		</tree>
-	                   	</field>
-                    </group>
-                    <group string="Provincial Income Tax Deductions">
-	                    <field name="provincial_deduction_ids" nolabel="1">
-	                   		<tree string="Deduction Lines" editable="bottom">
-   								<field name="name"/>
-	                   			<field name="category_id" on_change="onchange_category_id(category_id)" domain="[('jurisdiction', '=', 'provincial')]"/>
-	                   			<field name="date_start"/>
-	                   			<field name="date_end"/>
-	                   			<field name="amount"/>
-	                   			<field name="code" attrs="{'readonly': True}"/>
-	                   		</tree>
-	                   	</field>
-                    </group>
-                  </page>
-              </notebook>
-          </field>
-      </record>
-  
-  </data>
+    <data>
+        <record id="hr_employee_view_form" model="ir.ui.view">
+            <field name="name">hr.employee.view.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Canadian Payroll">
+                        <group string="Exemptions">
+                            <field name="ei_exempt"/>
+                            <field name="cpp_exempt"/>
+                        </group>
+                        <group string="Income Tax Deductions">
+                            <field name="deduction_ids" nolabel="1">
+                                <tree string="Deduction Lines" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="category_id" on_change="onchange_category_id(category_id)" domain="[('jurisdiction', '=', 'provincial')]"/>
+                                    <field name="jurisdiction"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="amount"/>
+                                    <field name="code" attrs="{'readonly': True}"/>
+                                </tree>
+                             </field>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
 </openerp>

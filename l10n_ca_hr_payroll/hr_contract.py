@@ -81,69 +81,49 @@ class hr_contract(orm.Model):
         # convert string dates to date objects
         payslip_from = strptime(date_from, "%Y-%m-%d").date()
         payslip_to = strptime(date_to, "%Y-%m-%d").date()
-
         payslip_duration = (payslip_to - payslip_from).days + 1
 
-        contract = self.read(
-            cr, uid, contract_id,
-            ['benefit_line_ids'],
-            context
-        )
-        benefit_ids = contract['benefit_line_ids']
-
-        attrs = [
-            'code', 'amount', 'er_amount', 'category_id',
-            'date_start', 'date_end', 'is_annual'
-        ]
-        if exemption:
-            attrs.append(exemption)
-
-        benefits = self.pool.get(
-            'hr.contract.benefit'
-        ).read(
-            cr, uid, benefit_ids, attrs, context
-        )
+        contract = self.browse(cr, uid, contract_id, context=context)
+        benefits = contract.benefit_line_ids
 
         res = 0
         for b in benefits:
             if (not exemption or not b[exemption]) and (
-                not benefit_code or b['code'] == benefit_code
+                not benefit_code or b.code == benefit_code
             ):
-
                 # convert string dates to date objects
-                b['date_start'] = strptime(b['date_start'], "%Y-%m-%d").date()
-                b['date_end'] = b['date_end'] and \
-                    strptime(b['date_end'], "%Y-%m-%d").date()
+                date_start = strptime(b.date_start, "%Y-%m-%d").date()
+                date_end = b.date_end and \
+                    strptime(b.date_end, "%Y-%m-%d").date() or False
 
-                amount = employer and b['er_amount'] or b['amount']
+                amount = employer and b.er_amount or b.amount
 
                 # some calculations need annual benefit amounts,
                 # other need the periodic amount
                 # benefits can have an annual amount or a periodic amount
-                if annual and not b['is_annual']:
+                if annual and not b.is_annual:
                     amount = pays_per_year * amount
-                elif not annual and b['is_annual']:
+                elif not annual and b.is_annual:
                     amount = amount / pays_per_year
 
                 # Ponderate the amount of benefit in regard
                 # to the payslip dates
-                if b['is_annual']:
+                if b.is_annual:
                     start_offset = max(
-                        (b['date_start'] - payslip_from).days,
+                        (date_start - payslip_from).days,
                         0
                     )
-                    end_offset = b['date_end'] and \
-                        max((payslip_to - b['date_end']).days, 0) or 0
+                    end_offset = date_end and \
+                        max((payslip_to - date_end).days, 0) or 0
                 else:
                     start_offset = max(
-                        (payslip_from - b['date_start']).days,
+                        (payslip_from - date_start).days,
                         0
                     )
-                    end_offset = max((b['date_end'] - payslip_to).days, 0)
+                    end_offset = max((date_end - payslip_to).days, 0)
 
                 ratio = 1 - (start_offset + end_offset) / payslip_duration
                 amount = amount * ratio
-
                 res += amount
 
         return res

@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="1">
 
-         <record id="hr_structure_qc" model="hr.payroll.structure">
+        <record id="hr_structure_qc" model="hr.payroll.structure">
             <field name="code">QC</field>
             <field name="name">Quebec Base</field>
             <field name="rule_ids"

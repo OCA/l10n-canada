@@ -33,16 +33,10 @@ class hr_employee(orm.Model):
         'ei_exempt': fields.boolean('EI Exempt'),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
         'vac_pay': fields.float('Vacation Pay %', digits=(16, 2)),
-        'federal_deduction_ids': fields.one2many(
+        'deduction_ids': fields.one2many(
             'hr.employee.deduction',
             'employee_id',
-            'Federal Income Tax Deductions',
-            help="""\
-Income Tax deductions for the computation of the employee's payslips"""),
-        'provincial_deduction_ids': fields.one2many(
-            'hr.employee.deduction',
-            'employee_id',
-            'Provincial Income Tax Deductions',
+            'Income Tax Deductions',
             help="""\
 Income Tax deductions for the computation of the employee's payslips"""
         ),
@@ -62,42 +56,27 @@ Income Tax deductions for the computation of the employee's payslips"""
         payslip_to = strptime(date_to, "%Y-%m-%d").date()
         payslip_duration = (payslip_to - payslip_from).days + 1
 
-        employee = self.read(
-            cr, uid, employee_id,
-            ['federal_deduction_ids', 'provincial_deduction_ids'],
-            context
-        )
-
-        deduction_ids = employee['federal_deduction_ids'] + \
-            employee['provincial_deduction_ids']
-
-        attrs = ['code', 'amount', 'category_id', 'date_start', 'date_end']
-        if estimated_income:
-            attrs.append('estimated_income')
-
-        deductions = self.pool.get('hr.employee.deduction').read(
-            cr, uid, deduction_ids, attrs, context
-        )
+        employee = self.browse(cr, uid, employee_id, context=context)
+        deductions = employee.deduction_ids
 
         res = 0
 
         for d in deductions:
-            if d['code'] == deduction_code and (
-                not estimated_income or d['estimated_income']
+            if d.code == deduction_code and (
+                not estimated_income or d.estimated_income
             ):
+                date_start = strptime(d.date_start, "%Y-%m-%d").date()
+                start_offset = max((date_start - payslip_from).days, 0)
 
-                d['date_start'] = strptime(d['date_start'], "%Y-%m-%d").date()
-                d['date_end'] = d['date_end'] and \
-                    strptime(d['date_end'], "%Y-%m-%d").date()
-
-                start_offset = max((d['date_start'] - payslip_from).days, 0)
-                end_offset = d['date_end'] and \
-                    max((payslip_to - d['date_end']).days, 0) or 0
+                date_end = d.date_end and \
+                    strptime(d.date_end, "%Y-%m-%d").date() or False
+                end_offset = date_end and \
+                    max((payslip_to - date_end).days, 0) or 0
 
                 ratio = 1 - (start_offset + end_offset) / payslip_duration
-                amount = d['amount'] * ratio
-
+                amount = d.amount * ratio
                 res += amount
+
         return res
 
     _defaults = {
