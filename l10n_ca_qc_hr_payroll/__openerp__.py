@@ -42,12 +42,9 @@ Contributors
         'l10n_ca_hr_payroll',
     ],
     'data': [
-        'l10n_ca_qc_hr_payroll_view.xml',
-        'l10n_ca_qc_hr_payroll_data.xml',
     ],
     'demo': [],
     'test': [
-        'test/l10n_ca_qc_hr_payroll.yml',
     ],
     'installable': True,
 }

@@ -45,7 +45,6 @@ Contributors
         'hr_payroll_account',
     ],
     'data': [
-        'l10n_ca_hr_payroll_account_data.xml',
     ],
     'test': [],
     'demo': [],
