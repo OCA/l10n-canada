@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 - 2014 Odoo Canada. All Rights Reserved.
+#    Copyright (C) 2012 Amura Consulting. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,12 +19,8 @@
 #
 ##############################################################################
 
-from . import (
-    hr_payroll,
-    hr_employee,
-    hr_contract,
-    hr_deduction_category,
-    hr_benefit_category,
-    hr_employee_deduction,
-    hr_contract_benefit,
-)
+
+def get_jurisdiction(self, cursor, user_id, context=None):
+    return (
+        ('federal', 'Federal'),
+        ('provincial', 'Provincial'))
