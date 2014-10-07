@@ -35,6 +35,7 @@ Canada Payroll Rules
 
 Contributors
 ------------
+* Amura Consulting
 * David Dufresne <david.dufresne@savoirfairelinux.com>
 * Pierre Lamarche <pierre.lamarche@savoirfairelinux.com>
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>

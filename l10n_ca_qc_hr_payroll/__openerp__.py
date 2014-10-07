@@ -31,6 +31,7 @@ Quebec Payroll Rules
 
 Contributors
 ------------
+* Amura Consulting
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Mathieu Benoit <mathieu.benoit@savoirfairelinux.com>
