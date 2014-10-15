@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="hr_structure_ca_base" model="hr.payroll.structure">
+            <field name="code">CA</field>
+            <field name="name">Canadian Base</field>
+            <field eval="[(6, 0, [
+        ref('rule_ca_p'),
+        ref('rule_ca_pocc'),
+        ref('rule_ca_basic'),
+        ref('rule_ca_ei_ee_pytd'),
+        ref('rule_ca_ei_ee_maxc'),
+        ref('rule_ca_ei_ee_m'),
+        ref('rule_ca_ei_ee_c'),
+        ref('rule_ca_ei_ee_ytd'),
+        ref('rule_ca_ei_er_m'),
+        ref('rule_ca_ei_er_c'),
+        ref('rule_ca_ei_er_ytd'),
+        ref('rule_ca_cpp_s3'),
+        ref('rule_ca_cpp_v'),
+        ref('rule_ca_cpp_m'),
+        ref('rule_ca_cpp_a5'),
+        ref('rule_ca_cpp_c'),
+        ref('rule_ca_cpp_ee_ytd'),
+        ref('rule_ca_cpp_a5_er'),
+        ref('rule_ca_cpp_c_er'),
+        ref('rule_ca_cpp_er_ytd'),
+        ref('rule_ca_fit_i'),
+        ref('rule_ca_fit_f'),
+        ref('rule_ca_fit_f2'),
+        ref('rule_ca_fit_u1'),
+        ref('rule_ca_fit_hd'),
+        ref('rule_ca_fit_f1'),
+        ref('rule_ca_fit_a'),
+        ref('rule_ca_fit_k1'),
+        ref('rule_ca_fit_k2'),
+        ref('rule_ca_fit_k3'),
+        ref('rule_ca_fit_k4'),
+        ref('rule_ca_fit_lcf'),
+        ref('rule_ca_fit_t3'),
+        ref('rule_ca_fit_t1'),
+        ref('rule_ca_fit_t'),
+        ref('rule_ca_fit_ytd'),
+        ref('rule_ca_vac'),
+        ref('rule_ca_vac_ytd'),
+        ref('rule_ca_ins_ee_c'),
+        ref('rule_ca_ins_ee_ytd'),
+        ref('rule_ca_ins_er_c'),
+        ref('rule_ca_ins_er_ytd'),
+        ref('rule_ca_ben_ee_c'),
+        ref('rule_ca_ben_ee_ytd'),
+        ref('rule_ca_ben_er_c'),
+        ref('rule_ca_ben_er_ytd'),
+        ])]" name="rule_ids"/>
+        </record>
+
+    </data>
+</openerp>

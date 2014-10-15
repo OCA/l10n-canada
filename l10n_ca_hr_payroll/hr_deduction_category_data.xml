@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="FITF" model="hr.deduction.category">
+            <field name="name">Canada - Contributions to pension plans (FIT_F)</field>
+            <field name="code">FIT_F</field>
+            <field name="description">Periodic contributions to RPP, RRSP, PRPP, or RCA</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">federal</field>
+        </record>
+        
+        <record id="FITF2" model="hr.deduction.category">
+            <field name="name">Canada - Alimony or maintenance payments required before May 1, 1997 (FIT_F2)</field>
+            <field name="code">FIT_F2</field>
+            <field name="description">Periodic alimony or maintenance payments required by a legal document dated before May 1, 1997, to be payroll-deducted authorized by a tax services office or tax centre.</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">federal</field>
+        </record>
+        
+        <record id="FITU1" model="hr.deduction.category">
+            <field name="name">Canada - Union dues (FIT_U1)</field>
+            <field name="code">FIT_U1</field>
+            <field name="description">Periodic union dues for the pay period paid to a trade union, an association of public servants, or dues required under the law of a province to a parity or advisory committee or similar body.</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">federal</field>
+        </record>
+        
+        <record id="FITHD" model="hr.deduction.category">
+            <field name="name">Canada - Annual deduction for living in a prescribed zone (FIT_HD)</field>
+            <field name="code">FIT_HD</field>
+            <field name="description">Annual deduction for living in a prescribed zone, as shown on Form TD1.</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">federal</field>
+        </record>
+        
+        <record id="FITF1" model="hr.deduction.category">
+            <field name="name">Canada - Annual deductions for child care and support payments (FIT_F1)</field>
+            <field name="code">FIT_F1</field>
+            <field name="description">Annual deductions such as child care expenses and support payments, requested by an employee or pensioner and authorized by a tax services office or tax centre.</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">federal</field>
+        </record>
+        
+        <record id="FITK1" model="hr.deduction.category">
+            <field name="name">Canada - Federal personal tax credit (FIT_K1)</field>
+            <field name="code">FIT_K1</field>
+            <field name="description">Federal non-refundable personal tax credit (the lowest federal tax rate is used to calculate this credit).</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">federal</field>
+        </record>
+        
+        <record id="FITK3" model="hr.deduction.category">
+            <field name="name">Canada - Other federal tax credits (FIT_K3)</field>
+            <field name="code">FIT_K3</field>
+            <field name="description">Other federal tax credits (such as medical expenses and charitable donations) authorized by a tax services office or tax centre.</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">federal</field>
+        </record>
+        
+        <record id="FITLCF" model="hr.deduction.category">
+            <field name="name">Canada - Federal labour-sponsored funds tax credit (FIT_LCF)</field>
+            <field name="code">FIT_LCF</field>  
+            <field name="description">Federal labour-sponsored funds tax credit.</field>
+            <field name="default_amount">0.0</field>
+            <field name="jurisdiction">federal</field>
+        </record>
+
+    </data>
+</openerp>

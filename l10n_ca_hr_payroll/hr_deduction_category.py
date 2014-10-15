@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2012 Amura Consulting. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -20,20 +20,30 @@
 ##############################################################################
 
 from openerp.osv import fields, orm
+from hr_payroll import get_jurisdiction
 
 
-class hr_employee(orm.Model):
-    _name = 'hr.employee'
-    _inherit = 'hr.employee'
+class hr_deduction_category(orm.Model):
+    _name = 'hr.deduction.category'
+    _description = 'Categories of employee deductions used for salary rules'
     _columns = {
-        'tp10153': fields.float(
-            'Source Deductions Return (TP-1015.3)',
-            digits=(16, 2),
+        'name': fields.char('Category Name', required=True),
+        'code': fields.char('Code', required=True, help="""\
+The code that can be used in the salary rules to identify thededuction"""),
+        'description': fields.text(
+            'Description',
             required=True,
-            help="Source Deductions Return",
+            help="""\
+Brief explanation of which benefits the category contains."""),
+        'default_amount': fields.float('Default Amount', required=True),
+        'jurisdiction': fields.selection(
+            get_jurisdiction,
+            'Jurisdiction',
+            required=True
         ),
+        'note': fields.text('Note'),
     }
-
     _defaults = {
-        'tp10153': 11195.00,
+        'default_amount': 0.0,
+        'jurisdiction': 'federal',
     }

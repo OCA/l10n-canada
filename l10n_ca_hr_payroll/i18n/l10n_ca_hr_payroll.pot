@@ -1,0 +1,322 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* l10n_ca_hr_payroll
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-07 12:55+0000\n"
+"PO-Revision-Date: 2014-10-07 08:56-0500\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.employee:0
+msgid "Canadian Payroll"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee.deduction,category_id:0
+msgid "Category"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.employee:0 field:hr.employee,deduction_ids:0
+#: model:ir.actions.act_window,name:l10n_ca_hr_payroll.action_hr_deduction_category_list
+#: model:ir.ui.menu,name:l10n_ca_hr_payroll.menu_action_hr_deduction_category_list
+msgid "Income Tax Deductions"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.benefit.category,name:0
+msgid "Benefit Name"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.employee:0
+msgid "Deduction Lines"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.deduction.category,note:0
+msgid "Note"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract.benefit,er_amount:0
+msgid "Employer Contribution"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.deduction.category,name:0
+msgid "Category Name"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee.deduction,employee_id:0
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_employee
+msgid "Employee"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.employee.deduction,estimated_income:0
+msgid ""
+"True if included in the calculation of the estimated annual net income,\n"
+"False otherwise"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_employee_deduction
+msgid "Employee deductions used for salary rules"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_benefit_category
+msgid "Categories of employee benefits"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.deduction.category,code:0
+msgid "The code that can be used in the salary rules to identify thededuction"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee.deduction,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.benefit.category,description:0
+#: field:hr.deduction.category,description:0
+msgid "Description"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.benefit.category,is_cash:0
+msgid ""
+"True if the benefit is paid in cash to the employee,\n"
+"False if paid in Kind."
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.contract.benefit,amount:0 help:hr.contract.benefit,er_amount:0
+msgid ""
+"Enter the amount that you would pay for a complete year,\n"
+"even if the duration is lower that a year."
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract.benefit,name:0 field:hr.employee.deduction,name:0
+msgid "Deduction Name"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract.benefit,amount:0
+msgid "Employee Contribution"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee,vac_pay:0
+msgid "Vacation Pay %"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_deduction_category
+msgid "Categories of employee deductions used for salary rules"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.contract:0
+msgid "Total employer contribution"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.contract.benefit,is_annual:0
+msgid ""
+"True if the entered amounts of contribution for employee and\n"
+"employer are annual, False if they are entered for the period."
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract.benefit,date_end:0 field:hr.employee.deduction,date_end:0
+msgid "End Date"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee,fit_exempt:0
+msgid "Federal Income Tax Exempt"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract.benefit,is_annual:0
+msgid "Annual"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.benefit.category:0 view:hr.contract:0
+#: field:hr.contract,benefit_line_ids:0
+#: model:ir.actions.act_window,name:l10n_ca_hr_payroll.action_hr_benefit_category_list
+#: model:ir.ui.menu,name:l10n_ca_hr_payroll.menu_action_hr_benefit_category_list
+msgid "Employee Benefits"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract.benefit,contract_id:0
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_contract
+msgid "Contract"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract.benefit,category_id:0
+msgid "Benefit"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_contract_benefit
+msgid "The benefits in an employee contract"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.benefit.category:0
+msgid "Search Employee Benefit"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.benefit.category,default_er_amount:0
+msgid "Default Employer Contribution"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.employee,deduction_ids:0
+msgid "Income Tax deductions for the computation of the employee's payslips"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.employee.deduction,amount:0
+msgid ""
+"It is used in computation of the payslip. May be an annual or\n"
+"periodic amount depending on the category. The deduction may be\n"
+"a tax credit."
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.deduction.category:0
+msgid "Search Employee Deduction Categories"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract.benefit,date_start:0
+#: field:hr.employee.deduction,date_start:0
+msgid "Start Date"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.benefit.category:0 view:hr.employee:0
+msgid "Exemptions"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee,pit_exempt:0
+msgid "Provincial Income Tax Exempt"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.benefit.category,default_amount:0
+msgid "Default annual amount that the employee contributes"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.benefit.category,code:0 field:hr.contract.benefit,code:0
+#: field:hr.deduction.category,code:0 field:hr.employee.deduction,code:0
+msgid "Code"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.salary.rule:0
+msgid "False"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract,weeks_of_vacation:0
+msgid "Number of weeks of vacation"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.benefit.category,code:0
+msgid "The code that can be used in the salary rules to identify the benefit"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.deduction.category,jurisdiction:0
+#: field:hr.employee.deduction,jurisdiction:0
+msgid "Jurisdiction"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.deduction.category:0
+msgid "Deduction Category"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee,cpp_exempt:0
+msgid "CPP/QPP Exempt"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.deduction.category,default_amount:0
+msgid "Default Amount"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.benefit.category,default_er_amount:0
+msgid "Default annual amount that the employer contributes"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee.deduction,estimated_income:0
+msgid "Estimated Income"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.benefit.category,is_cash:0
+msgid "Is Cash"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.contract:0
+msgid "Total employee contribution"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.benefit.category,default_amount:0
+msgid "Default Employee Contribution"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.benefit.category,description:0
+#: help:hr.deduction.category,description:0
+msgid "Brief explanation of which benefits the category contains."
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.benefit.category,ei_exempt:0 field:hr.contract.benefit,ei_exempt:0
+#: field:hr.employee,ei_exempt:0
+msgid "EI Exempt"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.benefit.category,fit_exempt:0
+#: field:hr.contract.benefit,fit_exempt:0
+msgid "FIT Exempt"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract,pays_per_year:0
+msgid "Pays Per Year"
+msgstr ""

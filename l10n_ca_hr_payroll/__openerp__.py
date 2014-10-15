@@ -29,25 +29,35 @@ Canada Payroll Rules
 ====================
  * Adds Federal Salary Rules
  * Adds Federal Salary Structure
- * Adds Federal Claim Codes, Deductions and Exemptions on the Employee Form
  * Adds 'Pays Per Year' field on the Contract Form
+ * Adds Income Tax Deductions
+ * Adds Employee Benefits (related to contracts)
 
 Contributors
 ------------
+* Amura Consulting
+* David Dufresne <david.dufresne@savoirfairelinux.com>
+* Pierre Lamarche <pierre.lamarche@savoirfairelinux.com>
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    'author': 'Odoo Canada',
-    'website': 'https://community.odoo.com/project/42',
+    'author': 'Savoir-faire Linux',
+    'website': 'https://www.savoirfairelinux.com',
     'depends': [
         'hr_payroll',
         'l10n_ca_toponyms',
     ],
     'data': [
         'security/ir.model.access.csv',
-        'l10n_ca_hr_payroll_view.xml',
-        'l10n_ca_hr_payroll_data.xml',
+        'hr_salary_rule_view.xml',
+        'hr_contract_view.xml',
+        'hr_employee_view.xml',
+        'hr_deduction_category_view.xml',
+        'hr_benefit_category_view.xml',
+        'hr_deduction_category_data.xml',
+        'hr_salary_rule_data.xml',
+        'hr_structure_data.xml',
     ],
     'test': [],
     'demo': [],

@@ -36,6 +36,9 @@ Contributors
 ------------
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
+* Pierre Lamarche <pierre.lamarche@savoirfairelinux.com>
+* Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
+* Savoir-faire Linux <contact@savoirfairelinux.com>
 """,
     'author': 'Odoo Canada',
     'website': 'https://community.odoo.com/project/42',
@@ -45,7 +48,6 @@ Contributors
         'hr_payroll_account',
     ],
     'data': [
-        'l10n_ca_hr_payroll_account_data.xml',
     ],
     'test': [],
     'demo': [],
