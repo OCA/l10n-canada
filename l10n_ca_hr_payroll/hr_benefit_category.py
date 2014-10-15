@@ -50,10 +50,12 @@ Default annual amount that the employee contributes"""
         ),
         'ei_exempt': fields.boolean('EI Exempt'),
         'fit_exempt': fields.boolean('FIT Exempt'),
+        'cpp_exempt': fields.boolean('CPP Exempt'),
     }
     _defaults = {
         'is_cash': True,
         'default_amount': 0.0,
         'ei_exempt': False,
         'fit_exempt': False,
+        'cpp_exempt': False,
     }

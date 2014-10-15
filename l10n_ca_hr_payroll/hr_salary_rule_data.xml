@@ -81,6 +81,257 @@ pcalc
             <field name="amount_python_compute">result = BASIC / P</field>
         </record>
 
+    <!-- Employment insurance - Employee - 140 -->
+          
+        <record id="rule_ca_ei_ee_pytd" model="hr.salary.rule">
+            <field name="name">EI - Employee - Previous Year To Date Contribution (EI_EE_PYTD)</field>
+            <field name="sequence" eval="140"/>
+            <field name="code">EI_EE_PYTD</field>
+            <field name="category_id" ref="FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('CPP_C',date_from,date_to)
+            </field>
+        </record>
+        
+        <record id="rule_ca_ei_ee_maxc" model="hr.salary.rule">
+            <field name="name">EI - Employee - Maximum Insurable Earnings (EI_EE_MAXIE)</field>
+            <field name="sequence" eval="141"/>
+            <field name="code">EI_EE_MAXIE</field>
+            <field name="category_id" ref="FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+benefits = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='qpip_exempt', employer=True, pays_per_year=P)
+result = min((benefits + GROSS)/P, 48600 - EI_EE_PYTD)
+result = max(result, 0)
+            </field>
+        </record>
+        
+        <record id="rule_ca_ei_ee_m" model="hr.salary.rule">
+            <field name="name">EI - Employee - Maximum Contribution (EI_EE_M)</field>
+            <field name="sequence" eval="131"/>
+            <field name="code">EI_EE_M</field>
+            <field name="category_id" ref="FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">913.68</field>
+        </record>
+
+        <record id="rule_ca_ei_ee_c" model="hr.salary.rule">
+            <field name="name">EI - Employee Contribution (EI_EE_C)</field>
+            <field name="sequence" eval="142"/>
+            <field name="code">EI_EE_C</field>
+            <field name="category_id" ref="SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field> 
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = min(0.0188 * EI_EE_MAXIE, EI_EE_M)  
+if employee.ei_exempt:
+    result = 0
+            </field>
+        </record>
+        
+        <record id="rule_ca_ei_ee_ytd" model="hr.salary.rule">
+            <field name="name">EI - Employee Year to Date Contribution (EI_EE_YTD)</field>
+            <field name="sequence" eval="143"/>
+            <field name="code">EI_EE_YTD</field>
+            <field name="category_id" ref="FCALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field> 
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = EI_EE_PYTD + EI_EE_C
+            </field>
+        </record>
+        
+        <record id="rule_ca_ei_er_m" model="hr.salary.rule">
+            <field name="name">EI - Employer - Maximum Contribution (EI_ER_M)</field>
+            <field name="sequence" eval="131"/>
+            <field name="code">EI_ER_M</field>
+            <field name="category_id" ref="FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">1278.2</field>
+        </record>
+        
+        <record id="rule_ca_ei_er_c" model="hr.salary.rule">
+            <field name="name">EI - Employer Contribution (EI_ER_C)</field>
+            <field name="sequence" eval="144"/>
+            <field name="code">EI_ER_C</field>
+            <field name="category_id" ref="EMP"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field> 
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = min(EI_EE_C * 1.4, EI_ER_M)
+            </field>
+        </record>
+        
+        <record id="rule_ca_ei_er_ytd" model="hr.salary.rule">
+            <field name="name">EI - Employer Contribution (EI_ER_YTD)</field>
+            <field name="sequence" eval="145"/>
+            <field name="code">EI_ER_YTD</field>
+            <field name="category_id" ref="FCALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field> 
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('EI_ER_C',date_from,date_to) + EI_ER_C
+            </field>
+        </record>
+
+    <!-- Canada Pension Plan - 130 -->
+
+        <record id="rule_ca_cpp_s3" model="hr.salary.rule">
+            <field name="name">CPP - Employee's gross pensionable salary under the CPP for the pay period (CPP_S3)</field>
+            <field name="sequence" eval="130"/>
+            <field name="code">CPP_S3</field>
+            <field name="category_id" ref="PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = (contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, exemption='cpp_exempt', employer=True, pays_per_year=P) + GROSS)/P
+            </field>
+        </record>
+
+        <record id="rule_ca_cpp_v" model="hr.salary.rule">
+            <field name="name">CPP - Basic Exemption (CPP_V)</field>
+            <field name="sequence" eval="130"/>
+            <field name="code">CPP_V</field>
+            <field name="category_id" ref="PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">3500</field>
+        </record>
+
+    <!-- Canada Pension Plan - Employee - 131 -->
+
+        <record id="rule_ca_cpp_m" model="hr.salary.rule">
+            <field name="name">CPP - Employee - Maximum Contribution (CPP_M)</field>
+            <field name="sequence" eval="131"/>
+            <field name="code">CPP_M</field>
+            <field name="category_id" ref="PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+            <field name="quantity">1.0</field>
+            <field name="amount_fix">2425.50</field>
+        </record>
+
+        <record id="rule_ca_cpp_a5" model="hr.salary.rule">
+            <field name="name">CPP - Employee - Previous Year To Date Contribution (CPP_A5)</field>
+            <field name="sequence" eval="132"/>
+            <field name="code">CPP_A5</field>
+            <field name="category_id" ref="PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('CPP_C',date_from,date_to)
+            </field>
+        </record>
+
+        <record id="rule_ca_cpp_c" model="hr.salary.rule">
+            <field name="name">CPP - Employee Contribution (CPP_C)</field>
+            <field name="sequence" eval="133"/>
+            <field name="code">CPP_C</field>
+            <field name="category_id" ref="SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = min(0.0495 * (CPP_S3 - CPP_V/P), CPP_M - CPP_A5)
+if employee.cpp_exempt:
+    result = 0
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_ca_cpp_ee_ytd" model="hr.salary.rule">
+            <field name="name">CPP - Employee - Year To Date Contribution (CPP_EE_YTD)</field>
+            <field name="sequence" eval="134"/>
+            <field name="code">CPP_EE_YTD</field>
+            <field name="category_id" ref="PCALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field> 
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = CPP_C + CPP_A5</field>
+        </record>
+
+    <!-- Canada Pension Plan - Employer - 135 -->
+
+        <record id="rule_ca_cpp_a5_er" model="hr.salary.rule">
+            <field name="name">CPP - Employer - Previous Year To Date Contribution (CPP_A5_ER)</field>
+            <field name="sequence" eval="135"/>
+            <field name="code">CPP_A5_ER</field>
+            <field name="category_id" ref="PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">date_from = payslip.date_to.split('-')[0] + '-01-01'
+date_to = payslip.date_to
+result = payslip.sum('CPP_C_ER',date_from,date_to)
+            </field>
+        </record>
+
+        <record id="rule_ca_cpp_c_er" model="hr.salary.rule">
+            <field name="name">CPP - Employer Contribution (CPP_C_ER)</field>
+            <field name="sequence" eval="136"/>
+            <field name="code">CPP_C_ER</field>
+            <field name="category_id" ref="EMP"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = CPP_C
+            </field>
+        </record>
+
+        <record id="rule_ca_cpp_er_ytd" model="hr.salary.rule">
+            <field name="name">CPP - Employer - Year To Date Contribution (CPP_ER_YTD)</field>
+            <field name="sequence" eval="137"/>
+            <field name="code">CPP_ER_YTD</field>
+            <field name="category_id" ref="PCALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field> 
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = CPP_C_ER + CPP_A5_ER</field>
+        </record>
+
+
     <!-- Federal Income Tax - 170 -->
 
         <record id="rule_ca_fit_i" model="hr.salary.rule">
@@ -196,13 +447,41 @@ result = employee.sum_deductions(employee.id, payslip.date_from, payslip.date_to
             </field>
         </record>
         
-		<!-- 	
-			FOR OTHER PROVINCES THAN QUEBEC, ADD THE FIT_K2 RULE
-			It should correspond to YTD CPP + YTD EI 
-		 	For Quebec, it is implemented in l10n_ca_hr_payroll_data.xml 
-		-->
-		
-		        
+        <!-- Rule for the calculation of the federal CPP, QPIP and EI tax credit -->
+        <record id="rule_ca_fit_k2" model="hr.salary.rule">
+            <field name="name">FIT - Year to date amount contributed CPP, QPIP and EI (FIT_K2)</field>
+            <field name="sequence" eval="171"/>
+            <field name="code">FIT_K2</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+deductions = [
+    {'C': CPP_C, 'PYTD': CPP_A5, 'YTD': CPP_EE_YTD, 'max': CPP_M},
+    {'C': EI_EE_C, 'PYTD': EI_EE_PYTD, 'YTD': EI_EE_YTD, 'max': EI_EE_M}
+]
+
+result = 0
+
+for d in deductions:
+    if d['YTD'] &lt; d['max']:
+        result += d['C']
+    
+    elif d['PYTD'] &gt;= d['max']:
+        result += d['max']
+    
+    elif (d['C'] * P) &lt; d['max']:
+        result += d['max']
+
+    else:
+        result += d['C']
+        
+result = result * 0.15
+            </field>
+        </record>
+
         <record id="rule_ca_fit_k3" model="hr.salary.rule">
             <field name="name">FIT - Other federal tax credits (FIT_K3)</field>
             <field name="sequence" eval="171"/>
@@ -267,15 +546,24 @@ for b in brackets:
 		result = FIT_A * b['R'] - b['K'] - FIT_K1 - FIT_K2 - FIT_K3 - FIT_K4
 
 result = max(result, 0)
-
         	</field>
         </record>
         
-        <!--
-        	FOR OTHER PROVINCES THAN QUEBEC, ADD THE FIT_T1 RULE
-			It corresponds to Federal income tax for the period
-		 	For Quebec, it is implemented in l10n_ca_hr_payroll_data.xml 
-		-->
+        <!-- Rule for the calculation of the federal income tax for the period -->
+         <record id="rule_ca_fit_t1" model="hr.salary.rule">
+            <field name="name">FIT - Federal income tax (FIT_T1)</field>
+            <field name="sequence" eval="173"/>
+            <field name="code">FIT_T1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = max(FIT_T3 - FIT_LCF, 0)
+            </field>
+        </record>
+
 		
 		<record id="rule_ca_fit_t" model="hr.salary.rule">
             <field name="name">FIT - Federal income tax for the period (FIT_T)</field>
@@ -344,7 +632,7 @@ result = payslip.sum('VAC',date_from,date_to) + VAC
             <field name="name">Insurance - Employee Contribution (INS_EE_C)</field>
             <field name="sequence" eval="150"/>
             <field name="code">INS_EE_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
+            <field name="category_id" ref="SDED"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -358,7 +646,7 @@ result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, 
             <field name="name">Insurance - Employee - Year To Date Contribution (INS_EE_YTD)</field>
             <field name="sequence" eval="151"/>
             <field name="code">INS_EE_YTD</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
+            <field name="category_id" ref="CALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -375,7 +663,7 @@ result = payslip.sum('INS_EE_C',date_from,date_to) + INS_EE_C
             <field name="name">Insurance - Employer Contribution (INS_ER_C)</field>
             <field name="sequence" eval="152"/>
             <field name="code">INS_ER_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
+            <field name="category_id" ref="EMP"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -389,7 +677,7 @@ result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, 
             <field name="name">Insurance - Employee - Year To Date Contribution (INS_ER_YTD)</field>
             <field name="sequence" eval="153"/>
             <field name="code">INS_ER_YTD</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
+            <field name="category_id" ref="CALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -406,7 +694,7 @@ result = payslip.sum('INS_ER_C',date_from,date_to) + INS_ER_C
             <field name="name">Benefits except insurance - Employee Contribution (BEN_EE_C)</field>
             <field name="sequence" eval="155"/>
             <field name="code">BEN_EE_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.SDED"/>
+            <field name="category_id" ref="SDED"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -420,7 +708,7 @@ result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, 
             <field name="name">Employee Benefits except insurance - Employee Year To Date Contribution (BEN_EE_YTD)</field>
             <field name="sequence" eval="156"/>
             <field name="code">BEN_EE_YTD</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
+            <field name="category_id" ref="CALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -437,7 +725,7 @@ result = payslip.sum('BEN_EE_C',date_from,date_to) + BEN_EE_C
             <field name="name">Employee Benefits except insurance - Employer Contribution (BEN_ER_C)</field>
             <field name="sequence" eval="157"/>
             <field name="code">BEN_ER_C</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.EMP"/>
+            <field name="category_id" ref="EMP"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
@@ -451,7 +739,7 @@ result = contract.sum_benefits(contract.id, payslip.date_from, payslip.date_to, 
             <field name="name">Employee Benefits except insurance - Employee Year To Date Contribution (BEN_ER_YTD)</field>
             <field name="sequence" eval="158"/>
             <field name="code">BEN_ER_YTD</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.CALC"/>
+            <field name="category_id" ref="CALC"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
