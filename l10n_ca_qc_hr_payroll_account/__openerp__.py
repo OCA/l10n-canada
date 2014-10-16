@@ -4,8 +4,8 @@
 #    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
+#    it under the terms of the GNU Affero General Public License as published
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -33,10 +33,10 @@ This module:
 
     !!! Warning !!!
 
-Make sure to install AND CONFIGURE the canadian chart of accounts module (l10n_ca)
-before installing this module. Chart template needs to be selected to populate
-the account.account table and allow you to link salary rules with the financial
-account.
+Make sure to install AND CONFIGURE the canadian chart of accounts module
+(l10n_ca) before installing this module. Chart template needs to be selected
+to populate the account.account table and allow you to link salary rules with
+the financial account.
 
 Contributors
 ------------
