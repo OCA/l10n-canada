@@ -22,8 +22,8 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-# For the words we use in custom_translation(), we have to put dummy _() calls here so that Odoo
-# picks them up during .pot generation
+# For the words we use in custom_translation(), we have to put dummy _() calls
+# here so that Odoo picks them up during .pot generation
 _("and")
 
 
@@ -33,7 +33,8 @@ class account_voucher(orm.Model):
     def onchange_amount(self, cr, uid, ids, amount, rate, partner_id,
                         journal_id, currency_id, ttype, date,
                         payment_rate_currency_id, company_id, context=None):
-        """ Inherited - add amount_in_word and allow_check_writting in returned value dictionary """
+        """ Inherited - add amount_in_word and allow_check_writting in returned
+            value dictionary """
         if context is None:
             context = {}
         if isinstance(ids, (int, long)):
@@ -76,11 +77,14 @@ class account_voucher(orm.Model):
         }
 
 
-# By default, the supplier reference number is not so easily accessible from a voucher line because
-# there's no direct link between the voucher and the invoice. Fortunately, there was this recently
-# submitted patch from Lorenzo Battistini (Agile) BG at
-# https://code.launchpad.net/~elbati/account-payment/adding_account_voucher_supplier_invoice_number_7/+merge/165622
-# which solves this exact problem and I shamelessely copied that code, which works well.
+# By default, the supplier reference number is not so easily accessible from a
+# voucher line because there's no direct link between the voucher and the
+# invoice. Fortunately, there was this recently submitted patch from Lorenzo
+# Battistini (Agile) BG at
+# https://code.launchpad.net/~elbati/account-payment/adding_account_voucher_\
+# supplier_invoice_number_7/+merge/165622
+# which solves this exact problem and I shamelessely copied that code,
+# which works well.
 
 
 class voucher_line(orm.Model):

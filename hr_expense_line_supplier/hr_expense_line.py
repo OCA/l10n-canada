@@ -6,28 +6,26 @@
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
+#    it under the terms of the GNU General Public License as
 #    published by the Free Software Foundation, either version 3 of the
 #    License, or (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
+#    GNU General Public License for more details.
 #
-#    You should have received a copy of the GNU Affero General Public License
+#    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp.osv import orm, fields
 
 
-class res_partner(orm.Model):
-    _name = 'res.partner'
-    _inherit = 'res.partner'
+class hr_expense_line(orm.Model):
+    _inherit = 'hr.expense.line'
     _columns = {
-        'ne': fields.float('BN', digits=(9, 0),
-                           help="Canada Business identification Number \
-                           (9 digits)"),
+        'partner_id': fields.many2one('res.partner', 'Supplier',
+                                      required=True),
     }

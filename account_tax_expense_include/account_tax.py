@@ -20,14 +20,13 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp.osv import orm, fields
 
 
-class res_partner(orm.Model):
-    _name = 'res.partner'
-    _inherit = 'res.partner'
+class account_tax(orm.Model):
+    _inherit = 'account.tax'
     _columns = {
-        'ne': fields.float('BN', digits=(9, 0),
-                           help="Canada Business identification Number \
-                           (9 digits)"),
+        'expense_include': fields.boolean('Tax Included in Expense',
+                                          help="Check this if this tax is \
+                                          included in the expense amount."),
     }
