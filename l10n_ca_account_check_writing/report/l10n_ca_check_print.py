@@ -25,13 +25,12 @@ from openerp.tools import config
 from openerp.report import report_sxw
 from openerp.tools.translate import _
 # Odoo's built-in routines for converting numbers to words is pretty bad,
-# especially in French
-# This is why we use the library below. You can get it at:
+# especially in French This is why we use the library below. You can get it at:
 # https://pypi.python.org/pypi/num2words
 from num2words import num2words
 
-# For the words we use in custom_translation(), we have to put dummy _()
-# calls here so that Odoo picks them up during .pot generation
+# For the words we use in custom_translation(), we have to put dummy _() calls
+# here so that Odoo picks them up during .pot generation
 _("and")
 
 
@@ -76,12 +75,21 @@ class report_print_check(report_sxw.rml_parse):
                     name = voucher_line.supplier_invoice_number
                 else:
                     name = voucher_line.name
+                # Display credits with a negative sign
+                if voucher_line.type == 'cr':
+                    sign = -1
+                else:
+                    sign = 1
                 res = {
-                    'date_due': voucher_line.date_due,
+                    'date_due': (
+                        voucher_line.date_due or voucher_line.date_original
+                    ),
                     'name': name,
-                    'amount_original': voucher_line.amount_original,
-                    'amount_unreconciled': voucher_line.amount_unreconciled,
-                    'amount': voucher_line.amount,
+                    'amount_original': sign * voucher_line.amount_original,
+                    'amount_unreconciled': (
+                        sign * voucher_line.amount_unreconciled
+                    ),
+                    'amount': sign * voucher_line.amount,
                 }
                 result.append(res)
 
@@ -162,8 +170,8 @@ class report_print_check(report_sxw.rml_parse):
         """
         Get the currency of the voucher.
 
-        :param voucher_id: Id of the voucher what i want to obtain current
-                           currency.
+        :param voucher_id: Id of the voucher what i want to obtain
+                           current currency.
         :return: currency id of the voucher
         :rtype: int
         """
@@ -177,8 +185,8 @@ class report_print_check(report_sxw.rml_parse):
         """
         Get the currency of the actual company.
 
-        :param voucher_id: Id of the voucher what i want to obtain company
-                           currency.
+        :param voucher_id: Id of the voucher what i want to obtain
+                           company currency.
         :return: currency id of the company of the voucher
         :rtype: int
         """
@@ -211,22 +219,20 @@ report_sxw.report_sxw(
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.middle',
     'account.voucher',
-    'addons/l10n_ca_account_check_writing/report/'
-    'l10n_ca_check_print_middle.rml',
+    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml',
     parser=report_print_check, header=False
 )
 
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.stubs',
     'account.voucher',
-    'addons/l10n_ca_account_check_writing/report/'
-    'l10n_ca_check_print_stubs.rml',
+    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_stubs.rml',
     parser=report_print_stub, header=False
 )
 
 # report_sxw.report_sxw(
 #     'report.l10n.ca.account.print.check.bottom',
 #     'account.voucher',
-# 'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
+#     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
 #     parser=report_print_check,header=False
 # )
