@@ -50,10 +50,6 @@
             <field name="appears_on_payslip" eval="0"/>
         </record>
 
-        <record id="hr_payroll.hr_rule_net" model="hr.salary.rule">
-            <field name="amount_python_compute">result = BASICP + categories.ALW - categories.DED - categories.SDED</field>
-        </record>
-
     <!-- Common rules to all canadian salary structures -->
 
         <record id="rule_ca_p" model="hr.salary.rule">
