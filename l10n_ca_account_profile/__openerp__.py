@@ -56,6 +56,7 @@ Contributors
         'npg_bank_account_reconciliation',
         'account_statement_base_import',
         'account_invoice_merge',
+        'account_voucher_supplier_invoice_number',
     ],
     "license": "AGPL-3",
     "data": [],
