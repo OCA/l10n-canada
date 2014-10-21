@@ -93,4 +93,6 @@ Income Tax deductions for the computation of the employee's payslips"""
                 if d.periodicity == 'each_pay':
                     amount = pays_per_year * amount
 
+                res += amount
+
         return res
