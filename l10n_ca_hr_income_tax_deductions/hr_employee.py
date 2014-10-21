@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 Amura Consulting. All Rights Reserved.
+#    Copyright (C) 2014 Odoo Canada. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -40,39 +40,57 @@ Income Tax deductions for the computation of the employee's payslips"""
     def sum_deductions(
         self, cr, uid, ids,
         employee_id,
-        date_from,
-        date_to,
-        deduction_code,
+        date_from, date_to,
+        deduction_code, pays_per_year,
         estimated_income=False,
         context=None
     ):
+        """Sums over an employee's income tax deductions
 
+        estimated_income: whether the result will be used to calculate the
+        employee's estimated income
+        """
+        employee = self.browse(cr, uid, employee_id, context=context)
+        deductions = employee.deduction_ids
+        if not deductions:
+            return 0
+
+        # Get the payslup duration.
+        # This is required because a deduction's start-end interval may
+        # partially overlap the payslip's period.
         payslip_from = strptime(date_from, "%Y-%m-%d").date()
         payslip_to = strptime(date_to, "%Y-%m-%d").date()
         payslip_duration = (payslip_to - payslip_from).days + 1
-
-        employee = self.browse(cr, uid, employee_id, context=context)
-        deductions = employee.deduction_ids
 
         res = 0
 
         for d in deductions:
             if d.code == deduction_code and (
+                # Some deductions need to be ignored when computing
+                # the estimated income for the year
                 not estimated_income or d.estimated_income
             ):
+                # Case where the deduction begins after the payslip period
+                # begins.
                 date_start = strptime(d.date_start, "%Y-%m-%d").date()
                 start_offset = max((date_start - payslip_from).days, 0)
 
+                # Case where the deduction ends before the payslip period
+                # ends.
                 date_end = d.date_end and \
                     strptime(d.date_end, "%Y-%m-%d").date() or False
                 end_offset = date_end and \
                     max((payslip_to - date_end).days, 0) or 0
 
-                ratio = 1 - (start_offset + end_offset) / payslip_duration
+                # Get the ratio of the payslip period covered by the deduction.
+                ratio = 1 - float(start_offset + end_offset) / payslip_duration
+                ratio = max(ratio, 0)
+
                 amount = d.amount * ratio
-                res += amount
+
+                # If the user entered a periodical amount ('each_pay') instead
+                # of an annual amount('annual'), we need to convert the amount
+                if d.periodicity == 'each_pay':
+                    amount = pays_per_year * amount
 
         return res
-
-    _defaults = {
-    }

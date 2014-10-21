@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2012 Amura Consulting. All Rights Reserved.
+#    Copyright (C) 2014 Odoo Canada. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -59,6 +59,14 @@ a tax credit."""),
             type='char',
             string='Code'
         ),
+        'periodicity': fields.selection(
+            (
+                ('each_pay', 'Each Pay'),
+                ('annual', 'Annual'),
+            ),
+            required=True,
+            string="Amount Periodicity",
+        ),
         'jurisdiction': fields.related(
             'category_id',
             'jurisdiction',
@@ -77,6 +85,7 @@ False otherwise""",
         'amount': 0.0,
         'date_start': lambda *a: time.strftime('%Y-%m-%d'),
         'estimated_income': True,
+        'periodicity': 'annual',
     }
     _order = "name"
 
