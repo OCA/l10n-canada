@@ -95,4 +95,4 @@ Income Tax deductions for the computation of the employee's payslips"""
 
                 res += amount
 
-        return res
+        return round(res, 2)
