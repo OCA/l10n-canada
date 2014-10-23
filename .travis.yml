@@ -16,6 +16,7 @@ install:
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
   - sudo pip install num2words xlrd
+  - sudo apt-get install wkhtmltopdf
   - bzr branch lp:~noviat/openobject-addons/extra-7.0 ${HOME}/noviat
   - bzr branch lp:~rcarnes/openerp-shared/7.0 ${HOME}/shared
   - pushd ${HOME}/shared; bzr merge lp:~savoirfairelinux-openerp/openerp-shared/7.0; popd  # TEMP
