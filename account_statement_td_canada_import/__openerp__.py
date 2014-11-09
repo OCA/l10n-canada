@@ -35,6 +35,9 @@ TD Canada website in the CSV format.
 
 Contributors
 ------------
+* Marc Cassuto (marc.cassuto@savoirfairelinux.com)
+* Maxime Chambreuil (maxime.chambreuil@savoirfairelinux.com)
+* Savoir-faire Linux (support@savoirfairelinux.com)
 * Vincent Vinet (vincent.vinet@savoirfairelinux.com)
 """,
     'depends': [
