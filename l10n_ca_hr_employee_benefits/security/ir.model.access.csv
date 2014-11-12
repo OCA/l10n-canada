@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_benefit_category,access_hr_benefit_category,model_hr_benefit_category,base.group_hr_manager,1,1,1,1
+access_hr_contract_benefit,access_hr_contract_benefit,model_hr_contract_benefit,base.group_hr_manager,1,1,1,1
