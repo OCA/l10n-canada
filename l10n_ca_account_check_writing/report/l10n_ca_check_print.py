@@ -44,11 +44,13 @@ class report_print_check(report_sxw.rml_parse):
         for i in range(0, min(10, self.number_lines)):
             if i < self.number_lines:
                 voucher_line = voucher_lines[i]
-                # Don't show lines with amount=0; this means, an invoice/credit note has not been linked to this check
+                # Don't show lines with amount=0; this means, an invoice/credit
+                # note has not been linked to this check
                 if voucher_line.amount != 0:
-                    # In general, the supplier invoice reference number is a much better description
-                    # for writing checks than our own reference number, but if we don't have it, we
-                    # might as well use our internal number
+                    # In general, the supplier invoice reference number is a
+                    # much better description for writing checks than our own
+                    # reference number, but if we don't have it, we might as
+                    # well use our internal number
                     if voucher_line.supplier_invoice_number:
                         name = voucher_line.supplier_invoice_number
                     else:
@@ -56,10 +58,14 @@ class report_print_check(report_sxw.rml_parse):
                     res = {
                         'date_due': voucher_line.date_due,
                         'name': name,
-                        'amount_original': voucher_line.amount_original and voucher_line.amount_original or False,
-                        'amount_unreconciled': voucher_line.amount_unreconciled and voucher_line.amount_unreconciled
-                        or False,
-                        'amount': voucher_line.amount and voucher_line.amount or False,
+                        'amount_original': (
+                            voucher_line.amount_original and
+                            voucher_line.amount_original or False),
+                        'amount_unreconciled': (
+                            voucher_line.amount_unreconciled and
+                            voucher_line.amount_unreconciled or False),
+                        'amount': (voucher_line.amount and
+                                   voucher_line.amount or False),
                     }
                     result.append(res)
             else:
@@ -85,7 +91,7 @@ report_sxw.report_sxw(
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.middle',
     'account.voucher',
-    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml',
+    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml',  # NOQA
     parser=report_print_check, header=False
 )
 
