@@ -43,64 +43,40 @@ def custom_translation(s, lang):
     return _(s)
 
 
-def get_amount_line(amount, currency, lang):
-    try:
-        amount_in_word = num2words(int(amount), lang=lang[:2])
-    except NotImplementedError:
-        amount_in_word = num2words(int(amount))
-    currency_name = currency.print_on_check
-    cents = int(amount * 100) % 100
-    total_length = len(amount_in_word) + len(currency_name)
-    if total_length < 67:
-        stars = '*' * (67 - total_length)
-    else:
-        stars = ''
-    AND = custom_translation("and", lang)
-    amount_line_fmt = u'{amount} {AND} {cents}/100 {currency} {stars}'
-    if lang.startswith('fr'):
-        amount_line_fmt = u'{amount} {currency} {AND} {cents}/100 {stars}'
-    return amount_line_fmt.format(
-        amount=amount_in_word,
-        cents=cents,
-        currency=currency_name,
-        stars=stars,
-        AND=AND,
-    )
-
-
 class AccountVoucher(models.Model):
     _inherit = _name = 'account.voucher'
 
-    def onchange_amount(self, cr, uid, ids, amount, rate, partner_id,
-                        journal_id, currency_id, ttype, date,
-                        payment_rate_currency_id, company_id, context=None):
-        """
-        Inherited - add amount_in_word and allow_check_writting in returned
-        value dictionary
-        """
-        if context is None:
-            context = {}
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        default = super(AccountVoucher, self).onchange_amount(
-            cr, uid, ids, amount, rate, partner_id, journal_id, currency_id,
-            ttype, date, payment_rate_currency_id, company_id, context=context)
+    @api.model
+    def _amount_to_text(self, amount, currency_id):
+        context = self._context
+        lang = context.get('lang', config.get('lang', None))
+        if self.partner_id:
+            lang = self.partner_id.lang or lang
 
-        if 'value' in default:
-            amount = default['value'].get('amount', amount)
-            amount_in_word = self._get_amount_in_word(cr,
-                                                      uid,
-                                                      currency_id=currency_id,
-                                                      amount=amount,
-                                                      context=context)
+        currency = self.env['res.currency'].browse(currency_id)
+        try:
+            amount_in_word = num2words(int(amount), lang=lang[:2])
+        except NotImplementedError:
+            amount_in_word = num2words(int(amount))
+        currency_name = currency.print_on_check
+        cents = int(amount * 100) % 100
+        total_length = len(amount_in_word) + len(currency_name)
+        if total_length < 67:
+            stars = '*' * (67 - total_length)
+        else:
+            stars = ''
+        AND = custom_translation("and", lang)
+        amount_line_fmt = u'{amount} {AND} {cents}/100 {currency} {stars}'
+        if lang.startswith('fr'):
+            amount_line_fmt = u'{amount} {currency} {AND} {cents}/100 {stars}'
+        return amount_line_fmt.format(
+            amount=amount_in_word,
+            cents=cents,
+            currency=currency_name,
+            stars=stars,
+            AND=AND,
+        )
 
-            if amount_in_word is not None:
-                default['value'].update({'amount_in_word': amount_in_word})
-            if journal_id:
-                allow_check_writing = self.pool.get('account.journal').browse(
-                    cr, uid, journal_id, context=context).allow_check_writing
-                default['value'].update({'allow_check': allow_check_writing})
-        return default
 
     def print_check(self, cr, uid, ids, context=None):
         if not ids:
@@ -139,29 +115,6 @@ class AccountVoucher(models.Model):
             self.write(cr, uid, i_id, {'amount_in_word': amount_in_word}, context=context)
 
         return super(AccountVoucher, self).proforma_voucher(cr, uid, ids, context=context)
-
-    def _get_amount_in_word(self, cr, uid, i_id=None, currency_id=None, amount=None, context=None):
-        if context is None:
-            context = {}
-        if amount is None:
-            amount = self.browse(cr, uid, i_id, context=context).amount
-
-        # get lang
-        supplier_lang = context.get('lang', config.get('lang', None))
-        if i_id is not None:
-            partner_id = self.browse(cr, uid, i_id, context=context).partner_id
-            if partner_id:
-                supplier_lang = partner_id.lang
-
-        context = dict(context, lang=supplier_lang)
-        if currency_id is None:
-            if i_id is None:
-                return None
-            currency_id = self._get_current_currency(cr, uid, i_id, context=context)
-
-        currency = self.pool.get('res.currency').browse(cr, uid, currency_id, context=context)
-        # get the amount_in_word
-        return get_amount_line(amount, currency, supplier_lang)
 
 
 class VoucherLine(models.Model):
