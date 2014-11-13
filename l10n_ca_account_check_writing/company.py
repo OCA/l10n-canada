@@ -20,18 +20,17 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import fields, models
 
 
-class res_company(orm.Model):
-    _inherit = 'res.company'
-    _columns = {
-        'check_layout': fields.selection([
-            ('top', 'Check on Top'),
-            ('middle', 'Check in middle'),
-            ('bottom', 'Check on bottom'),
-            ('top_ca', 'Check on top (CA)'),
-            ('middle_ca', 'Check in middle (CA)'),
-            #  ('bottom_ca', 'Check on bottom (CA)'),
-        ], "Choose Check layout")
-    }
+class Company(models.Model):
+    _inherit = _name = 'res.company'
+
+    check_layout = fields.Selection([
+        ('top', 'Check on Top'),
+        ('middle', 'Check in middle'),
+        ('bottom', 'Check on bottom'),
+        ('top_ca', 'Check on top (CA)'),
+        ('middle_ca', 'Check in middle (CA)'),
+        #  ('bottom_ca', 'Check on bottom (CA)'),
+    ], string="Choose Check layout")

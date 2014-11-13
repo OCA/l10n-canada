@@ -20,24 +20,25 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
+from openerp import api, fields, models, _
+
 from openerp.tools import config
-# Odoo's built-in routines for converting numbers to words is pretty bad, especially in French
-# This is why we use the library below. You can get it at:
+# Odoo's built-in routines for converting numbers to words is pretty bad,
+# especially in French This is why we use the library below. You can get it at:
 # https://pypi.python.org/pypi/num2words
 from num2words import num2words
 
-# For the words we use in custom_translation(), we have to put dummy _() calls here so that Odoo
-# picks them up during .pot generation
+# For the words we use in custom_translation(), we have to put dummy _() calls
+# here so that Odoo picks them up during .pot generation
 _("and")
 
 
 def custom_translation(s, lang):
-    # Odoo uses the current stack frame, yes, the *stack frame* to determine which language _()
-    # should translate a string in. If we want to translate a string in another language, such as
-    # a supplier's language, we have to resort to hacks such as this one. "context" is sought after
-    # in the stackframe, so we have to set it.
+    # Odoo uses the current stack frame, yes, the *stack frame* to determine
+    # which language _() should translate a string in. If we want to translate
+    # a string in another language, such as a supplier's language, we have to
+    # resort to hacks such as this one. "context" is sought after in the
+    # stackframe, so we have to set it.
     context = {'lang': lang}  # NOQA
     return _(s)
 
@@ -48,31 +49,40 @@ def get_amount_line(amount, currency, lang):
     except NotImplementedError:
         amount_in_word = num2words(int(amount))
     currency_name = currency.print_on_check
-    cents = int(amount * 100) % 100  # NOQA
+    cents = int(amount * 100) % 100
     total_length = len(amount_in_word) + len(currency_name)
     if total_length < 67:
         stars = '*' * (67 - total_length)
     else:
-        stars = ''  # NOQA
-    AND = custom_translation("and", lang)  # NOQA
-    amount_line_fmt = u'{amount_in_word} {AND} {cents}/100 {currency_name} {stars}'
+        stars = ''
+    AND = custom_translation("and", lang)
+    amount_line_fmt = u'{amount} {AND} {cents}/100 {currency} {stars}'
     if lang.startswith('fr'):
-        amount_line_fmt = u'{amount_in_word} {currency_name} {AND} {cents}/100 {stars}'
-    return amount_line_fmt.format(**vars())
+        amount_line_fmt = u'{amount} {currency} {AND} {cents}/100 {stars}'
+    return amount_line_fmt.format(
+        amount=amount_in_word,
+        cents=cents,
+        currency=currency_name,
+        stars=stars,
+        AND=AND,
+    )
 
 
-class account_voucher(orm.Model):
-    _inherit = 'account.voucher'
+class AccountVoucher(models.Model):
+    _inherit = _name = 'account.voucher'
 
     def onchange_amount(self, cr, uid, ids, amount, rate, partner_id,
                         journal_id, currency_id, ttype, date,
                         payment_rate_currency_id, company_id, context=None):
-        """ Inherited - add amount_in_word and allow_check_writting in returned value dictionary """
+        """
+        Inherited - add amount_in_word and allow_check_writting in returned
+        value dictionary
+        """
         if context is None:
             context = {}
         if isinstance(ids, (int, long)):
             ids = [ids]
-        default = super(account_voucher, self).onchange_amount(
+        default = super(AccountVoucher, self).onchange_amount(
             cr, uid, ids, amount, rate, partner_id, journal_id, currency_id,
             ttype, date, payment_rate_currency_id, company_id, context=context)
 
@@ -128,7 +138,7 @@ class account_voucher(orm.Model):
             amount_in_word = self._get_amount_in_word(cr, uid, i_id, context=context)
             self.write(cr, uid, i_id, {'amount_in_word': amount_in_word}, context=context)
 
-        return super(account_voucher, self).proforma_voucher(cr, uid, ids, context=context)
+        return super(AccountVoucher, self).proforma_voucher(cr, uid, ids, context=context)
 
     def _get_amount_in_word(self, cr, uid, i_id=None, currency_id=None, amount=None, context=None):
         if context is None:
@@ -153,30 +163,18 @@ class account_voucher(orm.Model):
         # get the amount_in_word
         return get_amount_line(amount, currency, supplier_lang)
 
-# By default, the supplier reference number is not so easily accessible from a voucher line because
-# there's no direct link between the voucher and the invoice. Fortunately, there was this recently
-# submitted patch from Lorenzo Battistini (Agile) BG at
-# https://code.launchpad.net/~elbati/account-payment/adding_account_voucher_supplier_invoice_number_7/+merge/165622
-# which solves this exact problem and I shamelessely copied that code, which works well.
 
+class VoucherLine(models.Model):
+    _inherit = _name = 'account.voucher.line'
 
-class voucher_line(orm.Model):
-    _inherit = 'account.voucher.line'
+    @api.multi
+    def get_suppl_inv_num(self):
+        for rec in self:
+            move_line = self.env['account.move.line'].browse(rec.move_line_id.id)
+            rec.supplier_invoice_number = (
+                move_line.invoice and
+                move_line.invoice.supplier_invoice_number or ''
+            )
 
-    def get_suppl_inv_num(self, cr, uid, move_line_id, context=None):
-        move_line = self.pool.get('account.move.line').browse(cr, uid, move_line_id, context)
-        return move_line.invoice and move_line.invoice.supplier_invoice_number or ''
-
-    def _get_supplier_invoice_number(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        for line in self.browse(cr, uid, ids, context):
-            res[line.id] = ''
-            if line.move_line_id:
-                res[line.id] = self.get_suppl_inv_num(cr, uid, line.move_line_id.id,
-                                                      context=context)
-        return res
-
-    _columns = {
-        'supplier_invoice_number': fields.function(_get_supplier_invoice_number, type='char',
-                                                   size=64, string="Supplier Invoice Number"),
-    }
+    supplier_invoice_number = fields.Char(size=64, string="Supplier Invoice Number",
+                                          compute=get_suppl_inv_num)

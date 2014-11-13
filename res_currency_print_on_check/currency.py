@@ -20,11 +20,9 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import fields, models
 
 
-class res_currency(orm.Model):
-    _inherit = 'res.currency'
-    _columns = {
-        'print_on_check': fields.char('Display Name', size=64, translate=True),
-    }
+class Currency(models.Model):
+    _inherit = _name = 'res.currency'
+    print_on_check = fields.Char('Display Name', size=64, translate=True)

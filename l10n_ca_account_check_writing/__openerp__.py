@@ -62,5 +62,5 @@ Contributors
     'external_dependencies': {
         'python': ['num2words'],
     },
-    'installable': False,
+    'installable': True,
 }
