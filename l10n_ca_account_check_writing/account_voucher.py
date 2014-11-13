@@ -77,7 +77,6 @@ class AccountVoucher(models.Model):
             AND=AND,
         )
 
-
     def print_check(self, cr, uid, ids, context=None):
         if not ids:
             return {}
@@ -91,7 +90,8 @@ class AccountVoucher(models.Model):
             # 'bottom_ca': 'l10n.ca.account.print.check.bottom',
         }
 
-        check_layout = self.browse(cr, uid, ids[0], context=context).company_id.check_layout
+        check_layout = self.browse(cr, uid, ids[0],
+                                   context=context).company_id.check_layout
         return {
             'type': 'ir.actions.report.xml',
             'report_name': check_layout_report[check_layout],
@@ -111,10 +111,13 @@ class AccountVoucher(models.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
         for i_id in ids:
-            amount_in_word = self._get_amount_in_word(cr, uid, i_id, context=context)
-            self.write(cr, uid, i_id, {'amount_in_word': amount_in_word}, context=context)
+            amount_in_word = self._get_amount_in_word(cr, uid, i_id,
+                                                      context=context)
+            self.write(cr, uid, i_id, {'amount_in_word': amount_in_word},
+                       context=context)
 
-        return super(AccountVoucher, self).proforma_voucher(cr, uid, ids, context=context)
+        return super(AccountVoucher, self).proforma_voucher(cr, uid, ids,
+                                                            context=context)
 
 
 class VoucherLine(models.Model):
@@ -122,12 +125,14 @@ class VoucherLine(models.Model):
 
     @api.multi
     def get_suppl_inv_num(self):
+        move_obj = self.env['account.move.line']
         for rec in self:
-            move_line = self.env['account.move.line'].browse(rec.move_line_id.id)
+            move_line = move_obj.browse(rec.move_line_id.id)
             rec.supplier_invoice_number = (
                 move_line.invoice and
                 move_line.invoice.supplier_invoice_number or ''
             )
 
-    supplier_invoice_number = fields.Char(size=64, string="Supplier Invoice Number",
+    supplier_invoice_number = fields.Char(size=64,
+                                          string="Supplier Invoice Number",
                                           compute=get_suppl_inv_num)
