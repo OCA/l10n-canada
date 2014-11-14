@@ -38,6 +38,7 @@ def get_type(self, cursor, user_id, context=None):
 
 
 class hr_payroll_tax_table(orm.Model):
+
     """
     Canadian Tax Payroll Table
     """
@@ -83,6 +84,7 @@ class hr_payroll_tax_table(orm.Model):
 
 
 class hr_payroll_tax_table_federal_line(orm.Model):
+
     """
     Federal Lines
     """
@@ -108,6 +110,7 @@ class hr_payroll_tax_table_federal_line(orm.Model):
 
 
 class hr_payroll_tax_table_ei_line(orm.Model):
+
     """
     Employment Insurance Lines
     """
@@ -127,6 +130,7 @@ class hr_payroll_tax_table_ei_line(orm.Model):
 
 
 class hr_payroll_tax_table_qc_line(orm.Model):
+
     """
     Quebec Lines
     """
@@ -158,6 +162,7 @@ class hr_payroll_tax_table_qc_line(orm.Model):
 
 
 class hr_payroll_tax_table_rqap_line(orm.Model):
+
     """
     RQAP Lines
     """
@@ -178,6 +183,7 @@ class hr_payroll_tax_table_rqap_line(orm.Model):
 
 
 class hr_payroll_tax_table_csst_line(orm.Model):
+
     """
     CSST Lines
     """
