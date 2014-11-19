@@ -57,7 +57,7 @@ msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits
 #: field:hr.benefit.category,cpp_exempt:0
-msgid "Canadian Pension Plan Exempt"
+msgid "CPP/QPP Exempt"
 msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits
@@ -149,3 +149,7 @@ msgstr ""
 msgid "Federal Income Tax Exempt"
 msgstr ""
 
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,pip_exempt:0
+msgid "Parental Insurance Plan Exempt"
+msgstr ""

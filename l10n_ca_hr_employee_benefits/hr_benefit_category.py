@@ -52,5 +52,6 @@ The code that can be used in the salary rules to identify the benefit"""),
         ),
         'ei_exempt': fields.boolean('Employment Insurance Exempt'),
         'fit_exempt': fields.boolean('Federal Income Tax Exempt'),
-        'cpp_exempt': fields.boolean('Canadian Pension Plan Exempt'),
+        'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
+        'pip_exempt': fields.boolean('Parental Insurance Plan Exempt'),
     }
