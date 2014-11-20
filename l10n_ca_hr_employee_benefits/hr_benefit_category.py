@@ -54,4 +54,5 @@ The code that can be used in the salary rules to identify the benefit"""),
         'fit_exempt': fields.boolean('Federal Income Tax Exempt'),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
         'pip_exempt': fields.boolean('Parental Insurance Plan Exempt'),
+        'pit_exempt': fields.boolean('Provincial Income Tax Exempt'),
     }

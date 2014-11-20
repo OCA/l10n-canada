@@ -17,8 +17,9 @@
                             <field name="default_periodicity"/>
                         </group>
                         <group name="exemptions" string="Exemptions">
-                            <field name="ei_exempt"/>
                             <field name="fit_exempt"/>
+                            <field name="pit_exempt"/>
+                            <field name="ei_exempt"/>
                             <field name="cpp_exempt"/>
                             <field name="pip_exempt"/>
                         </group>

@@ -152,3 +152,8 @@ msgstr "Exempt de l'impôt fédéral"
 #: field:hr.benefit.category,pip_exempt:0
 msgid "Parental Insurance Plan Exempt"
 msgstr "Exempt de l'Assurance Parentale"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,pit_exempt:0
+msgid "Provincial Income Tax Exempt"
+msgstr "Exempt de l'impôt provincial"
