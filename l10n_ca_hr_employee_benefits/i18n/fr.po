@@ -7,9 +7,9 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-12 19:52+0000\n"
-"PO-Revision-Date: 2014-11-12 15:07-0500\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2014-11-20 16:45-0500\n"
+"Last-Translator: David Dufresne <david.dufresne@savoirfairelinux.com>\n"
+"Language-Team: Savoir-faire Linux\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,8 +33,8 @@ msgstr "Rechercher des Avantages Sociaux"
 
 #. module: l10n_ca_hr_employee_benefits
 #: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_contract_benefit
-msgid "The benefits in an employee contract"
-msgstr "Les avantages sociaux dans le contrat d'un employé"
+msgid "Employee Benefit"
+msgstr "Avantage Social"
 
 #. module: l10n_ca_hr_employee_benefits
 #: field:hr.benefit.category,name:0
@@ -43,8 +43,8 @@ msgstr "Nom de l'avantage social"
 
 #. module: l10n_ca_hr_employee_benefits
 #: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_benefit_category
-msgid "Categories of employee benefits"
-msgstr "Catégories d'avantages sociaux"
+msgid "Category of employee benefits"
+msgstr "Catégorie d'avantages sociaux"
 
 #. module: l10n_ca_hr_employee_benefits
 #: field:hr.contract.benefit,employee_amount:0

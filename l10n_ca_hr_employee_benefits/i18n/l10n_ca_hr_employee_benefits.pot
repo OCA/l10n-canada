@@ -32,7 +32,7 @@ msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits
 #: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_contract_benefit
-msgid "The benefits in an employee contract"
+msgid "Employee Benefit"
 msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits
@@ -42,7 +42,7 @@ msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits
 #: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_benefit_category
-msgid "Categories of employee benefits"
+msgid "Category of employee benefits"
 msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits

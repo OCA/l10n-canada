@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp.osv import fields, orm
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 import datetime
 strptime = datetime.datetime.strptime
 
@@ -61,8 +62,8 @@ class hr_contract(orm.Model):
         pays_per_year: The number of pays per year for the employee
         """
         # convert string dates to date objects
-        payslip_from = strptime(date_from, "%Y-%m-%d").date()
-        payslip_to = strptime(date_to, "%Y-%m-%d").date()
+        payslip_from = strptime(date_from, DEFAULT_SERVER_DATE_FORMAT).date()
+        payslip_to = strptime(date_to, DEFAULT_SERVER_DATE_FORMAT).date()
         payslip_duration = (payslip_to - payslip_from).days + 1
 
         contract = self.browse(cr, uid, contract_id, context=context)
@@ -84,7 +85,10 @@ class hr_contract(orm.Model):
 
                 # Case where the deduction begins after the payslip period
                 # begins.
-                date_start = strptime(b.date_start, "%Y-%m-%d").date()
+                date_start = strptime(
+                    b.date_start,
+                    DEFAULT_SERVER_DATE_FORMAT
+                ).date()
                 start_offset = max(
                     (date_start - payslip_from).days,
                     0
@@ -93,7 +97,10 @@ class hr_contract(orm.Model):
                 # Case where the deduction ends before the payslip period
                 # ends.
                 date_end = b.date_end and \
-                    strptime(b.date_end, "%Y-%m-%d").date() or False
+                    strptime(
+                        b.date_end,
+                        DEFAULT_SERVER_DATE_FORMAT
+                    ).date() or False
                 end_offset = date_end and \
                     max((payslip_to - date_end).days, 0) or 0
 

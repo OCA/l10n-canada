@@ -24,7 +24,7 @@ from openerp.osv import fields, orm
 
 class hr_benefit_category(orm.Model):
     _name = 'hr.benefit.category'
-    _description = 'Categories of employee benefits'
+    _description = 'Category of employee benefits'
     _columns = {
         'name': fields.char('Benefit Name', required=True),
         'code': fields.char('Code', required=True, help="""\

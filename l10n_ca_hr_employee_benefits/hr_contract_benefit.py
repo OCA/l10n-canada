@@ -20,12 +20,13 @@
 ##############################################################################
 
 from openerp.osv import fields, orm
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 import time
 
 
 class hr_contract_benefit(orm.Model):
     _name = 'hr.contract.benefit'
-    _description = 'The benefits in an employee contract'
+    _description = 'Employee Benefit'
     _columns = {
         'name': fields.char(
             'Description',
@@ -71,7 +72,7 @@ class hr_contract_benefit(orm.Model):
         ),
     }
     _defaults = {
-        'date_start': lambda *a: time.strftime('%Y-%m-%d'),
+        'date_start': lambda *a: time.strftime(DEFAULT_SERVER_DATE_FORMAT),
         'periodicity': 'each_pay',
     }
 
@@ -87,11 +88,11 @@ class hr_contract_benefit(orm.Model):
             category = self.pool.get('hr.benefit.category')
             category = category.browse(cr, uid, category_id)
             res['value'] = {
-                'employee_amount': employee_amount and employee_amount or
+                'employee_amount': employee_amount or
                 category.default_employee_amount,
-                'employer_amount': employer_amount and employer_amount or
+                'employer_amount': employer_amount or
                 category.default_employer_amount,
                 'periodicity': category.default_periodicity,
-                'name': name and name or category.name,
+                'name': name or category.name,
             }
         return res
