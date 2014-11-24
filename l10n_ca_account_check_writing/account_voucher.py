@@ -32,8 +32,8 @@ from num2words import num2words
 class AccountVoucher(models.Model):
     _inherit = _name = 'account.voucher'
 
-    @api.model
-    def _amount_to_text(self, amount, currency_id):
+    @api.one
+    def _amount_in_words(self, currency_id):
         context = self._context.copy()
         lang = context.get('lang', config.get('lang', None))
         if self.partner_id:
@@ -42,7 +42,9 @@ class AccountVoucher(models.Model):
         if lang:
             context['lang'] = lang
 
-        currency = self.env['res.currency'].browse(currency_id)
+        env = self.env(context=context)
+        amount = self.amount
+        currency = self.env['res.currency'].with_env(env).browse(currency_id)
         if lang:
             try:
                 amount_in_word = num2words(int(amount), lang=lang)
@@ -53,11 +55,6 @@ class AccountVoucher(models.Model):
 
         currency_name = currency.print_on_check
         cents = int(amount * 100) % 100
-        total_length = len(amount_in_word) + len(currency_name)
-        if total_length < 67:
-            stars = '*' * (67 - total_length)
-        else:
-            stars = ''
 
         res = _(u'{amount} and {cents}/100 {currency}').format(
             amount=amount_in_word,
@@ -103,11 +100,9 @@ class AccountVoucher(models.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
         for voucher in self.browse(cr, uid, ids, context=context):
-            amount = voucher.amount
             currency = self._get_current_currency(cr, uid, voucher.id,
                                                   context=context)
-            amount_in_word = self._amount_to_text(cr, uid, amount, currency,
-                                                  context=context)
+            amount_in_word = voucher._amount_in_words(currency)[0]
             voucher.write({'amount_in_word': amount_in_word})
 
         return super(AccountVoucher, self).proforma_voucher(cr, uid, ids,
