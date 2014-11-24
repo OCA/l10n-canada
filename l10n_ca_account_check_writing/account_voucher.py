@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models, _
+from openerp import api, models, _
 
 from openerp.tools import config
 # Odoo's built-in routines for converting numbers to words is pretty bad,
@@ -54,10 +54,14 @@ class AccountVoucher(models.Model):
             lang = self.partner_id.lang or lang
 
         currency = self.env['res.currency'].browse(currency_id)
-        try:
-            amount_in_word = num2words(int(amount), lang=lang[:2])
-        except NotImplementedError:
+        if lang:
+            try:
+                amount_in_word = num2words(int(amount), lang=lang)
+            except NotImplementedError:
+                amount_in_word = num2words(int(amount))
+        else:
             amount_in_word = num2words(int(amount))
+
         currency_name = currency.print_on_check
         cents = int(amount * 100) % 100
         total_length = len(amount_in_word) + len(currency_name)
@@ -67,7 +71,7 @@ class AccountVoucher(models.Model):
             stars = ''
         AND = custom_translation("and", lang)
         amount_line_fmt = u'{amount} {AND} {cents}/100 {currency} {stars}'
-        if lang.startswith('fr'):
+        if lang and lang.startswith('fr'):
             amount_line_fmt = u'{amount} {currency} {AND} {cents}/100 {stars}'
         return amount_line_fmt.format(
             amount=amount_in_word,
@@ -87,7 +91,6 @@ class AccountVoucher(models.Model):
             'bottom': 'account.print.check.bottom',
             'top_ca': 'l10n.ca.account.print.check.top',
             'middle_ca': 'l10n.ca.account.print.check.middle',
-            # 'bottom_ca': 'l10n.ca.account.print.check.bottom',
         }
 
         check_layout = self.browse(cr, uid, ids[0],
@@ -110,29 +113,13 @@ class AccountVoucher(models.Model):
             context = {}
         if isinstance(ids, (int, long)):
             ids = [ids]
-        for i_id in ids:
-            amount_in_word = self._get_amount_in_word(cr, uid, i_id,
-                                                      context=context)
-            self.write(cr, uid, i_id, {'amount_in_word': amount_in_word},
-                       context=context)
+        for voucher in self.browse(cr, uid, ids, context=context):
+            amount = voucher.amount
+            currency = self._get_current_currency(cr, uid, voucher.id,
+                                                  context=context)
+            amount_in_word = self._amount_to_text(cr, uid, amount, currency,
+                                                 context=context)
+            voucher.write({'amount_in_word': amount_in_word})
 
         return super(AccountVoucher, self).proforma_voucher(cr, uid, ids,
                                                             context=context)
-
-
-class VoucherLine(models.Model):
-    _inherit = _name = 'account.voucher.line'
-
-    @api.multi
-    def get_suppl_inv_num(self):
-        move_obj = self.env['account.move.line']
-        for rec in self:
-            move_line = move_obj.browse(rec.move_line_id.id)
-            rec.supplier_invoice_number = (
-                move_line.invoice and
-                move_line.invoice.supplier_invoice_number or ''
-            )
-
-    supplier_invoice_number = fields.Char(size=64,
-                                          string="Supplier Invoice Number",
-                                          compute=get_suppl_inv_num)

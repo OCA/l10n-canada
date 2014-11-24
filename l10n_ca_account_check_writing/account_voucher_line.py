@@ -20,16 +20,23 @@
 #
 ##############################################################################
 
-from openerp import fields, models
+from openerp import api, models, fields
 
 
-class Company(models.Model):
-    _inherit = _name = 'res.company'
+class VoucherLine(models.Model):
+    _inherit = _name = 'account.voucher.line'
 
-    check_layout = fields.Selection([
-        ('top', 'Check on Top'),
-        ('middle', 'Check in middle'),
-        ('bottom', 'Check on bottom'),
-        ('top_ca', 'Check on top (CA)'),
-        ('middle_ca', 'Check in middle (CA)'),
-    ], string="Choose Check layout")
+    @api.multi
+    def get_suppl_inv_num(self):
+        move_obj = self.env['account.move.line']
+        for rec in self:
+            move_line = move_obj.browse(rec.move_line_id.id)
+            rec.supplier_invoice_number = (
+                move_line.invoice and
+                move_line.invoice.supplier_invoice_number or ''
+            )
+
+    supplier_invoice_number = fields.Char(size=64,
+                                          string="Supplier Invoice Number",
+                                          compute=get_suppl_inv_num)
+

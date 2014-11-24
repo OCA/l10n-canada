@@ -23,5 +23,6 @@
 from . import (
     company,
     account_voucher,
+    account_voucher_line,
     report,
 )
