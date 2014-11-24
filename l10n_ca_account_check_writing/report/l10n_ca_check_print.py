@@ -76,12 +76,21 @@ class report_print_check(report_sxw.rml_parse):
                     name = voucher_line.supplier_invoice_number
                 else:
                     name = voucher_line.name
+                # Display credits with a negative sign
+                if voucher_line.type == 'cr':
+                    sign = -1
+                else:
+                    sign = 1
                 res = {
-                    'date_due': voucher_line.date_due,
+                    'date_due': (
+                        voucher_line.date_due or voucher_line.date_original
+                    ),
                     'name': name,
-                    'amount_original': voucher_line.amount_original,
-                    'amount_unreconciled': voucher_line.amount_unreconciled,
-                    'amount': voucher_line.amount,
+                    'amount_original': sign * voucher_line.amount_original,
+                    'amount_unreconciled': (
+                        sign * voucher_line.amount_unreconciled
+                    ),
+                    'amount': sign * voucher_line.amount,
                 }
                 result.append(res)
 
@@ -162,8 +171,8 @@ class report_print_check(report_sxw.rml_parse):
         """
         Get the currency of the voucher.
 
-        :param voucher_id: Id of the voucher what i want to obtain current
-                           currency.
+        :param voucher_id: Id of the voucher what i want to obtain
+                           current currency.
         :return: currency id of the voucher
         :rtype: int
         """
@@ -177,8 +186,8 @@ class report_print_check(report_sxw.rml_parse):
         """
         Get the currency of the actual company.
 
-        :param voucher_id: Id of the voucher what i want to obtain company
-                           currency.
+        :param voucher_id: Id of the voucher what i want to obtain
+                           company currency.
         :return: currency id of the company of the voucher
         :rtype: int
         """
