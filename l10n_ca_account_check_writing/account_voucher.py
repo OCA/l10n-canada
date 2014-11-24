@@ -118,7 +118,7 @@ class AccountVoucher(models.Model):
             currency = self._get_current_currency(cr, uid, voucher.id,
                                                   context=context)
             amount_in_word = self._amount_to_text(cr, uid, amount, currency,
-                                                 context=context)
+                                                  context=context)
             voucher.write({'amount_in_word': amount_in_word})
 
         return super(AccountVoucher, self).proforma_voucher(cr, uid, ids,

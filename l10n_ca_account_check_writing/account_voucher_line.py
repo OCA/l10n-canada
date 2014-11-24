@@ -39,4 +39,3 @@ class VoucherLine(models.Model):
     supplier_invoice_number = fields.Char(size=64,
                                           string="Supplier Invoice Number",
                                           compute=get_suppl_inv_num)
-
