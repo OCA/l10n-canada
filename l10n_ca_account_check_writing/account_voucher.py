@@ -28,30 +28,19 @@ from openerp.tools import config
 # https://pypi.python.org/pypi/num2words
 from num2words import num2words
 
-# For the words we use in custom_translation(), we have to put dummy _() calls
-# here so that Odoo picks them up during .pot generation
-_("and")
-
-
-def custom_translation(s, lang):
-    # Odoo uses the current stack frame, yes, the *stack frame* to determine
-    # which language _() should translate a string in. If we want to translate
-    # a string in another language, such as a supplier's language, we have to
-    # resort to hacks such as this one. "context" is sought after in the
-    # stackframe, so we have to set it.
-    context = {'lang': lang}  # NOQA
-    return _(s)
-
 
 class AccountVoucher(models.Model):
     _inherit = _name = 'account.voucher'
 
     @api.model
     def _amount_to_text(self, amount, currency_id):
-        context = self._context
+        context = self._context.copy()
         lang = context.get('lang', config.get('lang', None))
         if self.partner_id:
             lang = self.partner_id.lang or lang
+
+        if lang:
+            context['lang'] = lang
 
         currency = self.env['res.currency'].browse(currency_id)
         if lang:
@@ -69,17 +58,17 @@ class AccountVoucher(models.Model):
             stars = '*' * (67 - total_length)
         else:
             stars = ''
-        AND = custom_translation("and", lang)
-        amount_line_fmt = u'{amount} {AND} {cents}/100 {currency} {stars}'
-        if lang and lang.startswith('fr'):
-            amount_line_fmt = u'{amount} {currency} {AND} {cents}/100 {stars}'
-        return amount_line_fmt.format(
+
+        res = _(u'{amount} and {cents}/100 {currency}').format(
             amount=amount_in_word,
             cents=cents,
             currency=currency_name,
-            stars=stars,
-            AND=AND,
         )
+
+        if len(res) < 79:
+            res = u" ".join([res, u"*" * (80 - len(res))])
+
+        return res
 
     def print_check(self, cr, uid, ids, context=None):
         if not ids:

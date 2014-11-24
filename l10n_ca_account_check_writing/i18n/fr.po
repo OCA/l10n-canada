@@ -24,12 +24,6 @@ msgid "Check Amount"
 msgstr "Montant du chèque"
 
 #. module: l10n_ca_account_check_writing
-#: code:addons/l10n_ca_account_check_writing/account_voucher.py:31
-#, python-format
-msgid "and"
-msgstr "et"
-
-#. module: l10n_ca_account_check_writing
 #: field:account.voucher,currency_help_label:0
 msgid "Helping Sentence"
 msgstr "Phrase d'aide"
@@ -117,3 +111,9 @@ msgstr "Paiement"
 #: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_top
 msgid "Print Check CA (Top)"
 msgstr "Imprime chèque CA (Haut)"
+
+#. module: l10n_ca_account_check_writing
+#: code:addons/l10n_ca_account_check_writing/account_voucher.py:62
+#, python-format
+msgid "{amount} and {cents}/100 {currency}"
+msgstr "{amount} {currency} et {cents}/100"
