@@ -24,7 +24,7 @@ from openerp import fields, models
 
 
 class Company(models.Model):
-    _inherit = _name = 'res.company'
+    _inherit = 'res.company'
 
     check_layout = fields.Selection([
         ('top', 'Check on Top'),

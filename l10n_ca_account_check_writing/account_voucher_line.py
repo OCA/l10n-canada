@@ -24,13 +24,13 @@ from openerp import api, models, fields
 
 
 class VoucherLine(models.Model):
-    _inherit = _name = 'account.voucher.line'
+    _inherit = 'account.voucher.line'
 
     @api.multi
     def get_suppl_inv_num(self):
         move_obj = self.env['account.move.line']
         for rec in self:
-            move_line = move_obj.browse(rec.move_line_id.id)
+            move_line = rec.move_line_id
             rec.supplier_invoice_number = (
                 move_line.invoice and
                 move_line.invoice.supplier_invoice_number or ''
