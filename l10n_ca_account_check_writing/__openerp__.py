@@ -52,13 +52,15 @@ Contributors
 """,
     'depends': [
         'account_check_writing',
-        'res_currency_print_on_check'
+        'res_currency_print_on_check',
     ],
     'data': [
         'l10n_ca_account_check_writing_report.xml',
     ],
     'demo': [],
-    'test': [],
+    'test': [
+        'test/amount_in_word.yml',
+    ],
     'external_dependencies': {
         'python': ['num2words'],
     },
