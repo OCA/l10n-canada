@@ -67,8 +67,9 @@ class AccountVoucher(models.Model):
 
         return res
 
-    def print_check(self, cr, uid, ids, context=None):
-        if not ids:
+    @api.multi
+    def print_check(self):
+        if not self.ids:
             return {}
 
         check_layout_report = {
@@ -79,31 +80,25 @@ class AccountVoucher(models.Model):
             'middle_ca': 'l10n.ca.account.print.check.middle',
         }
 
-        check_layout = self.browse(cr, uid, ids[0],
-                                   context=context).company_id.check_layout
+        check_layout = self[0].company_id.check_layout
         return {
             'type': 'ir.actions.report.xml',
             'report_name': check_layout_report[check_layout],
             'datas': {
                 'model': 'account.voucher',
-                'id': ids and ids[0] or False,
-                'ids': ids and ids or [],
+                'id': self.ids[0],
+                'ids': self.ids,
                 'report_type': 'pdf'
             },
             'nodestroy': True
         }
 
-    def proforma_voucher(self, cr, uid, ids, context=None):
+    @api.multi
+    def proforma_voucher(self):
         # update all amount in word when perform a voucher
-        if context is None:
-            context = {}
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        for voucher in self.browse(cr, uid, ids, context=context):
-            currency = self._get_current_currency(cr, uid, voucher.id,
-                                                  context=context)
+        for voucher in self:
+            currency = self._get_current_currency(voucher.id)
             amount_in_word = voucher._amount_in_words(currency)[0]
             voucher.write({'amount_in_word': amount_in_word})
 
-        return super(AccountVoucher, self).proforma_voucher(cr, uid, ids,
-                                                            context=context)
+        return super(AccountVoucher, self).proforma_voucher()
