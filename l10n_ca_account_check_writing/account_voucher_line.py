@@ -28,7 +28,6 @@ class VoucherLine(models.Model):
 
     @api.multi
     def get_suppl_inv_num(self):
-        move_obj = self.env['account.move.line']
         for rec in self:
             move_line = rec.move_line_id
             rec.supplier_invoice_number = (
