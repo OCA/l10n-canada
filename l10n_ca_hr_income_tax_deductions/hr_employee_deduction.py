@@ -21,7 +21,7 @@
 
 from openerp.osv import fields, orm
 import time
-from hr_deduction_category import get_jurisdiction
+from .hr_deduction_category import get_jurisdiction
 
 
 class hr_employee_deduction(orm.Model):
