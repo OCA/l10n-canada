@@ -55,14 +55,24 @@ class report_print_check(report_sxw.rml_parse):
                         name = voucher_line.supplier_invoice_number
                     else:
                         name = voucher_line.name
+                    # Display credits with a minus
+                    if voucher_line.type == "cr":
+                        sign = -1
+                    else:
+                        sign = 1
                     res = {
-                        'date_due': voucher_line.date_due,
+                        'date_due': (
+                            voucher_line.date_due or voucher_line.date_original
+                        ),
                         'name': name,
                         'amount_original': (
-                            voucher_line.amount_original or False),
+                            voucher_line.amount_original and
+                            voucher_line.amount_original * sign or False),
                         'amount_unreconciled': (
-                            voucher_line.amount_unreconciled or False),
-                        'amount': (voucher_line.amount or False),
+                            voucher_line.amount_unreconciled and
+                            voucher_line.amount_unreconciled * sign or False),
+                        'amount': (voucher_line.amount and
+                                   voucher_line.amount * sign or False),
                     }
                     result.append(res)
             else:
