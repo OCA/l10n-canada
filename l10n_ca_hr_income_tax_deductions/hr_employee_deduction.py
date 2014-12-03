@@ -21,28 +21,23 @@
 
 from openerp.osv import fields, orm
 import time
-
-
-def get_jurisdiction(self, cursor, user_id, context=None):
-    return (
-        ('federal', 'Federal'),
-        ('provincial', 'Provincial'))
+from hr_deduction_category import get_jurisdiction
 
 
 class hr_employee_deduction(orm.Model):
     _name = 'hr.employee.deduction'
     _description = 'Employee deductions used for salary rules'
     _columns = {
-        'name': fields.char('Deduction Name', required=True),
         'employee_id': fields.many2one(
             'hr.employee',
             'Employee',
             required=True,
             readonly=True,
+            ondelete='cascade',
         ),
         'category_id': fields.many2one(
             'hr.deduction.category',
-            'Category',
+            'Deduction',
             required=True,
             ondelete='cascade',
             select=True
@@ -74,20 +69,12 @@ a tax credit."""),
             type='selection',
             selection=get_jurisdiction
         ),
-        'estimated_income': fields.boolean(
-            'Estimated Income',
-            help="""\
-True if included in the calculation of the estimated annual net income,
-False otherwise""",
-        ),
     }
     _defaults = {
         'amount': 0.0,
         'date_start': lambda *a: time.strftime('%Y-%m-%d'),
-        'estimated_income': True,
         'periodicity': 'annual',
     }
-    _order = "name"
 
     def onchange_category_id(self, cr, uid, ids, category_id=False):
         res = {'value': {'amount': 0.0}}

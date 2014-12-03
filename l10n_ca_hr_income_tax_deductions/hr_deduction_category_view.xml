@@ -13,6 +13,7 @@
                         <field name="description"/>
                         <field name="default_amount"/>
                         <field name="jurisdiction"/>
+                        <field name="estimated_income"/>
                     </group>
                 </form>
             </field>

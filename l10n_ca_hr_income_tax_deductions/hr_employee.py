@@ -68,7 +68,7 @@ Income Tax deductions for the computation of the employee's payslips"""
             if d.code == deduction_code and (
                 # Some deductions need to be ignored when computing
                 # the estimated income for the year
-                not estimated_income or d.estimated_income
+                not estimated_income or d.category_id.estimated_income
             ):
                 # Case where the deduction begins after the payslip period
                 # begins.

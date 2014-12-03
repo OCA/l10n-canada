@@ -20,12 +20,15 @@
 ##############################################################################
 
 from openerp.osv import fields, orm
+from openerp.tools.translate import _
 
 
 def get_jurisdiction(self, cursor, user_id, context=None):
     return (
-        ('federal', 'Federal'),
-        ('provincial', 'Provincial'))
+        ('federal', _('Federal')),
+        ('provincial', _('Provincial')),
+        ('both', _('Federal and Provincial'))
+    )
 
 
 class hr_deduction_category(orm.Model):
@@ -47,8 +50,15 @@ Brief explanation of which benefits the category contains."""),
             required=True
         ),
         'note': fields.text('Note'),
+        'estimated_income': fields.boolean(
+            'Estimated Income',
+            help="""\
+True if included in the calculation of the estimated annual net income,
+False otherwise""",
+        ),
     }
     _defaults = {
         'default_amount': 0.0,
         'jurisdiction': 'federal',
+        'estimated_income': True,
     }
