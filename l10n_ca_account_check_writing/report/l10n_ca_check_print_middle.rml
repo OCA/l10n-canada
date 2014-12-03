@@ -14,9 +14,11 @@
     </pageTemplate>
   </template>
   <stylesheet>
-    <blockTableStyle id="TopLeft">
-      <blockAlignment value="LEFT"/>
-      <blockValign value="TOP"/>
+    <blockTableStyle id="TStub">
+      <blockAlignment value="LEFT" />
+      <blockValign value="TOP" />
+      <blockSpan start="0,0" stop="4,0" />
+      <blockSpan start="0,-1" stop="4,-1" />
     </blockTableStyle>
     <initialize>
       <paraStyle name="all" fontName="Helvetica" alignment="LEFT"/>
@@ -64,16 +66,16 @@
     <setNextFrame name="Stub1" />
     <frameEnd />
     <!-- Stub One -->
-    <blockTable colWidths="145mm,45mm" style="TopLeft">
+    <blockTable colWidths="27mm,56mm,28mm,28mm,26mm,26mm" style="TStub">
+      <!-- Stub Header -->
       <tr>
-        <td><para><font color="white"> </font></para></td>
+        <td><para style="P8B">[[voucher.partner_id.name]]</para></td>
+        <td /><td /> <td /><td />
         <td>
           <para style="P8B">[[ formatLang(voucher.date , date=True) or '' ]] [[ voucher.journal_id.use_preprint_check and voucher.chk_seq or '' ]]</para>
         </td>
       </tr>
-    </blockTable>
-
-    <blockTable colWidths="27mm,56mm,28mm,28mm,26mm,26mm" style="TopLeft">
+      <!-- Data Header -->
       <tr>
         <td> <para style="P8B">Due Date</para> </td>
         <td> <para style="P8B">Invoice</para> </td>
@@ -100,15 +102,12 @@
           <para style="P8">[[ formatLang (l['amount']) ]]</para>
         </td>
       </tr>
-    </blockTable>
-    <blockTable colWidths="121mm,44mm,26mm" style="TopLeft">
+      <!-- Total Amount -->
       <tr>
-        <td>
-          <para style="P8"> </para>
-        </td>
         <td>
           <para style="P8B-R">Check Amount</para>
         </td>
+        <td /><td /><td /><td />
         <td>
           <para style="P8B">[[ voucher.currency_id.symbol ]][[ formatLang (voucher.amount) ]]</para>
         </td>
@@ -118,16 +117,16 @@
     <setNextFrame name="Stub2" />
     <frameEnd />
     <!-- Stub Two -->
-    <blockTable colWidths="145mm,45mm" style="TopLeft">
+    <blockTable colWidths="27mm,56mm,28mm,28mm,26mm,26mm" style="TStub">
+      <!-- Stub Header -->
       <tr>
-        <td><para><font color="white"> </font></para></td>
+        <td><para style="P8B">[[voucher.partner_id.name]]</para></td>
+        <td /><td /> <td /><td />
         <td>
           <para style="P8B">[[ formatLang(voucher.date , date=True) or '' ]] [[ voucher.journal_id.use_preprint_check and voucher.chk_seq or '' ]]</para>
         </td>
       </tr>
-    </blockTable>
-
-    <blockTable colWidths="27mm,56mm,28mm,28mm,26mm,26mm" style="TopLeft">
+      <!-- Data Header -->
       <tr>
         <td> <para style="P8B">Due Date</para> </td>
         <td> <para style="P8B">Invoice</para> </td>
@@ -154,15 +153,12 @@
           <para style="P8">[[ formatLang (l['amount']) ]]</para>
         </td>
       </tr>
-    </blockTable>
-    <blockTable colWidths="121mm,44mm,26mm" style="TopLeft">
+      <!-- Total Amount -->
       <tr>
-        <td>
-          <para style="P8"> </para>
-        </td>
         <td>
           <para style="P8B-R">Check Amount</para>
         </td>
+        <td /><td /><td /><td />
         <td>
           <para style="P8B">[[ voucher.currency_id.symbol ]][[ formatLang (voucher.amount) ]]</para>
         </td>
