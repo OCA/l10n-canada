@@ -164,3 +164,21 @@ class test_sum_deductions(common.TransactionCase):
         )
 
         self.assertTrue(res == 500)
+
+    def test_sum_deductions_multiple_codes(self):
+        """
+        test sum_deductions
+        with a list of deduction codes
+        """
+        res = self.employee_model.sum_deductions(
+            self.cr, self.uid, [self.employee_id],
+            self.employee_id,
+            '2014-06-01', '2014-06-30',
+            ['TEST_1', 'TEST_3'],
+            pays_per_year=12,
+            estimated_income=True,
+            context=self.context,
+        )
+
+        print res
+        self.assertTrue(res == 1000)
