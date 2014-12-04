@@ -48,8 +48,8 @@ Contributors
 * Maxime Chambreuil (maxime.chambreuil@savoirfairelinux.com)
 * Vincent Vinet (vincent.vinet@savoirfairelinux.com)
 * Virgil Dupras (virgil.dupras@savoirfairelinux.com)
-* Sandy Carter (sandyt.carter@savoirfairelinux.com)
-* Primaco <info@primaco.ca>
+* Sandy Carter (sandy.carter@savoirfairelinux.com)
+* Primaco (info@primaco.ca)
 """,
     'depends': [
         'account_check_writing',
