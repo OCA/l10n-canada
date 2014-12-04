@@ -73,7 +73,7 @@
       </tr>
     </blockTable>
 
-    <blockTable colWidths="27mm,62mm,28mm,28mm,20mm,26mm" style="TopLeft">
+    <blockTable colWidths="27mm,56mm,28mm,28mm,26mm,26mm" style="TopLeft">
       <tr>
         <td> <para style="P8B">Due Date</para> </td>
         <td> <para style="P8B">Invoice</para> </td>
@@ -127,7 +127,7 @@
       </tr>
     </blockTable>
 
-    <blockTable colWidths="27mm,62mm,28mm,28mm,20mm,26mm" style="TopLeft">
+    <blockTable colWidths="27mm,56mm,28mm,28mm,26mm,26mm" style="TopLeft">
       <tr>
         <td> <para style="P8B">Due Date</para> </td>
         <td> <para style="P8B">Invoice</para> </td>
