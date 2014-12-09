@@ -24,9 +24,10 @@
       <paraStyle name="all" fontName="Helvetica" alignment="LEFT"/>
     </initialize>
     <paraStyle name="P8" fontSize="8.0" leading="10"/>
-    <paraStyle name="P9" fontSize="10.0" leading="12"/>
-    <paraStyle name="P9-R" fontSize="10.0" leading="12"/>
+    <paraStyle name="P9" fontSize="9.0" leading="11"/>
+    <paraStyle name="P9-R" fontSize="9.0" leading="11" alignment="RIGHT"/>
     <paraStyle name="P10" fontSize="10.0" leading="12"/>
+    <paraStyle name="P10-R" fontSize="10.0" leading="12" alignment="RIGHT"/>
     <paraStyle name="P8B" fontSize="8.0" fontName="Helvetica-Bold" leading="10" />
     <paraStyle name="P8B-R" fontSize="8.0" fontName="Helvetica-Bold" leading="10" alignment="RIGHT"/>
     <images/>
@@ -57,7 +58,7 @@
     <setNextFrame name="CheckSumLetter" />
     <frameEnd />
     <!-- Check Sum Letter -->
-    <para style="P9-R">[[ voucher.amount_in_word ]]</para>
+    <para style="P10-R">[[ voucher.amount_in_word ]]</para>
 
     <setNextFrame name="MemoLabel" />
     <frameEnd />
