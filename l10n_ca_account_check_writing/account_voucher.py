@@ -63,7 +63,7 @@ class AccountVoucher(models.Model):
         )
 
         if len(res) < 79:
-            res = u" ".join([res, u"*" * (80 - len(res))])
+            res = u" ".join([u"*" * (80 - len(res)), res])
 
         return res
 
