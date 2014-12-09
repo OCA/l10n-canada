@@ -116,4 +116,4 @@ msgstr "Imprime chèque CA (Haut)"
 #: code:addons/l10n_ca_account_check_writing/account_voucher.py:62
 #, python-format
 msgid "{amount} and {cents}/100 {currency}"
-msgstr "{amount} {currency} et {cents}/100"
+msgstr "{amount} {currency} et {cents} cents"
