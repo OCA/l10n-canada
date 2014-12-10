@@ -23,9 +23,9 @@ from openerp.addons.l10n_ca_account_check_writing.report.l10n_ca_check_print imp
 from openerp.tests import common
 
 
-class test_base_format(common.TransactionCase):
+class test_l10n_ca_check_print(common.TransactionCase):
     def setUp(self):
-        super(test_base_format, self).setUp()
+        super(test_l10n_ca_check_print, self).setUp()
         self.ref = self.registry('ir.model.data')
         self.report = report_print_check
         self.cad = self.ref.get_object(self.cr, self.uid, 'base', 'CAD')
