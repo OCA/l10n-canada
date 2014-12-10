@@ -29,7 +29,6 @@ class hr_employee(orm.Model):
         'tp10153': fields.float(
             'Source Deductions Return (TP-1015.3)',
             digits=(16, 2),
-            required=True,
             help="Source Deductions Return",
         ),
     }

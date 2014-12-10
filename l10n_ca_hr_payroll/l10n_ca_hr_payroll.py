@@ -207,7 +207,7 @@ class hr_employee(orm.Model):
             ('code9', '9'),
             ('code10', '10'),
             ('code0', '0')
-        ], 'Federal Claim Code', required=True),
+        ], 'Federal Claim Code'),
         'td1p': fields.selection([
             ('codeA', 'A'),
             ('codeB', 'B'),
@@ -226,7 +226,7 @@ class hr_employee(orm.Model):
             ('codeY', 'Y'),
             ('codeZ', 'Z'),
             ('code0', '0')
-        ], 'Provincial Claim Code', required=True),
+        ], 'Provincial Claim Code'),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
         'qpip_exempt': fields.boolean('QPIP Exempt'),
         'cpp_ytd_adj': fields.float('CPP/QPP YTD Adjustment', help="""\
@@ -272,11 +272,11 @@ Extra provincial or territorial tax reduction based on applicable amounts
 reported on the provincial or territorial Form TD1"""),
         'td1': fields.float('Personal Tax Credits Return (TD1)',
                             digits=(16, 2),
-                            required=True, help="Personal Tax Credits Return"),
+                            help="Personal Tax Credits Return"),
         'eeins': fields.float('Insurance - Employee Contribution (EeINS)',
-                              digits=(16, 2), required=True),
+                              digits=(16, 2)),
         'erins': fields.float('Insurance - Employer Contribution (ErINS)',
-                              digits=(16, 2), required=True),
+                              digits=(16, 2)),
     }
 
     _defaults = {
