@@ -180,5 +180,4 @@ class test_sum_deductions(common.TransactionCase):
             context=self.context,
         )
 
-        print res
         self.assertTrue(res == 1000)
