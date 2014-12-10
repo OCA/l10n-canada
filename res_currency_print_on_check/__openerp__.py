@@ -26,7 +26,7 @@
 
 {
     'name': 'Display name for currencies',
-    'version': '1.0',
+    'version': '1.1',
     'author': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
     'category': 'Generic Modules/Accounting',
