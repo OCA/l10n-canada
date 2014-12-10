@@ -129,6 +129,7 @@ class test_contract_hourly_rate(common.TransactionCase):
             employee_amount=60,
             employer_amount=120,
             category_id=self.category_2_id,
+            context=context
         )
 
         self.assertEqual(res['value']['employee_amount'], 60)
@@ -147,6 +148,7 @@ class test_contract_hourly_rate(common.TransactionCase):
             employee_amount=0,
             employer_amount=0,
             category_id=self.category_2_id,
+            context=context
         )
 
         self.assertEqual(res['value']['employee_amount'], 1000)

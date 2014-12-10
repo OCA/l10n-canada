@@ -76,7 +76,8 @@ class hr_contract_benefit(orm.Model):
         self, cr, uid, ids,
         employee_amount=False,
         employer_amount=False,
-        category_id=False
+        category_id=False,
+        context=None,
     ):
         res = {}
         if category_id:
