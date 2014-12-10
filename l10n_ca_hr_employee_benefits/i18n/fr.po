@@ -17,9 +17,9 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,default_periodicity:0
-msgid "Default Amount Periodicity"
-msgstr "Périodicité par défaut"
+#: field:hr.benefit.category,default_amount_type:0
+msgid "Default Amount Amount Type"
+msgstr "Type de Montant par défaut"
 
 #. module: l10n_ca_hr_employee_benefits
 #: field:hr.contract.benefit,employer_amount:0
@@ -62,14 +62,14 @@ msgid "CPP/QPP Exempt"
 msgstr "Exempt du RPC/RRQ"
 
 #. module: l10n_ca_hr_employee_benefits
-#: selection:hr.benefit.category,default_periodicity:0
-#: selection:hr.contract.benefit,periodicity:0
+#: selection:hr.benefit.category,default_amount_type:0
+#: selection:hr.contract.benefit,amount_type:0
 msgid "Each Pay"
 msgstr "Montant par paie"
 
 #. module: l10n_ca_hr_employee_benefits
-#: selection:hr.benefit.category,default_periodicity:0
-#: selection:hr.contract.benefit,periodicity:0
+#: selection:hr.benefit.category,default_amount_type:0
+#: selection:hr.contract.benefit,amount_type:0
 msgid "Annual"
 msgstr "Montant annuel"
 
@@ -118,9 +118,9 @@ msgid "Description"
 msgstr "Description"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.contract.benefit,periodicity:0
-msgid "Amount Periodicity"
-msgstr "Périodicité"
+#: field:hr.contract.benefit,amount_type:0
+msgid "Amount Amount Type"
+msgstr "Type de Montant"
 
 #. module: l10n_ca_hr_employee_benefits
 #: help:hr.benefit.category,code:0

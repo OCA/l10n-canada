@@ -42,13 +42,13 @@ The code that can be used in the salary rules to identify the benefit"""),
             'Default Employer Contribution',
             required=True,
         ),
-        'default_periodicity': fields.selection(
+        'default_amount_type': fields.selection(
             (
                 ('each_pay', 'Each Pay'),
                 ('annual', 'Annual'),
             ),
             required=True,
-            string="Default Amount Periodicity",
+            string="Default Amount Type",
         ),
         'ei_exempt': fields.boolean('Employment Insurance Exempt'),
         'fit_exempt': fields.boolean('Federal Income Tax Exempt'),

@@ -78,10 +78,10 @@ class hr_contract(orm.Model):
 
                 # Case where the kind of amount requested by the salary rule
                 # is different the amount computed in the benefit record
-                if annual and b.periodicity == 'each_pay':
+                if annual and b.amount_type == 'each_pay':
                     amount = pays_per_year * amount
-                elif not annual and b.periodicity == 'annual':
-                    amount = amount / pays_per_year
+                elif not annual and b.amount_type == 'annual':
+                    amount = float(amount) / pays_per_year
 
                 # Case where the deduction begins after the payslip period
                 # begins.

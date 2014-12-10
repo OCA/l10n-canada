@@ -28,10 +28,6 @@ class hr_contract_benefit(orm.Model):
     _name = 'hr.contract.benefit'
     _description = 'Employee Benefit'
     _columns = {
-        'name': fields.char(
-            'Description',
-            required=True
-        ),
         'contract_id': fields.many2one(
             'hr.contract',
             'Contract',
@@ -56,13 +52,13 @@ class hr_contract_benefit(orm.Model):
         ),
         'date_start': fields.date('Start Date', required=True),
         'date_end': fields.date('End Date'),
-        'periodicity': fields.selection(
+        'amount_type': fields.selection(
             (
                 ('each_pay', 'Each Pay'),
                 ('annual', 'Annual'),
             ),
             required=True,
-            string="Amount Periodicity",
+            string="Amount Type",
         ),
         'code': fields.related(
             'category_id',
@@ -73,14 +69,13 @@ class hr_contract_benefit(orm.Model):
     }
     _defaults = {
         'date_start': lambda *a: time.strftime(DEFAULT_SERVER_DATE_FORMAT),
-        'periodicity': 'each_pay',
+        'amount_type': 'each_pay',
     }
 
     def onchange_category_id(
         self, cr, uid, ids,
         employee_amount=False,
         employer_amount=False,
-        name=False,
         category_id=False
     ):
         res = {}
@@ -92,7 +87,6 @@ class hr_contract_benefit(orm.Model):
                 category.default_employee_amount,
                 'employer_amount': employer_amount or
                 category.default_employer_amount,
-                'periodicity': category.default_periodicity,
-                'name': name or category.name,
+                'amount_type': category.default_amount_type,
             }
         return res

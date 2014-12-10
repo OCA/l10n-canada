@@ -16,8 +16,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,default_periodicity:0
-msgid "Default Amount Periodicity"
+#: field:hr.benefit.category,default_amount_type:0
+msgid "Default Amount Amount Type"
 msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits
@@ -61,14 +61,14 @@ msgid "CPP/QPP Exempt"
 msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits
-#: selection:hr.benefit.category,default_periodicity:0
-#: selection:hr.contract.benefit,periodicity:0
+#: selection:hr.benefit.category,default_amount_type:0
+#: selection:hr.contract.benefit,amount_type:0
 msgid "Each Pay"
 msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits
-#: selection:hr.benefit.category,default_periodicity:0
-#: selection:hr.contract.benefit,periodicity:0
+#: selection:hr.benefit.category,default_amount_type:0
+#: selection:hr.contract.benefit,amount_type:0
 msgid "Annual"
 msgstr ""
 
@@ -120,8 +120,8 @@ msgid "Description"
 msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.contract.benefit,periodicity:0
-msgid "Amount Periodicity"
+#: field:hr.contract.benefit,amount_type:0
+msgid "Amount Amount Type"
 msgstr ""
 
 #. module: l10n_ca_hr_employee_benefits

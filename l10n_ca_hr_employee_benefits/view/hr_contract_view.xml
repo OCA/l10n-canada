@@ -11,19 +11,17 @@
                     <group name="benefits_group" string="Employee Benefits" colspan="2">
                         <field name="benefit_line_ids" nolabel="1">
                             <tree string="Employee Benefits" editable="bottom">
-                                <field name="name"/>
                                 <field 
                                     name="category_id"
                                     on_change="onchange_category_id(
                                         employee_amount,
                                         employer_amount,
-                                        name,
                                         category_id
                                     )"
                                 />
                                 <field name="employee_amount"/>
                                 <field name="employer_amount"/>
-                                <field name="periodicity"/>
+                                <field name="amount_type"/>
                                 <field name="date_start"/>
                                 <field name="date_end"/>
                             </tree>

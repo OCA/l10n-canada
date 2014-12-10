@@ -14,7 +14,7 @@
                             <field name="description"/>
                             <field name="default_employee_amount"/>
                             <field name="default_employer_amount"/>
-                            <field name="default_periodicity"/>
+                            <field name="default_amount_type"/>
                         </group>
                         <group name="exemptions" string="Exemptions">
                             <field name="fit_exempt"/>
@@ -37,7 +37,7 @@
                         <field name="code"/>
                         <field name="default_employee_amount"/>
                         <field name="default_employer_amount"/>
-                        <field name="default_periodicity"/>
+                        <field name="default_amount_type"/>
                     </tree>
                 </field>
         </record>
