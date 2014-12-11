@@ -31,7 +31,12 @@ class report_print_check(report_sxw.rml_parse):
         self.localcontext.update({
             'time': time,
             'get_all_lines': self.get_all_lines,
+            'ltrim': self.ltrim,
         })
+
+    def ltrim(self, s, maxlen):
+        if len(s) > maxlen:
+            return s[-maxlen:]
 
     def get_all_lines(self, voucher):
         debit_lines = voucher.line_dr_ids

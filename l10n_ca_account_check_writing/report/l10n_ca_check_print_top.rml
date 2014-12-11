@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <document filename="test.pdf">
-  <template pageSize="(216mm,279mm)" title="Fruigor Check" author="Savoir-faire Linux" allowSplitting="0">
+  <template pageSize="(216mm,279mm)" title="Fruigor Check" author="Savoir-faire Linux" allowSplitting="">
     <pageTemplate id="first">
       <frame id="CheckAddress"    x1="22mm"     y1="206mm"    width="145mm"   height="32mm"/>
       <frame id="CheckSumLetter"  x1="12mm"     y1="240mm"    width="155mm"   height="12mm"/>
-      <frame id="CheckSumDigit"   x1="177mm"    y1="240mm"    width="30mm"    height="12mm"/>
+      <frame id="CheckSumDigit"   x1="177mm"    y1="240mm"    width="39mm"    height="12mm"/>
       <frame id="CheckDate"       x1="167mm"    y1="259mm"    width="41mm"    height="12mm"/>
       <frame id="CheckDateLabel"  x1="137mm"    y1="259mm"    width="25mm"    height="12mm"/>
       <frame id="MemoLabel"       x1="22mm"     y1="196mm"    width="145mm"   height="10mm"/>
@@ -37,28 +37,22 @@
     <para>[[ setLang(voucher.partner_id.lang) ]]</para>
 
     <!-- Check Address -->
+    <currentFrame name="CheckAddress" />
     <para style="P8">[[ voucher.partner_id.name ]]</para>
     <para style="P8">[[ display_address(voucher.partner_id) or removeParentNode('para') ]]</para>
 
-    <setNextFrame name="CheckDate" />
-    <frameEnd />
     <!-- Check Date -->
+    <currentFrame name="CheckDate" />
     <para style="P10">[[ formatLang(voucher.date, date=True) or '' ]]</para>
 
-    <setNextFrame name="CheckDateLabel" />
-    <frameEnd />
-    <!-- Check Date Label -->
-    <para style="P9-R">DATE</para>
-
-    <setNextFrame name="CheckSumDigit" />
-    <frameEnd />
     <!-- Check Sum Digit -->
+    <currentFrame name="CheckSumDigit" />
     <para style="P10">[[ formatLang(voucher.amount) ]]</para>
 
     <setNextFrame name="CheckSumLetter" />
     <frameEnd />
     <!-- Check Sum Letter -->
-    <para style="P10-R">[[ voucher.amount_in_word ]]</para>
+    <para style="P10-R">[[ ltrim(voucher.amount_in_word, 80) ]]</para>
 
     <setNextFrame name="MemoLabel" />
     <frameEnd />
