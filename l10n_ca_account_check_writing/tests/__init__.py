@@ -26,5 +26,3 @@ from . import (
 checks = [
     test_l10n_ca_check_print,
 ]
-
-
