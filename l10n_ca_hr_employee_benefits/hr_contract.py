@@ -37,8 +37,9 @@ class hr_contract(orm.Model):
     }
 
     def sum_benefits(
-        self, cr, uid, ids, contract_id, date_from, date_to,
-        exemption=False, benefit_code=False, employer=False,
+        self, cr, uid, ids,
+        contract_id, date_from, date_to, grossp,
+        exemption=False, benefit_codes=False, employer=False,
         annual=True, pays_per_year=False, context=None
     ):
         """
@@ -51,7 +52,7 @@ class hr_contract(orm.Model):
         exemption:  Filter benefits for those that are not
                     exempted from a source deduction
 
-        benefit_code: The type of benefit over which to sum
+        benefit_codes: The type of benefit over which to sum
 
         employer:   If True, sum over the employer contribution.
                     If False, sum over the employee contribution
@@ -68,17 +69,26 @@ class hr_contract(orm.Model):
 
         contract = self.browse(cr, uid, contract_id, context=context)
 
+        # Allow to pass a single code string or a list of codes in argument
+        if benefit_codes and not isinstance(benefit_codes, list):
+            benefit_codes = [benefit_codes]
+
         res = 0
         for b in contract.benefit_line_ids:
             if(
                 (not exemption or not b.category_id[exemption]) and
-                (not benefit_code or b.code == benefit_code)
+                (not benefit_codes or b.code in benefit_codes)
             ):
                 amount = employer and b.employer_amount or b.employee_amount
 
+                # If the amount type is percentage, we multiply it by the gross
+                # salary for the period given in parameter
+                if b.amount_type == 'percent':
+                    amount = amount * grossp / 100
+
                 # Case where the kind of amount requested by the salary rule
                 # is different the amount computed in the benefit record
-                if annual and b.amount_type == 'each_pay':
+                if annual and b.amount_type in ['each_pay', 'percent']:
                     amount = pays_per_year * amount
                 elif not annual and b.amount_type == 'annual':
                     amount = float(amount) / pays_per_year

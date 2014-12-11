@@ -57,6 +57,7 @@ class test_contract_hourly_rate(common.TransactionCase):
                 'default_employee_amount': 1000,
                 'default_employer_amount': 2000,
                 'default_amount_type': 'annual',
+                'fit_exempt': True,
             })
 
         # Create a contract
@@ -94,6 +95,8 @@ class test_contract_hourly_rate(common.TransactionCase):
         )
 
         self.benefit_3_id = self.benefit_model.create(
+            # This benefit is meant to be exluded in almost every test
+            # because it has not the category requested
             cr, uid, {
                 'contract_id': self.contract_id,
                 'category_id': self.category_2_id,
@@ -114,6 +117,18 @@ class test_contract_hourly_rate(common.TransactionCase):
                 'date_start': '2014-01-01',
                 'date_end': '2014-06-30',
                 'amount_type': 'annual',
+            }, context=context
+        )
+
+        self.benefit_5_id = self.benefit_model.create(
+            cr, uid, {
+                'contract_id': self.contract_id,
+                'category_id': self.category_1_id,
+                'employee_amount': 1.0,
+                'employer_amount': 2.0,
+                'date_start': '2014-01-01',
+                'date_end': '2014-06-30',
+                'amount_type': 'percent',
             }, context=context
         )
 
@@ -164,15 +179,15 @@ class test_contract_hourly_rate(common.TransactionCase):
         cr, uid, context = self.cr, self.uid, self.context
         res = self.contract_model.sum_benefits(
             cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31',
-            exemption=False, benefit_code='TEST_1', employer=False,
+            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
+            exemption=False, benefit_codes='TEST_1', employer=False,
             annual=True, pays_per_year=12,
             context=context
         )
 
-        # Sums the annual employee amount over benefits 1, 2 and 4
+        # Sums the annual employee amount over benefits 1, 2, 4, 5
         self.assertEqual(
-            res, 60 * 12 + 650
+            round(res, 2), round((60 + 0.01 * 1000) * 12 + 650, 2)
         )
 
     def test_sum_benefits_annual_employer(self):
@@ -184,15 +199,15 @@ class test_contract_hourly_rate(common.TransactionCase):
         cr, uid, context = self.cr, self.uid, self.context
         res = self.contract_model.sum_benefits(
             cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31',
-            exemption=False, benefit_code='TEST_1', employer=True,
+            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
+            exemption=False, benefit_codes='TEST_1', employer=True,
             annual=True, pays_per_year=12,
             context=context
         )
 
-        # Sums the annual employer amount over benefits 1, 2 and 4
+        # Sums the annual employer amount over benefits 1, 2, 4, 5
         self.assertEqual(
-            res, 120 * 12 + 1250
+            round(res, 2), round((120 + 0.02 * 1000) * 12 + 1250, 2)
         )
 
     def test_sum_benefits_each_pay_employee(self):
@@ -204,15 +219,15 @@ class test_contract_hourly_rate(common.TransactionCase):
         cr, uid, context = self.cr, self.uid, self.context
         res = self.contract_model.sum_benefits(
             cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31',
-            exemption=False, benefit_code='TEST_1', employer=False,
+            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
+            exemption=False, benefit_codes='TEST_1', employer=False,
             annual=False, pays_per_year=12,
             context=context
         )
 
-        # Sums the each_pay employee amount over benefits 1, 2 and 4
+        # Sums the each_pay employee amount over benefits 1, 2, 4, 5
         self.assertEqual(
-            res, 60 + 650.0 / 12
+            round(res, 2), round(60 + 0.01 * 1000 + 650.0 / 12, 2)
         )
 
     def test_sum_benefits_each_pay_employer(self):
@@ -224,15 +239,15 @@ class test_contract_hourly_rate(common.TransactionCase):
         cr, uid, context = self.cr, self.uid, self.context
         res = self.contract_model.sum_benefits(
             cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31',
-            exemption=False, benefit_code='TEST_1', employer=True,
+            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
+            exemption=False, benefit_codes='TEST_1', employer=True,
             annual=False, pays_per_year=12,
             context=context
         )
 
-        # Sums the each_pay employer amount over benefits 1, 2 and 4
+        # Sums the each_pay employer amount over benefits 1, 2, 4, 5
         self.assertEqual(
-            res, 120 + 1250.0 / 12
+            round(res, 2), round(120 + 0.02 * 1000 + 1250.0 / 12, 2)
         )
 
     def test_sum_benefits_overlapping_dates(self):
@@ -243,13 +258,72 @@ class test_contract_hourly_rate(common.TransactionCase):
         cr, uid, context = self.cr, self.uid, self.context
         res = self.contract_model.sum_benefits(
             cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-06-15', date_to='2014-07-15',
-            exemption=False, benefit_code='TEST_1', employer=True,
+            date_from='2014-06-15', date_to='2014-07-15', grossp=1000,
+            exemption=False, benefit_codes='TEST_1', employer=True,
             annual=False, pays_per_year=12,
             context=context
         )
-        # Sums the each_pay employer amount over benefits 1, 2 and 4
-        # benefit 4 ends on 2014-06-30 so it is valid 16 days over 31
+        # Sums the each_pay employer amount over benefits 1, 2, 4, 5
+        # benefits 4 and 5 ends on 2014-06-30 so it is valid 16 days over 31
         self.assertEqual(
-            res, 120 + (1250.0 / 12) * 16.0 / (16 + 15)
+            round(res, 2),
+            round(120 + (0.02 * 1000 + 1250.0 / 12) * 16.0 / (16 + 15), 2)
+        )
+
+    def test_sum_benefits_list_of_codes(self):
+        """
+        Test sum_benefits method on hr.contract model with
+            a list of codes given as parameter
+        """
+        cr, uid, context = self.cr, self.uid, self.context
+        res = self.contract_model.sum_benefits(
+            cr, uid, [self.contract_id], self.contract_id,
+            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
+            exemption=False, benefit_codes=['TEST_1', 'TEST_2'], employer=True,
+            annual=False, pays_per_year=12,
+            context=context
+        )
+
+        # Sums the each_pay employer amount over benefits 1, 2, 3, 4, 5
+        self.assertEqual(
+            round(res, 2), round(120 + 130 + 0.02 * 1000 + 1250.0 / 12, 2)
+        )
+
+    def test_sum_benefits_exemption(self):
+        """
+        Test sum_benefits method on hr.contract model with
+            a given exemption
+        """
+        cr, uid, context = self.cr, self.uid, self.context
+        res = self.contract_model.sum_benefits(
+            cr, uid, [self.contract_id], self.contract_id,
+            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
+            exemption='fit_exempt', benefit_codes=['TEST_1', 'TEST_2'],
+            employer=True, annual=False, pays_per_year=12,
+            context=context
+        )
+
+        # Sums the each_pay employer amount over benefits 1, 2, 4, 5
+        # benefit 3 is exempted from federal income tax (fit_exempt)
+        self.assertEqual(
+            round(res, 2), round(120 + 0.02 * 1000 + 1250.0 / 12, 2)
+        )
+
+    def test_sum_benefits_no_benefit_code(self):
+        """
+        Test sum_benefits method on hr.contract model with
+            no benefit code, which sums all benefits
+        """
+        cr, uid, context = self.cr, self.uid, self.context
+        res = self.contract_model.sum_benefits(
+            cr, uid, [self.contract_id], self.contract_id,
+            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
+            exemption=False, benefit_codes=False, employer=True,
+            annual=False, pays_per_year=12,
+            context=context
+        )
+
+        # Sums the each_pay employer amount over benefits 1, 2, 3, 4, 5
+        self.assertEqual(
+            round(res, 2), round(120 + 130 + 0.02 * 1000 + 1250.0 / 12, 2)
         )

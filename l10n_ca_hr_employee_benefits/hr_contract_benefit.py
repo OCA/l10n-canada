@@ -56,6 +56,7 @@ class hr_contract_benefit(orm.Model):
             (
                 ('each_pay', 'Each Pay'),
                 ('annual', 'Annual'),
+                ('percent', 'Percentage of Gross Salary')
             ),
             required=True,
             string="Amount Type",

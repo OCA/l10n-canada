@@ -46,6 +46,7 @@ The code that can be used in the salary rules to identify the benefit"""),
             (
                 ('each_pay', 'Each Pay'),
                 ('annual', 'Annual'),
+                ('percent', 'Percentage of Gross Salary')
             ),
             required=True,
             string="Default Amount Type",

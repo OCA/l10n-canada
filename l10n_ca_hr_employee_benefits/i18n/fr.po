@@ -74,6 +74,12 @@ msgid "Annual"
 msgstr "Montant annuel"
 
 #. module: l10n_ca_hr_employee_benefits
+#: selection:hr.benefit.category,default_amount_type:0
+#: selection:hr.contract.benefit,amount_type:0
+msgid "Percentage of Gross Salary"
+msgstr "Pourcentage du Salaire Brute"
+
+#. module: l10n_ca_hr_employee_benefits
 #: view:hr.benefit.category:0 view:hr.contract:0
 #: field:hr.contract,benefit_line_ids:0
 #: model:ir.actions.act_window,name:l10n_ca_hr_employee_benefits.action_hr_benefit_category_list
