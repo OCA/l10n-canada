@@ -31,7 +31,6 @@ class test_l10n_ca_check_print(common.TransactionCase):
         self.cad = self.ref.get_object(self.cr, self.uid, 'base', 'CAD')
         self.get_amount_line = self.report._get_amount_line
 
-
     def test_get_amount_line_returns(self):
         self.assertEqual(
             self.get_amount_line(666, self.cad, 'en'),
@@ -60,7 +59,6 @@ class test_l10n_ca_check_print(common.TransactionCase):
              'And 11/100 ')
         )
 
-
     def test_get_amount_line_returns_72_chars(self):
         """ To no break the check layout, the amount should always be 72
         characters. Too small lines are filled with stars.
@@ -68,4 +66,3 @@ class test_l10n_ca_check_print(common.TransactionCase):
         self.assertEqual(len(self.get_amount_line(666, self.cad, 'en')), 72)
         self.assertEqual(len(self.get_amount_line(666.11, self.cad, 'en')), 72)
         self.assertEqual(len(self.get_amount_line(666.11, self.cad, 'fr')), 72)
-
