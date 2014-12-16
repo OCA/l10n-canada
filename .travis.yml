@@ -19,7 +19,6 @@ install:
   - git clone --depth=1 https://github.com/OCA/account-fiscal-rules.git /tmp/fiscal-rules -b ${VERSION}
 
 script:
-  - travis_run_flake8
   - travis_run_tests ${VERSION} /tmp/fiscal-rules
 
 after_success:
