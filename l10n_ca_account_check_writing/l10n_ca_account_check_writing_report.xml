@@ -6,7 +6,6 @@
             model="account.voucher"
             name="l10n.ca.account.print.check.top"
             rml="l10n_ca_account_check_writing/report/l10n_ca_check_print_top.rml"
-            multi="True"
             auto="False"/>
 
     <report id="l10n_ca_account_print_check_middle"
@@ -14,7 +13,6 @@
             model="account.voucher"
             name="l10n.ca.account.print.check.middle"
             rml="l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml"
-            multi="True"
             auto="False"/>
     </data>
 </openerp>
