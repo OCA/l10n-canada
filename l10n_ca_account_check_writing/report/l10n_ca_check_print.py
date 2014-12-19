@@ -39,7 +39,6 @@ class report_print_check(report_sxw.rml_parse):
         if len(s) > maxlen:
             return s[-maxlen:]
 
-
     def pad_stars(self, s, maxlen):
         """ Pad string with stars """
         return u'{0:*>{1}}'.format(s, maxlen)
