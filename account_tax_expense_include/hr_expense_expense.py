@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp.osv import orm
 
 
 class hr_expense_expense(orm.Model):
@@ -62,7 +62,7 @@ class hr_expense_expense(orm.Model):
                     a = fpos_obj.map_account(cr, uid, fpos, a)
                     taxes = a and self.pool.get('account.account').browse(
                         cr, uid, a, context=context).tax_ids or False
-                tax_id = fpos_obj.map_tax(cr, uid, fpos, taxes)
+                # tax_id = fpos_obj.map_tax(cr, uid, fpos, taxes)
             if not taxes:
                 continue
             src_move_line = res[-1]
@@ -105,7 +105,8 @@ class hr_expense_expense(orm.Model):
                     'price_unit': tax['price_unit'],
                     'quantity': 1,
                     'price':  tax['amount'] * tax['base_sign'] or 0.0,
-                    'account_id': tax['account_collected_id'] or mres['account_id'],
+                    'account_id': tax['account_collected_id'] or
+                    mres['account_id'],
                     'tax_code_id': tax['tax_code_id'],
                     'tax_amount': tax['amount'] * tax['base_sign'],
                 }

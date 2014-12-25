@@ -52,16 +52,19 @@ class account_tax(orm.Model):
 
         return res
 
-    def compute_all(self, cr, uid, taxes, price_unit, quantity, product=None, partner=None, force_excluded=False, is_expense=False):
+    def compute_all(self, cr, uid, taxes, price_unit, quantity, product=None,
+                    partner=None, force_excluded=False, is_expense=False):
         """
-        :param force_excluded: boolean used to say that we don't want to consider the value of field price_include of
-            tax. It's used in encoding by line where you don't matter if you encoded a tax with that boolean to True or
-            False
-        :param is_expense: boolean used to say that we're calculating taxes for expense move lines
+        :param force_excluded: boolean used to say that we don't want to
+            consider the value of field price_include of tax. It's used in
+            encoding by line where you don't matter if you encoded a tax with
+            that boolean to True or False
+        :param is_expense: boolean used to say that we're calculating taxes for
+            expense move lines
         RETURN: {
-                'total': 0.0,                # Total without taxes
-                'total_included: 0.0,        # Total with taxes
-                'taxes': []                  # List of taxes, see compute for the format
+                'total': 0.0,         # Total without taxes
+                'total_included: 0.0, # Total with taxes
+                'taxes': []           # Taxes, see compute for the format
             }
         """
 
@@ -77,13 +80,15 @@ class account_tax(orm.Model):
         precision = self.pool.get('decimal.precision').precision_get(
             cr, uid, 'Account')
         tax_compute_precision = precision
-        if taxes and taxes[0].company_id.tax_calculation_rounding_method == 'round_globally':
+        if taxes and taxes[0].company_id.\
+                tax_calculation_rounding_method == 'round_globally':
             tax_compute_precision += 5
         totalin = totalex = round(price_unit * quantity, precision)
         tin = []
         tex = []
         for tax in taxes:
-            if (is_expense and tax.expense_include) or tax.price_include or not force_excluded:
+            if (is_expense and tax.expense_include) or tax.price_include\
+                    or not force_excluded:
                 tin.append(tax)
             else:
                 tex.append(tax)
