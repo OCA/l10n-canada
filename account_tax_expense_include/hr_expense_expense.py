@@ -42,9 +42,9 @@ class hr_expense_expense(orm.Model):
             res.append(mres)
             tax_code_found = False
 
-            #Calculate tax according to default tax on product
+            # Calculate tax according to default tax on product
             taxes = []
-            #Taken from product_id_onchange in account.invoice
+            # Taken from product_id_onchange in account.invoice
             if line.product_id:
                 fposition_id = False
                 fpos_obj = self.pool.get('account.fiscal.position')
@@ -88,7 +88,6 @@ class hr_expense_expense(orm.Model):
                 res[-1]['tax_amount'] = cur_obj.compute(
                     cr, uid, exp.currency_id.id, company_currency,
                     tax_amount, context={'date': exp.date_confirm})
-                ##
                 is_price_include = tax_obj.read(
                     cr, uid, tax['id'], ['price_include'],
                     context)['price_include']
@@ -96,7 +95,7 @@ class hr_expense_expense(orm.Model):
                     cr, uid, tax['id'], ['expense_include'],
                     context)['expense_include']
                 if is_price_include or expense_include:
-                    ## We need to deduce the price for the tax
+                    # We need to deduce the price for the tax
                     src_move_line['price'] = src_move_line['price'] - (
                         tax['amount'] * tax['base_sign'] or 0.0)
                 assoc_tax = {
