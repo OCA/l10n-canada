@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="VAC" model="hr.salary.rule.category">
+            <field name="code">VAC</field>
+            <field name="name">Vacation Calculation</field>
+        </record> 
+
+        <record id="rule_ca_vac_available" model="hr.salary.rule">
+            <field name="name">Vacation available</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="50"/>
+            <field name="code">VAC_AVAIL</field>
+            <field name="category_id" ref="VAC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+vacations = employee.sum_leave_accruals(employee.id, 'VAC', payslip.date_to)
+result = vacations['previous_ytd'] - vacations['current_taken_ytd']
+            </field>
+        </record>
+
+        <record id="rule_ca_vac_requested" model="hr.salary.rule">
+            <field name="name">Vacation requested</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="51"/>
+            <field name="code">VAC_REQ</field>
+            <field name="category_id" ref="VAC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.sum_leave_category(payslip, 'VAC', multiply_by_rate=True)
+            </field>
+        </record>
+
+        <record id="rule_ca_vac_taken" model="hr.salary.rule">
+            <field name="name">Vacation taken</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="52"/>
+            <field name="code">VAC_TAKEN</field>
+            <field name="category_id" ref="VAC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if VAC_AVAIL >= VAC_REQ:
+    result = VAC_REQ
+elif VAC_REQ > 0:
+    result = VAC_AVAIL
+    payslip.reduce_leave_hours(payslip, 'VAC', VAC_REQ - VAC_AVAIL, divide_by_rate=True)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_unused_vac_taken" model="hr.salary.rule">
+            <field name="name">Unused vacations payment</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="53"/>
+            <field name="code">VAC_UNUSED</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.OTHER_WAGE"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+requested_amount = payslip.sum_payslip_input(payslip, 'VAC_UNUSED')
+available_amount = VAC_AVAIL - VAC_TAKEN
+
+if available_amount >= requested_amount:
+    result = requested_amount
+elif requested_amount > 0:
+    result = available_amount
+    payslip.reduce_payslip_input_amount(payslip, 'VAC_UNUSED', requested_amount - available_amount)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_vac_added" model="hr.salary.rule">
+            <field name="name">Vacation earned</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="90"/>
+            <field name="code">VAC_ADDED</field>
+            <field name="category_id" ref="VAC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.sum_benefits(
+    contract.id,
+    payslip.date_from, payslip.date_to,
+    grossp=GROSSP,
+    employer=True,
+    pays_per_year=P
+) + GROSS
+result = (result * contract.weeks_of_vacation * 0.02)/P
+            </field>
+        </record>
+
+    </data>
+</openerp>
