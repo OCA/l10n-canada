@@ -41,7 +41,7 @@ Income Tax deductions for the computation of the employee's payslips"""
         self, cr, uid, ids,
         employee_id,
         date_from, date_to,
-        deduction_code, pays_per_year,
+        deduction_codes, pays_per_year,
         estimated_income=False,
         context=None
     ):
@@ -64,11 +64,14 @@ Income Tax deductions for the computation of the employee's payslips"""
 
         res = 0
 
+        if not isinstance(deduction_codes, list):
+            deduction_codes = [deduction_codes]
+
         for d in deductions:
-            if d.code == deduction_code and (
+            if d.code in deduction_codes and (
                 # Some deductions need to be ignored when computing
                 # the estimated income for the year
-                not estimated_income or d.estimated_income
+                not estimated_income or d.category_id.estimated_income
             ):
                 # Case where the deduction begins after the payslip period
                 # begins.
@@ -90,7 +93,7 @@ Income Tax deductions for the computation of the employee's payslips"""
 
                 # If the user entered a periodical amount ('each_pay') instead
                 # of an annual amount('annual'), we need to convert the amount
-                if d.periodicity == 'each_pay':
+                if d.amount_type == 'each_pay':
                     amount = pays_per_year * amount
 
                 res += amount

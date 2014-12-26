@@ -12,7 +12,9 @@
                         <field name="code"/>
                         <field name="description"/>
                         <field name="default_amount"/>
+                        <field name="default_amount_type"/>
                         <field name="jurisdiction"/>
+                        <field name="estimated_income"/>
                     </group>
                 </form>
             </field>
@@ -25,7 +27,6 @@
                 <tree string="Deduction Category">
                     <field name="name"/>
                     <field name="code"/>
-                    <field name="default_amount"/>
                     <field name="jurisdiction"/>
                 </tree>
             </field>

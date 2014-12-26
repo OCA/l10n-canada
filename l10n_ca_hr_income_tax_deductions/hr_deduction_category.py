@@ -20,35 +20,60 @@
 ##############################################################################
 
 from openerp.osv import fields, orm
+from openerp.tools.translate import _
 
 
 def get_jurisdiction(self, cursor, user_id, context=None):
     return (
-        ('federal', 'Federal'),
-        ('provincial', 'Provincial'))
+        ('federal', _('Federal')),
+        ('provincial', _('Provincial')),
+        ('both', _('Federal and Provincial'))
+    )
 
 
 class hr_deduction_category(orm.Model):
     _name = 'hr.deduction.category'
-    _description = 'Categories of employee deductions used for salary rules'
+    _description = 'Income Tax Deduction Category'
     _columns = {
         'name': fields.char('Category Name', required=True),
-        'code': fields.char('Code', required=True, help="""\
-The code that can be used in the salary rules to identify thededuction"""),
+        'code': fields.char(
+            'Code',
+            required=True,
+            help="The code that can be used in the salary rules to identify "
+            "the deduction"
+        ),
         'description': fields.text(
             'Description',
             required=True,
-            help="""\
-Brief explanation of which benefits the category contains."""),
-        'default_amount': fields.float('Default Amount', required=True),
+            help="Brief explanation of which benefits the category contains."
+        ),
+        'default_amount': fields.float(
+            'Default Amount',
+            required=True
+        ),
+        'default_amount_type': fields.selection(
+            (
+                ('each_pay', 'Each Pay'),
+                ('annual', 'Annual'),
+            ),
+            required=True,
+            string="Amount Type",
+        ),
         'jurisdiction': fields.selection(
             get_jurisdiction,
             'Jurisdiction',
             required=True
         ),
         'note': fields.text('Note'),
+        'estimated_income': fields.boolean(
+            'Estimated Income',
+            help="True if included in the calculation of the estimated "
+            "annual net income, False otherwise",
+        ),
     }
     _defaults = {
         'default_amount': 0.0,
         'jurisdiction': 'federal',
+        'estimated_income': True,
+        'default_amount_type': 'annual',
     }

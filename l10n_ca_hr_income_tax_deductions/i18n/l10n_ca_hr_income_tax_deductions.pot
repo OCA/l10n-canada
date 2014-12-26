@@ -23,7 +23,7 @@ msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: field:hr.employee.deduction,category_id:0
-msgid "Category"
+msgid "Deduction"
 msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
@@ -50,7 +50,7 @@ msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: field:hr.deduction.category,name:0
-msgid "Category Name"
+msgid "Deduction Name"
 msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
@@ -60,7 +60,7 @@ msgid "Employee"
 msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
-#: help:hr.employee.deduction,estimated_income:0
+#: help:hr.deduction.category,estimated_income:0
 msgid ""
 "True if included in the calculation of the estimated annual net income,\n"
 "False otherwise"
@@ -73,7 +73,7 @@ msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: help:hr.deduction.category,code:0
-msgid "The code that can be used in the salary rules to identify thededuction"
+msgid "The code that can be used in the salary rules to identify the deduction"
 msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
@@ -87,11 +87,6 @@ msgstr ""
 #. module: l10n_ca_hr_income_tax_deductions
 #: field:hr.deduction.category,description:0
 msgid "Description"
-msgstr ""
-
-#. module: l10n_ca_hr_income_tax_deductions
-#: field:hr.employee.deduction,name:0
-msgid "Deduction Name"
 msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
@@ -156,7 +151,7 @@ msgid "Default Amount"
 msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
-#: field:hr.employee.deduction,estimated_income:0
+#: field:hr.deduction.category,estimated_income:0
 msgid "Estimated Income"
 msgstr ""
 
@@ -168,4 +163,32 @@ msgstr ""
 #. module: l10n_ca_hr_income_tax_deductions
 #: field:hr.employee,ei_exempt:0
 msgid "EI Exempt"
+msgstr ""
+
+#. module: l10n_ca_hr_income_tax_deductions
+#: code:addons/l10n_ca_hr_income_tax_deductions/hr_deduction_category.py:28
+#, python-format
+msgid "Federal"
+msgstr ""
+
+#. module: l10n_ca_hr_income_tax_deductions
+#: code:addons/l10n_ca_hr_income_tax_deductions/hr_deduction_category.py:30
+#, python-format
+msgid "Federal and Provincial"
+msgstr ""
+
+#. module: l10n_ca_hr_income_tax_deductions
+#: code:addons/l10n_ca_hr_income_tax_deductions/hr_deduction_category.py:28
+#, python-format
+msgid "Provincial"
+msgstr ""
+
+#. module: l10n_ca_hr_income_tax_deductions
+#: field:hr.employee.deduction,amount_type:0
+msgid "Amount Type"
+msgstr ""
+
+#. module: l10n_ca_hr_income_tax_deductions
+#: field:hr.deduction.category,default_amount_type:0
+msgid "Default Amount Type"
 msgstr ""
