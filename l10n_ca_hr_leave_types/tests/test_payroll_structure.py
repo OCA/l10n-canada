@@ -23,6 +23,10 @@ from openerp.tests import common
 
 
 class test_canada_payroll_structure_leave(common.TransactionCase):
+    """
+    Test the integration of salary rules related to leaves in the Canada
+    payroll structure
+    """
     def get_payslip_lines(self, payslip_id):
         """
         Get a dict of payslip lines
@@ -111,13 +115,13 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
             ], context=context)[0]
 
         for line in [
-            (self.vac_accrual_id, 1500, '2014-12-31', False),
-            (self.vac_accrual_id, 500, '2014-12-31', True),
-            (self.vac_accrual_id, 1700, '2015-01-01', False),
-            (self.sick_accrual_id, 20, '2014-12-31', False),
-            (self.sick_accrual_id, 5, '2015-01-01', True),
-            (self.comp_accrual_id, 600, '2014-12-31', False),
-            (self.comp_accrual_id, 200, '2015-01-01', True),
+            (self.vac_accrual_id, 1500, '2014-12-31'),
+            (self.vac_accrual_id, -500, '2014-12-31'),
+            (self.vac_accrual_id, 1700, '2015-01-01'),
+            (self.sick_accrual_id, 20, '2014-12-31'),
+            (self.sick_accrual_id, -5, '2015-01-01'),
+            (self.comp_accrual_id, 600, '2014-12-31'),
+            (self.comp_accrual_id, -200, '2015-01-01'),
         ]:
             self.accrual_line_model.create(
                 cr, uid, {
@@ -126,7 +130,6 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
                     'source': 'manual',
                     'amount': line[1],
                     'date': line[2],
-                    'substract': line[3],
                 })
 
         # Get the activity related to each leave type
@@ -328,7 +331,6 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
                     'accrual_id': line[0],
                     'description': 'test',
                     'source': 'manual',
-                    'substract': False,
                     'amount': line[1],
                     'date': line[2],
                 })

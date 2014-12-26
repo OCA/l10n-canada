@@ -50,6 +50,7 @@ class hr_leave_accrual(orm.Model):
             'previous_ytd': 0,
         }
         year = int(date[0:4])
+
         for line in approved_lines:
 
             # Get date whether the line is manually entered
@@ -58,16 +59,17 @@ class hr_leave_accrual(orm.Model):
                 line.payslip_id.date_from or line.date
             line_year = int(line_date[0:4])
 
-            # Check if the amount is added or substracted
             if line_year == year:
-                if line.substract:
-                    res['current_taken_ytd'] += line.amount
+                # Check if the amount is added or taken
+                is_taken = line.is_refund and line.amount >= 0 or \
+                    not line.is_refund and line.amount < 0
+
+                if is_taken:
+                    res['current_taken_ytd'] -= line.amount
                 else:
                     res['current_added_ytd'] += line.amount
+
             elif line_year < year:
-                if line.substract:
-                    res['previous_ytd'] -= line.amount
-                else:
-                    res['previous_ytd'] += line.amount
+                res['previous_ytd'] += line.amount
 
         return res

@@ -22,9 +22,12 @@
 from openerp.tests import common
 
 
-class test_canada_payslip(common.TransactionCase):
+class test_4_weeks_of_gross(common.TransactionCase):
+    """
+    Test the payslip method used to calculate the allowance for public holidays
+    """
     def setUp(self):
-        super(test_canada_payslip, self).setUp()
+        super(test_4_weeks_of_gross, self).setUp()
         self.employee_model = self.registry('hr.employee')
         self.user_model = self.registry("res.users")
         self.accrual_model = self.registry("hr.leave.accrual")
@@ -54,38 +57,32 @@ class test_canada_payslip(common.TransactionCase):
 
         # Create 2 contracts for the employees
         self.contract_1_id = self.contract_model.create(
-            self.cr, self.uid,
-            {
+            self.cr, self.uid, {
                 'employee_id': self.employee_1_id,
                 'name': 'Contract 1',
                 'wage': 50000,
                 # Week of work starts monday
                 'week_start': '1',
-            },
-            context=self.context
+            }, context=self.context
         )
         self.contract_2_id = self.contract_model.create(
-            self.cr, self.uid,
-            {
+            self.cr, self.uid, {
                 'employee_id': self.employee_2_id,
                 'name': 'Contract 2',
                 'wage': 50000,
                 'week_start': '1',
-            },
-            context=self.context
+            }, context=self.context
         )
 
         # Create payslips
         self.payslip_ids = {
             line[0]: self.payslip_model.create(
-                self.cr, self.uid,
-                {
+                self.cr, self.uid, {
                     'employee_id': line[1],
                     'contract_id': line[2],
                     'date_from': line[3],
                     'date_to': line[4],
-                },
-                context=self.context,
+                }, context=self.context,
             ) for line in [
                 (1, self.employee_1_id, self.contract_1_id,
                     '2014-01-01', '2014-01-15'),
@@ -182,7 +179,7 @@ class test_canada_payslip(common.TransactionCase):
             self.cr, self.uid,
             [self.employee_1_id, self.employee_2_id], context=self.context)
 
-        super(test_canada_payslip, self).tearDown()
+        super(test_4_weeks_of_gross, self).tearDown()
 
     def test_get_4_weeks_of_gross(self):
         """

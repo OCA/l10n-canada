@@ -23,6 +23,9 @@ from openerp.tests import common
 
 
 class test_canada_payslip(common.TransactionCase):
+    """
+    Test methods that write or read worked days records or payslip inputs
+    """
     def setUp(self):
         super(test_canada_payslip, self).setUp()
         self.employee_model = self.registry('hr.employee')
