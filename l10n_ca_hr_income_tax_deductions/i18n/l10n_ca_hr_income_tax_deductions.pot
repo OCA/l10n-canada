@@ -73,7 +73,7 @@ msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: help:hr.deduction.category,code:0
-msgid "The code that can be used in the salary rules to identify thededuction"
+msgid "The code that can be used in the salary rules to identify the deduction"
 msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
@@ -181,4 +181,14 @@ msgstr ""
 #: code:addons/l10n_ca_hr_income_tax_deductions/hr_deduction_category.py:28
 #, python-format
 msgid "Provincial"
+msgstr ""
+
+#. module: l10n_ca_hr_income_tax_deductions
+#: field:hr.employee.deduction,amount_type:0
+msgid "Amount Type"
+msgstr ""
+
+#. module: l10n_ca_hr_income_tax_deductions
+#: field:hr.deduction.category,default_amount_type:0
+msgid "Default Amount Type"
 msgstr ""

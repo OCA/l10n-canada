@@ -75,7 +75,7 @@ msgstr "Déductions Employés utilisées par les règles de salaire"
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: help:hr.deduction.category,code:0
-msgid "The code that can be used in the salary rules to identify thededuction"
+msgid "The code that can be used in the salary rules to identify the deduction"
 msgstr ""
 "Le code pouvant être utilisédans les règles de salaire topour identifier la "
 "déduction"
@@ -190,3 +190,13 @@ msgstr "Fédéral et Provincial"
 #, python-format
 msgid "Provincial"
 msgstr "Provincial"
+
+#. module: l10n_ca_hr_income_tax_deductions
+#: field:hr.employee.deduction,amount_type:0
+msgid "Amount Type"
+msgstr "Type de montant"
+
+#. module: l10n_ca_hr_income_tax_deductions
+#: field:hr.deduction.category,default_amount_type:0
+msgid "Default Amount Type"
+msgstr "Type de montant par défaut"

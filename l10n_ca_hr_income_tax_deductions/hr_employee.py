@@ -93,7 +93,7 @@ Income Tax deductions for the computation of the employee's payslips"""
 
                 # If the user entered a periodical amount ('each_pay') instead
                 # of an annual amount('annual'), we need to convert the amount
-                if d.periodicity == 'each_pay':
+                if d.amount_type == 'each_pay':
                     amount = pays_per_year * amount
 
                 res += amount

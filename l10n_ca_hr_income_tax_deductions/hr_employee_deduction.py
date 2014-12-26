@@ -26,7 +26,7 @@ from .hr_deduction_category import get_jurisdiction
 
 class hr_employee_deduction(orm.Model):
     _name = 'hr.employee.deduction'
-    _description = 'Employee deductions used for salary rules'
+    _description = 'Income Tax Deduction'
     _columns = {
         'employee_id': fields.many2one(
             'hr.employee',
@@ -42,10 +42,13 @@ class hr_employee_deduction(orm.Model):
             ondelete='cascade',
             select=True
         ),
-        'amount': fields.float('Amount', required=True, help="""\
-It is used in computation of the payslip. May be an annual or
-periodic amount depending on the category. The deduction may be
-a tax credit."""),
+        'amount': fields.float(
+            'Amount',
+            required=True,
+            help="It is used in computation of the payslip. "
+            "May be an annual or periodic amount depending on the category. "
+            "The deduction may be a tax credit."
+        ),
         'date_start': fields.date('Start Date', required=True),
         'date_end': fields.date('End Date'),
         'code': fields.related(
@@ -54,13 +57,13 @@ a tax credit."""),
             type='char',
             string='Code'
         ),
-        'periodicity': fields.selection(
+        'amount_type': fields.selection(
             (
                 ('each_pay', 'Each Pay'),
                 ('annual', 'Annual'),
             ),
             required=True,
-            string="Amount Periodicity",
+            string="Amount Type",
         ),
         'jurisdiction': fields.related(
             'category_id',
@@ -73,14 +76,14 @@ a tax credit."""),
     _defaults = {
         'amount': 0.0,
         'date_start': lambda *a: time.strftime('%Y-%m-%d'),
-        'periodicity': 'annual',
+        'amount_type': 'annual',
     }
 
-    def onchange_category_id(self, cr, uid, ids, category_id=False):
-        res = {'value': {'amount': 0.0}}
+    def onchange_category_id(self, cr, uid, ids, category_id, amount):
+        res = {'value': {}}
         if category_id:
             category = self.pool.get('hr.deduction.category')
             category = category.browse(cr, uid, category_id)
-            res['value']['amount'] = category.default_amount
-            res['value']['name'] = category.name
+            res['value']['amount'] = amount or category.default_amount
+            res['value']['amount_type'] = category.default_amount_type
         return res

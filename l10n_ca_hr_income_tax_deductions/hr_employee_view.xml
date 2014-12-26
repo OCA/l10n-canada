@@ -7,17 +7,16 @@
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
                 <notebook position="inside">
-                    <page string="Canadian Payroll">
-                        <group string="Income Tax Deductions">
+                    <page name="canada_payroll" string="Canadian Payroll">
+                        <group name="deductions" string="Income Tax Deductions">
                             <field name="deduction_ids" nolabel="1">
                                 <tree string="Deduction Lines" editable="bottom">
-                                    <field name="category_id" on_change="onchange_category_id(category_id)"/>
+                                    <field name="category_id" on_change="onchange_category_id(category_id, amount)"/>
                                     <field name="jurisdiction" readonly="1"/>
-                                    <field name="periodicity"/>
+                                    <field name="amount_type"/>
+                                    <field name="amount"/>
                                     <field name="date_start"/>
                                     <field name="date_end"/>
-                                    <field name="amount"/>
-                                    <field name="code" readonly="1"/>
                                 </tree>
                              </field>
                         </group>
