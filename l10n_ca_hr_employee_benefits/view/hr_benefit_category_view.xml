@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_benefit_category_form" model="ir.ui.view">
+            <field name="name">hr.benefit.category.form</field>
+            <field name="model">hr.benefit.category</field>
+            <field name="arch" type="xml">
+                <form string="Employee Benefits">
+                    <group col="2">
+                        <group name="basic" colspan="2">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="description"/>
+                            <field name="default_employee_amount"/>
+                            <field name="default_employer_amount"/>
+                            <field name="default_amount_type"/>
+                        </group>
+                        <group name="exemptions" string="Exemptions">
+                            <field name="fit_exempt"/>
+                            <field name="pit_exempt"/>
+                            <field name="ei_exempt"/>
+                            <field name="cpp_exempt"/>
+                            <field name="pip_exempt"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_benefit_category_list" model="ir.ui.view">
+            <field name="name">hr.benefit.category.tree</field>
+                <field name="model">hr.benefit.category</field>
+                <field name="arch" type="xml">
+                    <tree string="Employee Benefits">
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="default_employee_amount"/>
+                        <field name="default_employer_amount"/>
+                        <field name="default_amount_type"/>
+                    </tree>
+                </field>
+        </record>
+
+        <record id="view_hr_benefit_category_filter" model="ir.ui.view">
+            <field name="name">hr.benefit.category.select</field>
+            <field name="model">hr.benefit.category</field>
+            <field name="arch" type="xml">
+                <search string="Search Employee Benefit">
+                    <field 
+                        name="name"
+                        string="Employee Benefits"
+                        filter_domain="['|',('name','ilike',self),('code','ilike',self)]"
+                    />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_benefit_category_list" model="ir.actions.act_window">
+            <field name="name">Employee Benefits</field>
+            <field name="res_model">hr.benefit.category</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="hr_benefit_category_list"/>
+            <field name="search_view_id" ref="view_hr_benefit_category_filter"/>
+        </record>
+
+        <menuitem
+            id="menu_action_hr_benefit_category_list"
+            action="action_hr_benefit_category_list"
+            parent="hr_payroll.payroll_configure"
+            sequence="15"
+        />
+
+    </data>
+</openerp>
