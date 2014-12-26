@@ -44,7 +44,6 @@ Contributors
         'l10n_ca_hr_payroll',
     ],
     'data': [
-        'security/ir.model.access.csv',
         'data/hr_salary_rule_data_vacation.xml',
         'data/hr_salary_rule_data_legal_leaves.xml',
         'data/hr_salary_rule_data_sick_leaves.xml',

@@ -1,0 +1,60 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* l10n_ca_hr_leave_types
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-26 22:34+0000\n"
+"PO-Revision-Date: 2014-12-26 22:34+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_input.py:35
+#, python-format
+msgid "Unused Compensatory days"
+msgstr "Jours compensatoires non-utilisés"
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_input.py:36
+#, python-format
+msgid "Unused Sick Leaves"
+msgstr "Congés de maladie non-utilisés"
+
+#. module: l10n_ca_hr_leave_types
+#: model:ir.model,name:l10n_ca_hr_leave_types.model_hr_payslip_input
+msgid "Payslip Input"
+msgstr "Entrée de bulletin de paie"
+
+#. module: l10n_ca_hr_leave_types
+#: field:hr.salary.rule,structure_id:0
+msgid "Salary Structures"
+msgstr "Structure de salaire"
+
+#. module: l10n_ca_hr_leave_types
+#: model:ir.model,name:l10n_ca_hr_leave_types.model_hr_leave_accrual
+msgid "Employee Leave Accrual"
+msgstr "Banque de temps d'un employé"
+
+#. module: l10n_ca_hr_leave_types
+#: model:ir.model,name:l10n_ca_hr_leave_types.model_hr_employee
+msgid "Employee"
+msgstr "Employé"
+
+#. module: l10n_ca_hr_leave_types
+#: model:ir.model,name:l10n_ca_hr_leave_types.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Bulletin de paie"
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_input.py:34
+#, python-format
+msgid "Unused Vacations"
+msgstr "Vacances non-utilisées"
+
