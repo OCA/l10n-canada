@@ -29,7 +29,7 @@ class hr_canada_fiscal_slip(orm.Model):
     in Canada
     """
     _name = 'hr.canada.fiscal_slip'
-    _description = 'A canada fiscal slip of an employee'
+    _description = 'Canada Fiscal Slip'
 
     _columns = {
         'company_id': fields.many2one(
@@ -44,10 +44,10 @@ class hr_canada_fiscal_slip(orm.Model):
             type="many2one",
             relation="res.partner",
         ),
-        'sin': fields.related(
+        'nas': fields.related(
             'employee_id',
-            'sin',
-            string='Social Security Number',
+            'nas',
+            string='Social Insurance Number',
             type="float",
             digits=(9, 0),
         ),
@@ -101,14 +101,14 @@ class hr_canada_fiscal_slip(orm.Model):
         'street': fields.related(
             'address_home_id',
             'street',
-            string='Adress Line 1',
+            string='Address Line 1',
             type="char",
             size=30,
         ),
         'street2': fields.related(
             'address_home_id',
             'street2',
-            string='Adress Line 2',
+            string='Address Line 2',
             type="char",
             size=30,
         ),

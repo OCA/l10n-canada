@@ -1,0 +1,159 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* l10n_ca_hr_fiscal_slip
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-27 14:10+0000\n"
+"PO-Revision-Date: 2014-12-27 09:23-0500\n"
+"Last-Translator: David Dufresne <david.dufresne@savoirfairelinux.com>\n"
+"Language-Team: Savoir-faire Linux\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,city:0
+msgid "City"
+msgstr "Ville"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: selection:hr.canada.fiscal_slip,state:0
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,zip:0
+msgid "Zip"
+msgstr "Code Postal"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,initial:0
+msgid "Last Name Initial"
+msgstr "Initiales"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.employee,lastname_initial:0
+msgid "Last Name initial"
+msgstr "Initiales"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,firstname:0
+msgid "First Name"
+msgstr "Prénom"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: selection:hr.canada.fiscal_slip,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,employee_id:0
+#: model:ir.model,name:l10n_ca_hr_fiscal_slip.model_hr_employee
+msgid "Employee"
+msgstr "Employé"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: model:ir.ui.menu,name:l10n_ca_hr_fiscal_slip.menu_fiscal_slips
+msgid "Canada Fiscal Slips"
+msgstr "Documents Fiscaux du Canada"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,address_home_id:0
+msgid "Home Address"
+msgstr "addresse personnelle"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: selection:hr.canada.fiscal_slip,state:0
+msgid "Sent"
+msgstr "Envoyé"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,state_id:0
+msgid "Province"
+msgstr "Province"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,street:0
+msgid "Address Line 1"
+msgstr "Adresse ligne 1"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: selection:hr.canada.fiscal_slip,type:0
+msgid "Amended"
+msgstr "Amendé"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,street2:0
+msgid "Address Line 2"
+msgstr "Adresse ligne 2"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,company_id:0
+msgid "Company"
+msgstr "Société"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,state:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,country_id:0
+msgid "Country"
+msgstr "Pays"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.employee,nas:0 field:hr.canada.fiscal_slip,nas:0
+msgid "Social Insurance Number"
+msgstr "Numéro d'assurance sociale"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,year:0
+msgid "Fiscal Year"
+msgstr "Année fiscale"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: selection:hr.canada.fiscal_slip,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: selection:hr.canada.fiscal_slip,type:0
+msgid "Original"
+msgstr "Original"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,reference:0
+msgid "Reference"
+msgstr "Référence"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,lastname:0
+msgid "Last Name"
+msgstr "Nom de famille"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: model:ir.model,name:l10n_ca_hr_fiscal_slip.model_hr_canada_fiscal_slip
+msgid "Canada Fiscal Slip"
+msgstr "Document fiscal du Canada"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,no_employee:0
+#: field:hr.employee,employee_number:0
+msgid "Employee Number"
+msgstr "Numéro d'employé"
+
+#. module: l10n_ca_hr_fiscal_slip
+#: selection:hr.canada.fiscal_slip,type:0
+msgid "Cancel"
+msgstr "Annuler"

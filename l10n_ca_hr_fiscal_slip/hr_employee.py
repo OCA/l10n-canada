@@ -23,21 +23,24 @@ from openerp.osv import fields, orm
 
 
 class hr_employee(orm.Model):
-    _name = 'hr.employee'
     _inherit = 'hr.employee'
 
-    def _get_sin_from_address(
+    def _get_nas_from_address(
         self, cr, uid, ids, field_name, arg=None, context=None
     ):
         res = {}
         for employee in self.browse(cr, uid, ids, context=context):
             if employee.address_home_id:
-                res[employee.id] = employee.address_home_id.sin
+                res[employee.id] = employee.address_home_id.nas
             else:
                 res[employee.id] = False
         return res
 
     _columns = {
+        # The two following fields are not mandatory in fiscal slips.
+        # They must exist in the employee model so that the slips will
+        # compute properly.
+        # TODO: hr modules that would implement these fields
         'employee_number': fields.char(
             'Employee Number',
         ),
@@ -45,13 +48,12 @@ class hr_employee(orm.Model):
             'Last Name initial',
             size=1
         ),
-        'payslip_ids': fields.one2many(
-            'hr.payslip',
-            'employee_id',
-            'Payslips',
-        ),
-        'sin': fields.integer(
-            string='Social insurance Number',
-            size=9
+
+        'nas': fields.function(
+            _get_nas_from_address,
+            method=True,
+            string='Social Insurance Number',
+            type="float",
+            digits=(9, 0),
         ),
     }

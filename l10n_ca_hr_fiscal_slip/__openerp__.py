@@ -26,7 +26,9 @@
     'description': """
 Canada - Fiscal Slips
 =====================
- * Adds Fiscal Slips
+ * Add fiscal slip base for Canada. The model contains all fields required
+ in every fiscal slip, such as the T4.
+ * Add a sub-menu that contains fiscal slips views.
 
 Contributors
 ------------
@@ -37,14 +39,12 @@ Contributors
     'website': 'https://www.savoirfairelinux.com',
     'depends': [
         'hr_payroll',
-        'l10n_ca_hr_payroll',
         'res_partner_attributes_add_SIN',
         'res_partner_attributes_add_BN',
         'hr_employee_firstname',
     ],
     'data': [
         'hr_canada_fiscal_slip_view.xml',
-        'hr_employee_view.xml',
     ],
     'test': [],
     'demo': [],
