@@ -26,7 +26,7 @@
     'description': """
 Canada - T4 Slip
 ================
- * Adds T4 Slip
+ * Add T4 Slip
 
 Contributors
 ------------
@@ -37,11 +37,13 @@ Contributors
     'website': 'https://www.savoirfairelinux.com',
     'depends': [
         'l10n_ca_hr_fiscal_slip',
+        'l10n_ca_hr_payroll',
     ],
     'data': [
         'hr_canada_t4_view.xml',
         'hr_canada_t4_report.xml',
-        'hr_canada_t4_transmission_view.xml'
+        'hr_canada_t4_transmission_view.xml',
+        'hr_canada_t4_other_amount_data.xml',
     ],
     'test': [],
     'demo': [],

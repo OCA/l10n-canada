@@ -130,7 +130,7 @@ class hr_canada_t4_transmission(orm.Model):
                     'empt_prov_cd': t4_slip.empt_prov_cd,
                     'T4_AMT': amounts_dict,
                     'OTH_INFO': {
-                        amount.source: amount.amount
+                        amount.source.xml_tag: amount.amount
                         for amount in t4_slip.other_amount_ids
                     }
                 }
@@ -270,14 +270,10 @@ class hr_canada_t4_transmission(orm.Model):
             'XML Generated'
         ),
         'sbmt_ref_id': fields.char(
-            'Submission reference identification',
-            required=True,
-            size=8
+            'Submission reference identification', required=True, size=8
         ),
         'trnmtr_nbr': fields.char(
-            'Transmitter number',
-            reuired=True,
-            size=8,
+            'Transmitter number', required=True, size=8,
         ),
         'lang_cd': fields.selection(
             [
@@ -332,8 +328,7 @@ class hr_canada_t4_transmission(orm.Model):
             'Transmission Records',
         ),
         'year': fields.integer(
-            'Fiscal Year',
-            required=True,
+            'Fiscal Year', required=True,
         ),
         'type': fields.selection(
             [
@@ -341,13 +336,10 @@ class hr_canada_t4_transmission(orm.Model):
                 ('A', 'Send Amended T4 Slips'),
                 ('C', 'Cancel T4 Slips already sent'),
             ],
-            'Transmission Type',
-            required=True,
+            'Transmission Type', required=True,
         ),
         'company_id': fields.many2one(
-            'res.company',
-            'Company',
-            required=True,
+            'res.company', 'Company', required=True,
         ),
         'company_partner_id': fields.related(
             'company_id',
@@ -356,54 +348,24 @@ class hr_canada_t4_transmission(orm.Model):
             type='many2one',
             string='Company Partner',
         ),
-        'ne': fields.char(
-            'Buisness Number',
-            size=15,
-        ),
-        'contact_id': fields.many2one(
-            'hr.employee',
-            'Contact',
-            required=True,
-        ),
+        'ne': fields.char('Buisness Number', size=15),
+
+        'contact_id': fields.many2one('hr.employee', 'Contact', required=True),
         'contact_area_code': fields.integer(
-            'Contact Area Code',
-            required=True,
-        ),
-        'contact_phone': fields.char(
-            'Contact Phone',
-            required=True,
-        ),
-        'contact_extension': fields.integer(
-            'Contact Extension',
-        ),
-        'contact_email': fields.char(
-            'Contact Email',
-            size=60,
-            required=True,
-        ),
+            'Contact Area Code', required=True),
+        'contact_phone': fields.char('Contact Phone', required=True),
+        'contact_extension': fields.integer('Contact Extension'),
+        'contact_email': fields.char('Contact Email', size=60, required=True),
+
         'proprietor_1_id': fields.many2one(
-            'hr.employee',
-            'Proprietor',
-            required=True,
-        ),
-        'proprietor_2_id': fields.many2one(
-            'hr.employee',
-            'Second Proprietor',
-        ),
+            'hr.employee', 'Proprietor', required=True),
+        'proprietor_2_id': fields.many2one('hr.employee', 'Second Proprietor'),
         'proprietor_1_nas': fields.related(
-            'proprietor_1_id',
-            'nas',
-            string='Proprietor SIN',
-            type='float',
-            digits=(9, 0),
-        ),
+            'proprietor_1_id', 'nas',
+            string='Proprietor SIN', type='float', digits=(9, 0)),
         'proprietor_2_nas': fields.related(
-            'proprietor_2_id',
-            'nas',
-            string='Second Proprietor SIN',
-            type='float',
-            digits=(9, 0),
-        ),
+            'proprietor_2_id', 'nas',
+            string='Second Proprietor SIN', type='float', digits=(9, 0)),
     }
     _defaults = {
         'state': 'draft',

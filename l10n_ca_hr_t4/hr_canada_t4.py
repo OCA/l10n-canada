@@ -46,83 +46,46 @@ class hr_canada_t4(orm.Model):
                 ('ZZ', 'Other'),
             ],
             string='Province, territory or country of employment code',
-            required=True,
-            type="char",
-        ),
+            required=True, type="char"),
+
         'rpp_dpsp_rgst_nbr': fields.integer(
-            'Registered pension plan registration number',
-        ),
+            'Registered pension plan registration number'),
+
         'cpp_qpp_xmpt_cd': fields.related(
-            'employee_id',
-            'cpp_exempt',
+            'employee_id', 'cpp_exempt',
             string='Canada Pension Plan or Quebec Pension Plan exempt',
-            type="boolean",
-        ),
+            type="boolean"),
+
         'ei_xmpt_cd': fields.related(
-            'employee_id',
-            'ei_exempt',
+            'employee_id', 'ei_exempt',
             string='Employment Insurance exempt',
-            type="boolean",
-        ),
+            type="boolean"),
+
         'prov_pip_xmpt_cd': fields.related(
-            'employee_id',
-            'pip_exempt',
+            'employee_id', 'pip_exempt',
             string='Provincial parental insurance plan exempt',
-            type="boolean",
-        ),
-        'empt_cd': fields.char(
-            'Employment code',
-        ),
-        'empt_incamt': fields.float(
-            'Employment income'
-        ),
-        'cpp_cntrb_amt': fields.float(
-            'Canada Pension Plan contributions'
-        ),
-        'qpp_cntrb_amt': fields.float(
-            'Quebec Pension Plan contributions'
-        ),
-        'empe_eip_amt': fields.float(
-            'Employment Insurance premium'
-        ),
-        'rpp_cntrb_amt': fields.float(
-            'Registered pension plan contributions'
-        ),
-        'itx_ddct_amt': fields.float(
-            'Income tax deducted'
-        ),
+            type="boolean"),
+
+        'empt_cd': fields.char('Employment code'),
+        'empt_incamt': fields.float('Employment income'),
+        'cpp_cntrb_amt': fields.float('Canada Pension Plan contributions'),
+        'qpp_cntrb_amt': fields.float('Quebec Pension Plan contributions'),
+        'empe_eip_amt': fields.float('Employment Insurance premium'),
+        'rpp_cntrb_amt': fields.float('Registered pension plan contributions'),
+        'itx_ddct_amt': fields.float('Income tax deducted'),
         'ei_insu_ern_amt': fields.float(
-            'Employment Insurance insurable earnings'
-        ),
-        'cpp_qpp_ern_amt': fields.float(
-            'CPP or QPP pensionable earnings'
-        ),
-        'unn_dues_amt': fields.float(
-            'Union dues'
-        ),
-        'chrty_dons_amt': fields.float(
-            'Charitable donations'
-        ),
-        'padj_amt': fields.float(
-            'Pension adjustment'
-        ),
-        'prov_pip_amt': fields.float(
-            'PPIP Premiums'
-        ),
-        'prov_insu_ern_amt': fields.float(
-            'PPIP Insurable earnings'
-        ),
-        'empr_cpp_amt': fields.float(
-            "Employer's CPP contributions"
-        ),
-        'empr_eip_amt': fields.float(
-            "Employer's EI premiums"
-        ),
+            'Employment Insurance insurable earnings'),
+        'cpp_qpp_ern_amt': fields.float('CPP or QPP pensionable earnings'),
+        'unn_dues_amt': fields.float('Union dues'),
+        'chrty_dons_amt': fields.float('Charitable donations'),
+        'padj_amt': fields.float('Pension adjustment'),
+        'prov_pip_amt': fields.float('PPIP Premiums'),
+        'prov_insu_ern_amt': fields.float('PPIP Insurable earnings'),
+        'empr_cpp_amt': fields.float("Employer's CPP contributions"),
+        'empr_eip_amt': fields.float("Employer's EI premiums"),
+
         'other_amount_ids': fields.one2many(
-            'hr.canada.t4.other_amount',
-            'slip_id',
-            'Other Income Amounts',
-        ),
+            'hr.canada.t4.other_amount', 'slip_id', 'Other Income Amounts'),
     }
 
     defaults = {
@@ -181,44 +144,38 @@ and they must be different from each other""",
 
             # Create a dict with the sum from every
             # required payslip rules
-            required_fields_dict = {
-                'empt_incamt': 'FIT_I',
-                'cpp_cntrb_amt': 'CPP_EE_C',
-                'qpp_cntrb_amt': 'QPP_EE_C',
-                'empe_eip_amt': 'EI_EE_C',
-                'itx_ddct_amt': 'FIT_T',
-                'ei_insu_ern_amt': 'EI_EE_MAXIE',
-                'cpp_qpp_ern_amt': 'CPP_EE_MAXIE',
-                'prov_pip_amt': 'PPIP_EE_C',
-                'prov_insu_ern_amt': 'PPIP_EE_MAXIE',
-                'empr_cpp_amt': 'CPP_ER_C',
-                'empr_eip_amt': 'EI_ER_C',
-                'rpp_cntrb_amt': 'RPP_EE_C',
-            }
             rules_sum_dict = {
-                rule_code: 0
-                for rule_code in required_fields_dict.values()
+                'FIT_I': ('empt_incamt', 0),
+                'CPP_EE_C': ('cpp_cntrb_amt', 0),
+                'QPP_EE_C': ('qpp_cntrb_amt', 0),
+                'EI_EE_C': ('empe_eip_amt', 0),
+                'FIT_T': ('itx_ddct_amt', 0),
+                'EI_EE_MAXIE': ('ei_insu_ern_amt', 0),
+                'CPP_EE_MAXIE': ('cpp_qpp_ern_amt', 0),
+                'PPIP_EE_C': ('prov_pip_amt', 0),
+                'PPIP_EE_MAXIE': ('prov_insu_ern_amt', 0),
+                'CPP_ER_C': ('empr_cpp_amt', 0),
+                'EI_ER_C': ('empr_eip_amt', 0),
+                'RPP_EE_C': ('rpp_cntrb_amt', 0),
             }
 
             for payslip in payslips:
                 for line in payslip.details_by_salary_rule_category:
                     if line.code in rules_sum_dict:
-                        rules_sum_dict[line.salary_rule_id.code] += \
+                        rules_sum_dict[line.salary_rule_id.code][1] += \
                             line.total
 
+                    # QPP Earnings are included in cpp_qpp_ern_amt
                     elif line.code == 'QPP_EE_MAXIE':
-                        rules_sum_dict['CPP_EE_MAXIE'] += line.total
+                        rules_sum_dict['CPP_EE_MAXIE'][1] += line.total
 
+                    # RCA contributions are included in rpp_cntrb_amt
+                    # RCA is a more specific kind of RPP
                     elif line.code == 'RCA_EE_C':
-                        rules_sum_dict['RPP_EE_C'] += line.total
+                        rules_sum_dict['RPP_EE_C'][1] += line.total
 
             # get the dict of fields to return
-            self.write(
-                cr, uid,
-                [slip.id],
-                {
-                    field: rules_sum_dict[required_fields_dict[field]]
-                    for field in required_fields_dict.keys()
-                },
-                context=context,
-            )
+            slip.write({
+                rules_sum_dict[rule][0]: rules_sum_dict[rule][1]
+                for rule in rules_sum_dict
+            })

@@ -495,7 +495,7 @@
                           <td><para style="label">Amount - Montant</para></td>
                         </tr>
                         <tr>
-                          <td><para style="input">[[ o.other_amount_ids and other_amounts_codes[o.other_amount_ids[0].source] or '' ]]</para></td>
+                          <td><para style="input">[[ o.other_amount_ids and o.other_amount_ids[0].source.box_number or '' ]]</para></td>
                           <td></td>
                           <td><para style="input">[[ o.other_amount_ids and o.other_amount_ids[0].amount or '' ]]</para></td>
                         </tr>
@@ -509,7 +509,7 @@
                           <td><para style="label">Amount - Montant</para></td>
                         </tr>
                         <tr>
-                          <td><para style="input">[[ len(o.other_amount_ids) > 1 and other_amounts_codes[o.other_amount_ids[1].source] or '' ]]</para></td>
+                          <td><para style="input">[[ len(o.other_amount_ids) > 1 and o.other_amount_ids[1].source.box_number or '' ]]</para></td>
                           <td></td>
                           <td><para style="input">[[ len(o.other_amount_ids) > 1 and o.other_amount_ids[1].amount or '' ]]</para></td>
                         </tr>
@@ -523,7 +523,7 @@
                           <td><para style="label">Amount - Montant</para></td>
                         </tr>
                         <tr>
-                          <td><para style="input">[[ len(o.other_amount_ids) > 2 and other_amounts_codes[o.other_amount_ids[2].source] or '' ]]</para></td>
+                          <td><para style="input">[[ len(o.other_amount_ids) > 2 and o.other_amount_ids[2].source.box_number.box_number or '' ]]</para></td>
                           <td></td>
                           <td><para style="input">[[ len(o.other_amount_ids) > 2 and o.other_amount_ids[2].amount or '' ]]</para></td>
                         </tr>
@@ -540,7 +540,7 @@
                           <td><para style="label">Amount - Montant</para></td>
                         </tr>
                         <tr>
-                          <td><para style="input">[[ len(o.other_amount_ids) > 3 and other_amounts_codes[o.other_amount_ids[3].source] or '' ]]</para></td>
+                          <td><para style="input">[[ len(o.other_amount_ids) > 3 and o.other_amount_ids[3].source.box_number] or '' ]]</para></td>
                           <td></td>
                           <td><para style="input">[[ len(o.other_amount_ids) > 3 and o.other_amount_ids[3].amount or '' ]]</para></td>
                         </tr>
@@ -554,7 +554,7 @@
                           <td><para style="label">Amount - Montant</para></td>
                         </tr>
                         <tr>
-                          <td><para style="input">[[ len(o.other_amount_ids) > 4 and other_amounts_codes[o.other_amount_ids[4].source] or '' ]]</para></td>
+                          <td><para style="input">[[ len(o.other_amount_ids) > 4 and o.other_amount_ids[4].source.box_number] or '' ]]</para></td>
                           <td></td>
                           <td><para style="input">[[ len(o.other_amount_ids) > 4 and o.other_amount_ids[4].amount or '' ]]</para></td>
                         </tr>
@@ -568,7 +568,7 @@
                           <td><para style="label">Amount - Montant</para></td>
                         </tr>
                         <tr>
-                          <td><para style="input">[[ len(o.other_amount_ids) > 5 and other_amounts_codes[o.other_amount_ids[5].source] or '' ]]</para></td>
+                          <td><para style="input">[[ len(o.other_amount_ids) > 5 and o.other_amount_ids[5].source.box_number] or '' ]]</para></td>
                           <td></td>
                           <td><para style="input">[[ len(o.other_amount_ids) > 5 and o.other_amount_ids[5].amount or '' ]]</para></td>
                         </tr>
