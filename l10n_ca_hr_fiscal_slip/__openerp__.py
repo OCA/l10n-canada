@@ -45,6 +45,7 @@ Contributors
     ],
     'data': [
         'hr_canada_fiscal_slip_view.xml',
+        'security/ir.model.access.csv',
     ],
     'test': [],
     'demo': [],

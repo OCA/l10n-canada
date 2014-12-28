@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_canada_fiscal_slip,access_hr_canada_fiscal_slip,model_hr_canada_fiscal_slip,base.group_hr_manager,1,1,1,1
