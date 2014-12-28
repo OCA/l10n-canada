@@ -38,6 +38,14 @@ class test_canada_t4_slip(common.TransactionCase):
             for line in payslip.details_by_salary_rule_category
         }
 
+    def get_benefit_id(self, code):
+        """
+        Gets an employee benefit category id from a given code
+        """
+        return self.benefit_model.search(
+            self.cr, self.uid, [('code', '=', code)],
+            context=self.context)[0]
+
     def setUp(self):
         super(test_canada_t4_slip, self).setUp()
         self.employee_model = self.registry('hr.employee')
@@ -51,6 +59,7 @@ class test_canada_t4_slip(common.TransactionCase):
         self.t4_model = self.registry("hr.canada.t4")
         self.company_model = self.registry("res.company")
         self.partner_model = self.registry("res.partner")
+        self.benefit_model = self.registry("hr.benefit.category")
 
         self.context = self.user_model.context_get(self.cr, self.uid)
         cr, uid, context = self.cr, self.uid, self.context
@@ -59,14 +68,14 @@ class test_canada_t4_slip(common.TransactionCase):
         self.company_id = self.company_model.create(
             cr, uid, {
                 'name': 'Company 1',
-                'default_province_employment': 'AB',
             }, context=context)
 
         self.country_id = self.registry("res.country").search(
-            cr, uid, {'code', '=', 'CA'}, context=context)[0]
+            cr, uid, [('code', '=', 'CA')], context=context)[0]
 
         self.partner_model.create(
             cr, uid, {
+                'name': 'test',
                 'street': 'test',
                 'street2': 'test',
                 'city': 'Regina',
@@ -103,7 +112,7 @@ class test_canada_t4_slip(common.TransactionCase):
                         'category_id': self.get_benefit_id(ben[0]),
                         'date_start': '2014-01-01',
                         'date_end': '2014-12-31',
-                        'amount_type': 'fixed',
+                        'amount_type': 'each_pay',
                         'employee_amount': ben[1],
                         'employer_amount': ben[2],
                     }) for ben in [
@@ -161,8 +170,20 @@ class test_canada_t4_slip(common.TransactionCase):
                     'payslip_id': self.payslip_ids[wd[2]],
                 }, context=context)
 
-        self.payslip_model.compute_sheet(
-            cr, uid, self.payslip_ids.values(), context=context)
+        for payslip_id in self.payslip_ids.values():
+            self.payslip_model.compute_sheet(
+                cr, uid, [payslip_id], context=context)
+
+            self.payslip_model.write(
+                cr, uid, [payslip_id], {'state': 'done'},
+                context=context)
+
+        self.t4_id = self.t4_model.create(
+            cr, uid, {
+                'year': 2014,
+                'employee_id': self.employee_id,
+                'empt_prov_cd': 'AB',
+            }, context=context)
 
     def tearDown(self):
         cr, uid, context = self.cr, self.uid, self.context
@@ -172,10 +193,13 @@ class test_canada_t4_slip(common.TransactionCase):
             {'state': 'draft'}, context=context)
         self.payslip_model.unlink(
             cr, uid, self.payslip_ids.values(), context=context)
+
         self.job_model.unlink(
             cr, uid, [self.job_id], context=context)
         self.contract_model.unlink(
             cr, uid, [self.contract_id], context=context)
+        self.t4_model.unlink(
+            cr, uid, [self.t4_id], context=context)
         self.employee_model.unlink(
             cr, uid, [self.employee_id], context=context)
 
@@ -185,12 +209,8 @@ class test_canada_t4_slip(common.TransactionCase):
         """Test the compute_amounts method on T4"""
         cr, uid, context = self.cr, self.uid, self.context
 
-        self.t4_id = self.t4_model.create(
-            cr, uid, {
-                'year': 2014,
-                'employee_id': self.employee_id,
-            }, context=context)
-
+        self.t4_model.compute_amounts(
+            cr, uid, [self.t4_id], context=context)
 
         t4 = self.t4_model.browse(cr, uid, self.t4_id, context=context)
 
@@ -198,5 +218,19 @@ class test_canada_t4_slip(common.TransactionCase):
         # in the first and multiply by 3
         payslip_1 = self.get_payslip_lines(self.payslip_ids[1])
 
-
-        self.assertEqual(t4)
+        self.assertEqual(
+            t4.empt_incamt, round(payslip_1['FIT_I_OTHER_WAGE'] * 3, 2))
+        self.assertEqual(t4.cpp_cntrb_amt, round(payslip_1['CPP_EE_C'] * 3, 2))
+        self.assertEqual(t4.qpp_cntrb_amt, 0)
+        self.assertEqual(
+            t4.empe_eip_amt, round(payslip_1['EI_EE_C'] * 3, 2))
+        self.assertEqual(t4.itx_ddct_amt, round(payslip_1['FIT_T'] * 3, 2))
+        self.assertEqual(
+            t4.ei_insu_ern_amt, round(payslip_1['EI_EE_MAXIE'] * 3, 2))
+        self.assertEqual(
+            t4.cpp_qpp_ern_amt, round(payslip_1['CPP_EE_MAXIE'] * 3, 2))
+        self.assertEqual(t4.prov_pip_amt, 0)
+        self.assertEqual(t4.prov_insu_ern_amt, 0)
+        self.assertEqual(t4.empr_cpp_amt, round(payslip_1['CPP_ER_C'] * 3, 2))
+        self.assertEqual(t4.empr_eip_amt, round(payslip_1['EI_ER_C'] * 3, 2))
+        self.assertEqual(t4.rpp_cntrb_amt, (50 + 75) * 3)

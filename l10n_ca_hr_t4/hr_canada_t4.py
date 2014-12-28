@@ -134,7 +134,6 @@ and they must be different from each other""",
         self, cr, uid, ids, context=None
     ):
         for slip in self.browse(cr, uid, ids, context=context):
-
             # Get all payslip of the employee for the year
             date_from = str(slip.year) + '-01-01'
             date_to = str(slip.year) + '-12-31'
@@ -142,7 +141,7 @@ and they must be different from each other""",
                 cr, uid, [
                     ('employee_id', '=', slip.employee_id.id),
                     ('date_from', '>=', date_from),
-                    ('date_from', '<=', date_to),
+                    ('date_to', '<=', date_to),
                     ('state', '=', 'done'),
                 ], context=context)
 
@@ -152,24 +151,24 @@ and they must be different from each other""",
             # Create a dict with the sum from every
             # required payslip rules
             rules_sum_dict = {
-                'FIT_I': ('empt_incamt', 0),
-                'CPP_EE_C': ('cpp_cntrb_amt', 0),
-                'QPP_EE_C': ('qpp_cntrb_amt', 0),
-                'EI_EE_C': ('empe_eip_amt', 0),
-                'FIT_T': ('itx_ddct_amt', 0),
-                'EI_EE_MAXIE': ('ei_insu_ern_amt', 0),
-                'CPP_EE_MAXIE': ('cpp_qpp_ern_amt', 0),
-                'PPIP_EE_C': ('prov_pip_amt', 0),
-                'PPIP_EE_MAXIE': ('prov_insu_ern_amt', 0),
-                'CPP_ER_C': ('empr_cpp_amt', 0),
-                'EI_ER_C': ('empr_eip_amt', 0),
-                'RPP_EE_C': ('rpp_cntrb_amt', 0),
+                'FIT_I_OTHER_WAGE': ['empt_incamt', 0],
+                'CPP_EE_C': ['cpp_cntrb_amt', 0],
+                'QPP_EE_C': ['qpp_cntrb_amt', 0],
+                'EI_EE_C': ['empe_eip_amt', 0],
+                'FIT_T': ['itx_ddct_amt', 0],
+                'EI_EE_MAXIE': ['ei_insu_ern_amt', 0],
+                'CPP_EE_MAXIE': ['cpp_qpp_ern_amt', 0],
+                'PPIP_EE_C': ['prov_pip_amt', 0],
+                'PPIP_EE_MAXIE': ['prov_insu_ern_amt', 0],
+                'CPP_ER_C': ['empr_cpp_amt', 0],
+                'EI_ER_C': ['empr_eip_amt', 0],
+                'RPP_EE_C': ['rpp_cntrb_amt', 0],
             }
 
             for payslip in payslips:
                 for line in payslip.details_by_salary_rule_category:
                     if line.code in rules_sum_dict:
-                        rules_sum_dict[line.salary_rule_id.code][1] += \
+                        rules_sum_dict[line.code][1] += \
                             line.total
 
                     # QPP Earnings are included in cpp_qpp_ern_amt

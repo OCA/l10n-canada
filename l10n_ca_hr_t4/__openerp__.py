@@ -44,6 +44,7 @@ Contributors
         'hr_canada_t4_report.xml',
         'hr_canada_t4_transmission_view.xml',
         'hr_canada_t4_other_amount_data.xml',
+        'security/ir.model.access.csv',
     ],
     'test': [],
     'demo': [],
