@@ -135,12 +135,19 @@ and they must be different from each other""",
     ):
         for slip in self.browse(cr, uid, ids, context=context):
 
-            # Get all payslip of the employee for the period
-            payslips = [
-                payslip for payslip in
-                slip.employee_id.payslip_ids
-                if slip.year == int(payslip.date_from[0:4])
-            ]
+            # Get all payslip of the employee for the year
+            date_from = str(slip.year) + '-01-01'
+            date_to = str(slip.year) + '-12-31'
+            payslip_ids = self.pool['hr.payslip'].search(
+                cr, uid, [
+                    ('employee_id', '=', slip.employee_id.id),
+                    ('date_from', '>=', date_from),
+                    ('date_from', '<=', date_to),
+                    ('state', '=', 'done'),
+                ], context=context)
+
+            payslips = self.pool['hr.payslip'].browse(
+                cr, uid, payslip_ids, context=context)
 
             # Create a dict with the sum from every
             # required payslip rules

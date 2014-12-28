@@ -1,0 +1,202 @@
+# -*- coding:utf-8 -*-
+##############################################################################
+#
+#    Copyright (C) 2014 Savoir-faire Linux. All Rights Reserved.
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published
+#    by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+from openerp.tests import common
+
+
+class test_canada_t4_slip(common.TransactionCase):
+    """
+    Test the Canada T4 slip
+    """
+    def get_payslip_lines(self, payslip_id):
+        """
+        Get a dict of payslip lines
+        """
+        payslip = self.payslip_model.browse(
+            self.cr, self.uid, payslip_id, context=self.context)
+
+        return {
+            line.code: line.total
+            for line in payslip.details_by_salary_rule_category
+        }
+
+    def setUp(self):
+        super(test_canada_t4_slip, self).setUp()
+        self.employee_model = self.registry('hr.employee')
+        self.user_model = self.registry("res.users")
+        self.payslip_model = self.registry("hr.payslip")
+        self.worked_days_model = self.registry("hr.payslip.worked_days")
+        self.contract_model = self.registry("hr.contract")
+        self.activity_model = self.registry("hr.activity")
+        self.structure_model = self.registry("hr.payroll.structure")
+        self.job_model = self.registry("hr.job")
+        self.t4_model = self.registry("hr.canada.t4")
+        self.company_model = self.registry("res.company")
+        self.partner_model = self.registry("res.partner")
+
+        self.context = self.user_model.context_get(self.cr, self.uid)
+        cr, uid, context = self.cr, self.uid, self.context
+
+        # Create a company
+        self.company_id = self.company_model.create(
+            cr, uid, {
+                'name': 'Company 1',
+                'default_province_employment': 'AB',
+            }, context=context)
+
+        self.country_id = self.registry("res.country").search(
+            cr, uid, {'code', '=', 'CA'}, context=context)[0]
+
+        self.partner_model.create(
+            cr, uid, {
+                'street': 'test',
+                'street2': 'test',
+                'city': 'Regina',
+                'zip': 'P1P1P1',
+                'country_id': self.country_id,
+                'state_id': self.registry("res.country.state").search(
+                    cr, uid, [
+                        ('code', '=', 'AB'),
+                        ('country_id', '=', self.country_id)
+                    ], context=context)[0]
+            })
+
+        # Create an employee and all his deductions
+        self.employee_id = self.employee_model.create(
+            cr, uid, {
+                'name': 'Employee 1',
+                'company_id': self.company_id,
+            }, context=context)
+
+        # Get the canadian payroll structure
+        self.structure_id = self.structure_model.search(
+            cr, uid, [('code', '=', 'CA')], context=context)[0]
+
+        # Create a contract
+        self.contract_id = self.contract_model.create(
+            cr, uid, {
+                'employee_id': self.employee_id,
+                'name': 'Contract 1',
+                'wage': 52000,
+                'schedule_pay': 'monthly',
+                'struct_id': self.structure_id,
+                'benefit_line_ids': [
+                    (0, 0, {
+                        'category_id': self.get_benefit_id(ben[0]),
+                        'date_start': '2014-01-01',
+                        'date_end': '2014-12-31',
+                        'amount_type': 'fixed',
+                        'employee_amount': ben[1],
+                        'employer_amount': ben[2],
+                    }) for ben in [
+                        ('RPP', 50, 100),
+                        ('RCA', 75, 150),
+                    ]
+                ]
+            }, context=context)
+
+        # Create a job for the employee
+        self.job_id = self.job_model.create(
+            cr, uid, {'name': 'job_id 1'}, context=context)
+
+        # Get the id of the activity for job 1
+        self.job_activity_id = self.job_model.browse(
+            cr, uid, self.job_id, context=context
+        ).activity_ids[0].id
+
+        # Create a payslip
+        self.payslip_ids = {
+            payslip[0]: self.payslip_model.create(
+                cr, uid, {
+                    'employee_id': self.employee_id,
+                    'contract_id': self.contract_id,
+                    'date_from': payslip[1],
+                    'date_to': payslip[2],
+                    'struct_id': self.structure_id,
+                }, context=context)
+            for payslip in [
+                (1, '2014-01-01', '2014-01-31'),
+                (2, '2014-06-01', '2014-06-30'),
+                (3, '2014-12-01', '2014-12-31'),
+
+                # payslip that will be excluded from
+                # the computation because the dates don't match
+                (4, '2015-01-01', '2015-01-31'),
+            ]
+        }
+
+        # Create the worked_days records
+        for wd in [
+            # (date_from, date_to, payslip)
+            ('2014-01-01', '2014-01-31', 1),
+            ('2014-06-01', '2014-06-30', 2),
+            ('2014-12-01', '2014-12-31', 3),
+            ('2015-01-01', '2015-01-31', 4),
+        ]:
+            self.worked_days_model.create(
+                cr, uid, {
+                    'date_from': wd[0],
+                    'date_to': wd[1],
+                    'activity_id': self.job_activity_id,
+                    'number_of_hours': 160,
+                    'hourly_rate': 50,
+                    'payslip_id': self.payslip_ids[wd[2]],
+                }, context=context)
+
+        self.payslip_model.compute_sheet(
+            cr, uid, self.payslip_ids.values(), context=context)
+
+    def tearDown(self):
+        cr, uid, context = self.cr, self.uid, self.context
+
+        self.payslip_model.write(
+            cr, uid, self.payslip_ids.values(),
+            {'state': 'draft'}, context=context)
+        self.payslip_model.unlink(
+            cr, uid, self.payslip_ids.values(), context=context)
+        self.job_model.unlink(
+            cr, uid, [self.job_id], context=context)
+        self.contract_model.unlink(
+            cr, uid, [self.contract_id], context=context)
+        self.employee_model.unlink(
+            cr, uid, [self.employee_id], context=context)
+
+        super(test_canada_t4_slip, self).tearDown()
+
+    def test_compute_amounts(self):
+        """Test the compute_amounts method on T4"""
+        cr, uid, context = self.cr, self.uid, self.context
+
+        self.t4_id = self.t4_model.create(
+            cr, uid, {
+                'year': 2014,
+                'employee_id': self.employee_id,
+            }, context=context)
+
+
+        t4 = self.t4_model.browse(cr, uid, self.t4_id, context=context)
+
+        # The 3 payslips must have the same value, so we get the values
+        # in the first and multiply by 3
+        payslip_1 = self.get_payslip_lines(self.payslip_ids[1])
+
+
+        self.assertEqual(t4)
