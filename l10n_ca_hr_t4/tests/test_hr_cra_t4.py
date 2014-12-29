@@ -57,13 +57,13 @@ class test_canada_t4_slip(common.TransactionCase):
         self.activity_model = self.registry("hr.activity")
         self.structure_model = self.registry("hr.payroll.structure")
         self.job_model = self.registry("hr.job")
-        self.t4_model = self.registry("hr.canada.t4")
+        self.t4_model = self.registry("hr.cra.t4")
         self.company_model = self.registry("res.company")
         self.partner_model = self.registry("res.partner")
         self.benefit_model = self.registry("hr.benefit.category")
-        self.transmission_model = self.registry("hr.canada.t4.transmission")
+        self.transmission_model = self.registry("hr.cra.t4.transmission")
         self.other_amount_model = self.registry(
-            "hr.canada.t4.other_amount.source")
+            "hr.cra.t4.other_amount.source")
 
         self.context = self.user_model.context_get(self.cr, self.uid)
         cr, uid, context = self.cr, self.uid, self.context
@@ -295,7 +295,7 @@ class test_canada_t4_slip(common.TransactionCase):
 
         trans.unlink()
 
-    def test_t4_check_other_amounts_same_source(self):
+    def test_check_other_amounts_same_source(self):
         """Test _check_other_amounts raises an error when 2 other amounts
         have the same source"""
         cr, uid, context = self.cr, self.uid, self.context
@@ -315,7 +315,7 @@ class test_canada_t4_slip(common.TransactionCase):
             }
         )
 
-    def test_t4_check_other_amounts_too_many_sources(self):
+    def test_check_other_amounts_too_many_sources(self):
         """Test _check_other_amounts raises an error when 7 other amounts
         are computed
         """
@@ -340,3 +340,117 @@ class test_canada_t4_slip(common.TransactionCase):
                 ],
             }
         )
+
+    def test_check_cpp_and_qpp(self):
+        """Test _check_cpp_and_qpp raises an error when an amount is
+        computed for both qpp and cpp contribution amounts"""
+        cr, uid, context = self.cr, self.uid, self.context
+
+        t4 = self.t4_model.browse(cr, uid, self.t4_id, context=context)
+
+        self.assertRaises(
+            orm.except_orm,
+            t4.write, {
+                'cpp_cntrb_amt': 500,
+                'qpp_cntrb_amt': 600,
+            }
+        )
+
+    def test_get_t4_slip_ids(self):
+        """Test _get_t4_slip_ids returns the proper slip ids
+        and _count_slips returns the number of slips"""
+        cr, uid, context = self.cr, self.uid, self.context
+
+        # Create an employee
+        self.employee_2_id = self.employee_model.create(
+            cr, uid, {'name': 'Employee 2'}, context=context)
+
+        self.employee_3_id = self.employee_model.create(
+            cr, uid, {'name': 'Employee 3'}, context=context)
+
+        self.employee_4_id = self.employee_model.create(
+            cr, uid, {'name': 'Employee 4'}, context=context)
+
+        self.t4_2_id = self.t4_model.create(
+            cr, uid, {
+                'year': 2014,
+                'employee_id': self.employee_2_id,
+                'empt_prov_cd': 'AB',
+            }, context=context)
+
+        self.t4_3_id = self.t4_model.create(
+            cr, uid, {
+                'year': 2014,
+                'employee_id': self.employee_3_id,
+                'empt_prov_cd': 'AB',
+            }, context=context)
+
+        self.t4_4_id = self.t4_model.create(
+            cr, uid, {
+                'year': 2014,
+                'employee_id': self.employee_4_id,
+                'empt_prov_cd': 'AB',
+            }, context=context)
+
+        t4 = self.t4_model.browse(cr, uid, self.t4_id, context=context)
+        t4.write({'type': 'A'})
+
+        t4_2 = self.t4_model.browse(cr, uid, self.t4_2_id, context=context)
+        t4_2.write({'type': 'C'})
+
+        # create the transmission record
+        self.trans_id = self.transmission_model.create(
+            cr, uid, {
+                'year': 2014,
+                'company_id': self.company_id,
+                'proprietor_1_id': self.employee_id,
+                'contact_id': self.employee_id,
+                'contact_area_code': 888,
+                'contact_phone': '888-8888',
+                'contact_email': 'test@test.com',
+                'contact_extension': 1234,
+                't4_original_ids': [(6, 0, [self.t4_3_id, self.t4_4_id])],
+                't4_cancelled_ids': [(6, 0, [self.t4_2_id])],
+                't4_amended_ids': [(6, 0, [self.t4_id])],
+                'type': 'O',
+                'sbmt_ref_id': '123456',
+            }, context=context)
+
+        trans = self.transmission_model.browse(
+            cr, uid, self.trans_id, context=context)
+
+        # Original slips
+        self.assertEqual(len(trans.t4_slip_ids), 2)
+        for t4 in trans.t4_slip_ids:
+            self.assertIn(t4.id, [self.t4_3_id, self.t4_4_id])
+
+        self.assertEqual(trans.number_of_slips, 2)
+
+        # Cancelled slips
+        trans.write({'type': 'C'})
+        trans.refresh()
+        self.assertEqual(len(trans.t4_slip_ids), 1)
+        for t4 in trans.t4_slip_ids:
+            self.assertIn(t4.id, [self.t4_2_id])
+
+        self.assertEqual(trans.number_of_slips, 1)
+
+        # Amended slips
+        trans.write({'type': 'A'})
+        trans.refresh()
+        self.assertEqual(len(trans.t4_slip_ids), 1)
+        for t4 in trans.t4_slip_ids:
+            self.assertIn(t4.id, [self.t4_id])
+
+        self.assertEqual(trans.number_of_slips, 1)
+
+        trans.unlink()
+
+        self.t4_model.unlink(
+            cr, uid, [self.t4_3_id, self.t4_4_id, self.t4_2_id],
+            context=context)
+
+        self.employee_model.unlink(
+            cr, uid,
+            [self.employee_2_id, self.employee_3_id, self.employee_4_id],
+            context=context)

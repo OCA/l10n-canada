@@ -20,35 +20,31 @@
 
 from openerp.osv import fields, orm
 from dict2xml import dict2xml
-from openerp.addons.l10n_ca_hr_fiscal_slip.hr_cra_transmission import (
-    make_T619_xml, make_address_dict
-)
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools.translate import _
-import time
 
 
-class hr_canada_t4_transmission_rel(orm.Model):
-    _name = 'hr.canada.t4.transmission.rel'
-    _description = 'Relation between the Transmission object and T4 slips'
+class hr_cra_t4_transmission_rel(orm.Model):
+    _name = 'hr.cra.t4.transmission.rel'
+    _description = 'Relation between the Transmission XML and T4 slips'
+
     _columns = {
         'transmission_o_id': fields.many2one(
-            'hr.canada.t4.transmission',
+            'hr.cra.t4.transmission',
             'Transmission Original',
             ondelete='cascade',
         ),
         'transmission_a_id': fields.many2one(
-            'hr.canada.t4.transmission',
+            'hr.cra.t4.transmission',
             'Transmission Modified',
             ondelete='cascade',
         ),
         'transmission_c_id': fields.many2one(
-            'hr.canada.t4.transmission',
+            'hr.cra.t4.transmission',
             'Transmission Cancelled',
             ondelete='cascade',
         ),
         't4_slip_id': fields.many2one(
-            'hr.canada.t4',
+            'hr.cra.t4',
             'T4 Slip',
             required=True,
             ondelete='cascade',
@@ -56,9 +52,18 @@ class hr_canada_t4_transmission_rel(orm.Model):
     }
 
 
-class hr_canada_t4_transmission(orm.Model):
-    _name = 'hr.canada.t4.transmission'
-    _description = 'Transmission of T4'
+class hr_cra_t4_transmission(orm.Model):
+    _name = 'hr.cra.t4.transmission'
+    _inherit = 'hr.cra.transmission'
+    _description = 'T4 Transmission XML'
+
+    def send_slips(
+        self, cr, uid, ids, context=None
+    ):
+        for trans in self.browse(cr, uid, ids, context=context):
+            self.pool['hr.cra.t4'].write(
+                cr, uid, [t4.id for t4 in trans.t4_slip_ids],
+                {'state': 'sent'}, context=context)
 
     def generate_xml(
         self, cr, uid, ids, context=None
@@ -118,7 +123,7 @@ class hr_canada_t4_transmission(orm.Model):
                         _('The address for employee %s is not correctrly set.')
                         % employee.name)
 
-                address_dict = make_address_dict(
+                address_dict = self.make_address_dict(
                     cr, uid, employee.address_home_id, context=context
                 )
 
@@ -168,7 +173,7 @@ class hr_canada_t4_transmission(orm.Model):
             company = trans.company_id
 
             # The company address
-            company_address_dict = make_address_dict(
+            company_address_dict = self.make_address_dict(
                 cr, uid, company, context=context
             )
 
@@ -251,17 +256,14 @@ class hr_canada_t4_transmission(orm.Model):
             # This structures embeds the slip return xml.
             # Seperated this in another file, because it is a
             # distinct structure.
-            T619_xml = make_T619_xml(
+            T619_xml = self.make_T619_xml(
                 cr, uid, slip_return_xml, trans, context=context
             )
 
             # We write the resulting XML structure to the XML field
             self.write(
                 cr, uid, [trans.id],
-                {
-                    'xml': T619_xml,
-                    'state': 'ready',
-                },
+                {'xml': T619_xml},
                 context=context,
             )
 
@@ -287,153 +289,52 @@ class hr_canada_t4_transmission(orm.Model):
 
         return res
 
+    def _count_slips(
+        self, cr, uid, ids, field_name, arg=None, context=None
+    ):
+        """
+        Count the T4 slips in transmission
+        """
+        res = {}
+
+        for trans in self.browse(cr, uid, ids, context=context):
+            res[trans.id] = len(trans.t4_slip_ids)
+
+        return res
+
     _columns = {
-        'xml': fields.text(
-            'XML Generated'
-        ),
-        'sbmt_ref_id': fields.char(
-            'Submission reference identification', required=True, size=8,
-            help="Number created by the company to identify the "
-            "transmission. It should contain 6 numeric characters",
-        ),
-        'trnmtr_nbr': fields.char(
-            'Transmitter number', required=True, size=8,
-        ),
-        'lang_cd': fields.selection(
-            [
-                ('E', 'English'),
-                ('F', 'French'),
-            ],
-            'Language of communication indicator',
-            required=True,
-        ),
-        'state': fields.selection(
-            [
-                ('draft', 'Draft'),
-                ('ready', 'Ready'),
-                ('sent', 'Sent'),
-                ('confirmed', 'Confirmed'),
-            ],
-            'Status',
-            select=True,
-            readonly=True,
-        ),
         't4_slip_ids': fields.function(
             _get_t4_slip_ids,
-            relation='hr.canada.t4',
+            relation='hr.cra.t4',
             type="many2many",
-            string="Relevés 1",
+            string="T4 Slips",
             method=True,
         ),
         't4_original_ids': fields.many2many(
-            'hr.canada.t4',
-            'hr_canada_t4_transmission_rel',
+            'hr.cra.t4',
+            'hr_cra_t4_transmission_rel',
             'transmission_o_id',
             't4_slip_id',
             'T4 Slip originals',
         ),
         't4_amended_ids': fields.many2many(
-            'hr.canada.t4',
-            'hr_canada_t4_transmission_rel',
+            'hr.cra.t4',
+            'hr_cra_t4_transmission_rel',
             'transmission_a_id',
             't4_slip_id',
-            'Relevés 1 modified',
+            'T4 modified',
         ),
         't4_cancelled_ids': fields.many2many(
-            'hr.canada.t4',
-            'hr_canada_t4_transmission_rel',
+            'hr.cra.t4',
+            'hr_cra_t4_transmission_rel',
             'transmission_c_id',
             't4_slip_id',
-            'Relevés 1 to cancel',
+            'T4 to cancel',
         ),
-        'transmission_record_ids': fields.one2many(
-            'hr.canada.t4.transmission.record',
-            'transmission_id',
-            'Transmission Records',
+        'number_of_slips': fields.function(
+            _count_slips,
+            type="integer",
+            string="Number of Slips",
+            method=True,
         ),
-        'year': fields.integer(
-            'Fiscal Year', required=True,
-        ),
-        'type': fields.selection(
-            [
-                ('O', 'Send Original T4 Slips'),
-                ('A', 'Send Amended T4 Slips'),
-                ('C', 'Cancel T4 Slips already sent'),
-            ],
-            'Transmission Type', required=True,
-        ),
-        'company_id': fields.many2one(
-            'res.company', 'Company', required=True,
-        ),
-        'company_partner_id': fields.related(
-            'company_id',
-            'partner_id',
-            relation='res.partner',
-            type='many2one',
-            string='Company Partner',
-        ),
-        'ne': fields.related(
-            'company_partner_id',
-            'ne',
-            string='Buisness Number',
-            type='char'
-        ),
-
-        'contact_id': fields.many2one('hr.employee', 'Contact', required=True),
-        'contact_area_code': fields.integer(
-            'Contact Area Code', required=True),
-        'contact_phone': fields.char('Contact Phone', required=True),
-        'contact_extension': fields.integer('Contact Extension'),
-        'contact_email': fields.char('Contact Email', size=60, required=True),
-
-        'proprietor_1_id': fields.many2one(
-            'hr.employee', 'Proprietor', required=True),
-        'proprietor_2_id': fields.many2one('hr.employee', 'Second Proprietor'),
-        'proprietor_1_nas': fields.related(
-            'proprietor_1_id', 'nas',
-            string='Proprietor SIN', type='float', digits=(9, 0)),
-        'proprietor_2_nas': fields.related(
-            'proprietor_2_id', 'nas',
-            string='Second Proprietor SIN', type='float', digits=(9, 0)),
     }
-    _defaults = {
-        'state': 'draft',
-        'lang_cd': 'E',
-        'trnmtr_nbr': 'MM555555',
-        'type': 'O',
-        'company_id': lambda self, cr, uid, context:
-        self.pool.get('res.users').browse(
-            cr, uid, uid, context=context).company_id.id,
-        'year': lambda *a: int(time.strftime(
-            DEFAULT_SERVER_DATE_FORMAT)[0:4]) - 1,
-    }
-
-    def _check_contact_phone(self, cr, uid, ids, context=None):
-        """
-        Check that the given contact phone number has the format 888-8888
-        and that the area code is a 3 digits number
-        """
-        for trans in self.browse(cr, uid, ids, context=context):
-            phone = trans.contact_phone
-            phone = phone.split('-')
-            if(
-                len(phone) != 2
-                or len(phone[0]) != 3 or len(phone[1]) != 4
-                or not phone[0].isdigit() or not phone[1].isdigit()
-            ):
-                return False
-
-            area_code = trans.contact_area_code
-            if len(str(area_code)) != 3:
-                return False
-
-        return True
-
-    _constraints = [
-        (
-            _check_contact_phone,
-            """Error! The contact phone number must be in
-the following format: 123-1234 and the area code must have 3 digits""",
-            ['contact_area_code', 'contact_phone']
-        ),
-    ]

@@ -22,32 +22,11 @@
 from openerp.osv import orm, fields
 
 
-class hr_canada_t4(orm.Model):
-    _name = 'hr.canada.t4'
-    _inherit = 'hr.canada.fiscal_slip'
-
+class hr_cra_t4(orm.Model):
+    _name = 'hr.cra.t4'
+    _inherit = 'hr.cra.fiscal_slip'
+    _description = 'T4 Slip'
     _columns = {
-        'empt_prov_cd': fields.selection(
-            [
-                ('AB', 'Alberta'),
-                ('BC', 'British Columbia'),
-                ('MB', 'Manitoba'),
-                ('NB', 'New Brunswick'),
-                ('NL', 'Newfoundland and Labrador'),
-                ('NS', 'Nova Scotia'),
-                ('NT', 'Northwest Territories'),
-                ('NU', 'Nunavut'),
-                ('ON', 'Ontario'),
-                ('PE', 'Prince Edward Island'),
-                ('QC', 'Quebec'),
-                ('SK', 'Saskatchewan'),
-                ('YT', 'Yukon Territories'),
-                ('US', 'United States'),
-                ('ZZ', 'Other'),
-            ],
-            string='Province, territory or country of employment code',
-            required=True, type="char"),
-
         'rpp_dpsp_rgst_nbr': fields.integer(
             'Registered pension plan registration number'),
 
@@ -85,14 +64,7 @@ class hr_canada_t4(orm.Model):
         'empr_eip_amt': fields.float("Employer's EI premiums"),
 
         'other_amount_ids': fields.one2many(
-            'hr.canada.t4.other_amount', 'slip_id', 'Other Income Amounts'),
-    }
-
-    defaults = {
-        'empt_prov_cd': lambda self, cr, uid, context:
-        self.pool.get('res.users').browse(
-            cr, uid, uid, context=context
-        ).company_id.default_province_employment,
+            'hr.cra.t4.other_amount', 'slip_id', 'Other Income Amounts'),
     }
 
     def _check_other_amounts(self, cr, uid, ids, context=None):
@@ -129,6 +101,12 @@ and they must be different from each other""",
             ['cpp_cntrb_amt', 'qpp_cntrb_amt']
         ),
     ]
+
+    def approve_slip(
+        self, cr, uid, ids, context=None
+    ):
+        self.write(cr, uid, ids, {'state': 'confirmed'}, context=context)
+        return ids[0]
 
     def compute_amounts(
         self, cr, uid, ids, context=None

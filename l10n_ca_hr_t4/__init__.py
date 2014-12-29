@@ -20,8 +20,8 @@
 ##############################################################################
 
 from . import (
-    hr_canada_t4,
-    hr_canada_t4_other_amount,
-    hr_canada_t4_transmission,
+    hr_cra_t4,
+    hr_cra_t4_other_amount,
+    hr_cra_t4_transmission,
 )
 import report

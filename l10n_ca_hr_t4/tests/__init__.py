@@ -20,11 +20,11 @@
 ##############################################################################
 
 from . import (
-    test_hr_canada_t4,
-    test_hr_canada_t4_transmission,
+    test_hr_cra_t4,
+    test_hr_cra_t4_transmission,
 )
 
 checks = [
-    test_hr_canada_t4,
-    test_hr_canada_t4_transmission,
+    test_hr_cra_t4,
+    test_hr_cra_t4_transmission,
 ]

@@ -2,13 +2,14 @@
 <openerp>
     <data>
         <record id="view_t4_form" model="ir.ui.view">
-            <field name="name">hr.canada.t4.form</field>
-            <field name="model">hr.canada.t4</field>
+            <field name="name">hr.cra.t4.form</field>
+            <field name="model">hr.cra.t4</field>
             <field name="arch" type="xml">
                 <form string="T4 Slip" version="7.0">
                     <header>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
                         <button string="Compute Amounts" name="compute_amounts" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Confirm" name="approve_slip" type="object" states="draft" class="oe_highlight"/>
                     </header>
                     <sheet>
                         <group name="slip_info">
@@ -79,8 +80,8 @@
         </record>
 
         <record id="view_t4_tree" model="ir.ui.view">
-            <field name="name">hr.canada.t4.tree</field>
-            <field name="model">hr.canada.t4</field>
+            <field name="name">hr.cra.t4.tree</field>
+            <field name="model">hr.cra.t4</field>
             <field name="arch" type="xml">
                 <tree string="T4 Slips">
                     <field name="employee_id"/>
@@ -91,8 +92,8 @@
         </record>
 
         <record id="view_t4_filter" model="ir.ui.view">
-            <field name="name">hr.canada.t4.select</field>
-            <field name="model">hr.canada.t4</field>
+            <field name="name">hr.cra.t4.select</field>
+            <field name="model">hr.cra.t4</field>
             <field name="arch" type="xml">
                 <search string="Search T4">
                     <field name="employee_id"/>
@@ -102,7 +103,7 @@
 
         <record id="action_view_t4_tree" model="ir.actions.act_window">
             <field name="name">T4 Slip</field>
-            <field name="res_model">hr.canada.t4</field>
+            <field name="res_model">hr.cra.t4</field>
             <field name="view_type">form</field>
             <field name="view_id" ref="view_t4_tree"/>
             <field name="search_view_id" ref="view_t4_filter"/>

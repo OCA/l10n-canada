@@ -22,20 +22,20 @@
 from openerp.osv import orm, fields
 
 
-class hr_canada_t4_other_amount(orm.Model):
+class hr_cra_t4_other_amount(orm.Model):
     """
     Used to enter the additional information on T4
     """
-    _name = 'hr.canada.t4.other_amount'
+    _name = 'hr.cra.t4.other_amount'
     _description = 'Other Income Amount on T4 Slip'
     _columns = {
         'slip_id': fields.many2one(
-            'hr.canada.t4',
+            'hr.cra.t4',
             required=True,
             ondelete='cascade',
         ),
         'source': fields.many2one(
-            'hr.canada.t4.other_amount.source',
+            'hr.cra.t4.other_amount.source',
             'Source of the amount',
             required=True,
         ),
@@ -47,11 +47,11 @@ class hr_canada_t4_other_amount(orm.Model):
     }
 
 
-class hr_canada_t4_other_amount_source(orm.Model):
+class hr_cra_t4_other_amount_source(orm.Model):
     """
     The source of an other amount on T4 slip
     """
-    _name = 'hr.canada.t4.other_amount.source'
+    _name = 'hr.cra.t4.other_amount.source'
     _description = 'Other Income Amounts on T4 Slip'
     _columns = {
         'name': fields.char(

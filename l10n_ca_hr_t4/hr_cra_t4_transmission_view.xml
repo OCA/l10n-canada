@@ -2,12 +2,13 @@
 <openerp>
     <data>
         <record id="view_t4_transmission_form" model="ir.ui.view">
-            <field name="name">hr.canada.t4.transmission.form</field>
-            <field name="model">hr.canada.t4.transmission</field>
+            <field name="name">hr.cra.t4.transmission.form</field>
+            <field name="model">hr.cra.t4.transmission</field>
             <field name="arch" type="xml">
                 <form string="T4 Slips - Transmission" version="7.0">
                     <header>
-                        <button string="Generate XML" name="generate_xml" type="object" states="draft,ready" class="oe_highlight"/>
+                        <button string="Generate XML" name="generate_xml" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Confirm Sent" name="send_slips" type="object" states="draft" class="oe_highlight"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,ready,sent,confirmed"/>
                     </header>
                     <sheet>
@@ -76,8 +77,8 @@
         </record>
 
         <record id="view_hr_t4_transmission_tree" model="ir.ui.view">
-            <field name="name">hr.canada.t4.transmission.tree</field>
-            <field name="model">hr.canada.t4.transmission</field>
+            <field name="name">hr.cra.t4.transmission.tree</field>
+            <field name="model">hr.cra.t4.transmission</field>
             <field name="arch" type="xml">
                 <tree string="T4 Slips">
                     <field name="company_id"/>
@@ -88,8 +89,8 @@
         </record>
 
         <record id="view_hr_t4_transmission_filter" model="ir.ui.view">
-            <field name="name">hr.canada.t4.transmission.select</field>
-            <field name="model">hr.canada.t4.transmission</field>
+            <field name="name">hr.cra.t4.transmission.select</field>
+            <field name="model">hr.cra.t4.transmission</field>
             <field name="arch" type="xml">
                 <search string="Search Transmissions">
                     <field name="year"/>
@@ -99,7 +100,7 @@
 
         <record id="action_view_hr_t4_transmission_tree" model="ir.actions.act_window">
             <field name="name">T4 Slips - Transmission</field>
-            <field name="res_model">hr.canada.t4.transmission</field>
+            <field name="res_model">hr.cra.t4.transmission</field>
             <field name="view_type">form</field>
             <field name="view_id" ref="view_hr_t4_transmission_tree"/>
             <field name="search_view_id" ref="view_hr_t4_transmission_filter"/>

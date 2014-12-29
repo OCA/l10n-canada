@@ -31,7 +31,7 @@ class report_t4_employee_copy(report_sxw.rml_parse):
 
 report_sxw.report_sxw(
     'report.t4_employee_copy',
-    'hr.canada.t4',
+    'hr.cra.t4',
     'l10n_ca_hr_t4/report/report_t4_employee_copy.rml',
     parser=report_t4_employee_copy,
     header=False

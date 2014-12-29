@@ -5,7 +5,7 @@
         <report
             auto="False"
             id="report_t4_employee_copy"
-            model="hr.canada.t4"
+            model="hr.cra.t4"
             name="t4_employee_copy"
             rml="l10n_ca_hr_t4/report/report_t4_employee_copy.rml"
             string="T4 - Employee Copy"
