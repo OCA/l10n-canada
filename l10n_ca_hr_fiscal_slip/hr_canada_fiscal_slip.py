@@ -20,7 +20,16 @@
 
 from openerp.osv import orm, fields
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools.translate import _
 import time
+
+
+def get_states(self, cr, uid, context=None):
+    return [
+        ('draft', _('Draft')),
+        ('confirmed', _('Confirmed')),
+        ('sent', _('Sent')),
+    ]
 
 
 class hr_canada_fiscal_slip(orm.Model):
@@ -52,7 +61,7 @@ class hr_canada_fiscal_slip(orm.Model):
             digits=(9, 0),
         ),
         'reference': fields.char(
-            'Reference'
+            'Reference',
         ),
         'no_employee': fields.related(
             'employee_id',
@@ -83,15 +92,10 @@ class hr_canada_fiscal_slip(orm.Model):
             required=True,
         ),
         'state': fields.selection(
-            [
-                ('draft', 'Draft'),
-                ('confirmed', 'Confirmed'),
-                ('sent', 'Sent'),
-                ('cancel', 'Cancelled'),
-            ],
+            get_states,
             'Status',
             select=True,
-            readonly=True,
+            required=True,
         ),
         'employee_id': fields.many2one(
             'hr.employee',
@@ -138,20 +142,10 @@ class hr_canada_fiscal_slip(orm.Model):
             type="many2one",
             relation="res.country",
         ),
-        'type': fields.selection(
-            [
-                ('O', 'Original'),
-                ('A', 'Amended'),
-                ('C', 'Cancel'),
-            ],
-            'Type',
-            required=True,
-        ),
     }
 
     _defaults = {
         'state': 'draft',
-        'type': 'O',
         'company_id': lambda self, cr, uid, context:
         self.pool.get('res.users').browse(
             cr, uid, uid, context=context).company_id.id,

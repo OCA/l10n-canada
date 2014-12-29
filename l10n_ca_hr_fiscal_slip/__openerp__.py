@@ -28,6 +28,7 @@ Canada - Fiscal Slips
 =====================
  * Add fiscal slip base for Canada. The model contains all fields required
  in every fiscal slip, such as the T4.
+ * Add the base for transmission XML to the Canada Revenu Agency
  * Add a sub-menu that contains fiscal slips views.
 
 Contributors

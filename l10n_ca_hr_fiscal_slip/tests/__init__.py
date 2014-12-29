@@ -20,8 +20,9 @@
 ##############################################################################
 
 from . import (
-    hr_canada_fiscal_slip,
-    hr_employee,
-    hr_cra_fiscal_slip,
-    hr_cra_transmission,
+    test_hr_cra_transmission,
 )
+
+checks = [
+    test_hr_cra_transmission,
+]

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-27 14:10+0000\n"
-"PO-Revision-Date: 2014-12-27 14:10+0000\n"
+"POT-Creation-Date: 2014-12-29 19:42+0000\n"
+"PO-Revision-Date: 2014-12-29 19:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,23 +16,47 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:66
 #: field:hr.canada.fiscal_slip,city:0
+#: field:hr.cra.fiscal_slip,city:0
+#, python-format
 msgid "City"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: selection:hr.canada.fiscal_slip,state:0
-msgid "Confirmed"
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:35
+#, python-format
+msgid "Cancel slips already sent"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:36
+#, python-format
+msgid "Ontario"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
 #: field:hr.canada.fiscal_slip,zip:0
+#: field:hr.cra.fiscal_slip,zip:0
 msgid "Zip"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:34
+#, python-format
+msgid "Send Amended Slips"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
 #: field:hr.canada.fiscal_slip,initial:0
+#: field:hr.cra.fiscal_slip,initial:0
 msgid "Last Name Initial"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:73
+#, python-format
+msgid "Error"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
@@ -41,19 +65,56 @@ msgid "Last Name initial"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: field:hr.canada.fiscal_slip,firstname:0
-msgid "First Name"
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_canada_fiscal_slip.py:31
+#: selection:hr.canada.fiscal_slip,state:0
+#: selection:hr.cra.fiscal_slip,state:0
+#, python-format
+msgid "Confirmed"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: selection:hr.canada.fiscal_slip,state:0
-msgid "Draft"
+#: field:hr.canada.fiscal_slip,state:0
+#: field:hr.cra.fiscal_slip,state:0
+#: field:hr.cra.transmission,state:0
+msgid "Status"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
 #: field:hr.canada.fiscal_slip,employee_id:0
+#: field:hr.cra.fiscal_slip,employee_id:0
 #: model:ir.model,name:l10n_ca_hr_fiscal_slip.model_hr_employee
 msgid "Employee"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,proprietor_1_id:0
+msgid "Proprietor"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:42
+#, python-format
+msgid "Other"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_canada_fiscal_slip.py:29
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:48
+#: selection:hr.canada.fiscal_slip,state:0
+#: selection:hr.cra.fiscal_slip,state:0
+#, python-format
+msgid "Draft"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,type:0
+msgid "Transmission Type"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:28
+#, python-format
+msgid "Alberta"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
@@ -62,84 +123,277 @@ msgid "Canada Fiscal Slips"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: field:hr.canada.fiscal_slip,type:0
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:37
+#, python-format
+msgid "Prince Edward Island"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.fiscal_slip,type:0
 msgid "Type"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
 #: field:hr.canada.fiscal_slip,address_home_id:0
+#: field:hr.cra.fiscal_slip,address_home_id:0
 msgid "Home Address"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: selection:hr.canada.fiscal_slip,state:0
-msgid "Sent"
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:33
+#, python-format
+msgid "Send Original Slips"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: field:hr.canada.fiscal_slip,state_id:0
-msgid "Province"
+#: help:hr.cra.transmission,sbmt_ref_id:0
+msgid "Number created by the company to identify the transmission. It should contain 6 numeric characters"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: field:hr.canada.fiscal_slip,street:0
-msgid "Address Line 1"
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:69
+#, python-format
+msgid "Postal Code"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: selection:hr.canada.fiscal_slip,type:0
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:49
+#, python-format
 msgid "Amended"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: field:hr.canada.fiscal_slip,street2:0
-msgid "Address Line 2"
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:32
+#, python-format
+msgid "Newfoundland and Labrador"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:67
+#: field:hr.canada.fiscal_slip,state_id:0
+#: field:hr.cra.fiscal_slip,state_id:0
+#, python-format
+msgid "Province"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:39
+#, python-format
+msgid "Saskatchewan"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
 #: field:hr.canada.fiscal_slip,company_id:0
+#: field:hr.cra.fiscal_slip,company_id:0
+#: field:hr.cra.transmission,company_id:0
 msgid "Company"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: field:hr.canada.fiscal_slip,state:0
-msgid "Status"
+#: field:hr.cra.transmission,contact_area_code:0
+msgid "Contact Area Code"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:42
+#, python-format
+msgid "French"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:31
+#, python-format
+msgid "New Brunswick"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: constraint:hr.cra.transmission:0
+msgid "Error! The contact phone number must be in\n"
+"the following format: 123-1234 and the area code must have 3 digits"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:74
+#, python-format
+msgid "The field %s for %s is missing"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_canada_fiscal_slip.py:30
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:49
+#: selection:hr.canada.fiscal_slip,state:0
+#: selection:hr.cra.fiscal_slip,state:0
+#, python-format
+msgid "Sent"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,sbmt_ref_id:0
+msgid "Submission reference identification"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:34
+#, python-format
+msgid "Northwest Territories"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,xml:0
+msgid "XML Generated"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:35
+#, python-format
+msgid "Nunavut"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:38
+#, python-format
+msgid "Quebec"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,street:0
+#: field:hr.cra.fiscal_slip,street:0
+msgid "Address Line 1"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,street2:0
+#: field:hr.cra.fiscal_slip,street2:0
+msgid "Address Line 2"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:29
+#, python-format
+msgid "British Columbia"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: model:ir.model,name:l10n_ca_hr_fiscal_slip.model_hr_cra_transmission
+msgid "Transmission XML of CRA fiscal slips"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,number_of_slips:0
+msgid "Number of Slips"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:68
 #: field:hr.canada.fiscal_slip,country_id:0
+#: field:hr.cra.fiscal_slip,country_id:0
+#, python-format
 msgid "Country"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: field:hr.employee,nas:0
 #: field:hr.canada.fiscal_slip,nas:0
+#: field:hr.cra.fiscal_slip,nas:0
+#: field:hr.employee,nas:0
 msgid "Social Insurance Number"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,ne:0
+msgid "Buisness Number"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: model:ir.model,name:l10n_ca_hr_fiscal_slip.model_hr_cra_fiscal_slip
+msgid "CRA Fiscal Slip"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:41
+#, python-format
+msgid "United States"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:65
+#, python-format
+msgid "Street Line 1"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
 #: field:hr.canada.fiscal_slip,year:0
+#: field:hr.cra.fiscal_slip,year:0
+#: field:hr.cra.transmission,year:0
 msgid "Fiscal Year"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,contact_id:0
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:33
+#, python-format
+msgid "Nova Scotia"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,lang_cd:0
+msgid "Language of communication indicator"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:41
+#, python-format
+msgid "English"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:50
 #: selection:hr.canada.fiscal_slip,state:0
+#: selection:hr.cra.fiscal_slip,state:0
+#, python-format
 msgid "Cancelled"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: selection:hr.canada.fiscal_slip,type:0
-msgid "Original"
+#: field:hr.cra.transmission,contact_phone:0
+msgid "Contact Phone"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,contact_extension:0
+msgid "Contact Extension"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
 #: field:hr.canada.fiscal_slip,reference:0
+#: field:hr.cra.fiscal_slip,reference:0
 msgid "Reference"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:48
+#, python-format
+msgid "Original"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.canada.fiscal_slip,firstname:0
+#: field:hr.cra.fiscal_slip,firstname:0
+msgid "First Name"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
 #: field:hr.canada.fiscal_slip,lastname:0
+#: field:hr.cra.fiscal_slip,lastname:0
 msgid "Last Name"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,contact_email:0
+msgid "Contact Email"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
@@ -148,13 +402,51 @@ msgid "Canada Fiscal Slip"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:40
+#, python-format
+msgid "Yukon Territories"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
 #: field:hr.canada.fiscal_slip,no_employee:0
+#: field:hr.cra.fiscal_slip,no_employee:0
 #: field:hr.employee,employee_number:0
 msgid "Employee Number"
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
-#: selection:hr.canada.fiscal_slip,type:0
-msgid "Cancel"
+#: field:hr.cra.fiscal_slip,empt_prov_cd:0
+msgid "Province, territory or country of employment code"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,trnmtr_nbr:0
+msgid "Transmitter number"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:30
+#, python-format
+msgid "Manitoba"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,proprietor_2_nas:0
+msgid "Second Proprietor SIN"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,company_partner_id:0
+msgid "Company Partner"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,proprietor_1_nas:0
+msgid "Proprietor SIN"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
+#: field:hr.cra.transmission,proprietor_2_id:0
+msgid "Second Proprietor"
 msgstr ""
 
