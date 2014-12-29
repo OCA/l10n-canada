@@ -25,6 +25,12 @@ import iso3166
 
 
 def make_address_dict(cr, uid, address, context=None):
+    """
+    Create a dict to be parsed into XML when generating fiscal slips
+    of Canada Revenu Agency such as T4 and T619.
+
+    @param address: A res.partner or hr.company browse record
+    """
     for field in [
         ('street', _('Street Line 1')),
         ('city', _('City')),
@@ -60,6 +66,15 @@ def make_T619_xml(
     trans,
     context=None
 ):
+    """
+    Transmission XML of fiscal slips to the Canada Revenu Agency
+    requires a section containing the T619.
+
+    It Contains information about the transmitter and the standard
+    header for all types of transmissions.
+
+    @param trans: The transmission XML.
+    """
     # Here, we suppose the company is the transmitter
     transmitter = trans.company_id
 
@@ -95,7 +110,7 @@ def make_T619_xml(
 
     T619_xml = dict2xml(T619_dict, 'T619')
 
-    return """\
+    return """
 <?xml version="1.0" encoding="UTF-8"?>
 <Submission xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0"
 xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0"

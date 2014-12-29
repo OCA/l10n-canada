@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp.tests import common
+from openerp.osv import orm
 
 
 class test_canada_t4_slip(common.TransactionCase):
@@ -295,13 +296,47 @@ class test_canada_t4_slip(common.TransactionCase):
         trans.unlink()
 
     def test_t4_check_other_amounts_same_source(self):
-        """Test _check_other_amounts when 2 other amounts
+        """Test _check_other_amounts raises an error when 2 other amounts
         have the same source"""
-        t4 = self.t4_model.browse(cr, uid, [self.t4_id], context=context)
+        cr, uid, context = self.cr, self.uid, self.context
 
-        source = self.other_amount_model.search(
-            cr, uid, [('box_number', '=', 30)], context=context)
+        t4 = self.t4_model.browse(cr, uid, self.t4_id, context=context)
 
-        t4.write({
-            'other_amount_ids': []
-        })
+        source_id = self.other_amount_model.search(
+            cr, uid, [('box_number', '=', 30)], context=context)[0]
+
+        self.assertRaises(
+            orm.except_orm,
+            t4.write, {
+                'other_amount_ids': [
+                    (0, 0, {'amount': 100, 'source': source_id}),
+                    (0, 0, {'amount': 200, 'source': source_id}),
+                ],
+            }
+        )
+
+    def test_t4_check_other_amounts_too_many_sources(self):
+        """Test _check_other_amounts raises an error when 7 other amounts
+        are computed
+        """
+        cr, uid, context = self.cr, self.uid, self.context
+
+        t4 = self.t4_model.browse(cr, uid, self.t4_id, context=context)
+
+        source_ids = self.other_amount_model.search(
+            cr, uid, [], context=context)
+
+        self.assertRaises(
+            orm.except_orm,
+            t4.write, {
+                'other_amount_ids': [
+                    (0, 0, {'amount': 100, 'source': source_ids[0]}),
+                    (0, 0, {'amount': 200, 'source': source_ids[1]}),
+                    (0, 0, {'amount': 300, 'source': source_ids[2]}),
+                    (0, 0, {'amount': 400, 'source': source_ids[3]}),
+                    (0, 0, {'amount': 500, 'source': source_ids[4]}),
+                    (0, 0, {'amount': 600, 'source': source_ids[5]}),
+                    (0, 0, {'amount': 700, 'source': source_ids[6]}),
+                ],
+            }
+        )

@@ -20,7 +20,9 @@
 
 from openerp.osv import fields, orm
 from dict2xml import dict2xml
-from hr_canada_t619 import make_T619_xml, make_address_dict
+from openerp.addons.l10n_ca_hr_fiscal_slip.hr_cra_transmission import (
+    make_T619_xml, make_address_dict
+)
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools.translate import _
 import time

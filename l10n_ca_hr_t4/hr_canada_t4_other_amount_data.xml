@@ -2,17 +2,45 @@
 <openerp>
     <data noupdate="1">
 
-    	<!-- The objective here is to put the most frequent amounts -->
         <record id="other_amount_source_30" model="hr.canada.t4.other_amount.source">
             <field name="name">30 - Housing, board and lodging amount</field>
             <field name="xml_tag">hm_brd_lodg_amt</field>
             <field name="box_number">30</field>
         </record>
-
+        <record id="other_amount_source_31" model="hr.canada.t4.other_amount.source">
+            <field name="name">31 - Special work site amount</field>
+            <field name="xml_tag">spcl_wrk_site_amt</field>
+            <field name="box_number">30</field>
+        </record>
+        <record id="other_amount_source_32" model="hr.canada.t4.other_amount.source">
+            <field name="name">32 - Travel in a prescribed zone amount</field>
+            <field name="xml_tag">prscb_zn_trvl_amt</field>
+            <field name="box_number">30</field>
+        </record>
+        <record id="other_amount_source_33" model="hr.canada.t4.other_amount.source">
+            <field name="name">33 - Medical travel amount</field>
+            <field name="xml_tag">med_trvl_amt</field>
+            <field name="box_number">30</field>
+        </record>
         <record id="other_amount_source_34" model="hr.canada.t4.other_amount.source">
             <field name="name">34 - Personal use of employer automobile amount</field>
             <field name="xml_tag">prsnl_vhcl_amt</field>
             <field name="box_number">34</field>
+        </record>
+        <record id="other_amount_source_35" model="hr.canada.t4.other_amount.source">
+            <field name="name">35 - Total Reasonable Per-Kilometre Allowance amount</field>
+            <field name="xml_tag">rsn_per_km_amt</field>
+            <field name="box_number">30</field>
+        </record>
+        <record id="other_amount_source_36" model="hr.canada.t4.other_amount.source">
+            <field name="name">36 - Interest-free and low-interest loan amount</field>
+            <field name="xml_tag">low_int_loan_amt</field>
+            <field name="box_number">30</field>
+        </record>
+        <record id="other_amount_source_37" model="hr.canada.t4.other_amount.source">
+            <field name="name">37 - Employee home-relocation loan deduction amount</field>
+            <field name="xml_tag">empe_hm_loan_amt</field>
+            <field name="box_number">30</field>
         </record>
 
         <record id="other_amount_source_40" model="hr.canada.t4.other_amount.source">
