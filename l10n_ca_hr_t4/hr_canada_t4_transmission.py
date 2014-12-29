@@ -22,6 +22,7 @@ from openerp.osv import fields, orm
 from dict2xml import dict2xml
 from hr_canada_t619 import make_T619_xml, make_address_dict
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools.translate import _
 import time
 
 
@@ -32,19 +33,23 @@ class hr_canada_t4_transmission_rel(orm.Model):
         'transmission_o_id': fields.many2one(
             'hr.canada.t4.transmission',
             'Transmission Original',
+            ondelete='cascade',
         ),
         'transmission_a_id': fields.many2one(
             'hr.canada.t4.transmission',
             'Transmission Modified',
+            ondelete='cascade',
         ),
         'transmission_c_id': fields.many2one(
             'hr.canada.t4.transmission',
             'Transmission Cancelled',
+            ondelete='cascade',
         ),
         't4_slip_id': fields.many2one(
             'hr.canada.t4',
             'T4 Slip',
             required=True,
+            ondelete='cascade',
         ),
     }
 
@@ -93,7 +98,8 @@ class hr_canada_t4_transmission(orm.Model):
                 # Initial is optional
                 if not t4_slip.firstname or not t4_slip.lastname:
                     raise orm.except_orm(
-                        'The name for employee %s is not correctrly set.'
+                        _('Error'),
+                        _('The name for employee %s is not correctrly set.')
                         % employee.name
                     )
                 name_dict = {
@@ -104,6 +110,12 @@ class hr_canada_t4_transmission(orm.Model):
                     name_dict['init'] = t4_slip.initial
 
                 # Employee Address
+                if not employee.address_home_id:
+                    raise orm.except_orm(
+                        _('Error'),
+                        _('The address for employee %s is not correctrly set.')
+                        % employee.name)
+
                 address_dict = make_address_dict(
                     cr, uid, employee.address_home_id, context=context
                 )
@@ -111,7 +123,8 @@ class hr_canada_t4_transmission(orm.Model):
                 # T4 slip
                 if not t4_slip.nas:
                     raise orm.except_orm(
-                        'The SIN for employee %s is missing.'
+                        _('Error'),
+                        _('The SIN for employee %s is missing.')
                         % employee.name
                     )
 
@@ -253,16 +266,23 @@ class hr_canada_t4_transmission(orm.Model):
     def _get_t4_slip_ids(
         self, cr, uid, ids, field_name, arg=None, context=None
     ):
+        """
+        Get the T4 slips whether the transmission type is
+        Original, Amended or Cancelled
+        """
         res = {}
+
         for trans in self.browse(cr, uid, ids, context=context):
             t4_ids_field = {
                 'O': 't4_original_ids',
                 'A': 't4_amended_ids',
                 'C': 't4_cancelled_ids',
             }[trans.type]
+
             res[trans.id] = [
                 t4_slip.id for t4_slip in trans[t4_ids_field]
             ]
+
         return res
 
     _columns = {
@@ -270,7 +290,9 @@ class hr_canada_t4_transmission(orm.Model):
             'XML Generated'
         ),
         'sbmt_ref_id': fields.char(
-            'Submission reference identification', required=True, size=8
+            'Submission reference identification', required=True, size=8,
+            help="Number created by the company to identify the "
+            "transmission. It should contain 6 numeric characters",
         ),
         'trnmtr_nbr': fields.char(
             'Transmitter number', required=True, size=8,
@@ -348,7 +370,12 @@ class hr_canada_t4_transmission(orm.Model):
             type='many2one',
             string='Company Partner',
         ),
-        'ne': fields.char('Buisness Number', size=15),
+        'ne': fields.related(
+            'company_partner_id',
+            'ne',
+            string='Buisness Number',
+            type='char'
+        ),
 
         'contact_id': fields.many2one('hr.employee', 'Contact', required=True),
         'contact_area_code': fields.integer(
@@ -369,6 +396,7 @@ class hr_canada_t4_transmission(orm.Model):
     }
     _defaults = {
         'state': 'draft',
+        'lang_cd': 'E',
         'trnmtr_nbr': 'MM555555',
         'type': 'O',
         'company_id': lambda self, cr, uid, context:
@@ -379,6 +407,10 @@ class hr_canada_t4_transmission(orm.Model):
     }
 
     def _check_contact_phone(self, cr, uid, ids, context=None):
+        """
+        Check that the given contact phone number has the format 888-8888
+        and that the area code is a 3 digits number
+        """
         for trans in self.browse(cr, uid, ids, context=context):
             phone = trans.contact_phone
             phone = phone.split('-')

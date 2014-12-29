@@ -24,7 +24,7 @@ from openerp.tests import common
 
 class test_canada_t4_slip(common.TransactionCase):
     """
-    Test the Canada T4 slip
+    Test the Canada T4 slip and method to generate the transmission XML
     """
     def get_payslip_lines(self, payslip_id):
         """
@@ -60,20 +60,33 @@ class test_canada_t4_slip(common.TransactionCase):
         self.company_model = self.registry("res.company")
         self.partner_model = self.registry("res.partner")
         self.benefit_model = self.registry("hr.benefit.category")
+        self.transmission_model = self.registry("hr.canada.t4.transmission")
+        self.other_amount_model = self.registry(
+            "hr.canada.t4.other_amount.source")
 
         self.context = self.user_model.context_get(self.cr, self.uid)
         cr, uid, context = self.cr, self.uid, self.context
+
+        self.country_id = self.registry("res.country").search(
+            cr, uid, [('code', '=', 'CA')], context=context)[0]
+        self.state_id = self.registry("res.country.state").search(
+            cr, uid, [
+                ('code', '=', 'AB'), ('country_id', '=', self.country_id)
+            ], context=context)[0]
 
         # Create a company
         self.company_id = self.company_model.create(
             cr, uid, {
                 'name': 'Company 1',
+                'street': 'test',
+                'street2': 'test',
+                'city': 'Regina',
+                'zip': 'P1P1P1',
+                'country_id': self.country_id,
+                'state_id': self.state_id,
             }, context=context)
 
-        self.country_id = self.registry("res.country").search(
-            cr, uid, [('code', '=', 'CA')], context=context)[0]
-
-        self.partner_model.create(
+        self.address_home_id = self.partner_model.create(
             cr, uid, {
                 'name': 'test',
                 'street': 'test',
@@ -81,18 +94,18 @@ class test_canada_t4_slip(common.TransactionCase):
                 'city': 'Regina',
                 'zip': 'P1P1P1',
                 'country_id': self.country_id,
-                'state_id': self.registry("res.country.state").search(
-                    cr, uid, [
-                        ('code', '=', 'AB'),
-                        ('country_id', '=', self.country_id)
-                    ], context=context)[0]
-            })
+                'state_id': self.state_id,
+                'nas': 684242680,
+            }, context=context)
 
-        # Create an employee and all his deductions
+        # Create an employee
         self.employee_id = self.employee_model.create(
             cr, uid, {
                 'name': 'Employee 1',
+                'firstname': 'John',
+                'lastname': 'Doe',
                 'company_id': self.company_id,
+                'address_home_id': self.address_home_id,
             }, context=context)
 
         # Get the canadian payroll structure
@@ -170,14 +183,6 @@ class test_canada_t4_slip(common.TransactionCase):
                     'payslip_id': self.payslip_ids[wd[2]],
                 }, context=context)
 
-        for payslip_id in self.payslip_ids.values():
-            self.payslip_model.compute_sheet(
-                cr, uid, [payslip_id], context=context)
-
-            self.payslip_model.write(
-                cr, uid, [payslip_id], {'state': 'done'},
-                context=context)
-
         self.t4_id = self.t4_model.create(
             cr, uid, {
                 'year': 2014,
@@ -203,11 +208,25 @@ class test_canada_t4_slip(common.TransactionCase):
         self.employee_model.unlink(
             cr, uid, [self.employee_id], context=context)
 
+        self.partner_model.unlink(
+            cr, uid, [self.address_home_id], context=context)
+        self.company_model.unlink(
+            cr, uid, [self.company_id], context=context)
+
         super(test_canada_t4_slip, self).tearDown()
 
     def test_compute_amounts(self):
-        """Test the compute_amounts method on T4"""
+        """Test that the compute_amounts method on T4 sums over the payslips
+        amounts properly"""
         cr, uid, context = self.cr, self.uid, self.context
+
+        for payslip_id in self.payslip_ids.values():
+            self.payslip_model.compute_sheet(
+                cr, uid, [payslip_id], context=context)
+
+            self.payslip_model.write(
+                cr, uid, [payslip_id], {'state': 'done'},
+                context=context)
 
         self.t4_model.compute_amounts(
             cr, uid, [self.t4_id], context=context)
@@ -234,3 +253,55 @@ class test_canada_t4_slip(common.TransactionCase):
         self.assertEqual(t4.empr_cpp_amt, round(payslip_1['CPP_ER_C'] * 3, 2))
         self.assertEqual(t4.empr_eip_amt, round(payslip_1['EI_ER_C'] * 3, 2))
         self.assertEqual(t4.rpp_cntrb_amt, (50 + 75) * 3)
+
+    def test_create_transmission_xml(self):
+        """Test that the T4 transmision xml is generated without error
+        and the xml attibute is not blank after the computation"""
+        cr, uid, context = self.cr, self.uid, self.context
+
+        for payslip_id in self.payslip_ids.values():
+            self.payslip_model.compute_sheet(
+                cr, uid, [payslip_id], context=context)
+
+            self.payslip_model.write(
+                cr, uid, [payslip_id], {'state': 'done'},
+                context=context)
+
+        self.t4_model.compute_amounts(
+            cr, uid, [self.t4_id], context=context)
+
+        self.trans_id = self.transmission_model.create(
+            cr, uid, {
+                'year': 2014,
+                'company_id': self.company_id,
+                'proprietor_1_id': self.employee_id,
+                'contact_id': self.employee_id,
+                'contact_area_code': 888,
+                'contact_phone': '888-8888',
+                'contact_email': 'test@test.com',
+                'contact_extension': 1234,
+                't4_original_ids': [(6, 0, [self.t4_id])],
+                'sbmt_ref_id': '123456',
+            }, context=context)
+
+        self.transmission_model.generate_xml(
+            cr, uid, [self.trans_id], context=context)
+
+        trans = self.transmission_model.browse(
+            cr, uid, self.trans_id, context=context)
+
+        self.assertNotEqual(trans.xml, '')
+
+        trans.unlink()
+
+    def test_t4_check_other_amounts_same_source(self):
+        """Test _check_other_amounts when 2 other amounts
+        have the same source"""
+        t4 = self.t4_model.browse(cr, uid, [self.t4_id], context=context)
+
+        source = self.other_amount_model.search(
+            cr, uid, [('box_number', '=', 30)], context=context)
+
+        t4.write({
+            'other_amount_ids': []
+        })
