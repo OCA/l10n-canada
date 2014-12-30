@@ -68,6 +68,12 @@ class account_tax(orm.Model):
             }
         """
 
+        if not is_expense:
+            return super(account_tax, self).compute_all(
+                cr, uid, taxes, price_unit, quantity,
+                product=product, partner=partner, force_excluded=force_excluded
+            )
+
         # By default, for each tax, tax amount will first be computed
         # and rounded at the 'Account' decimal precision for each
         # PO/SO/invoice line and then these rounded amounts will be
@@ -87,8 +93,8 @@ class account_tax(orm.Model):
         tin = []
         tex = []
         for tax in taxes:
-            if (is_expense and tax.expense_include) or tax.price_include\
-                    or not force_excluded:
+            if (tax.expense_include or tax.price_include)\
+                    and not force_excluded:
                 tin.append(tax)
             else:
                 tex.append(tax)
@@ -100,7 +106,7 @@ class account_tax(orm.Model):
             totalex -= r.get('amount', 0.0)
         totlex_qty = 0.0
         try:
-            totlex_qty = totalex/quantity
+            totlex_qty = totalex / quantity
         except:
             pass
         tex = self._compute(

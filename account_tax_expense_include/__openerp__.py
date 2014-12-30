@@ -40,6 +40,7 @@ Contributors
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
+* David Dufresne <david.dufresne@savoirfairelinux.com>
 """,
     "depends": [
         "account",
