@@ -336,6 +336,11 @@ msgid "Second Proprietor"
 msgstr "Second propriétaire"
 
 #. module: l10n_ca_hr_fiscal_slip
+#: help:hr.cra.transmission,proprietor_1_id:0
+msgid "The company's proprietor"
+msgstr "Le propriétaire de la société"
+
+#. module: l10n_ca_hr_fiscal_slip
 #: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_fiscal_slip.py:28
 msgid "Other"
 msgstr "Autre"

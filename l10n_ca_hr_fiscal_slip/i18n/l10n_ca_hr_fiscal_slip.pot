@@ -151,6 +151,11 @@ msgid "Number created by the company to identify the transmission. It should con
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
+#: help:hr.cra.transmission,proprietor_1_id:0
+msgid "The company's proprietor"
+msgstr ""
+
+#. module: l10n_ca_hr_fiscal_slip
 #: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:69
 #, python-format
 msgid "Postal Code"

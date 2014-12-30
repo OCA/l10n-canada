@@ -236,7 +236,8 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
         'contact_email': fields.char('Contact Email', size=60, required=True),
 
         'proprietor_1_id': fields.many2one(
-            'hr.employee', 'Proprietor', required=True),
+            'hr.employee', 'Proprietor', required=True,
+            help="The company's proprietor"),
         'proprietor_2_id': fields.many2one('hr.employee', 'Second Proprietor'),
         'proprietor_1_nas': fields.related(
             'proprietor_1_id', 'nas',
@@ -245,6 +246,37 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
             'proprietor_2_id', 'nas',
             string='Second Proprietor SIN', type='float', digits=(9, 0)),
     }
+
+    def _get_default_contact(self, cr, uid, context):
+        user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
+
+        if user.employee_ids:
+            return user.employee_ids[0].id
+
+        return False
+
+    def _get_default_email(self, cr, uid, context):
+        employee_id = self._get_default_contact(cr, uid, context=context)
+
+        if employee_id:
+            employee = self.pool['hr.employee'].browse(
+                cr, uid, employee_id, context=context)
+
+            if employee.address_home_id:
+                return employee.address_home_id.email
+
+        return False
+
+    def _get_default_phone_number(self, cr, uid, context):
+        employee_id = self._get_default_contact(cr, uid, context=context)
+
+        if employee_id:
+            employee = self.pool['hr.employee'].browse(
+                cr, uid, employee_id, context=context)
+
+            return employee.work_phone
+
+        return False
 
     _defaults = {
         'state': 'draft',
@@ -256,6 +288,9 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
             cr, uid, uid, context=context).company_id.id,
         'year': lambda *a: int(time.strftime(
             DEFAULT_SERVER_DATE_FORMAT)[0:4]) - 1,
+        'contact_id': _get_default_contact,
+        'contact_email': _get_default_email,
+        'contact_phone': _get_default_phone_number,
     }
 
     def _check_contact_phone(self, cr, uid, ids, context=None):
