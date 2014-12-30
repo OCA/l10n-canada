@@ -32,7 +32,7 @@ class hr_cra_t4(orm.Model):
 
         'cpp_qpp_xmpt_cd': fields.related(
             'employee_id', 'cpp_exempt',
-            string='Canada Pension Plan or Quebec Pension Plan exempt',
+            string='CPP or QPP exempt',
             type="boolean"),
 
         'ei_xmpt_cd': fields.related(
@@ -47,13 +47,13 @@ class hr_cra_t4(orm.Model):
 
         'empt_cd': fields.char('Employment code'),
         'empt_incamt': fields.float('Employment income'),
-        'cpp_cntrb_amt': fields.float('Canada Pension Plan contributions'),
-        'qpp_cntrb_amt': fields.float('Quebec Pension Plan contributions'),
-        'empe_eip_amt': fields.float('Employment Insurance premium'),
-        'rpp_cntrb_amt': fields.float('Registered pension plan contributions'),
+        'cpp_cntrb_amt': fields.float('CPP contributions'),
+        'qpp_cntrb_amt': fields.float('QPP contributions'),
+        'empe_eip_amt': fields.float('EI premium'),
+        'rpp_cntrb_amt': fields.float('RPP contributions'),
         'itx_ddct_amt': fields.float('Income tax deducted'),
         'ei_insu_ern_amt': fields.float(
-            'Employment Insurance insurable earnings'),
+            'EI insurable earnings'),
         'cpp_qpp_ern_amt': fields.float('CPP or QPP pensionable earnings'),
         'unn_dues_amt': fields.float('Union dues'),
         'chrty_dons_amt': fields.float('Charitable donations'),

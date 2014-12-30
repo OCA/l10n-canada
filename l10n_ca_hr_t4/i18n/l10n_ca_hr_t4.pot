@@ -1,0 +1,485 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* l10n_ca_hr_t4
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-29 21:06+0000\n"
+"PO-Revision-Date: 2014-12-29 21:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,zip:0
+msgid "Zip"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4:0
+#: field:hr.cra.t4.transmission.rel,t4_slip_id:0
+#: model:ir.actions.act_window,name:l10n_ca_hr_t4.action_view_t4_tree
+#: model:ir.model,name:l10n_ca_hr_t4.model_hr_cra_t4
+#: model:ir.ui.menu,name:l10n_ca_hr_t4.t4_slip_menu_item
+msgid "T4 Slip"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: constraint:hr.cra.t4:0
+msgid "Error! You can not have an amount for both cpp and qpp\n"
+"   contributions"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,empr_eip_amt:0
+msgid "Employer's EI premiums"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,state_id:0
+msgid "Province"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,t4_original_ids:0
+msgid "T4 Slip originals"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission.rel,transmission_o_id:0
+msgid "Transmission Original"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,t4_amended_ids:0
+msgid "T4 modified"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4.transmission:0
+msgid "Generate XML"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,company_id:0
+#: field:hr.cra.t4.transmission,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,unn_dues_amt:0
+msgid "Union dues"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,proprietor_2_nas:0
+msgid "Second Proprietor SIN"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,ne:0
+msgid "Buisness Number"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,padj_amt:0
+msgid "Pension adjustment"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.other_amount,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,proprietor_2_id:0
+msgid "Second Proprietor"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,contact_phone:0
+msgid "Contact Phone"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4.transmission:0
+msgid "Standard Information"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,reference:0
+msgid "Reference"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,sbmt_ref_id:0
+msgid "Submission reference identification"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,cpp_qpp_ern_amt:0
+msgid "CPP or QPP pensionable earnings"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,empt_prov_cd:0
+msgid "Province, territory or country of employment code"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4:0
+msgid "Confirm"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4:0
+msgid "Search T4"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4:0
+#: field:hr.cra.t4,employee_id:0
+msgid "Employee"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,type:0
+msgid "Type"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,contact_area_code:0
+msgid "Contact Area Code"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.other_amount,source:0
+msgid "Source of the amount"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,prov_pip_xmpt_cd:0
+msgid "Provincial parental insurance plan exempt"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: model:ir.model,name:l10n_ca_hr_t4.model_hr_cra_t4_other_amount_source
+msgid "Other Income Amounts on T4 Slip"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4.transmission:0
+#: field:hr.cra.t4.transmission,xml:0
+msgid "XML Generated"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,rpp_cntrb_amt:0
+msgid "RPP contributions"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,trnmtr_nbr:0
+msgid "Transmitter number"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: constraint:hr.cra.t4:0
+msgid "Error! You can enter a maximum of 6 other amounts\n"
+"and they must be different from each other"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,empt_incamt:0
+msgid "Employment income"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4.transmission:0
+#: field:hr.cra.t4.transmission,contact_id:0
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,lang_cd:0
+msgid "Language of communication indicator"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: help:hr.cra.t4.other_amount.source,box_number:0
+msgid "Box number on T4 slip"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission.rel,transmission_c_id:0
+msgid "Transmission Cancelled"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4:0
+#: view:hr.cra.t4.transmission:0
+#: field:hr.cra.t4.transmission,t4_slip_ids:0
+msgid "T4 Slips"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,lastname:0
+msgid "Last Name"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4:0
+msgid "Standard Inputs"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: model:ir.actions.report.xml,name:l10n_ca_hr_t4.report_t4_employee_copy
+msgid "T4 - Employee Copy"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4.transmission:0
+msgid "Confirm Sent"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,chrty_dons_amt:0
+msgid "Charitable donations"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4:0
+msgid "Additional Information"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,empt_cd:0
+msgid "Employment code"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission.rel,transmission_a_id:0
+msgid "Transmission Modified"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,cpp_qpp_xmpt_cd:0
+msgid "CPP or QPP exempt"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,proprietor_1_nas:0
+msgid "Proprietor SIN"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,prov_pip_amt:0
+msgid "PPIP Premiums"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,state:0
+#: field:hr.cra.t4.transmission,state:0
+msgid "Status"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,ei_xmpt_cd:0
+msgid "Employment Insurance exempt"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4:0
+msgid "Compute Amounts"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,empe_eip_amt:0
+msgid "EI premium"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: model:ir.model,name:l10n_ca_hr_t4.model_hr_cra_t4_transmission
+msgid "T4 Transmission XML"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,ei_insu_ern_amt:0
+msgid "EI insurable earnings"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,number_of_slips:0
+msgid "Number of Slips"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: model:ir.model,name:l10n_ca_hr_t4.model_hr_cra_t4_other_amount
+msgid "Other Income Amount on T4 Slip"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4.transmission:0
+#: model:ir.actions.act_window,name:l10n_ca_hr_t4.action_view_hr_t4_transmission_tree
+#: model:ir.ui.menu,name:l10n_ca_hr_t4.t4_transmission_menu_item
+msgid "T4 Slips - Transmission"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,rpp_dpsp_rgst_nbr:0
+msgid "Registered pension plan registration number"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,contact_extension:0
+msgid "Contact Extension"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.other_amount.source,box_number:0
+msgid "Box Number"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.other_amount.source,xml_tag:0
+msgid "XML Transmission Tag"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,empr_cpp_amt:0
+msgid "Employer's CPP contributions"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,initial:0
+msgid "Last Name Initial"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4.transmission:0
+msgid "Search Transmissions"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,type:0
+msgid "Transmission Type"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: help:hr.cra.t4.other_amount.source,xml_tag:0
+msgid "The tag requested by Canada Revenu Agency for XML transmission"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,qpp_cntrb_amt:0
+msgid "QPP contributions"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,city:0
+msgid "City"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,t4_cancelled_ids:0
+msgid "T4 to cancel"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,firstname:0
+msgid "First Name"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: view:hr.cra.t4.transmission:0
+#: field:hr.cra.t4.transmission,proprietor_1_id:0
+msgid "Proprietor"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,other_amount_ids:0
+msgid "Other Income Amounts"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,address_home_id:0
+#: view:hr.cra.t4:0
+msgid "Home Address"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: help:hr.cra.t4.transmission,sbmt_ref_id:0
+msgid "Number created by the company to identify the transmission. It should contain 6 numeric characters"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.other_amount.source,name:0
+msgid "Description"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,prov_insu_ern_amt:0
+msgid "PPIP Insurable earnings"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,no_employee:0
+msgid "Employee Number"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: model:ir.model,name:l10n_ca_hr_t4.model_hr_cra_t4_transmission_rel
+msgid "Relation between the Transmission XML and T4 slips"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,street:0
+msgid "Address Line 1"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,street2:0
+msgid "Address Line 2"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,country_id:0
+msgid "Country"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,nas:0
+msgid "Social Insurance Number"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,year:0
+#: field:hr.cra.t4.transmission,year:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,itx_ddct_amt:0
+msgid "Income tax deducted"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4,cpp_cntrb_amt:0
+msgid "CPP contributions"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,contact_email:0
+msgid "Contact Email"
+msgstr ""
+
+#. module: l10n_ca_hr_t4
+#: field:hr.cra.t4.transmission,company_partner_id:0
+msgid "Company Partner"
+msgstr ""
+
