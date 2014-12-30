@@ -66,7 +66,7 @@ msgstr "T4 modifié"
 #. module: l10n_ca_hr_t4
 #: view:hr.cra.t4.transmission:0
 msgid "Generate XML"
-msgstr "XML généré"
+msgstr "Générer le XML"
 
 #. module: l10n_ca_hr_t4
 #: field:hr.cra.t4,company_id:0 field:hr.cra.t4.transmission,company_id:0
@@ -485,3 +485,10 @@ msgstr "Email du contact"
 #: field:hr.cra.t4.transmission,company_partner_id:0
 msgid "Company Partner"
 msgstr "Société partenaire"
+
+#. module: l10n_ca_hr_t4
+#: constraint:hr.cra.t4.transmission:0
+msgid "Error! The contact phone number must be in the following "
+"format: 123-1234 and the area code must have 3 digits."
+msgstr "Erreur, le numéro de téléphone du contact doit avoir le format suivant: "
+"123-1234 et le code régional doit être composé de 3 digits."
