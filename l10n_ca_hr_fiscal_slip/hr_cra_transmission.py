@@ -317,8 +317,8 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
     _constraints = [
         (
             _check_contact_phone,
-            """Error! The contact phone number must be in
-the following format: 123-1234 and the area code must have 3 digits""",
+            "Error! The contact phone number must be in the following "
+            "format: 123-1234 and the area code must have 3 digits.",
             ['contact_area_code', 'contact_phone']
         ),
     ]

@@ -213,8 +213,8 @@ msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip
 #: constraint:hr.cra.transmission:0
-msgid "Error! The contact phone number must be in\n"
-"the following format: 123-1234 and the area code must have 3 digits"
+msgid "Error! The contact phone number must be in the following "
+"format: 123-1234 and the area code must have 3 digits."
 msgstr ""
 
 #. module: l10n_ca_hr_fiscal_slip

@@ -158,10 +158,10 @@ msgstr "Français"
 
 #. module: l10n_ca_hr_fiscal_slip
 #: constraint:hr.cra.transmission:0
-msgid ""
-"Error! The contact phone number must be in\n"
-"the following format: 123-1234 and the area code must have 3 digits"
-msgstr "Erreur, le numéro de téléphone du contact doit avoir le format suivant: 123-1234 et le code régional doit être composé de 3 digits."
+msgid "Error! The contact phone number must be in the following "
+"format: 123-1234 and the area code must have 3 digits."
+msgstr "Erreur, le numéro de téléphone du contact doit avoir le format suivant: "
+"123-1234 et le code régional doit être composé de 3 digits."
 
 #. module: l10n_ca_hr_fiscal_slip
 #: code:addons/l10n_ca_hr_fiscal_slip/hr_cra_transmission.py:50
