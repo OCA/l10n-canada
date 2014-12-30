@@ -136,7 +136,7 @@ class report_print_check(report_sxw.rml_parse):
         except NotImplementedError:
             amount_in_word = num2words(int(amount))
         currency_name = currency.print_on_check
-        cents = int(amount * 100) % 100
+        cents = int(round(amount * 100)) % 100
         AND = custom_translation("and", lang)
 
         if lang.startswith('fr'):
