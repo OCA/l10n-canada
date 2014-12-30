@@ -46,25 +46,35 @@ class hr_expense_expense(orm.Model):
             taxes = []
             # Taken from product_id_onchange in account.invoice
             if line.product_id:
-                fposition_id = False
                 fpos_obj = self.pool.get('account.fiscal.position')
-                fpos = fposition_id and fpos_obj.browse(
-                    cr, uid, fposition_id, context=context) or False
+
                 product = line.product_id
                 taxes = product.supplier_taxes_id
+                fpos = line.partner_id.property_account_position
+
                 # If taxes are not related to the product, maybe they are in
                 # the account
                 if not taxes:
-                    # Why is not there a check here?
-                    a = product.property_account_expense.id
+                    expense_account = product.property_account_expense
+                    a = expense_account and expense_account.id
+
                     if not a:
-                        a = product.categ_id.property_account_expense_categ.id
+                        expense_account = product.categ_id.\
+                            property_account_expense
+                        a = expense_account and expense_account.id
+
                     a = fpos_obj.map_account(cr, uid, fpos, a)
+
                     taxes = a and self.pool.get('account.account').browse(
                         cr, uid, a, context=context).tax_ids or False
-                # tax_id = fpos_obj.map_tax(cr, uid, fpos, taxes)
+
+                tax_ids = fpos_obj.map_tax(cr, uid, fpos, taxes)
+                taxes = tax_obj.browse(
+                    cr, uid, tax_ids, context=context) or taxes
+
             if not taxes:
                 continue
+
             src_move_line = res[-1]
             # Calculating tax on the line and creating move?
             for tax in tax_obj.compute_all(cr, uid, taxes,
@@ -88,22 +98,26 @@ class hr_expense_expense(orm.Model):
                 res[-1]['tax_amount'] = cur_obj.compute(
                     cr, uid, exp.currency_id.id, company_currency,
                     tax_amount, context={'date': exp.date_confirm})
+
                 is_price_include = tax_obj.read(
                     cr, uid, tax['id'], ['price_include'],
                     context)['price_include']
+
                 expense_include = tax_obj.read(
                     cr, uid, tax['id'], ['expense_include'],
                     context)['expense_include']
+
                 if is_price_include or expense_include:
                     # We need to deduce the price for the tax
                     src_move_line['price'] = src_move_line['price'] - (
                         tax['amount'] * tax['base_sign'] or 0.0)
+
                 assoc_tax = {
                     'type': 'tax',
                     'name': tax['name'],
                     'price_unit': tax['price_unit'],
                     'quantity': 1,
-                    'price':  tax['amount'] * tax['base_sign'] or 0.0,
+                    'price': tax['amount'] * tax['base_sign'] or 0.0,
                     'account_id': tax['account_collected_id'] or
                     mres['account_id'],
                     'tax_code_id': tax['tax_code_id'],

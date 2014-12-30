@@ -21,8 +21,10 @@
 
 from . import (
     test_account_tax,
+    test_expense_expense,
 )
 
 checks = [
     test_account_tax,
+    test_expense_expense,
 ]
