@@ -164,8 +164,11 @@ class test_account_tax(common.TransactionCase):
 
         self.assertIsInstance(res, list)
         self.assertEqual(len(res), 2)
+        source_move = res[0]
         tax_move = res[1]
-        self.assertEqual(tax_move['tax_amount'], 15)
+
+        self.assertEqual(source_move['price'], 100)
+        self.assertEqual(tax_move['price'], 15)
 
     def test_move_line_get_with_position(self):
         """Test fiscal positions are mapped correctly
@@ -182,5 +185,55 @@ class test_account_tax(common.TransactionCase):
 
         self.assertIsInstance(res, list)
         self.assertEqual(len(res), 2)
+        source_move = res[0]
         tax_move = res[1]
-        self.assertEqual(tax_move['tax_amount'], 20)
+
+        self.assertEqual(source_move['price'], 100)
+        self.assertEqual(tax_move['price'], 20)
+
+    def test_move_line_get_no_position_tax_included(self):
+        """Test fiscal positions are mapped correctly
+        in method move_line_get when supplier has no fiscal position
+        and tax is included in price"""
+        cr, uid, context = self.cr, self.uid, self.context
+
+        self.tax_model.write(
+            cr, uid, [self.tax_src_id], {'expense_include': True},
+            context=context)
+
+        res = self.expense_model.move_line_get(
+            cr, uid, self.expense_id, context=context)
+
+        self.assertIsInstance(res, list)
+        self.assertEqual(len(res), 2)
+        source_move = res[0]
+        tax_move = res[1]
+
+        self.assertEqual(round(source_move['price'], 2), 86.96)
+        self.assertEqual(round(tax_move['price'], 2), 13.04)
+
+    def test_move_line_get_with_position_tax_included(self):
+        """Test fiscal positions are mapped correctly
+        in method move_line_get when supplier has a fiscal position
+        and tax is included in price"""
+        cr, uid, context = self.cr, self.uid, self.context
+
+        self.partner_model.write(
+            cr, uid, [self.supplier_id], {
+                'property_account_position': self.position_id,
+            }, context=self.context)
+
+        self.tax_model.write(
+            cr, uid, [self.tax_dest_id], {'expense_include': True},
+            context=context)
+
+        res = self.expense_model.move_line_get(
+            cr, uid, self.expense_id, context=context)
+
+        self.assertIsInstance(res, list)
+        self.assertEqual(len(res), 2)
+        source_move = res[0]
+        tax_move = res[1]
+
+        self.assertEqual(round(source_move['price'], 2), 83.33)
+        self.assertEqual(round(tax_move['price'], 2), 16.67)
