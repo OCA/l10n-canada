@@ -131,7 +131,6 @@ class test_canada_t4_slip(common.TransactionCase):
                         'employer_amount': ben[2],
                     }) for ben in [
                         ('RPP', 50, 100),
-                        ('RCA', 75, 150),
                     ]
                 ]
             }, context=context)
@@ -253,7 +252,7 @@ class test_canada_t4_slip(common.TransactionCase):
         self.assertEqual(t4.prov_insu_ern_amt, 0)
         self.assertEqual(t4.empr_cpp_amt, round(payslip_1['CPP_ER_C'] * 3, 2))
         self.assertEqual(t4.empr_eip_amt, round(payslip_1['EI_ER_C'] * 3, 2))
-        self.assertEqual(t4.rpp_cntrb_amt, (50 + 75) * 3)
+        self.assertEqual(t4.rpp_cntrb_amt, 50 * 3)
 
     def test_create_transmission_xml(self):
         """Test that the T4 transmision xml is generated without error
