@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- This is not a complete list of other amounts -->
+        <!-- But only the most frequent ones -->
+        <record id="other_info_source_A_1" model="hr.releve_1.other_info.source">
+            <field name="name">A-1 - Régime de prestations aux employés</field>
+            <field name="code">A-1</field>
+        </record>
+        <record id="other_info_source_A_2" model="hr.releve_1.other_info.source">
+            <field name="name">A-2 - Fiducie pour employés</field>
+            <field name="code">A-2</field>
+        </record>
+        <record id="other_info_source_A_3" model="hr.releve_1.other_info.source">
+            <field name="name">A-3 - Remboursement de salaire</field>
+            <field name="code">A-3</field>
+        </record>
+        <record id="other_info_source_A_9" model="hr.releve_1.other_info.source">
+            <field name="name">A-9 - Déduction pour spécialiste étranger</field>
+            <field name="code">A-9</field>
+        </record>
+        <record id="other_info_source_A_10" model="hr.releve_1.other_info.source">
+            <field name="name">A-10 - Déduction pour chercheur étranger</field>
+            <field name="code">A-10</field>
+        </record>
+        <record id="other_info_source_A_11" model="hr.releve_1.other_info.source">
+            <field name="name">A-11 - Déduction pour chercheur étranger en stage postdoctoral</field>
+            <field name="code">A-11</field>
+        </record>
+        <record id="other_info_source_A_12" model="hr.releve_1.other_info.source">
+            <field name="name">A-12 - Déduction pour expert étranger</field>
+            <field name="code">A-12</field>
+        </record>
+        <record id="other_info_source_A_13" model="hr.releve_1.other_info.source">
+            <field name="name">A-13 - Déduction pour professeur étranger</field>
+            <field name="code">A-13</field>
+        </record>
+        <record id="other_info_source_A_14" model="hr.releve_1.other_info.source">
+            <field name="name">A-14 - Taux d’exemption</field>
+            <field name="code">A-14</field>
+        </record>
+        <record id="other_info_source_B_1" model="hr.releve_1.other_info.source">
+            <field name="name">B-1 - Cotisation au RPC</field>
+            <field name="code">B-1</field>
+        </record>
+        <record id="other_info_source_G_1" model="hr.releve_1.other_info.source">
+            <field name="name">G-1 - Avantage imposable en nature</field>
+            <field name="code">G-1</field>
+        </record>
+        <record id="other_info_source_G_2" model="hr.releve_1.other_info.source">
+            <field name="name">G-2 - Salaire admissible au RPC</field>
+            <field name="code">G-2</field>
+        </record>
+        <record id="other_info_source_R_1" model="hr.releve_1.other_info.source">
+            <field name="name">R-1 - Revenu d’emploi (lignes 101 et 293)</field>
+            <field name="code">R-1</field>
+        </record>
+        <record id="other_info_source_V_1" model="hr.releve_1.other_info.source">
+            <field name="name">V-1 - Avantage non imposable pour logement et pension</field>
+            <field name="code">V-1</field>
+        </record>
+        <record id="other_info_source_235" model="hr.releve_1.other_info.source">
+            <field name="name">235 - Prime versée à un régime privé d’assurance maladie</field>
+            <field name="code">235</field>
+        </record>
+        <record id="other_info_source_CA" model="hr.releve_1.other_info.source">
+            <field name="name">CA - Prestations du programme de protection des salariés</field>
+            <field name="code">CA</field>
+            <field name="is_other_revenue" eval="True"/>
+        </record>
+        <record id="other_info_source_CB" model="hr.releve_1.other_info.source">
+            <field name="name">CB - Compte d’épargne libre d’impôt (CELI)</field>
+            <field name="code">CB</field>
+            <field name="is_other_revenue" eval="True"/>
+        </record>
+        <record id="other_info_source_CC" model="hr.releve_1.other_info.source">
+            <field name="name">CC - Sommes versées au bénéficiaire d’un REEI</field>
+            <field name="code">CC</field>
+            <field name="is_other_revenue" eval="True"/>
+        </record>
+    </data>
+</openerp>
