@@ -4,6 +4,7 @@
         <record id="template_vacation" model="hr.leave.accrual.template">
             <field name="name">Vacation</field>
             <field name="code">VAC</field>
+            <field name="amount_type">cash</field>
         </record>
         <record id="template_vacation_line_1" model="hr.leave.accrual.template.line">
             <field name="template_id" ref="template_vacation"/>
@@ -24,6 +25,7 @@
         <record id="template_sick_leaves" model="hr.leave.accrual.template">
             <field name="name">Sick Leaves</field>
             <field name="code">SL</field>
+            <field name="amount_type">hours</field>
         </record>
         <record id="template_sick_leaves_line_1" model="hr.leave.accrual.template.line">
             <field name="template_id" ref="template_sick_leaves"/>
@@ -39,6 +41,7 @@
         <record id="template_compensatory" model="hr.leave.accrual.template">
             <field name="name">Compensatory Days</field>
             <field name="code">COMP</field>
+            <field name="amount_type">cash</field>
         </record>
         <record id="template_compensatory_line_1" model="hr.leave.accrual.template.line">
             <field name="template_id" ref="template_compensatory"/>
