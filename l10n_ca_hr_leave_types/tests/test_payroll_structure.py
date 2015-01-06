@@ -42,6 +42,7 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
     def setUp(self):
         super(test_canada_payroll_structure_leave, self).setUp()
         self.employee_model = self.registry('hr.employee')
+        self.company_model = self.registry("res.company")
         self.user_model = self.registry("res.users")
         self.payslip_model = self.registry("hr.payslip")
         self.worked_days_model = self.registry("hr.payslip.worked_days")
@@ -61,12 +62,15 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
 
         cr, uid, context = self.cr, self.uid, self.context
 
+        self.company_id = self.company_model.create(
+            cr, uid, {'name': 'Company 1'}, context=context)
+
         # Create an employee and all his deductions
         self.employee_id = self.employee_model.create(
             cr, uid, {
                 'name': 'Employee 1',
-            }, context=context
-        )
+                'company_id': self.company_id,
+            }, context=context)
 
         # Get the canadian payroll structure
         self.structure_id = self.structure_model.search(
@@ -182,6 +186,7 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
             ps[0]: self.payslip_model.create(
                 cr, uid, {
                     'employee_id': self.employee_id,
+                    'company_id': self.company_id,
                     'contract_id': self.contract_id,
                     'date_from': ps[1],
                     'date_to': ps[2],
@@ -310,6 +315,32 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
             payslip_2['GROSSP'],
             payslip_2['COMP_TAKEN'] + payslip_2['VAC_TAKEN']
             + payslip_2['SL_TAKEN_CASH'] + payslip_2['LEGAL_TAKEN'])
+
+    def test_allow_current_year_vacations(self):
+        """
+        Test vacations when company has allow_current_year_vacations == True
+        """
+        cr, uid, context = self.cr, self.uid, self.context
+        payslips = self.payslip_ids
+
+        self.company_model.write(
+            cr, uid, [self.company_id],
+            {'allow_current_year_vacations': True},
+            context=context)
+
+        for payslip in [payslips[1], payslips[2]]:
+            self.payslip_model.compute_sheet(
+                cr, uid, [payslip], context=context)
+
+            self.payslip_model.write(
+                cr, uid, [payslip], {'state': 'done'}, context=context)
+
+        payslip_2 = self.get_payslip_lines(payslips[2])
+
+        # Check Vacations
+        self.assertEqual(
+            round(payslip_2['VAC_AVAIL'], 2),
+            round(1500 - 500 + 1700 + 40 * 160 * 0.08, 2))
 
     def test_leaves_in_payslip_input(self):
         """

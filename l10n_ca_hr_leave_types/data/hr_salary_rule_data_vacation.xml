@@ -18,6 +18,9 @@
             <field name="amount_python_compute">
 vacations = employee.sum_leave_accruals(employee.id, 'VAC', payslip.date_to)
 result = vacations['previous_ytd'] - vacations['current_taken_ytd']
+
+if payslip.company_id.allow_current_year_vacations:
+    result += vacations['current_added_ytd']
             </field>
         </record>
 
@@ -94,7 +97,7 @@ result = contract.sum_benefits(
     grossp=GROSSP,
     employer=True,
     pays_per_year=P
-) + GROSS
+) + GROSS + OTHER_WAGE
 result = (result * contract.weeks_of_vacation * 0.02)/P
             </field>
         </record>

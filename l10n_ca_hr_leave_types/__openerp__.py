@@ -49,6 +49,7 @@ Contributors
         'data/hr_salary_rule_data_sick_leaves.xml',
         'data/hr_salary_rule_data_compensatory.xml',
         'data/hr_leave_accrual_template_data.xml',
+        'view/res_company_view.xml',
     ],
     'test': [],
     'demo': [],

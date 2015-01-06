@@ -19,11 +19,13 @@
 #
 ##############################################################################
 
-from . import (
-    hr_employee,
-    hr_leave_accrual,
-    hr_payslip,
-    hr_payslip_input,
-    hr_salary_rule,
-    res_company,
-)
+from openerp.osv import fields, orm
+
+
+class res_company(orm.Model):
+    _inherit = 'res.company'
+    _columns = {
+        'allow_current_year_vacations': fields.boolean(
+            'Allow current year vacations',
+        ),
+    }

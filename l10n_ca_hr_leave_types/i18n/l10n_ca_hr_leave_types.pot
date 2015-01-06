@@ -58,3 +58,7 @@ msgstr ""
 msgid "Unused Vacations"
 msgstr ""
 
+#. module: l10n_ca_hr_leave_types
+#: field:res.company,allow_current_year_vacations:0
+msgid "Allow current year vacations"
+msgstr ""
