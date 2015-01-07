@@ -372,18 +372,3 @@ class hr_payslip(orm.Model):
             res += wd.total * ratio * is_refund
 
         return res
-
-    def get_job_hourly_rate(
-        self, cr, uid, ids, date_from, date_to,
-        contract_id, job_id=False, main_job=False, context=None
-    ):
-        """
-        Method that allows to access get_job_hourly_rate method
-        from a payslip BrowsableObject.
-
-        It is not possible to call it from a contract BrowsableObject
-        because it passes the parameter ids automatically.
-        """
-        return self.pool['hr.contract'].get_job_hourly_rate(
-            cr, uid, date_from, date_to, contract_id,
-            job_id=job_id, main_job=main_job, context=context)
