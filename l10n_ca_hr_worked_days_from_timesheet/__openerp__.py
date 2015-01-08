@@ -23,7 +23,6 @@
     'category': 'Localization',
     'version': '1.0',
     'license': 'AGPL-3',
-    'category': 'Generic Modules/Human Resources',
     'description': """
 Canada Worked Days From Timesheet
 =================================
@@ -48,6 +47,6 @@ Contributors
     'data': [
     ],
     'test': [],
-    'demo': [],
+    'demo': ['demo/demo_data.xml'],
     'installable': True,
 }
