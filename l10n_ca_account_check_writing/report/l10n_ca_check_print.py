@@ -82,8 +82,8 @@ class report_print_check(report_sxw.rml_parse):
                 else:
                     sign = 1
                 res = {
-                    'date_due': (
-                        voucher_line.date_due or voucher_line.date_original
+                    'date': (
+                        voucher_line.date_original or voucher_line.date_due
                     ),
                     'name': name,
                     'amount_original': sign * voucher_line.amount_original,
