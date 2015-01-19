@@ -54,8 +54,7 @@ if SL_AVAIL >= SL_REQ:
     result = requested_alw
 elif SL_REQ > 0:
     payslip.reduce_leave_hours(
-        payslip,
-        'SL',
+        payslip, 'SL',
         SL_REQ - SL_AVAIL,
         divide_by_rate=False
     )

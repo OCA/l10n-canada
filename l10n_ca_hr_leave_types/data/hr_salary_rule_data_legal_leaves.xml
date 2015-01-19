@@ -17,28 +17,27 @@
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-# If you want to inherit this salary rule in another module
-# you may change province_code=False for the code of you province
-# example for Alberta: state_code='AB'
+if contract.salary_computation_method == 'wage':
+    result = 0
+else:
+    legal_leaves = payslip.get_public_holidays(
+        payslip.date_from,
+        payslip.date_to,
+        country_code='CA',
+        state_code=False,
+    )
 
-legal_leaves = payslip.get_public_holidays(
-    payslip.date_from,
-    payslip.date_to,
-    country_code='CA',
-    state_code=False,
-)
+    result = 0
 
-result = 0
-
-if legal_leaves:
-    for legal_leave in legal_leaves:
-        four_weeks_gross = payslip.get_4_weeks_of_gross(
-            payslip,
-            employee.id,
-            contract.id,
-            legal_leave.date,
-        )
-        result += four_weeks_gross / 20
+    if legal_leaves:
+        for legal_leave in legal_leaves:
+            four_weeks_gross = payslip.get_4_weeks_of_gross(
+                payslip,
+                employee.id,
+                contract.id,
+                legal_leave.date,
+            )
+            result += four_weeks_gross / 20
             </field>
         </record>
 
@@ -52,7 +51,10 @@ if legal_leaves:
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-result = payslip.sum_leave_category(payslip, 'LEGAL', multiply_by_rate=True)
+if contract.salary_computation_method == 'wage':
+    result = 0
+else:
+    result = payslip.sum_leave_category(payslip, 'LEGAL', multiply_by_rate=True)
             </field>
         </record>
 
@@ -70,12 +72,12 @@ if LEGAL_AVAIL >= LEGAL_REQ:
     result = LEGAL_REQ
 elif LEGAL_REQ > 0:
     result = LEGAL_AVAIL
-    payslip.reduce_leave_hours(
-        payslip,
-        'LEGAL',
-        LEGAL_REQ - LEGAL_AVAIL,
-        divide_by_rate=True
-    )
+    if contract.salary_computation_method == 'hourly_rate':
+        payslip.reduce_leave_hours(
+            payslip, 'LEGAL',
+            LEGAL_REQ - LEGAL_AVAIL,
+            divide_by_rate=True
+        )
 else:
     result = 0
             </field>

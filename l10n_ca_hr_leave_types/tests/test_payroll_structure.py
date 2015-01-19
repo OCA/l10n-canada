@@ -57,6 +57,7 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
         self.public_holidays_model = self.registry("hr.holidays.public")
         self.country_model = self.registry("res.country")
         self.input_model = self.registry("hr.payslip.input")
+        self.rate_class_model = self.registry("hr.hourly.rate.class")
 
         self.context = self.user_model.context_get(self.cr, self.uid)
 
@@ -76,18 +77,41 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
         self.structure_id = self.structure_model.search(
             cr, uid, [('code', '=', 'CA')], context=context)[0]
 
+        # Create jobs for the employee
+        self.job_id = self.job_model.create(
+            cr, uid, {'name': 'Job 1'}, context=context)
+
+        # Create 2 hourly rate classes
+        self.rate_class_id = self.rate_class_model.create(
+            cr, uid, {
+                'name': 'Test',
+                'line_ids': [
+                    (0, 0, {
+                        'date_start': '2014-01-01',
+                        'rate': 40,
+                    }),
+                ],
+            }, context=context)
+
         # Create a contract
         self.contract_id = self.contract_model.create(
             cr, uid, {
                 'employee_id': self.employee_id,
                 'name': 'Contract 1',
                 'wage': 52000,
-                'schedule_pay': 'weekly',
+                'schedule_pay': 'monthly',
                 'struct_id': self.structure_id,
-                'worked_hours_per_pay_period': 40,
+                'worked_hours_per_pay_period': 160,
                 'week_start': '3',
                 'weeks_of_vacation': 4,
-                'salary_computation_method': 'wage',
+                'salary_computation_method': 'hourly_rate',
+                'contract_job_ids': [
+                    (0, 0, {
+                        'job_id': self.job_id,
+                        'is_main_job': True,
+                        'hourly_rate_class_id': self.rate_class_id,
+                    }),
+                ],
             }, context=context)
 
         # Create a job for the employee
@@ -153,7 +177,7 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
             self.cr, self.uid, [('code', '=', 'CA')], context=self.context
         )[0]
 
-        self.public_holidays_model.create(
+        self.public_leave_id = self.public_holidays_model.create(
             self.cr, self.uid, {
                 'year': 2015,
                 'country_id': canada_id,
@@ -167,9 +191,9 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
                         'name': 'Other Public Holidays',
                     }),
                 ],
-            }, context=self.context),
+            }, context=self.context)
 
-        self.public_holidays_model.create(
+        self.public_leave_2_id = self.public_holidays_model.create(
             self.cr, self.uid, {
                 'year': 2014,
                 'country_id': canada_id,
@@ -179,7 +203,7 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
                         'name': 'Christmas',
                     }),
                 ],
-            }, context=self.context),
+            }, context=self.context)
 
         # Create 2 payslips (one in 2014, two in 2015)
         self.payslip_ids = {
@@ -244,6 +268,12 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
             cr, uid, [self.contract_id], context=context)
         self.employee_model.unlink(
             cr, uid, [self.employee_id], context=context)
+        self.rate_class_model.unlink(
+            cr, uid, [self.rate_class_id], context=context)
+
+        self.public_holidays_model.unlink(
+            cr, uid, [self.public_leave_id, self.public_leave_2_id],
+            context=context)
 
         super(test_canada_payroll_structure_leave, self).tearDown()
 
@@ -315,6 +345,61 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
             payslip_2['GROSSP'],
             payslip_2['COMP_TAKEN'] + payslip_2['VAC_TAKEN']
             + payslip_2['SL_TAKEN_CASH'] + payslip_2['LEGAL_TAKEN'])
+
+    def test_leaves_in_payslip_worked_days_wage(self):
+        """
+        Test how the leaves in payslip worked days are computed in
+        the Canada payroll structure when employee is paid by wage
+        """
+        cr, uid, context = self.cr, self.uid, self.context
+
+        self.contract_model.write(
+            cr, uid, [self.contract_id], {
+                'salary_computation_method': 'wage',
+            }, context=context)
+
+        payslips = self.payslip_ids
+
+        for payslip in [payslips[1], payslips[2]]:
+            self.payslip_model.compute_sheet(
+                cr, uid, [payslip], context=context)
+
+            self.payslip_model.write(
+                cr, uid, [payslip], {'state': 'done'}, context=context)
+
+        payslip_1 = self.get_payslip_lines(payslips[1])
+        payslip_2 = self.get_payslip_lines(payslips[2])
+
+        # Check Vacations
+        self.assertEqual(
+            round(payslip_2['VAC_AVAIL'], 2),
+            round(1500 - 500 + payslip_1['VAC_ADDED'], 2))
+
+        self.assertEqual(
+            round(payslip_2['VAC_REQ'], 2),
+            round((4 * 8 + 20) * 40, 2))
+
+        self.assertEqual(payslip_2['VAC_TAKEN'], payslip_2['VAC_AVAIL'])
+
+        # Check Sick leaves
+        self.assertEqual(payslip_2['SL_AVAIL'], 20 - 5)
+        self.assertEqual(payslip_2['SL_REQ'], 8)
+        self.assertEqual(payslip_2['SL_TAKEN_CASH'], 8 * 40)
+        self.assertEqual(payslip_2['SL_TAKEN'], 8)
+
+        # Check legal days
+        self.assertEqual(payslip_2['LEGAL_AVAIL'], 0)
+        self.assertEqual(payslip_2['LEGAL_REQ'], 0)
+        self.assertEqual(payslip_2['LEGAL_TAKEN'], 0)
+
+        # Check Compensatory days
+        self.assertEqual(payslip_1['COMP_ADDED'], payslip_1['LEGAL_AVAIL'])
+        self.assertEqual(payslip_2['COMP_ADDED'], 0)
+
+        self.assertEqual(payslip_2['COMP_AVAIL'], 600 - 200)
+
+        self.assertEqual(payslip_2['COMP_REQ'], 4 * 8 * 40)
+        self.assertEqual(payslip_2['COMP_TAKEN'], payslip_2['COMP_AVAIL'])
 
     def test_allow_current_year_vacations(self):
         """
@@ -413,9 +498,8 @@ class test_canada_payroll_structure_leave(common.TransactionCase):
         self.assertEqual(payslip_2['SL_REQ'], 8)
         self.assertEqual(payslip_2['SL_TAKEN'], 8)
 
-        # Hourly_rate_from_wage = 52000 / 52 / 40 = 25
-        self.assertEqual(payslip_2['HOURLY_RATE'], 25)
-        self.assertEqual(payslip_2['SL_UNUSED_CASH'], 7 * 25)
+        self.assertEqual(payslip_2['HOURLY_RATE'], 40)
+        self.assertEqual(payslip_2['SL_UNUSED_CASH'], 7 * 40)
         self.assertEqual(payslip_2['SL_UNUSED'], 7)
 
         # Check Unused Compensatory days

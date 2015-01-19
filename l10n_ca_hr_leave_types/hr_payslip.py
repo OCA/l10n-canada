@@ -22,6 +22,7 @@
 from openerp.osv import orm
 from datetime import datetime, timedelta
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from openerp.addons.l10n_ca_hr_payroll.hr_payslip import get_payslip
 import itertools
 strptime = datetime.strptime
 strftime = datetime.strftime
@@ -30,61 +31,70 @@ strftime = datetime.strftime
 class hr_payslip(orm.Model):
     _inherit = 'hr.payslip'
 
+    def _check_max_leave_hours(
+        self, cr, uid, ids, context=None
+    ):
+        """
+        This ensures that the number of leave hours computed is lesser than
+        the number of worked hours per pay period if the employee is paid
+        by wage.
+        """
+        for payslip in self.browse(cr, uid, ids, context=context):
+            if payslip.contract_id.salary_computation_method == 'wage':
+
+                leave_hours = 0
+                for wd in payslip.worked_days_line_ids:
+                    if wd.activity_id.type == 'leave':
+                        leave_hours += wd.number_of_hours
+
+                if leave_hours > payslip.contract_id.\
+                        worked_hours_per_pay_period:
+                    return False
+
+        return True
+
+    _constraints = [
+        (
+            _check_max_leave_hours,
+            "The leave hours taken by the employee must be lower or equal "
+            "to the number of worked hours per pay period on the contract.",
+            ['worked_days_line_ids']
+        ),
+    ]
+
     def sum_leave_category(
         self, cr, uid, ids,
-        payslip,
-        leave_code,
-        multiply_by_rate=False,
-        context=None
+        payslip, leave_code, multiply_by_rate=False, context=None
     ):
         """
         Used in salary rules to sum leave hours from worked_days
         e.g. sum over the hours of vacation (leave_code == 'VAC')
 
-        returns the amount of allowance requested by the employee
+        :param payslip: a payslip BrowsableObject or a browse_record
+
+        :return: the amount of allowance requested by the employee
         in hours or in cash (multiply_by_rate=True)
-
-        payslip: a payslip BrowsableObject (not a browse record)
-
-            It is only used to get the ids of the worked days.
-
-            Should not be used to sum over the worked days because these
-            may change during the payslip computation process.
-
-            No worked days should be added or deleted during the
-            payslip computation process, so the worked days ids
-            always remain the same.
         """
+        payslip = get_payslip(payslip)
+
         res = 0
 
-        if payslip.worked_days_line_ids:
-            worked_days_line_ids = [
-                wd.id for wd in payslip.worked_days_line_ids
-            ]
-
-            worked_days = self.pool['hr.payslip.worked_days'].browse(
-                cr, uid, worked_days_line_ids, context=context)
-
-            for wd in worked_days:
-                if(
-                    wd.activity_id.type == 'leave'
-                    and wd.activity_id.code == leave_code
-                ):
-                    # Case where we need only the number of hours
-                    if not multiply_by_rate:
-                        res += wd.number_of_hours
-                    else:
-                        res += wd.total
+        for wd in payslip.worked_days_line_ids:
+            if(
+                wd.activity_id.type == 'leave'
+                and wd.activity_id.code == leave_code
+            ):
+                # Case where we need only the number of hours
+                if not multiply_by_rate:
+                    res += wd.number_of_hours
+                else:
+                    res += wd.total
 
         return res
 
     def get_public_holidays(
         self, cr, uid, ids,
-        date_from,
-        date_to,
-        country_code,
-        state_code=False,
-        context=None
+        date_from, date_to, country_code, state_code=False, context=None
     ):
         """
         This function counts the number of public holidays within
@@ -136,17 +146,16 @@ class hr_payslip(orm.Model):
 
     def reduce_leave_hours(
         self, cr, uid, ids,
-        payslip,
-        leave_code,
-        reduction,
-        divide_by_rate=False,
-        context=None
+        payslip, leave_code, reduction, divide_by_rate=False, context=None
     ):
         """
         When the leave hours computed in worked days are greater than the
         available hours from the employee's leave accrual, this method
         is called to reduce the worked days lines related to the leave type.
         """
+        payslip = get_payslip(payslip)
+        unpaid_leaves_id = self.pool['hr.activity'].search(
+            cr, uid, [('code', '=', 'UNPAID'), ('type', '=', 'leave')])[0]
 
         # To avoid integers as parameter to mess up with divisions
         reduction = float(reduction)
@@ -183,27 +192,37 @@ class hr_payslip(orm.Model):
 
             # Apply the reduction to the worked days line
             number_of_hours = wd.number_of_hours - current_reduction
-            self.pool['hr.payslip.worked_days'].write(
-                cr, uid, [wd.id],
-                {'number_of_hours': number_of_hours},
-                context=context)
+            wd.write({'number_of_hours': number_of_hours})
+
+            # Create a worked days record to replace the previous wd
+            self.pool['hr.payslip.worked_days'].create(
+                cr, uid, {
+                    'payslip_id': wd.payslip_id.id,
+                    'date_from': wd.date_from,
+                    'date_to': wd.date_to,
+                    'number_of_hours': current_reduction,
+                    'rate': wd.rate,
+                    'hourly_rate': 0,
+                    'activity_id': unpaid_leaves_id,
+                }, context=context)
 
             # substract the amount reduced before next iteration
             reduction -= divide_by_rate \
                 and current_reduction * wd.hourly_rate * wd.rate / 100 \
                 or current_reduction
 
+            if wd.number_of_hours == 0:
+                wd.unlink()
+
     def reduce_payslip_input_amount(
         self, cr, uid, ids,
-        payslip,
-        input_types,
-        reduction,
-        context=None
+        payslip, input_types, reduction, context=None
     ):
         """
         When unused leaves requested are lower that those available,
         reduce the related inputs
         """
+        payslip = get_payslip(payslip)
 
         input_line_ids = [
             input_line.id for input_line in payslip.input_line_ids
@@ -230,11 +249,7 @@ class hr_payslip(orm.Model):
 
     def get_4_weeks_of_gross(
         self, cr, uid, ids,
-        current_payslip,
-        employee_id,
-        contract_id,
-        leave_date,
-        context=None
+        current_payslip, employee_id, contract_id, leave_date, context=None
     ):
         """
         Get the gross salary of an employee within the 4 weeks that
@@ -242,10 +257,9 @@ class hr_payslip(orm.Model):
 
         The end of the 4 week period depends on the employee's
         week start on contract.
-
-        This method is called by a payslip BrowsableObject. It
-        must be included in the computation.
         """
+        current_payslip = get_payslip(current_payslip)
+
         current_contract = self.pool['hr.contract'].browse(
             cr, uid, contract_id, context=context)
 
@@ -313,9 +327,7 @@ class hr_payslip(orm.Model):
 
     def _sum_worked_days(
         self, cr, uid,
-        worked_days_ids,
-        period_start, period_end,
-        context=None
+        worked_days_ids, period_start, period_end, context=None
     ):
         """
         Sum over the worked days and filter by an interval of time.

@@ -26,8 +26,8 @@ from openerp.tools.translate import _
 class hr_payslip_input(orm.Model):
     _inherit = 'hr.payslip.input'
 
-    def get_input_typess(self, cr, uid, context=None):
-        res = super(hr_payslip_input, self).get_input_typess(
+    def get_input_types(self, cr, uid, context=None):
+        res = super(hr_payslip_input, self).get_input_types(
             cr, uid, context=context)
 
         return res + [
@@ -38,7 +38,7 @@ class hr_payslip_input(orm.Model):
 
     _columns = {
         'type': fields.selection(
-            get_input_typess,
+            get_input_types,
             type="char",
             string="Type",
             required=True,

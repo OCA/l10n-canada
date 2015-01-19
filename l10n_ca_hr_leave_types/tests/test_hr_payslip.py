@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp.tests import common
+from openerp.osv import orm
 
 
 class test_canada_payslip(common.TransactionCase):
@@ -69,7 +70,10 @@ class test_canada_payslip(common.TransactionCase):
             cr, uid, {
                 'employee_id': self.employee_id,
                 'name': 'Contract 1',
-                'wage': 50000,
+                'wage': 52000,
+                'salary_computation_method': 'hourly_rate',
+                'worked_hours_per_pay_period': 160,
+                'schedule_pay': 'monthly',
             }, context=context)
 
         # Create a payslip
@@ -79,21 +83,22 @@ class test_canada_payslip(common.TransactionCase):
                 'contract_id': self.contract_id,
                 'date_from': '2014-01-01',
                 'date_to': '2014-01-31',
-            }, context=context,)
+            }, context=context)
 
         for line in [
             # date_from, date_to, nb_hours, activity_id, hourly_rate, rate (%)
-            ('2014-01-01', '2014-01-01', 111, self.job_activity_id, 20, 100),
-            ('2014-01-02', '2014-01-10', 113, self.job_activity_id, 20, 100),
-            ('2014-01-31', '2014-01-31', 117, self.job_activity_id, 20, 100),
+            ('2014-01-01', '2014-01-01', 20, self.job_activity_id, 20, 100),
+            ('2014-01-02', '2014-01-10', 20, self.job_activity_id, 20, 100),
+            ('2014-01-31', '2014-01-31', 20, self.job_activity_id, 20, 100),
+
+            ('2014-01-01', '2014-01-01', 20, self.sl_id, 20, 100),
+            ('2014-01-02', '2014-01-10', 20, self.comp_id, 20, 100),
+            ('2014-01-31', '2014-01-31', 20, self.legal_id, 20, 100),
 
             ('2014-01-01', '2014-01-01', 11, self.vac_id, 15, 90),
             ('2014-01-02', '2014-01-10', 13, self.vac_id, 10, 100),
             ('2014-01-31', '2014-01-31', 17, self.vac_id, 25, 150),
 
-            ('2014-01-01', '2014-01-01', 111, self.sl_id, 20, 100),
-            ('2014-01-02', '2014-01-10', 113, self.comp_id, 20, 100),
-            ('2014-01-31', '2014-01-31', 117, self.legal_id, 20, 100),
         ]:
             self.worked_days_model.create(
                 cr, uid, {
@@ -104,9 +109,6 @@ class test_canada_payslip(common.TransactionCase):
                     'hourly_rate': line[4],
                     'rate': line[5],
                     'payslip_id': self.payslip_id,
-                    'code': 'ddd',
-                    'name': 'ddd',
-                    'contract_id': self.contract_id,
                 }, context=context)
 
     def tearDown(self):
@@ -120,6 +122,27 @@ class test_canada_payslip(common.TransactionCase):
             cr, uid, [self.employee_id], context=context)
 
         super(test_canada_payslip, self).tearDown()
+
+    def test_check_max_leave_hours(self):
+        cr, uid, context = self.cr, self.uid, self.context
+
+        self.contract_model.write(
+            cr, uid, [self.contract_id], {
+                'salary_computation_method': 'wage',
+            }, context=context)
+
+        # Already 101 leave hours
+        # We add 60, so the total equals 161 > worked_hours_per_pay_period
+        self.assertRaises(
+            orm.except_orm,
+            self.payslip_model.write,
+            cr, uid, [self.payslip_id], {
+                'worked_days_line_ids': [(0, 0, {
+                    'date_from': '2014-01-01', 'date_to': '2014-01-01',
+                    'number_of_hours': 60, 'activity_id': self.sl_id,
+                    'hourly_rate': 20, 'rate': 100,
+                })],
+            }, context=context)
 
     def test_sum_leave_category_nb_hours(self):
         cr, uid, context = self.cr, self.uid, self.context
