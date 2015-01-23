@@ -52,6 +52,7 @@ Contributors
 * Primaco (info@primaco.ca)
 """,
     'depends': [
+        'l10n_ca_toponyms',
         'account_check_writing',
         'res_currency_print_on_check',
     ],
