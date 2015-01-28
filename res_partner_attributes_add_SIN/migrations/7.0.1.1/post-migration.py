@@ -22,4 +22,5 @@
 
 
 def migrate(cr, version):
-    cr.execute("ALTER TABLE res_partner RENAME COLUMN nas TO sin;")
+    if version and version < '7.0.1.1':
+        cr.execute("ALTER TABLE res_partner RENAME COLUMN nas TO sin;")
