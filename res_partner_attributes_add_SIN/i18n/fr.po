@@ -22,11 +22,11 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: res_partner_attributes_add_SIN
-#: help:res.partner,nas:0
+#: help:res.partner,sin:0
 msgid "Social Insurance Number (9 digits)"
 msgstr "Numéro d'Assurance Sociale (9 chiffres)"
 
 #. module: res_partner_attributes_add_SIN
-#: field:res.partner,nas:0
+#: field:res.partner,sin:0
 msgid "SIN"
 msgstr "NAS"
