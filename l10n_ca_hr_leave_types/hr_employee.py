@@ -36,12 +36,28 @@ class hr_employee(orm.Model):
             * 'previous_ytd'
         """
         employee = self.browse(cr, uid, employee_id, context=context)
+
+        accrual_id = False
+
         for accrual in employee.leave_accrual_ids:
             if accrual.code == accrual_code:
-                return self.pool['hr.leave.accrual'].sum_lines_by_category(
-                    cr, uid, accrual.id, date, context=context)
+                accrual_id = accrual.id
+                break
 
-        return False
+        # If the employee doesn't have the accrual of the given type,
+        # create it
+        if not accrual_id:
+            template_id = self.pool['hr.leave.accrual.template'].search(
+                cr, uid, [('code', '=', accrual_code)], context=context)[0]
+
+            accrual_id = self.pool['hr.leave.accrual'].create(
+                cr, uid, {
+                    'employee_id': employee_id,
+                    'template_id': template_id,
+                }, context=context)
+
+        return self.pool['hr.leave.accrual'].sum_lines_by_category(
+            cr, uid, accrual_id, date, context=context)
 
     def create(
         self, cr, uid, vals, context=None

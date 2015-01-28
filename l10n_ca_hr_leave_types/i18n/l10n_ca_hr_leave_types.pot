@@ -62,3 +62,57 @@ msgstr ""
 #: field:res.company,allow_current_year_vacations:0
 msgid "Allow current year vacations"
 msgstr ""
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_line.py:35
+#, python-format
+msgid "Unused vacations payment"
+msgstr ""
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_line.py:32
+#, python-format
+msgid "Unused sick leave payment"
+msgstr ""
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_line.py:25
+#, python-format
+msgid "Compensatory days taken"
+msgstr ""
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_line.py:31
+#, python-format
+msgid "Sick leave hours taken"
+msgstr ""
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_line.py:34
+#, python-format
+msgid "Vacation taken"
+msgstr ""
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_line.py:29
+#, python-format
+msgid "Legal leaves taken"
+msgstr ""
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_line.py:36
+#, python-format
+msgid "Vacation earned"
+msgstr ""
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_line.py:27
+#, python-format
+msgid "Compensatory days earned"
+msgstr ""
+
+#. module: l10n_ca_hr_leave_types
+#: code:addons/l10n_ca_hr_leave_types/hr_payslip_line.py:26
+#, python-format
+msgid "Unused compensatory days payment"
+msgstr ""

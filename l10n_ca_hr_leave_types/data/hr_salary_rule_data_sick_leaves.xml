@@ -39,7 +39,7 @@ result = payslip.sum_leave_category(payslip, 'SL', multiply_by_rate=False)
         </record>
 
         <record id="rule_ca_sl_taken_cash" model="hr.salary.rule">
-            <field name="name">Sick leave hours taken</field>
+            <field name="name">Sick leaves taken</field>
             <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
             <field name="sequence" eval="57"/>
             <field name="code">SL_TAKEN_CASH</field>
@@ -66,7 +66,7 @@ else:
         </record>
 
         <record id="rule_ca_sl_taken" model="hr.salary.rule">
-            <field name="name">Sick leaves taken</field>
+            <field name="name">Sick leave hours taken</field>
             <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
             <field name="sequence" eval="58"/>
             <field name="code">SL_TAKEN</field>

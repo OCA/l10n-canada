@@ -5,8 +5,7 @@
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -19,12 +18,20 @@
 #
 ##############################################################################
 
-from . import (
-    hr_employee,
-    hr_leave_accrual,
-    hr_payslip,
-    hr_payslip_input,
-    hr_payslip_line,
-    hr_salary_rule,
-    res_company,
-)
+from openerp.tools.translate import _
+
+
+payslip_lines_to_translate = [
+    _("Compensatory days taken"),
+    _("Unused compensatory days payment"),
+    _("Compensatory days earned"),
+
+    _("Legal leaves taken"),
+
+    _("Sick leaves taken"),
+    _("Unused sick leave payment"),
+
+    _("Vacation taken"),
+    _("Unused vacations payment"),
+    _("Vacation earned"),
+]
