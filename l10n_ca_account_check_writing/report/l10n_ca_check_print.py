@@ -33,6 +33,7 @@ class report_print_check(report_sxw.rml_parse):
             'get_all_lines': self.get_all_lines,
             'ltrim': self.ltrim,
             'spad': self.pad_stars,
+            'amount_in_word': self.get_amount_in_word,
         })
 
     def ltrim(self, s, maxlen):
@@ -42,6 +43,10 @@ class report_print_check(report_sxw.rml_parse):
     def pad_stars(self, s, maxlen):
         """ Pad string with stars """
         return u'{0:*>{1}}'.format(s, maxlen)
+
+    def get_amount_in_word(self, voucher):
+        currency = voucher._get_current_currency(voucher.id)
+        return voucher._amount_in_words(currency)[0]
 
     def get_all_lines(self, voucher):
         debit_lines = voucher.line_dr_ids
