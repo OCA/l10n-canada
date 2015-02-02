@@ -48,19 +48,23 @@ Contributors
 * Maxime Chambreuil (maxime.chambreuil@savoirfairelinux.com)
 * Vincent Vinet (vincent.vinet@savoirfairelinux.com)
 * Virgil Dupras (virgil.dupras@savoirfairelinux.com)
-* Sandy Carter (sandyt.carter@savoirfairelinux.com)
+* Sandy Carter (sandy.carter@savoirfairelinux.com)
+* Primaco (info@primaco.ca)
 """,
     'depends': [
+        'l10n_ca_toponyms',
         'account_check_writing',
-        'res_currency_print_on_check'
+        'res_currency_print_on_check',
     ],
     'data': [
         'l10n_ca_account_check_writing_report.xml',
     ],
     'demo': [],
-    'test': [],
+    'test': [
+        'test/amount_in_word.yml',
+    ],
     'external_dependencies': {
         'python': ['num2words'],
     },
-    'installable': False,
+    'installable': True,
 }

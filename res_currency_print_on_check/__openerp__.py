@@ -20,8 +20,9 @@
 #
 ##############################################################################
 
-# NOTE: The name of the supplied field was initially "display_name", but it seems that Odoo,
-# whenever it seems "name" in the field, returns the value for "name". Well...
+# NOTE: The name of the supplied field was initially "display_name", but it
+# seems that Odoo, whenever it seems "name" in the field, returns the value for
+# "name". Well...
 
 {
     'name': 'Display name for currencies',
@@ -34,14 +35,16 @@
 Supply res.currency.print_on_check
 ==================================
 
-This module improves res.currency by adding the "print_on_check" field, which stores the human
-readable name of the currency (US Dollar, Euro, Canadian Dollar, etc.)
+This module improves res.currency by adding the "print_on_check" field, which
+stores the human readable name of the currency (US Dollar, Euro, Canadian
+Dollar, etc.)
 
 Contributors
 ------------
 * Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
 * Virgil Dupras <virgil.dupras@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
+* Primaco <info@primaco.ca>
 """,
     'depends': ['base'],
     'data': [
@@ -50,5 +53,5 @@ Contributors
     ],
     'demo': [],
     'test': [],
-    'installable': False,
+    'installable': True,
 }

@@ -1,0 +1,27 @@
+-
+  Now I create a Vendor Voucher
+-
+  !record {model: account.voucher, id: check0, view: account_voucher.view_voucher_filter_vendor}:
+    type: purchase
+    account_id: account.cash
+    amount: 342.15
+    company_id: base.main_company
+    journal_id: account.bank_journal
+    name: Voucher Axelor
+    narration: PC Assemble SC234
+    line_dr_ids:
+      - account_id: account.cash
+        amount: 342.15
+        name: Voucher Axelor
+    partner_id: base.res_partner_12
+    period_id: account.period_6
+    reference: none
+-
+  I create voucher by clicking on Create button
+-
+  !workflow {model: account.voucher, action: proforma_voucher, ref: check0}
+-
+  I check that the voucher state is "posted"
+-
+  !assert {model: account.voucher, id: check0}:
+    - amount_in_word == '************************************ three hundred and forty-two and 15/100 euros'

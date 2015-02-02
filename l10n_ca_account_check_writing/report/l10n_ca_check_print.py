@@ -31,7 +31,22 @@ class report_print_check(report_sxw.rml_parse):
         self.localcontext.update({
             'time': time,
             'get_all_lines': self.get_all_lines,
+            'ltrim': self.ltrim,
+            'spad': self.pad_stars,
+            'amount_in_word': self.get_amount_in_word,
         })
+
+    def ltrim(self, s, maxlen):
+        if len(s) > maxlen:
+            return s[-maxlen:]
+
+    def pad_stars(self, s, maxlen):
+        """ Pad string with stars """
+        return u'{0:*>{1}}'.format(s, maxlen)
+
+    def get_amount_in_word(self, voucher):
+        currency = voucher._get_current_currency(voucher.id)
+        return voucher._amount_in_words(currency)[0]
 
     def get_all_lines(self, voucher):
         debit_lines = voucher.line_dr_ids
@@ -44,22 +59,35 @@ class report_print_check(report_sxw.rml_parse):
         for i in range(0, min(10, self.number_lines)):
             if i < self.number_lines:
                 voucher_line = voucher_lines[i]
-                # Don't show lines with amount=0; this means, an invoice/credit note has not been linked to this check
+                # Don't show lines with amount=0; this means, an invoice/credit
+                # note has not been linked to this check
                 if voucher_line.amount != 0:
-                    # In general, the supplier invoice reference number is a much better description
-                    # for writing checks than our own reference number, but if we don't have it, we
-                    # might as well use our internal number
+                    # In general, the supplier invoice reference number is a
+                    # much better description for writing checks than our own
+                    # reference number, but if we don't have it, we might as
+                    # well use our internal number
                     if voucher_line.supplier_invoice_number:
                         name = voucher_line.supplier_invoice_number
                     else:
                         name = voucher_line.name
+                    # Display credits with a minus
+                    if voucher_line.type == "cr":
+                        sign = -1
+                    else:
+                        sign = 1
                     res = {
-                        'date_due': voucher_line.date_due,
+                        'date_due': (
+                            voucher_line.date_due or voucher_line.date_original
+                        ),
                         'name': name,
-                        'amount_original': voucher_line.amount_original and voucher_line.amount_original or False,
-                        'amount_unreconciled': voucher_line.amount_unreconciled and voucher_line.amount_unreconciled
-                        or False,
-                        'amount': voucher_line.amount and voucher_line.amount or False,
+                        'amount_original': (
+                            voucher_line.amount_original and
+                            voucher_line.amount_original * sign or False),
+                        'amount_unreconciled': (
+                            voucher_line.amount_unreconciled and
+                            voucher_line.amount_unreconciled * sign or False),
+                        'amount': (voucher_line.amount and
+                                   voucher_line.amount * sign or False),
                     }
                     result.append(res)
             else:
@@ -85,13 +113,7 @@ report_sxw.report_sxw(
 report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.middle',
     'account.voucher',
-    'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_middle.rml',
+    'addons/l10n_ca_account_check_writing/'
+    'report/l10n_ca_check_print_middle.rml',
     parser=report_print_check, header=False
 )
-
-# report_sxw.report_sxw(
-#     'report.l10n.ca.account.print.check.bottom',
-#     'account.voucher',
-#     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_bottom.rml',
-#     parser=report_print_check,header=False
-# )

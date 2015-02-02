@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<document filename="test.pdf">
+  <template pageSize="(216mm,279mm)" title="CA Check" author="Savoir-faire Linux" allowSplitting="">
+    <pageTemplate id="first">
+      <frame id="CheckAddress"    x1="22mm"     y1="116mm"    width="145mm"   height="32mm"/>
+      <frame id="CheckSumLetter"  x1="12mm"     y1="150mm"    width="155mm"   height="12mm"/>
+      <frame id="CheckSumDigit"   x1="177mm"    y1="150mm"    width="39mm"    height="12mm"/>
+      <frame id="CheckDate"       x1="167mm"    y1="169mm"    width="41mm"    height="12mm"/>
+      <frame id="MemoLabel"       x1="22mm"     y1="106mm"    width="145mm"   height="10mm"/>
+
+      <frame id="Stub1"           x1="8mm"      y1="190mm"    width="200mm"   height="90mm"/>
+      <frame id="Stub2"           x1="8mm"      y1="0mm"     width="200mm"   height="90mm"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="TStub">
+      <blockAlignment value="LEFT" />
+      <blockValign value="TOP" />
+      <blockSpan start="0,0" stop="4,0" />
+      <blockSpan start="0,-1" stop="4,-1" />
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" fontName="Helvetica" alignment="LEFT"/>
+    </initialize>
+    <paraStyle name="P8" fontSize="8.0" leading="10"/>
+    <paraStyle name="P9" fontSize="10.0" leading="12"/>
+    <paraStyle name="P9-R" fontSize="10.0" leading="12" alignment="RIGHT"/>
+    <paraStyle name="P10" fontSize="10.0" leading="12"/>
+    <paraStyle name="P10-R" fontSize="10.0" leading="12" alignment="RIGHT"/>
+    <paraStyle name="P8B" fontSize="8.0" fontName="Helvetica-Bold" leading="10" />
+    <paraStyle name="P8B-R" fontSize="8.0" fontName="Helvetica-Bold" leading="10" alignment="RIGHT"/>
+    <images/>
+  </stylesheet>
+  <story>
+    <para>[[repeatIn(objects,'voucher')]]</para>
+    <para>[[ setLang(voucher.partner_id.lang) ]]</para>
+
+    <!-- Check Address -->
+    <currentFrame name="CheckAddress" />
+    <para style="P8">[[ voucher.partner_id.name ]]</para>
+    <para style="P8">[[ display_address(voucher.partner_id) or removeParentNode('para') ]]</para>
+
+    <!-- Check Date -->
+    <currentFrame name="CheckDate" />
+    <para style="P10">[[ formatLang(voucher.date, date=True) or '' ]]</para>
+
+    <!-- Check Sum Digit -->
+    <currentFrame name="CheckSumDigit" />
+    <para style="P10">[[ spad(formatLang(voucher.amount), 12) ]]</para>
+
+    <!-- Check Sum Letter -->
+    <currentFrame name="CheckSumLetter" />
+    <para style="P10-R">[[ ltrim(amount_in_word(voucher), 80) ]]</para>
+
+    <setNextFrame name="MemoLabel" />
+    <frameEnd />
+    <para style="P8">MEMO [[ voucher.name ]]</para>
+
+    <setNextFrame name="Stub1" />
+    <frameEnd />
+    <!-- Stub One -->
+    <blockTable colWidths="27mm,56mm,28mm,28mm,26mm,26mm" style="TStub">
+      <!-- Stub Header -->
+      <tr>
+        <td><para style="P8B">[[voucher.partner_id.name]]</para></td>
+        <td /><td /> <td /><td />
+        <td>
+          <para style="P8B">[[ formatLang(voucher.date , date=True) or '' ]] [[ voucher.journal_id.use_preprint_check and voucher.chk_seq or '' ]]</para>
+        </td>
+      </tr>
+      <!-- Data Header -->
+      <tr>
+        <td> <para style="P8B">Due Date</para> </td>
+        <td> <para style="P8B">Invoice</para> </td>
+        <td> <para style="P8B">Original Amt.</para> </td>
+        <td> <para style="P8B">Balance Due</para> </td>
+        <td> <para style="P8B">Discount</para> </td>
+        <td> <para style="P8B">Payment</para> </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P8">[[ repeatIn(get_all_lines(voucher),'l') ]] [[ formatLang(l['date_due'] ,date=True) or '' ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ l['name'] ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ formatLang( l['amount_original']) ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ formatLang( l['amount_unreconciled']) ]]</para>
+        </td>
+        <td><para><font color="white"> </font></para></td>
+        <td>
+          <para style="P8">[[ formatLang (l['amount']) ]]</para>
+        </td>
+      </tr>
+      <!-- Total Amount -->
+      <tr>
+        <td>
+          <para style="P8B-R">Check Amount</para>
+        </td>
+        <td /><td /><td /><td />
+        <td>
+          <para style="P8B">[[ voucher.currency_id.symbol ]][[ formatLang (voucher.amount) ]]</para>
+        </td>
+      </tr>
+    </blockTable>
+
+    <setNextFrame name="Stub2" />
+    <frameEnd />
+    <!-- Stub Two -->
+    <blockTable colWidths="27mm,56mm,28mm,28mm,26mm,26mm" style="TStub">
+      <!-- Stub Header -->
+      <tr>
+        <td><para style="P8B">[[voucher.partner_id.name]]</para></td>
+        <td /><td /> <td /><td />
+        <td>
+          <para style="P8B">[[ formatLang(voucher.date , date=True) or '' ]] [[ voucher.journal_id.use_preprint_check and voucher.chk_seq or '' ]]</para>
+        </td>
+      </tr>
+      <!-- Data Header -->
+      <tr>
+        <td> <para style="P8B">Due Date</para> </td>
+        <td> <para style="P8B">Invoice</para> </td>
+        <td> <para style="P8B">Original Amt.</para> </td>
+        <td> <para style="P8B">Balance Due</para> </td>
+        <td> <para style="P8B">Discount</para> </td>
+        <td> <para style="P8B">Payment</para> </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P8">[[ repeatIn(get_all_lines(voucher),'l') ]] [[ formatLang(l['date_due'] ,date=True) or '' ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ l['name'] ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ formatLang( l['amount_original']) ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ formatLang( l['amount_unreconciled']) ]]</para>
+        </td>
+        <td><para><font color="white"> </font></para></td>
+        <td>
+          <para style="P8">[[ formatLang (l['amount']) ]]</para>
+        </td>
+      </tr>
+      <!-- Total Amount -->
+      <tr>
+        <td>
+          <para style="P8B-R">Check Amount</para>
+        </td>
+        <td /><td /><td /><td />
+        <td>
+          <para style="P8B">[[ voucher.currency_id.symbol ]][[ formatLang (voucher.amount) ]]</para>
+        </td>
+      </tr>
+    </blockTable>
+  </story>
+</document>
+
