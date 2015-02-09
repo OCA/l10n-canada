@@ -20,7 +20,15 @@
 #
 ##############################################################################
 
+import logging
+logger = logging.getLogger('OpenUpgrade')
+
 
 def migrate(cr, version):
-    if version and version < '7.0.1.1':
-        cr.execute("ALTER TABLE res_partner RENAME COLUMN nas TO sin;")
+    if not version:
+        return
+
+    if version < '7.0.1.2':
+        logger.info("table res_partner, column nas: renaming to sin")
+        cr.execute('ALTER TABLE "res_partner" RENAME "nas" TO "sin"')
+        cr.execute('DROP INDEX IF EXISTS "res_partner_nas_index"')

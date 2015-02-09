@@ -22,7 +22,7 @@
 
 {
     'name': 'Canada Social Insurance Number (SIN/NAS)',
-    'version': '1.0',
+    'version': '1.2',
     "author": "Savoir-faire Linux",
     "website": "http://www.savoirfairelinux.com",
     'license': 'AGPL-3',
@@ -39,6 +39,7 @@ Contributors
 * Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
 * Marc Cassuto <marc.cassuto@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
+* David Dufresne <david.dufresne@savoirfairelinux.com>
 """,
     'data': [
         'res_partner_attributes_add_SIN_view.xml',
