@@ -61,4 +61,4 @@ def migrate(cr, version):
     if not version:
         return
 
-    rename_columns(cr, {'res_partner': ('nas', 'sin')})
+    rename_columns(cr, {'res_partner': [('nas', 'sin')]})
