@@ -27,14 +27,14 @@ class res_partner(orm.Model):
     _name = 'res.partner'
     _inherit = 'res.partner'
 
-    def onchange_nas(self, cr, uid, ids, nas):
+    def onchange_sin(self, cr, uid, ids, sin):
         ret = {'value': 0}
 
         def digits_of(n):
             return [int(d) for d in str(n)]
 
-        def luhn_checksum(nas):
-            digits = digits_of(nas)
+        def luhn_checksum(sin):
+            digits = digits_of(sin)
             odd_digits = digits[-1::-2]
             even_digits = digits[-2::-2]
             checksum = 0
@@ -43,11 +43,11 @@ class res_partner(orm.Model):
                 checksum += sum(digits_of(d * 2))
             return checksum % 10
 
-        def is_luhn_valid(nas):
-            return luhn_checksum(nas) == 0
+        def is_luhn_valid(sin):
+            return luhn_checksum(sin) == 0
 
-        if is_luhn_valid(nas):
-            ret['value'] = nas
+        if is_luhn_valid(sin):
+            ret['value'] = sin
         else:
             ret['value'] = 0
             ret['warning'] = {
@@ -57,6 +57,6 @@ class res_partner(orm.Model):
         return ret
 
     _columns = {
-        'nas': fields.float('SIN', digits=(9, 0),
+        'sin': fields.float('SIN', digits=(9, 0),
                             help="Social Insurance Number (9 digits)"),
     }
