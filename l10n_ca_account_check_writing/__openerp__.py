@@ -21,7 +21,7 @@
 {
     'name': 'Canada - Check Writing',
     'version': '1.0',
-    'author': 'Savoir-faire Linux',
+    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website': 'http://www.savoirfairelinux.com',
     'category': 'Generic Modules/Accounting',
     "license": "AGPL-3",
