@@ -31,7 +31,7 @@ Canada Payroll Rules
  * Adds Federal Claim Codes, Deductions and Exemptions on the Employee Form
  * Adds 'Pays Per Year' field on the Contract Form
     """,
-    'author':'OpenERP Canada',
+    'author': "OpenERP Canada,Odoo Community Association (OCA)",
     'website':'http://launchpad.net/openerp-canada',
     'depends': [
         'hr_payroll',

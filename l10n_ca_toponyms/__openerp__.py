@@ -21,7 +21,7 @@
 {
     "name" : "Canada - Provinces and Territories",
     "version" : "1.0",
-    "author" : "Savoir-faire Linux",
+    "author" : "Savoir-faire Linux,Odoo Community Association (OCA)",
     "website" : "http://www.savoirfairelinux.com",
     "category" : "Localisation/Canada",
     "description": "Provinces and territories of Canada.",

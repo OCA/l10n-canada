@@ -38,7 +38,7 @@ before installing this module. Chart template needs to be selected to populate
 the account.account table and allow you to link salary rules with the financial 
 account.
     """,
-    'author':'Savoir-faire Linux',
+    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website':'http:/www.savoirfairelinux.com',
     'depends': [
         'l10n_ca_qc_hr_payroll',

@@ -30,7 +30,7 @@ Ontario Canadian Payroll Rules
  * Adds Claim Codes, Deductions and Exemptions on the Employee Form
  * Adds 'Pays Per Year' field on the Contract Form
     """,
-    'author':'Amura Consulting',
+    'author': "Amura Consulting,Odoo Community Association (OCA)",
     'website':'http://www.openerp.com',
     'depends': [
         'hr_payroll',

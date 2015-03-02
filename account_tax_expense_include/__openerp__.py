@@ -23,7 +23,7 @@
 {
     "name" : "Taxes included in expense",
     "version" : "1.0",
-    "author" : "Savoir-faire Linux",
+    "author" : "Savoir-faire Linux,Odoo Community Association (OCA)",
     "category" : "Account",
     "website": "http://wwww.savoirfairelinux.com",
     "license": "GPL-3",

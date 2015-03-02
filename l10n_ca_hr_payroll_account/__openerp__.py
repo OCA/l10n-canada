@@ -32,7 +32,7 @@ This module:
  * creates financial accounts for payroll
  * updates salary rules with accounting information
     """,
-    'author':'OpenERP Canada',
+    'author': "OpenERP Canada,Odoo Community Association (OCA)",
     'website':'http://launchpad.net/openerp-canada',
     'depends': [
         'l10n_ca',

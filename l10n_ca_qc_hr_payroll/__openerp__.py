@@ -28,7 +28,7 @@ Quebec Payroll Rules
 ==============================
  * Adds all Quebec Salary Rules
     """,
-    'author':'Savoir-faire Linux',
+    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website':'http://www.savoirfairelinux.com',
     'depends': [
         'l10n_ca_hr_payroll',
