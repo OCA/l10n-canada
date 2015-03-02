@@ -37,7 +37,7 @@ Contributors
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    'author': 'Odoo Canada',
+    'author': "Odoo Canada,Odoo Community Association (OCA)",
     'website': 'https://community.odoo.com/project/42',
     'depends': [
         'l10n_ca',

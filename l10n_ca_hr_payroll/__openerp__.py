@@ -38,7 +38,7 @@ Contributors
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    'author': 'Odoo Canada',
+    'author': "Odoo Canada,Odoo Community Association (OCA)",
     'website': 'https://community.odoo.com/project/42',
     'depends': [
         'hr_payroll',

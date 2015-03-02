@@ -43,7 +43,7 @@ Contributors
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
-    'author': 'Savoir-faire Linux',
+    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website': 'http:/www.savoirfairelinux.com',
     'depends': [
         'l10n_ca_qc_hr_payroll',
