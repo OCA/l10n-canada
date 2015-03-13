@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2014 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,15 +19,15 @@
 #
 ##############################################################################
 
-from . import (
-    hr_contract,
-    hr_employee_benefit_category,
-    hr_employee_benefit,
-    hr_employee_benefit_rate,
-    hr_employee_benefit_rate_line,
-    hr_salary_rule,
-    hr_payslip,
-    hr_payslip_benefit_line,
-    hr_payslip_worked_days,
-    hr_job,
-)
+from openerp.osv import fields, orm
+
+
+class hr_salary_rule(orm.Model):
+    _inherit = 'hr.salary.rule'
+
+    _columns = {
+        'employee_benefit_ids': fields.many2many(
+            'hr.employee.benefit.category', 'salary_rule_employee_benefit_rel',
+            'salary_rule_id', 'benefit_id', 'Salary Rules',
+        ),
+    }

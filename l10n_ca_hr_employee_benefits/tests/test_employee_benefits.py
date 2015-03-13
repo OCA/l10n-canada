@@ -28,302 +28,318 @@ class test_contract_hourly_rate(common.TransactionCase):
         self.employee_model = self.registry('hr.employee')
         self.user_model = self.registry("res.users")
         self.contract_model = self.registry("hr.contract")
-        self.category_model = self.registry("hr.benefit.category")
-        self.benefit_model = self.registry("hr.contract.benefit")
+        self.category_model = self.registry("hr.employee.benefit.category")
+        self.benefit_model = self.registry("hr.employee.benefit")
+        self.rate_model = self.registry("hr.employee.benefit.rate")
+        self.rate_line_model = self.registry("hr.employee.benefit.rate.line")
+        self.payslip_model = self.registry("hr.payslip")
+        self.job_model = self.registry("hr.job")
+        self.salary_rule_model = self.registry("hr.salary.rule")
         self.context = self.user_model.context_get(self.cr, self.uid)
 
         cr, uid, context = self.cr, self.uid, self.context
 
-        # Create an employee
         self.employee_id = self.employee_model.create(
-            self.cr, self.uid, {'name': 'Employee 1'}, context=self.context)
+            cr, uid, {'name': 'Employee 1'}, context=context)
 
-        # Create benefit categories
-        self.category_1_id = self.category_model.create(
-            cr, uid, {
-                'name': 'Test 1',
-                'description': 'Test',
-                'code': 'TEST_1',
-                'default_employee_amount': 50,
-                'default_employer_amount': 100,
-                'default_amount_type': 'each_pay',
-            })
+        self.job_id = self.job_model.create(
+            cr, uid, {'name': 'Job 1'}, context=context)
 
-        self.category_2_id = self.category_model.create(
-            cr, uid, {
-                'name': 'Test 2',
-                'description': 'Test',
-                'code': 'TEST_2',
-                'default_employee_amount': 1000,
-                'default_employer_amount': 2000,
-                'default_amount_type': 'annual',
-                'fit_exempt': True,
-            })
+        self.job_activity_id = self.job_model.browse(
+            cr, uid, self.job_id, context=context).activity_ids[0].id
 
-        # Create a contract
-        self.contract_id = self.contract_model.create(
-            self.cr, self.uid, {
+        self.contract_ids = [
+            self.contract_model.create(self.cr, self.uid, {
                 'employee_id': self.employee_id,
-                'name': 'Contract 1',
+                'name': contract[0],
                 'wage': 50000,
-            }, context=self.context
-        )
+                'job_id': self.job_id,
+            }, context=self.context)
+            for contract in [
+                ('Contract 1'),
+                ('Contract 2'),
+            ]
+        ]
 
-        # Add employee benefits
-        self.benefit_1_id = self.benefit_model.create(
-            cr, uid, {
-                'contract_id': self.contract_id,
-                'category_id': self.category_1_id,
-                'employee_amount': 60,
-                'employer_amount': 120,
-                'date_start': '2014-01-01',
-                'date_end': '2014-12-31',
-                'amount_type': 'each_pay',
-            }, context=context
-        )
+        self.rule_ids = self.salary_rule_model.search(
+            cr, uid, [], context=context)
 
-        self.benefit_2_id = self.benefit_model.create(
-            cr, uid, {
-                'contract_id': self.contract_id,
-                'category_id': self.category_1_id,
-                'employee_amount': 0,
-                'employer_amount': 0,
-                'date_start': '2014-01-01',
-                'date_end': '2014-12-31',
-                'amount_type': 'each_pay',
-            }, context=context
-        )
+        self.category_ids = [
+            self.category_model.create(cr, uid, {
+                'name': category[0],
+                'description': 'Test',
+                'code': category[1],
+                'fit_exempt': category[2],
+                'salary_rule_ids': [(6, 0, category[3])],
+            }, context=context)
+            for category in [
+                ('Category 1', 'BEN_1', False, [self.rule_ids[0]]),
+                ('Category 2', 'BEN_2', False, []),
+                ('Category 3', 'BEN_3', True, [self.rule_ids[1]]),
+                ('Category 4', 'BEN_4', True,
+                    [self.rule_ids[0], self.rule_ids[1]]),
+            ]
+        ]
 
-        self.benefit_3_id = self.benefit_model.create(
-            # This benefit is meant to be exluded in almost every test
-            # because it has not the category requested
-            cr, uid, {
-                'contract_id': self.contract_id,
-                'category_id': self.category_2_id,
-                'employee_amount': 90,
-                'employer_amount': 130,
-                'date_start': '2014-01-01',
-                'date_end': '2014-12-31',
-                'amount_type': 'each_pay',
-            }, context=context
-        )
+        self.rate_ids = [
+            self.rate_model.create(cr, uid, {
+                'name': 'Test',
+                'category_id': rate[0],
+                'amount_type': rate[1],
+            }, context=context)
+            for rate in [
+                (self.category_ids[0], 'each_pay'),
+                (self.category_ids[1], 'annual'),
+                (self.category_ids[2], 'percent_gross'),
+                (self.category_ids[3], 'per_hour'),
+            ]
+        ]
 
-        self.benefit_4_id = self.benefit_model.create(
-            cr, uid, {
-                'contract_id': self.contract_id,
-                'category_id': self.category_1_id,
-                'employee_amount': 650,
-                'employer_amount': 1250,
-                'date_start': '2014-01-01',
-                'date_end': '2014-06-30',
-                'amount_type': 'annual',
-            }, context=context
-        )
+        self.rate_line_ids = [
+            self.rate_line_model.create(cr, uid, {
+                'parent_id': line[0],
+                'employee_amount': line[1],
+                'employer_amount': line[2],
+                'date_start': line[3],
+                'date_end': line[4],
+            }, context=context)
+            for line in [
+                (self.rate_ids[0], 20, 40, '2014-01-01', '2014-06-30'),
+                (self.rate_ids[0], 25, 50, '2014-07-01', False),
 
-        self.benefit_5_id = self.benefit_model.create(
-            cr, uid, {
-                'contract_id': self.contract_id,
-                'category_id': self.category_1_id,
-                'employee_amount': 1.0,
-                'employer_amount': 2.0,
-                'date_start': '2014-01-01',
-                'date_end': '2014-06-30',
-                'amount_type': 'percent',
-            }, context=context
-        )
+                (self.rate_ids[1], 600, 700, '2014-01-01', '2014-06-30'),
+                (self.rate_ids[1], 800, 900, '2014-07-01', False),
 
-    def test_onchange_category_id_unchanged_amounts(self):
-        """
-        Test onchange_category_id method on hr.contract.benefit
-        model when the record already has computed amounts
-        """
+                (self.rate_ids[2], 2.0, 3.5, '2014-01-01', '2014-06-30'),
+                (self.rate_ids[2], 2.5, 4.5, '2014-07-01', False),
+
+                (self.rate_ids[3], 5, 10, '2014-01-01', '2014-06-30'),
+                (self.rate_ids[3], 7, 13, '2014-07-01', False),
+            ]
+        ]
+
+        self.benefit_ids = [
+            self.benefit_model.create(cr, uid, {
+                'category_id': benefit[0],
+                'rate_id': benefit[1],
+                'date_start': benefit[2],
+                'date_end': benefit[3],
+                'contract_id': benefit[4],
+                'job_id': benefit[5]
+            }, context=context)
+            for benefit in [
+                (self.category_ids[0], self.rate_ids[0],
+                    '2014-01-01', '2014-12-31', self.contract_ids[0], False),
+                (self.category_ids[1], self.rate_ids[1],
+                    '2014-01-01', '2014-12-31', self.contract_ids[0], False),
+                (self.category_ids[2], self.rate_ids[2],
+                    '2014-01-01', '2014-12-31', self.contract_ids[0], False),
+                (self.category_ids[3], self.rate_ids[3],
+                    '2014-01-01', '2014-12-31', False, self.job_id),
+            ]
+        ]
+
+        self.payslip_id = self.payslip_model.create(cr, uid, {
+            'employee_id': self.employee_id,
+            'contract_id': self.contract_ids[0],
+            'gross_salary': 2500,
+            'pays_per_year': 12,
+            'date_from': '2014-01-01',
+            'date_to': '2014-01-31',
+            'worked_days_line_ids': [(0, 0, {
+                'activity_id': line[0],
+                'number_of_hours': line[1],
+                'hourly_rate': 25,
+                'code': 'ddd',
+                'name': 'ddd',
+                'date_from': line[2],
+                'date_to': line[3],
+            }) for line in [
+                (self.job_activity_id, 25, '2014-01-01', '2014-01-15'),
+                (self.job_activity_id, 75, '2014-01-16', '2014-01-31'),
+            ]]
+        }, context=context)
+
+    def get_payslip(self):
         cr, uid, context = self.cr, self.uid, self.context
 
-        res = self.benefit_model.onchange_category_id(
-            cr, uid, [self.benefit_1_id],
-            employee_amount=60,
-            employer_amount=120,
-            category_id=self.category_2_id,
-            context=context
-        )
+        payslip = self.payslip_model.browse(
+            cr, uid, self.payslip_id, context=context)
 
-        self.assertEqual(res['value']['employee_amount'], 60)
-        self.assertEqual(res['value']['employer_amount'], 120)
-        self.assertEqual(res['value']['amount_type'], 'annual')
+        payslip.compute_benefits(payslip)
 
-    def test_onchange_category_id_changed_amounts(self):
-        """
-        Test onchange_category_id method on hr.contract.benefit
-        model when the record already has no computed amounts
-        """
-        cr, uid, context = self.cr, self.uid, self.context
-
-        res = self.benefit_model.onchange_category_id(
-            cr, uid, [self.benefit_2_id],
-            employee_amount=0,
-            employer_amount=0,
-            category_id=self.category_2_id,
-            context=context
-        )
-
-        self.assertEqual(res['value']['employee_amount'], 1000)
-        self.assertEqual(res['value']['employer_amount'], 2000)
-        self.assertEqual(res['value']['amount_type'], 'annual')
+        return payslip
 
     def test_sum_benefits_annual_employee(self):
         """
-        Test sum_benefits method on hr.contract model with
-            annual=True
-            employer=False
+        Test sum_benefits method with annual=True and employer=False
         """
-        cr, uid, context = self.cr, self.uid, self.context
-        res = self.contract_model.sum_benefits(
-            cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
-            exemption=False, benefit_codes='TEST_1', employer=False,
-            annual=True, pays_per_year=12,
-            context=context
-        )
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(payslip, employer=False, annual=True)
 
-        # Sums the annual employee amount over benefits 1, 2, 4, 5
         self.assertEqual(
-            round(res, 2), round((60 + 0.01 * 1000) * 12 + 650, 2)
-        )
+            round(res),
+            round((20 + 600.0 / 12 + 2.0 * 2500 / 100 + 5 * 100) * 12))
 
     def test_sum_benefits_annual_employer(self):
         """
-        Test sum_benefits method on hr.contract model with
-            annual=True
-            employer=True
+        Test sum_benefits method with annual=True and employer=True
         """
-        cr, uid, context = self.cr, self.uid, self.context
-        res = self.contract_model.sum_benefits(
-            cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
-            exemption=False, benefit_codes='TEST_1', employer=True,
-            annual=True, pays_per_year=12,
-            context=context
-        )
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(payslip, employer=True, annual=True)
 
-        # Sums the annual employer amount over benefits 1, 2, 4, 5
         self.assertEqual(
-            round(res, 2), round((120 + 0.02 * 1000) * 12 + 1250, 2)
-        )
+            round(res),
+            round((40 + 700.0 / 12 + 3.5 * 2500 / 100 + 10 * 100) * 12))
 
     def test_sum_benefits_each_pay_employee(self):
         """
-        Test sum_benefits method on hr.contract model with
-            annual=False
-            employer=False
+        Test sum_benefits method with annual=False and employer=False
         """
-        cr, uid, context = self.cr, self.uid, self.context
-        res = self.contract_model.sum_benefits(
-            cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
-            exemption=False, benefit_codes='TEST_1', employer=False,
-            annual=False, pays_per_year=12,
-            context=context
-        )
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(payslip, employer=False, annual=False)
 
-        # Sums the each_pay employee amount over benefits 1, 2, 4, 5
         self.assertEqual(
-            round(res, 2), round(60 + 0.01 * 1000 + 650.0 / 12, 2)
-        )
+            round(res),
+            round(20 + 600.0 / 12 + 2.0 * 2500 / 100 + 5 * 100))
 
     def test_sum_benefits_each_pay_employer(self):
         """
-        Test sum_benefits method on hr.contract model with
-            annual=False
-            employer=True
+        Test sum_benefits method with annual=False and employer=True
         """
-        cr, uid, context = self.cr, self.uid, self.context
-        res = self.contract_model.sum_benefits(
-            cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
-            exemption=False, benefit_codes='TEST_1', employer=True,
-            annual=False, pays_per_year=12,
-            context=context
-        )
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(payslip, employer=True, annual=False)
 
-        # Sums the each_pay employer amount over benefits 1, 2, 4, 5
         self.assertEqual(
-            round(res, 2), round(120 + 0.02 * 1000 + 1250.0 / 12, 2)
-        )
+            round(res),
+            round(40 + 700.0 / 12 + 3.5 * 2500 / 100 + 10 * 100))
 
     def test_sum_benefits_overlapping_dates(self):
         """
-        Test sum_benefits method on hr.contract model with
-            overlapping dates
+        Test sum_benefits method with overlapping dates
         """
         cr, uid, context = self.cr, self.uid, self.context
-        res = self.contract_model.sum_benefits(
-            cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-06-15', date_to='2014-07-15', grossp=1000,
-            exemption=False, benefit_codes='TEST_1', employer=True,
-            annual=False, pays_per_year=12,
-            context=context
-        )
-        # Sums the each_pay employer amount over benefits 1, 2, 4, 5
-        # benefits 4 and 5 ends on 2014-06-30 so it is valid 16 days over 31
+
+        payslip = self.payslip_model.browse(
+            cr, uid, self.payslip_id, context=context)
+
+        payslip.write({'date_from': '2014-06-16', 'date_to': '2014-07-15'})
+
+        payslip.worked_days_line_ids[0].write({
+            'date_from': '2014-06-16', 'date_to': '2014-07-05',
+            'number_of_hours': 75
+        })
+
+        payslip.worked_days_line_ids[0].write({
+            'date_from': '2014-07-06', 'date_to': '2014-07-15',
+            'number_of_hours': 25
+        })
+
+        payslip.compute_benefits(payslip)
+
+        res = payslip.sum_benefits(payslip, employer=False, annual=False)
+
         self.assertEqual(
-            round(res, 2),
-            round(120 + (0.02 * 1000 + 1250.0 / 12) * 16.0 / (16 + 15), 2)
-        )
+            round(res),
+            round(
+                (20. + 25.) / 2 +
+                (600. + 800.) / (2 * 12) +
+                (2.0 + 2.5) * 2500 / (2 * 100) +
+                5. * 75 * 15 / 20 +
+                5. * 75 * 5 / 20 +
+                7. * 25
+            ))
 
     def test_sum_benefits_list_of_codes(self):
         """
-        Test sum_benefits method on hr.contract model with
-            a list of codes given as parameter
+        Test sum_benefits method with a list of codes given as parameter
         """
-        cr, uid, context = self.cr, self.uid, self.context
-        res = self.contract_model.sum_benefits(
-            cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
-            exemption=False, benefit_codes=['TEST_1', 'TEST_2'], employer=True,
-            annual=False, pays_per_year=12,
-            context=context
-        )
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(
+            payslip, employer=False, annual=False,
+            benefit_codes=['BEN_1', 'BEN_3'])
 
-        # Sums the each_pay employer amount over benefits 1, 2, 3, 4, 5
         self.assertEqual(
-            round(res, 2), round(120 + 130 + 0.02 * 1000 + 1250.0 / 12, 2)
-        )
+            round(res), round(20 + 2.0 * 2500 / 100))
+
+        res = payslip.sum_benefits(
+            payslip, employer=False, annual=False,
+            benefit_codes=['BEN_2', 'BEN_4'])
+
+        self.assertEqual(
+            round(res), round(600.0 / 12 + 5 * 100))
+
+    def test_sum_benefits_single_benefit_code(self):
+        """
+        Test sum_benefits method with a single benefit code given
+        as parameter
+        """
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(
+            payslip, employer=False, annual=False,
+            benefit_codes='BEN_3')
+
+        self.assertEqual(
+            round(res), round(2.0 * 2500 / 100))
 
     def test_sum_benefits_exemption(self):
         """
-        Test sum_benefits method on hr.contract model with
-            a given exemption
+        Test sum_benefits method with an exemption
+        """
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(
+            payslip, employer=False, annual=False,
+            exemption='fit_exempt')
+
+        # Benefit categories 1 and 2 are not exempted
+        self.assertEqual(
+            round(res), round(20 + 600.0 / 12))
+
+    def test_sum_benefits_added_manually(self):
+        """
+        Test sum_benefits method with a benefit added manually
         """
         cr, uid, context = self.cr, self.uid, self.context
-        res = self.contract_model.sum_benefits(
-            cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
-            exemption='fit_exempt', benefit_codes=['TEST_1', 'TEST_2'],
-            employer=True, annual=False, pays_per_year=12,
-            context=context
-        )
 
-        # Sums the each_pay employer amount over benefits 1, 2, 4, 5
-        # benefit 3 is exempted from federal income tax (fit_exempt)
-        self.assertEqual(
-            round(res, 2), round(120 + 0.02 * 1000 + 1250.0 / 12, 2)
-        )
+        payslip = self.payslip_model.browse(
+            cr, uid, self.payslip_id, context=context)
 
-    def test_sum_benefits_no_benefit_code(self):
+        payslip.write({'benefit_line_ids': [(0, 0, {
+            'category_id': self.category_ids[0],
+            'employee_amount': 1000,
+            'employer_amount': 1500,
+        })]})
+
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(
+            payslip, employer=False, annual=False,
+            category_ids=[self.category_ids[0]])
+
+        self.assertEqual(res, 20 + 1000)
+
+        res = payslip.sum_benefits(
+            payslip, employer=True, annual=False,
+            category_ids=[self.category_ids[0]])
+
+        self.assertEqual(res, 40 + 1500)
+
+        # Test generate a second time
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(
+            payslip, employer=False, annual=False,
+            category_ids=[self.category_ids[0]])
+
+        self.assertEqual(res, 20 + 1000)
+
+    def test_sum_benefits_salary_rule_id(self):
         """
-        Test sum_benefits method on hr.contract model with
-            no benefit code, which sums all benefits
+        Test sum_benefits with salary rule id as parameter
         """
-        cr, uid, context = self.cr, self.uid, self.context
-        res = self.contract_model.sum_benefits(
-            cr, uid, [self.contract_id], self.contract_id,
-            date_from='2014-01-01', date_to='2014-01-31', grossp=1000,
-            exemption=False, benefit_codes=False, employer=True,
-            annual=False, pays_per_year=12,
-            context=context
-        )
+        payslip = self.get_payslip()
+        res = payslip.sum_benefits(
+            payslip, employer=False, annual=False,
+            rule_id=self.rule_ids[1])
 
-        # Sums the each_pay employer amount over benefits 1, 2, 3, 4, 5
+        # Benefit categories 3 and 4 are related to salary rule #1
         self.assertEqual(
-            round(res, 2), round(120 + 130 + 0.02 * 1000 + 1250.0 / 12, 2)
-        )
+            round(res), round(2.0 * 2500 / 100 + 5 * 100))

@@ -17,149 +17,149 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,default_amount_type:0
+#: field:hr.employee.benefit.category,default_amount_type:0
 msgid "Default Amount Amount Type"
 msgstr "Type de Montant par défaut"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.contract.benefit,employer_amount:0
+#: field:hr.employee.benefit,employer_amount:0
 msgid "Employer Contribution"
 msgstr "Contribution de l'employeur"
 
 #. module: l10n_ca_hr_employee_benefits
-#: view:hr.benefit.category:0
+#: view:hr.employee.benefit.category:0
 msgid "Search Employee Benefit"
 msgstr "Rechercher des Avantages Sociaux"
 
 #. module: l10n_ca_hr_employee_benefits
-#: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_contract_benefit
+#: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_employee_benefit
 msgid "Employee Benefit"
 msgstr "Avantage Social"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,name:0
+#: field:hr.employee.benefit.category,name:0
 msgid "Benefit Name"
 msgstr "Nom de l'avantage social"
 
 #. module: l10n_ca_hr_employee_benefits
-#: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_benefit_category
+#: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_employee_benefit_category
 msgid "Category of employee benefits"
 msgstr "Catégorie d'avantages sociaux"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.contract.benefit,employee_amount:0
+#: field:hr.employee.benefit,employee_amount:0
 msgid "Employee Contribution"
 msgstr "Contribution de l'employé"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.contract.benefit,date_end:0
+#: field:hr.employee.benefit,date_end:0
 msgid "End Date"
 msgstr "Date de fin"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,cpp_exempt:0
+#: field:hr.employee.benefit.category,cpp_exempt:0
 msgid "CPP/QPP Exempt"
 msgstr "Exempt du RPC/RRQ"
 
 #. module: l10n_ca_hr_employee_benefits
-#: selection:hr.benefit.category,default_amount_type:0
-#: selection:hr.contract.benefit,amount_type:0
+#: selection:hr.employee.benefit.category,default_amount_type:0
+#: selection:hr.employee.benefit,amount_type:0
 msgid "Each Pay"
 msgstr "Montant par paie"
 
 #. module: l10n_ca_hr_employee_benefits
-#: selection:hr.benefit.category,default_amount_type:0
-#: selection:hr.contract.benefit,amount_type:0
+#: selection:hr.employee.benefit.category,default_amount_type:0
+#: selection:hr.employee.benefit,amount_type:0
 msgid "Annual"
 msgstr "Montant annuel"
 
 #. module: l10n_ca_hr_employee_benefits
-#: selection:hr.benefit.category,default_amount_type:0
-#: selection:hr.contract.benefit,amount_type:0
+#: selection:hr.employee.benefit.category,default_amount_type:0
+#: selection:hr.employee.benefit,amount_type:0
 msgid "Percentage of Gross Salary"
 msgstr "Pourcentage du Salaire Brute"
 
 #. module: l10n_ca_hr_employee_benefits
-#: view:hr.benefit.category:0 view:hr.contract:0
+#: view:hr.employee.benefit.category:0 view:hr.contract:0
 #: field:hr.contract,benefit_line_ids:0
-#: model:ir.actions.act_window,name:l10n_ca_hr_employee_benefits.action_hr_benefit_category_list
-#: model:ir.ui.menu,name:l10n_ca_hr_employee_benefits.menu_action_hr_benefit_category_list
+#: model:ir.actions.act_window,name:l10n_ca_hr_employee_benefits.action_hr_employee_benefit_category_list
+#: model:ir.ui.menu,name:l10n_ca_hr_employee_benefits.menu_action_hr_employee_benefit_category_list
 msgid "Employee Benefits"
 msgstr "Avantages sociaux"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.contract.benefit,contract_id:0
+#: field:hr.employee.benefit,contract_id:0
 #: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_contract
 msgid "Contract"
 msgstr "Contrat"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.contract.benefit,category_id:0
+#: field:hr.employee.benefit,category_id:0
 msgid "Benefit"
 msgstr "Avantage social"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,code:0 field:hr.contract.benefit,code:0
+#: field:hr.employee.benefit.category,code:0 field:hr.employee.benefit,code:0
 msgid "Code"
 msgstr "Code"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,default_employer_amount:0
+#: field:hr.employee.benefit.category,default_employer_amount:0
 msgid "Default Employer Contribution"
 msgstr "Contribution de l'employeur par défaut"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.contract.benefit,date_start:0
+#: field:hr.employee.benefit,date_start:0
 msgid "Start Date"
 msgstr "Date de début"
 
 #. module: l10n_ca_hr_employee_benefits
-#: view:hr.benefit.category:0
+#: view:hr.employee.benefit.category:0
 msgid "Exemptions"
 msgstr "Exemptions"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,description:0 field:hr.contract.benefit,name:0
+#: field:hr.employee.benefit.category,description:0 field:hr.employee.benefit,name:0
 msgid "Description"
 msgstr "Description"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.contract.benefit,amount_type:0
+#: field:hr.employee.benefit,amount_type:0
 msgid "Amount Amount Type"
 msgstr "Type de Montant"
 
 #. module: l10n_ca_hr_employee_benefits
-#: help:hr.benefit.category,code:0
+#: help:hr.employee.benefit.category,code:0
 msgid "The code that can be used in the salary rules to identify the benefit"
 msgstr ""
 "Le code utilisé dans les règles de salaire pour identifier l'avantage social"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,default_employee_amount:0
+#: field:hr.employee.benefit.category,default_employee_amount:0
 msgid "Default Employee Contribution"
 msgstr "Contribution de l'employé par défaut"
 
 #. module: l10n_ca_hr_employee_benefits
-#: help:hr.benefit.category,description:0
+#: help:hr.employee.benefit.category,description:0
 msgid "Brief explanation of which benefits the category contains."
 msgstr "Brève description des avantages sociaux que contient la catégorie"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,ei_exempt:0
+#: field:hr.employee.benefit.category,ei_exempt:0
 msgid "Employement Insurance Exempt"
 msgstr "Exempt de l'Assurance Emploi"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,fit_exempt:0
+#: field:hr.employee.benefit.category,fit_exempt:0
 msgid "Federal Income Tax Exempt"
 msgstr "Exempt de l'impôt fédéral"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,pip_exempt:0
+#: field:hr.employee.benefit.category,pip_exempt:0
 msgid "Parental Insurance Plan Exempt"
 msgstr "Exempt de l'Assurance Parentale"
 
 #. module: l10n_ca_hr_employee_benefits
-#: field:hr.benefit.category,pit_exempt:0
+#: field:hr.employee.benefit.category,pit_exempt:0
 msgid "Provincial Income Tax Exempt"
 msgstr "Exempt de l'impôt provincial"

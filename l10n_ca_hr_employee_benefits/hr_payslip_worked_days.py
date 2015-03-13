@@ -19,15 +19,21 @@
 #
 ##############################################################################
 
-from . import (
-    hr_contract,
-    hr_employee_benefit_category,
-    hr_employee_benefit,
-    hr_employee_benefit_rate,
-    hr_employee_benefit_rate_line,
-    hr_salary_rule,
-    hr_payslip,
-    hr_payslip_benefit_line,
-    hr_payslip_worked_days,
-    hr_job,
-)
+from openerp.osv import orm, fields
+
+
+class hr_payslip_worked_days(orm.Model):
+    _inherit = 'hr.payslip.worked_days'
+
+    _columns = {
+        # Make contract on worked_days related to the contract payslip
+        'contract_id': fields.related(
+            'payslip_id',
+            'contract_id',
+            type='many2one',
+            relation='hr.contract',
+            string='Contract',
+        ),
+    }
+
+    _order = 'date_from,activity_id'

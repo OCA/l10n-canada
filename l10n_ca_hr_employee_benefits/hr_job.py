@@ -19,15 +19,16 @@
 #
 ##############################################################################
 
-from . import (
-    hr_contract,
-    hr_employee_benefit_category,
-    hr_employee_benefit,
-    hr_employee_benefit_rate,
-    hr_employee_benefit_rate_line,
-    hr_salary_rule,
-    hr_payslip,
-    hr_payslip_benefit_line,
-    hr_payslip_worked_days,
-    hr_job,
-)
+from openerp.osv import fields, orm
+
+
+class hr_job(orm.Model):
+    _inherit = 'hr.job'
+
+    _columns = {
+        'benefit_line_ids': fields.one2many(
+            'hr.employee.benefit',
+            'job_id',
+            'Employee Benefits'
+        ),
+    }
