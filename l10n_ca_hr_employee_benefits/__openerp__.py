@@ -23,25 +23,23 @@
     'version': '1.0',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
-    'description': """
-Canada Employee Benefits
-========================
- * Adds Employee Benefits (related to contracts)
-
-Contributors
-------------
-* David Dufresne <david.dufresne@savoirfairelinux.com>
-* Pierre Lamarche <pierre.lamarche@savoirfairelinux.com>
-""",
     'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website': 'https://www.savoirfairelinux.com',
     'depends': [
         'hr_payroll',
+        'hr_worked_days_activity',
+        'hr_worked_days_hourly_rate',
+        'hr_contract_hourly_rate',
+        'hr_salary_rule_variable',
     ],
     'data': [
         'security/ir.model.access.csv',
         'view/hr_contract_view.xml',
-        'view/hr_benefit_category_view.xml',
+        'view/hr_employee_benefit_category_view.xml',
+        'view/hr_employee_benefit_rate_view.xml',
+        'view/hr_salary_rule_view.xml',
+        'view/hr_job_view.xml',
+        'view/hr_payslip_view.xml',
     ],
     'test': [],
     'demo': [],

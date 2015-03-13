@@ -22,38 +22,35 @@
 from openerp.osv import fields, orm
 
 
-class hr_benefit_category(orm.Model):
-    _name = 'hr.benefit.category'
+class hr_employee_benefit_category(orm.Model):
+    _name = 'hr.employee.benefit.category'
     _description = 'Category of employee benefits'
     _columns = {
         'name': fields.char('Benefit Name', required=True),
-        'code': fields.char('Code', required=True, help="""\
-The code that can be used in the salary rules to identify the benefit"""),
+        'code': fields.char(
+            'Code', required=True, help=""
+            "The code that can be used in the salary rules to identify "
+            "the benefit"),
         'description': fields.text(
             'Description',
             required=True,
             help="Brief explanation of which benefits the category contains."
         ),
-        'default_employee_amount': fields.float(
-            'Default Employee Contribution',
-            required=True,
-        ),
-        'default_employer_amount': fields.float(
-            'Default Employer Contribution',
-            required=True,
-        ),
-        'default_amount_type': fields.selection(
-            (
-                ('each_pay', 'Each Pay'),
-                ('annual', 'Annual'),
-                ('percent', 'Percentage of Gross Salary')
-            ),
-            required=True,
-            string="Default Amount Type",
-        ),
+
         'ei_exempt': fields.boolean('Employment Insurance Exempt'),
         'fit_exempt': fields.boolean('Federal Income Tax Exempt'),
         'cpp_exempt': fields.boolean('CPP/QPP Exempt'),
         'pip_exempt': fields.boolean('Parental Insurance Plan Exempt'),
         'pit_exempt': fields.boolean('Provincial Income Tax Exempt'),
+
+        'salary_rule_ids': fields.many2many(
+            'hr.salary.rule', 'salary_rule_employee_benefit_rel',
+            'benefit_id', 'salary_rule_id', 'Salary Rules',
+        ),
+
+        'rate_ids': fields.one2many(
+            'hr.employee.benefit.rate',
+            'category_id',
+            string="Benefit Rates",
+        )
     }
