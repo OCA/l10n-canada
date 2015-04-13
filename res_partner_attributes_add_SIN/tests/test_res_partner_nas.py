@@ -2,8 +2,7 @@
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
-#    Copyright (C) 2010 - 2014 Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
+#    Copyright (C) 2013 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,29 +18,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp import exceptions
+from openerp.tests import TransactionCase
 
-{
-    'name': 'Canada Social Insurance Number (SIN/NAS)',
-    'version': '1.0',
-    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
-    'website': 'http://www.savoirfairelinux.com',
-    'license': 'AGPL-3',
-    'category': 'Localisation/Canada',
-    'depends': ['base'],
-    'description': """
-Canada Social Insurance Number (SIN/NAS)
-========================================
 
-Add the Social Insurance Number (SIN/NAS) to the partner form.
+class TestPartnerNas(TransactionCase):
 
-Contributors
-------------
-* Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
-* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
-* Sandy Carter <sandy.carter@savoirfairelinux.com>
-""",
-    'data': [
-        'res_partner_attributes_add_SIN_view.xml',
-    ],
-    'installable': False,
-}
+    def setUp(self):
+        super(TestPartnerNas, self).setUp()
+        self.partner = self.env["res.partner"].create({
+            "name": "Test Partner",
+            "is_company": False
+        })
+
+    def test_valid_nas(self):
+        """
+        Test NAS from fake NAS generator
+        :return:
+        """
+        self.partner.nas = 252646757
+
+    def test_invalid_nas(self):
+        with self.assertRaises(exceptions.ValidationError):
+            self.partner.nas = 100000000

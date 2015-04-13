@@ -7,7 +7,7 @@
 	    <field name="inherit_id" ref="base.view_partner_form"/>
 	    <field name="arch" type="xml">
 		<field name="website" position="after">
-		    <field name="nas" on_change="onchange_nas(nas)" attrs="{'invisible': [('is_company','=', True)]}"/>
+		    <field name="nas" attrs="{'invisible': [('is_company','=', True)]}"/>
 		</field>
 	    </field>
 	</record>

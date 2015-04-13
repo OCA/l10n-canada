@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -20,6 +20,16 @@
 #
 ##############################################################################
 
-from . import (
-    res_partner_attributes_add_SIN,
-)
+{
+    'name': 'Canada Social Insurance Number (SIN/NAS)',
+    'version': '1.0',
+    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
+    'website': 'http://www.savoirfairelinux.com',
+    'license': 'AGPL-3',
+    'category': 'Localisation/Canada',
+    'depends': ['base'],
+    'data': [
+        'views/res_partner.xml',
+    ],
+    'installable': True,
+}
