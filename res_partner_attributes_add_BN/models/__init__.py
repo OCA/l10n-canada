@@ -20,28 +20,4 @@
 #
 ##############################################################################
 
-{
-    'name': 'Business identification Number in Canada (BN/NE)',
-    'version': '1.0',
-    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
-    'website': 'http://www.savoirfairelinux.com',
-    'license': 'AGPL-3',
-    'category': 'Localisation/Canada',
-    'depends': ['base'],
-    'description': """
-Business identification Number in Canada (BN/NE)
-================================================
-
-Add the Business identification Number (BN/NE) to the partner form.
-
-Contributors
-------------
-* Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
-* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
-* Sandy Carter <sandy.carter@savoirfairelinux.com>
-""",
-    'data': [
-        'res_partner_attributes_add_BN_view.xml',
-    ],
-    'installable': False,
-}
+from . import res_partner
