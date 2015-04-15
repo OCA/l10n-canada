@@ -20,12 +20,4 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
-
-
-class res_partner(orm.Model):
-    _name = 'res.partner'
-    _inherit = 'res.partner'
-    _columns = {
-        'neq': fields.float('NEQ', digits=(10, 0), help="Quebec Enterprise Number (10 digits)"),
-    }
+from . import res_partner
