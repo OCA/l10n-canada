@@ -20,27 +20,16 @@
 #
 ##############################################################################
 
-{
-    'name': 'Quebec Enterprise Number (NEQ)',
-    'version': '1.0',
-    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
-    'website': 'http://www.savoirfairelinux.com',
-    'license': 'AGPL-3',
-    'category': 'Localisation/Canada',
-    'depends': ['base'],
-    'description': """
-Quebec Enterprise Number (NEQ)
-==============================
+from openerp import fields, models
 
-Add the Quebec Enterprise Number (NEQ) to the partner form.
 
-Contibutors
------------
-* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
-* Sandy Carter <sandy.carter@savoirfairelinux.com>
-""",
-    'data': [
-        'res_partner_attributes_add_NEQ_view.xml',
-    ],
-    'installable': False,
-}
+class ResPartner(models.Model):
+    """
+    Add NEQ column to partner model
+    """
+    _inherit = 'res.partner'
+    neq = fields.Float(
+        'NEQ',
+        digits=(10, 0),
+        help="Quebec Enterprise Number (10 digits)"
+    )
