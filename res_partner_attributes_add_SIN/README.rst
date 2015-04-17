@@ -17,6 +17,9 @@ Configuration
 Usage
 =====
 
+Go to a partner form and fill in the Social Insurance Number, located
+under the website.
+
 For further information, please visit:
 
 * https://www.odoo.com/forum/help-1
