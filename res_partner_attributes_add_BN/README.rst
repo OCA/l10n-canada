@@ -17,6 +17,9 @@ Configuration
 Usage
 =====
 
+Go to a partner form and fill in the Business identification Number, located
+under the email.
+
 For further information, please visit:
 
 * https://www.odoo.com/forum/help-1
