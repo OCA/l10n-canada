@@ -29,4 +29,4 @@ msgstr "Partenaire"
 #. module: res_partner_attributes_add_NEQ
 #: help:res.partner,neq:0
 msgid "Quebec Enterprise Number (10 digits)"
-msgstr "Numéro d'Entreprise du Québec (10 chiffres)"
+msgstr "Numéro d'entreprise du Québec (10 chiffres)"
