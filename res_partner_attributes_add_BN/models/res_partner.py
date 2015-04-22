@@ -20,13 +20,16 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp import fields, models
 
 
-class res_partner(orm.Model):
-    _name = 'res.partner'
+class ResPartner(models.Model):
+    """
+    Add BN column to partner model
+    """
     _inherit = 'res.partner'
-    _columns = {
-        'ne': fields.float('BN', digits=(9, 0),
-                           help="Canada Business identification Number (9 digits)"),
-    }
+    bn = fields.Float(
+        'BN',
+        digits=(9, 0),
+        help="Canada Business Identification Number (9 digits)"
+    )
