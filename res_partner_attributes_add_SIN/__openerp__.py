@@ -28,20 +28,8 @@
     'license': 'AGPL-3',
     'category': 'Localisation/Canada',
     'depends': ['base'],
-    'description': """
-Canada Social Insurance Number (SIN/NAS)
-========================================
-
-Add the Social Insurance Number (SIN/NAS) to the partner form.
-
-Contributors
-------------
-* Joao Alfredo Gama Batista <joao.gama@savoirfairelinux.com>
-* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
-* Sandy Carter <sandy.carter@savoirfairelinux.com>
-""",
     'data': [
-        'res_partner_attributes_add_SIN_view.xml',
+        'views/res_partner.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

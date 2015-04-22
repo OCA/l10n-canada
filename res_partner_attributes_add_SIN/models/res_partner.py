@@ -19,22 +19,46 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
-from openerp.tools.translate import _
+from openerp import fields, models, api, _, exceptions
 
 
-class res_partner(orm.Model):
-    _name = 'res.partner'
+class ResPartner(models.Model):
+    """
+    Add SIN column to partner model
+    """
     _inherit = 'res.partner'
 
-    def onchange_nas(self, cr, uid, ids, nas):
-        ret = {'value': 0}
+    sin = fields.Float(
+        'SIN',
+        digits=(9, 0),
+        help="Social Insurance Number (9 digits)",
+    )
+
+    @api.one
+    @api.onchange("sin")
+    @api.constrains("sin")
+    def validate_sin(self):
+        """
+        Check if SIN is valid when changed or saved
+        :return: none
+        :raises: exceptions.Warning when SIN is invalid
+        """
 
         def digits_of(n):
-            return [int(d) for d in str(n)]
+            """
+            Turn SIN into string and extract digits
+            :param n: float representing SIN
+            :return: list of SIN digits
+            """
+            return [int(d) for d in str(int(n))]
 
-        def luhn_checksum(nas):
-            digits = digits_of(nas)
+        def luhn_checksum(sin):
+            """
+            Compute SIN checksum
+            :param sin: SIN
+            :return: SIN checksum
+            """
+            digits = digits_of(sin)
             odd_digits = digits[-1::-2]
             even_digits = digits[-2::-2]
             checksum = 0
@@ -43,20 +67,15 @@ class res_partner(orm.Model):
                 checksum += sum(digits_of(d * 2))
             return checksum % 10
 
-        def is_luhn_valid(nas):
-            return luhn_checksum(nas) == 0
+        def is_luhn_valid(sin):
+            """
+            Check if SIN is valid
+            :param sin: SIN
+            :return: boolean if valid or not
+            """
+            return luhn_checksum(sin) == 0
 
-        if is_luhn_valid(nas):
-            ret['value'] = nas
-        else:
-            ret['value'] = 0
-            ret['warning'] = {
-                'title': 'Error',
-                'message': _('The number provided is not a valid SIN number !')
-            }
-        return ret
-
-    _columns = {
-        'nas': fields.float('SIN', digits=(9, 0),
-                            help="Social Insurance Number (9 digits)"),
-    }
+        if not is_luhn_valid(self.sin):
+            raise exceptions.ValidationError(
+                _('The number provided is not a valid SIN number!')
+            )
