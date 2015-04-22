@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* res_partner_attributes_add_NEQ
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-15 15:57+0000\n"
+"PO-Revision-Date: 2015-04-15 15:57+0000\n"
+"Last-Translator: Agathe Mollé <agathe.molle@savoirfairelinux.com>\n"
+"Language-Team: Savoir-faire Linux <support@savoirfairelinux.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+#. module: res_partner_attributes_add_NEQ
+#: field:res.partner,neq:0
+msgid "NEQ"
+msgstr "NEQ"
+
+#. module: res_partner_attributes_add_NEQ
+#: model:ir.model,name:res_partner_attributes_add_NEQ.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: res_partner_attributes_add_NEQ
+#: help:res.partner,neq:0
+msgid "Quebec Enterprise Number (10 digits)"
+msgstr "Numéro d'entreprise du Québec (10 chiffres)"

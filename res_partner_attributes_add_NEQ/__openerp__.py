@@ -20,6 +20,16 @@
 #
 ##############################################################################
 
-from . import (
-    res_partner_attributes_add_NEQ,
-)
+{
+    'name': 'Quebec Enterprise Number (NEQ)',
+    'version': '1.0',
+    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
+    'website': 'http://www.savoirfairelinux.com',
+    'license': 'AGPL-3',
+    'category': 'Localisation/Canada',
+    'depends': ['base'],
+    'data': [
+        'views/res_partner.xml',
+    ],
+    'installable': True,
+}
