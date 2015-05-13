@@ -10,3 +10,7 @@ Dependencies
      * num2words
 * Odoo OCA repositories
      * [account-fiscal-rules](https://github.com/OCA/account-fiscal-rules)
+
+Translation Status
+------------------
+[![Transifex Status](https://www.transifex.com/projects/p/OCA-l10n-canada-7-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-l10n-canada-7-0)
