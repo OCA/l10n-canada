@@ -30,7 +30,7 @@ install:
   - git clone --depth=1 https://github.com/Ehtaga/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
-  - sudo pip install num2words
+  - pip install num2words
   - git clone --depth=1 https://github.com/OCA/account-fiscal-rules.git /tmp/fiscal-rules -b ${VERSION}
 
 script:
