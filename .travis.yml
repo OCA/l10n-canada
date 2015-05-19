@@ -26,9 +26,7 @@ virtualenv:
   system_site_packages: true
 
 install:
-# Temporarily using transifex branch until merge of https://github.com/OCA/maintainer-quality-tools/pull/186
-#  - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
-  - git clone --depth=1 https://github.com/Ehtaga/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
   - pip install num2words xlrd
