@@ -21,7 +21,7 @@
 ##############################################################################
 {
     'name': 'Canada - Check Writing',
-    'version': '1.2',
+    'version': '1.3',
     'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website': 'http://www.savoirfairelinux.com',
     'category': 'Generic Modules/Accounting',
@@ -49,7 +49,10 @@ Contributors
 * Maxime Chambreuil (maxime.chambreuil@savoirfairelinux.com)
 * Vincent Vinet (vincent.vinet@savoirfairelinux.com)
 * Virgil Dupras (virgil.dupras@savoirfairelinux.com)
-* Sandy Carter (sandyt.carter@savoirfairelinux.com)
+* Sandy Carter (sandy.carter@savoirfairelinux.com)
+* Jordi Riera (jordi.riera@savoirfairelinux.com)
+* William Berverly (william.beverly@savoirfairelinux.com)
+
     """,
     'depends': [
         'account_check_writing',

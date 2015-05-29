@@ -19,7 +19,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
+import logging
+_logger = logging.getLogger(__name__)
+import re
 import time
 from openerp.tools import config
 from openerp.report import report_sxw
@@ -29,7 +31,6 @@ from openerp.tools.translate import _
 # This is why we use the library below. You can get it at:
 # https://pypi.python.org/pypi/num2words
 from num2words import num2words
-
 # For the words we use in custom_translation(), we have to put dummy _()
 # calls here so that Odoo picks them up during .pot generation
 _("and")
@@ -131,22 +132,34 @@ class report_print_check(report_sxw.rml_parse):
     def _get_amount_line(amount, currency, lang):
         # max char with font Courier 9.0
         max_char = 72
-        try:
-            amount_in_word = num2words(int(amount), lang=lang[:2])
-        except NotImplementedError:
-            amount_in_word = num2words(int(amount))
+        # turning the amount into integer removes all the decimals.
+        # We will use that to turn the base into word but we want to keep the
+        # cents into numbers.
+        base_amont = int(amount)
+        # Extraction of cents
+        cents = int(amount * 100) % 100
         currency_name = currency.print_on_check
-        cents = int(round(amount * 100)) % 100
-        AND = custom_translation("and", lang)
+
+        try:
+            base_amount_in_word = num2words(base_amont, lang=lang[:2])
+        except NotImplementedError:
+            base_amount_in_word = num2words(base_amont)
+
+        # it should not have any AND in the base_amount_in_word
+        # so we just use the power of regex to sub them.
+        base_amount_in_word = re.sub(r' and ', ' ', base_amount_in_word)
 
         if lang.startswith('fr'):
             first_line = u'{amount_in_word} {currency_name} {AND} {cents}/100 '
         else:
             first_line = u'{amount_in_word} {AND} {cents}/100 {currency_name} '
 
-        first_line = first_line.format(AND=AND, currency_name=currency_name,
-                                       amount_in_word=amount_in_word,
-                                       cents=cents)
+        first_line = first_line.format(
+            AND=custom_translation("and", lang),
+            currency_name=currency_name,
+            amount_in_word=base_amount_in_word,
+            cents=cents
+        )
 
         first_line = first_line.title()
 
