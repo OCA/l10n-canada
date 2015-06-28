@@ -19,8 +19,4 @@
 #
 ##############################################################################
 
-from . import (
-    hr_employee,
-    hr_deduction_category,
-    hr_employee_deduction,
-)
+from . import models

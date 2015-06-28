@@ -38,11 +38,16 @@ Contributors
     'website': 'https://www.savoirfairelinux.com',
     'depends': [
         'hr_payroll',
+        'hr_salary_rule_reference',
+        'hr_period',
     ],
     'data': [
         'security/ir.model.access.csv',
-        'hr_deduction_category_view.xml',
-        'hr_employee_view.xml',
+        'views/hr_deduction_category.xml',
+        'views/hr_deduction_jurisdiction.xml',
+        'views/hr_employee.xml',
+        'views/hr_payslip.xml',
+        'views/hr_salary_rule.xml',
     ],
     'test': [],
     'demo': [],

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_hr_activity_form" model="ir.ui.view">
+            <field name="name">hr.activity.form</field>
+            <field name="model">hr.activity</field>
+            <field name="inherit_id" ref="hr_worked_days_activity.hr_activity_form"/>
+            <field name="arch" type="xml">
+                <field name="leave_id" position="after">
+                    <field name="unpaid_activity_id"
+                        attrs="{'invisible': [('type', '!=', 'leave')]}"
+                        domain="[('leave_id.paid_leave', '=', True)]"
+                        />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

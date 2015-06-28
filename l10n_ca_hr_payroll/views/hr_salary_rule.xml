@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_salary_rule_form" model="ir.ui.view">
+            <field name="name">hr.salary.rule.view.form</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page name="leaves" string="Leaves">
+                        <group>
+                            <field name="leave_accrual_id"/>
+                        </group>
+                        <label for="leave_activity_ids"/>
+                        <field name="leave_activity_ids" nolabel="1" colspan="4"/>
+                    </page>
+                    <page name="payslip_inputs" string="Payslip Inputs">
+                        <label for="payslip_input_ids"/>
+                        <field name="payslip_input_ids" nolabel="1" colspan="4"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_list" model="ir.ui.view">
+            <field name="name">hr.salary.rule.list.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_list"/>
+            <field name="arch" type="xml">
+                <field name='sequence' position="attributes">
+                    <attribute name="invisible">False</attribute>
+                </field>
+                <field name='register_id' position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
