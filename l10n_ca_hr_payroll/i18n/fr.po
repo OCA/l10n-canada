@@ -1,0 +1,1941 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* l10n_ca_hr_payroll
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-04 19:04+0000\n"
+"PO-Revision-Date: 2015-07-04 15:18-0500\n"
+"Last-Translator: David Dufresne <david.dufresne@savoirfairelinux.com>\n"
+"Language-Team: Savoir-faire Linux\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:50
+#, python-format
+msgid "Compensatory days taken"
+msgstr "Jours compensatoires utilisés"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_37_hr_fiscal_slip_box
+msgid "37 - Employee home-relocation loan deduction amount"
+msgstr "37 – Déduction pour prêts à la réinstallation d'employés"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.ui.menu,name:l10n_ca_hr_payroll.menu_fiscal_slips
+msgid "Canada Fiscal Slips"
+msgstr "Feuillets fiscaux du Canada"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.holidays.status,uses_entitlement:0
+msgid "Uses Entitlement"
+msgstr "Utilise une période d'accumulation de congé."
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:54
+#, python-format
+msgid "Sick leaves taken"
+msgstr "Congés de maladie utilisés"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/report/report_summary.py:31
+#, python-format
+msgid "You must select one and only one summary"
+msgstr "Vous devez choisir une et seulement une summary"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_cpp_qpp_ern_amt_hr_fiscal_slip_box
+msgid "26 - CPP/QPP pensionable earnings"
+msgstr "26 - Gains ouvrant droit à pension – RPC/RRQ"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Province d'emploi"
+msgstr "Province d'emploi"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_itx_ddct_amt_hr_fiscal_slip_box
+msgid "22 - Income tax deducted"
+msgstr "22 - Impôt sur le revenu retenu"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.holidays.entitlement,day_start:0
+msgid "Day Start"
+msgstr "Jour de début"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4.amount,amount:0 field:hr.cra.t4.summary.total,amount:0
+msgid "Amount"
+msgstr "Montant"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box,benefit_line_ids:0
+#: selection:hr.fiscal_slip.box,type:0
+msgid "Benefit Categories"
+msgstr "Catégories d'avantage social"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.salary.rule:0
+msgid "False"
+msgstr "Faux"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.fiscal_slip,reference:0 field:hr.cra.t4,reference:0
+#: field:hr.fiscal_slip,reference:0
+msgid "Reference"
+msgstr "Référence"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:43
+#, python-format
+msgid "RPP - Employer Contribution"
+msgstr "RPA - Contribution de l'employeur"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,sbmt_ref_id:0 field:hr.cra.t4.summary,sbmt_ref_id:0
+msgid "Submission Reference"
+msgstr "Identification du fichier"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "May"
+msgstr "Lundi"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:47
+#, python-format
+msgid "The employee %s's social insurance number is not set."
+msgstr ""
+"Le numéro d'assurance sociale de l'employé %s n'est pas configuré "
+"correctement."
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_fiscal_slip_box_deduction_line
+msgid "hr.fiscal_slip.box.deduction.line"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.holidays.entitlement:0 field:hr.holidays.entitlement,leave_id:0
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_holidays_status
+msgid "Leave Type"
+msgstr "Type de congé"
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.fiscal_slip.box,required:0
+msgid "If box is required, it must have an amount even if it is null."
+msgstr ""
+"Si la case est obligatoire, elle doit avoir un montant même si elle est "
+"nulle."
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Exempt – Exemption"
+msgstr "Exempt – Exemption"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_payslip_input_category
+msgid "Payslip Input Category"
+msgstr "Entrée de bulletin de paie"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_66_hr_fiscal_slip_box
+msgid "66 - Eligible retiring allowances"
+msgstr "66 – Eligible retiring allowances"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Employment income – line 101"
+msgstr "Employment income – line 101"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:47
+#, python-format
+msgid "VRSP - Employer Contribution"
+msgstr "RVER - Contribution de l'employeur"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4,cpp_qpp_xmpt_cd:0
+msgid "CPP or QPP exempt"
+msgstr "Exempt du RPC / RRQ"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.salary.rule:0
+msgid "True"
+msgstr "True"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box.benefit.line,include_employer:0
+msgid "Include Employer Contribution"
+msgstr "Contribution de l'employeur"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4.summary.box,child_ids:0
+msgid "Related T4 Boxes"
+msgstr "Cases du T4 associées"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "RPP contributions – line 207"
+msgstr "RPP contributions – line 207"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_34_hr_fiscal_slip_box
+msgid "34 - Personal use of employer automobile amount"
+msgstr "34 – Personal use of employer's automobile or motor vehicle"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,contact_id:0 view:hr.cra.t4.summary:0
+#: field:hr.cra.t4.summary,contact_id:0
+msgid "Contact"
+msgstr "Contact"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:45
+#, python-format
+msgid "PRPP - Employer Contribution"
+msgstr "RPAC  - Contribution de l'employeur"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:62
+#, python-format
+msgid "English"
+msgstr "Anglais"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_73_hr_fiscal_slip_box
+msgid "73 - Employment outside of Canada Day Count"
+msgstr "73 – Nombre de jours hors du Canada"
+
+#. module: l10n_ca_hr_payroll
+#: selection:res.company,week_start:0
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:41
+#, python-format
+msgid "The employee %s's first name is not set."
+msgstr "Le prénom de l'employé %s n'est pas configuré correctement."
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4.box,fiscal_slip_box_id:0
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_fiscal_slip_box
+msgid "Fiscal Slip Box"
+msgstr "Case de feuillet fiscal"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.payslip.input,category_id:0
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.box:0
+msgid "Income Tax Deductions"
+msgstr "Impôt retenu à la source"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4,empt_cd:0 report:t4_employee_copy:0
+msgid "Employment code"
+msgstr "Revenu d'emploi"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Numéro d'assurance sociale"
+msgstr "Numéro d'assurance sociale"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:92
+#, python-format
+msgid "The employee %s's working address has no country defined."
+msgstr "L'addresse de travail de l'employé %s n'a pas de pays défini."
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box,date_from:0
+#: field:hr.fiscal_slip.box.benefit.line,date_from:0
+#: field:hr.fiscal_slip.box.deduction.line,date_from:0
+msgid "Date From"
+msgstr "Date de début"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Income tax deducted – line 437"
+msgstr "Income tax deducted – line 437"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:28
+#, python-format
+msgid "Alberta"
+msgstr "Alberta"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.fiscal_slip,state:0 field:hr.cra.summary,state:0
+#: field:hr.cra.t4,state:0 field:hr.cra.t4.summary,state:0
+#: field:hr.fiscal_slip,state:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_ei_insu_ern_amt_hr_fiscal_slip_box
+msgid "24 - EI insurable earnings"
+msgstr "24 - Gains assurables d'AE"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "August"
+msgstr "Août"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "June"
+msgstr "Juin"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_empe_eip_amt_hr_fiscal_slip_box
+msgid "18 - Employee's EI premiums"
+msgstr "18 - Cotisations de l'employé à l'AE"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "October"
+msgstr "Octobre"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Cotisations de l'employé au RPC – ligne 308"
+msgstr "Cotisations de l'employé au RPC – ligne 308"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box,required:0
+msgid "Required"
+msgstr "Obligatoire"
+
+#. module: l10n_ca_hr_payroll
+#: selection:res.company,week_start:0
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:39
+#, python-format
+msgid "Employee Benefits - Employer Contribution"
+msgstr "Avantages sociaux - Contribution de l'employeur"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:87
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:59
+#, python-format
+msgid "Street Line 1"
+msgstr "Rue ligne 1"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,contact_extension:0
+#: field:hr.cra.t4.summary,contact_extension:0
+msgid "Contact Extension"
+msgstr "Extension du contact"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_unn_dues_amt_hr_fiscal_slip_box
+msgid "44 - Union dues"
+msgstr "44 – Cotisations syndicales"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.deduction.jurisdiction,name:l10n_ca_hr_payroll.jurisdiction_federal
+msgid "Federal"
+msgstr "Fédéral"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_72_hr_fiscal_slip_box
+msgid "72 - Outside of Canada employment income amount- Section 122.3"
+msgstr "72 – Revenu selon l'article 122.3 – Emploi hors du Canada"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_cra_t4_summary_box
+msgid "T4 Summary Box"
+msgstr "Case du Sommaire du T4"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.holidays.public.line,name:l10n_ca_hr_payroll.holidays_chrismas_2015
+msgid "Christmas"
+msgstr "Noël"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:29
+#: model:hr.payslip.input.category,name:l10n_ca_hr_payroll.payslip_input_bonus
+#, python-format
+msgid "Bonus"
+msgstr "Boni"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:52
+#, python-format
+msgid "Compensatory days earned"
+msgstr "Jours compensatoires accumulés"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.salary.rule,leave_accrual_id:0
+msgid "Leave Accrual"
+msgstr "Banque de temps"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee,sin:0
+msgid "Social Insurance Number"
+msgstr "Numéro d'assurance social"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_padj_amt_hr_fiscal_slip_box
+msgid "52 - Pension adjustment"
+msgstr "52 - Facteur d'équivalence"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Cotisations de l'employé au RRQ – ligne 308"
+msgstr "Cotisations de l'employé au RRQ – ligne 308"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_fiscal_slip_box_benefit_line
+msgid "hr.fiscal_slip.box.benefit.line"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:30
+#, python-format
+msgid "Manitoba"
+msgstr "Manitoba"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:51
+#, python-format
+msgid "Unused compensatory days payment"
+msgstr "Paiement de jours compensatoires non-utilisés"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.payslip.input.category,name:l10n_ca_hr_payroll.payslip_input_unused_comp
+msgid "Unused Compensatory days"
+msgstr "Jours compensatoires non-utilisés"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "24"
+msgstr "24"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "26"
+msgstr "26"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "20"
+msgstr "20"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "22"
+msgstr "22"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Year / Année"
+msgstr "Year / Année"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "28"
+msgstr "28"
+
+#. module: l10n_ca_hr_payroll
+#: field:res.company,cra_transmitter_number:0
+msgid "Canada Revenu Agency Transmitter Number"
+msgstr "Numéro de transmetteur de l'Agence Revenu Canada"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee.benefit.category,is_rpp_dpsp:0
+msgid "Is RPP or DPSP"
+msgstr "Est un RPA / RPDB"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "First name"
+msgstr "First name"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_chrty_dons_amt_hr_fiscal_slip_box
+msgid "46 - Charitable donations"
+msgstr "46 - Dons de bienfaisance"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Gains ouvrant droit à pension – RPC/RRQ"
+msgstr "Gains ouvrant droit à pension – RPC/RRQ"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4.summary.total,box_id:0
+msgid "Contribution / Source Deduction"
+msgstr "Contribution / Déduction à la source"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Bulletin de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:29
+#, python-format
+msgid "British Columbia"
+msgstr "Colombie-Britannique"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Initiale"
+msgstr "Initiale"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "RC-14-553"
+msgstr "RC-14-553"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,proprietor_2_id:0
+#: field:hr.cra.t4.summary,proprietor_2_id:0
+msgid "Second Proprietor"
+msgstr "Deuxième propriétaire"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.ui.menu,name:l10n_ca_hr_payroll.menu_canada_payroll_configuration
+#: view:res.company:0
+msgid "Canada Payroll"
+msgstr "Paie du Canada"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "CPP/QPP"
+msgstr "CPP/QPP"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,contact_phone:0
+#: field:hr.cra.t4.summary,contact_phone:0
+msgid "Contact Phone"
+msgstr "Téléphone du contact"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:53
+#, python-format
+msgid "Public holidays taken"
+msgstr "Congés fériés utilisés"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_33_hr_fiscal_slip_box
+msgid "33 - Medical travel amount"
+msgstr "33 – Aide accordée pour les voyages pour soins médicaux"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.summary:0
+msgid "Generate T4 Slips"
+msgstr "Générer les feuillets T4"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.box:0
+#: model:ir.actions.act_window,name:l10n_ca_hr_payroll.action_view_t4_box_tree
+#: model:ir.ui.menu,name:l10n_ca_hr_payroll.t4_box_menu_item
+msgid "T4 Boxes"
+msgstr "Cases du T4"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_42_hr_fiscal_slip_box
+msgid "42 - Employment commission amount"
+msgstr "42 – Commissions d'emploi"
+
+#. module: l10n_ca_hr_payroll
+#: field:res.company,week_start:0
+msgid "Week start"
+msgstr "Début de la semaine de travail"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:58
+#, python-format
+msgid "Vacation earned"
+msgstr "Vacances accumulées"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Dons de bienfaisance – ligne 349"
+msgstr "Dons de bienfaisance – ligne 349"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.fiscal_slip,type:0 field:hr.cra.t4,type:0 view:hr.cra.t4.box:0
+#: field:hr.fiscal_slip.box,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box,appears_on_summary:0
+msgid "Appear On Summary XML"
+msgstr "Apparaît sur le xml du sommaire"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,contact_area_code:0
+#: field:hr.cra.t4.summary,contact_area_code:0
+msgid "Contact Area Code"
+msgstr "Code régional du contact"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.holidays.status,name:l10n_ca_hr_payroll.holiday_status_vac_unpaid
+msgid "Unpaid Vacations"
+msgstr "Vacances non-payées"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_payslip_run
+msgid "Payslip Batches"
+msgstr "Lots de bulletin de paie"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,xml:0 field:hr.cra.t4.summary,xml:0
+msgid "XML Generated"
+msgstr "XML généré"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:35
+#, python-format
+msgid "Nunavut"
+msgstr "Nunavut"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Gains assurables du RPAP"
+msgstr "Gains assurables du RPAP"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "EI"
+msgstr "EI"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box.deduction.line,category_id:0
+msgid "Deduction"
+msgstr "Description"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4:0 view:hr.cra.t4.summary:0
+#: field:hr.cra.t4.summary,t4_slip_ids:0
+#: model:ir.actions.act_window,name:l10n_ca_hr_payroll.action_view_t4_tree
+#: model:ir.ui.menu,name:l10n_ca_hr_payroll.t4_slip_menu_item
+msgid "T4 Slips"
+msgstr "Feuillets T4"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:46
+#, python-format
+msgid "VRSP - Employee Contribution"
+msgstr "RVER - Contribution de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "September"
+msgstr "Septembre"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.deduction.jurisdiction,name:l10n_ca_hr_payroll.jurisdiction_federal_provincial
+msgid "Federal and Provincial"
+msgstr "Fédéral et provincial"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Last name (in capital letters)"
+msgstr "Last name (in capital letters)"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:36
+#, python-format
+msgid "Ontario"
+msgstr "Ontario"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:55
+#, python-format
+msgid "Send Amended Slips"
+msgstr "Envoyer des feuillets amendés"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Social insurance number"
+msgstr "Social insurance number"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box.benefit.line,include_employee:0
+msgid "Include Employee Contribution"
+msgstr "AE - Contribution de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract,hourly_rate_from_wage:0
+msgid "Estimated Hourly Rate"
+msgstr "Taux horaire estimé"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.payslip.run:0
+msgid "Confirm Payslips"
+msgstr "Confirmer les bulletins de paie"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:49
+#, python-format
+msgid "Amended"
+msgstr "Amendé"
+
+#. module: l10n_ca_hr_payroll
+#: selection:res.company,week_start:0
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_36_hr_fiscal_slip_box
+msgid "36 - Interest-free and low-interest loan amount"
+msgstr "36 – Prêts sans intérêt ou à faible intérêt"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:34
+#, python-format
+msgid "CPP - Employee Contribution"
+msgstr "RPC - Contribution de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_fiscal_slip
+msgid "Fiscal Slip"
+msgstr "Feuillet fiscal de l'ARC"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_qpp_cntrb_amt_hr_fiscal_slip_box
+msgid "17 - Employee's QPP contributions"
+msgstr "17 - Cotisations de l'employé au RRQ"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_empr_eip_amt_hr_fiscal_slip_box
+msgid "Employer's EI contributions"
+msgstr "Contribution de l'employeur à l'AE"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:42
+#, python-format
+msgid "RPP - Employee Contribution"
+msgstr "RPA - Contribution de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Union dues – line 212"
+msgstr "Union dues – line 212"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box.benefit.line,category_id:0
+msgid "Benefit"
+msgstr "Avantage social"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "10"
+msgstr "10"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4.amount,code:0 field:hr.fiscal_slip.box,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "14"
+msgstr "14"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "17"
+msgstr "17"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "16"
+msgstr "16"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "18"
+msgstr "18"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_empr_cpp_amt_hr_fiscal_slip_box
+msgid "Employer's CPP contributions"
+msgstr "Contribution de l'employeur au RPC"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_payroll_structure
+msgid "Salary Structure"
+msgstr "Structure de salaire"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.summary:0
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Employee's EI premiums – line 312"
+msgstr "Employee's EI premiums – line 312"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Cotisations de l'employé au RPAP – voir au verso"
+msgstr "Cotisations de l'employé au RPAP – voir au verso"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4:0 field:hr.cra.t4.amount,box_id:0 view:hr.cra.t4.box:0
+msgid "T4 Box"
+msgstr "Case du T4"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.payslip.run:0
+msgid "Generate Payslips"
+msgstr "Générer les bulletins de paie"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract,pays_per_year:0
+msgid "Pays Per Year"
+msgstr "Nombre de paies par année"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:42
+#, python-format
+msgid "Other"
+msgstr "Autre"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.fiscal_slip,address_home_id:0
+#: field:hr.cra.t4,address_home_id:0 field:hr.fiscal_slip,address_home_id:0
+msgid "Home Address"
+msgstr "Adresse personnelle"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:55
+#, python-format
+msgid "Unused sick leave payment"
+msgstr "Paiement de congés de maladie non-utilisés"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Amount - Montant"
+msgstr "Amount - Montant"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "RPC/RRQ"
+msgstr "RPC/RRQ"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:141
+#, python-format
+msgid "The number provided is not a valid SIN number !"
+msgstr "Le nombre entré n'est pas un NAS valide."
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_payslip_worked_days
+msgid "Payslip Worked Days"
+msgstr "Jours Travaillés"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4,name:0 field:hr.cra.t4.summary,name:0
+#: field:hr.cra.t4.summary.box,name:0 field:hr.fiscal_slip.box,name:0
+#: field:hr.holidays.entitlement,name:0 field:hr.payslip.input.category,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_cra_fiscal_slip
+msgid "CRA Fiscal Slip"
+msgstr "Feuillet fiscal de l'ARC"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:33
+#, python-format
+msgid "Nova Scotia"
+msgstr "Nouvelle-Écosse"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4:0
+msgid "Set To Draft"
+msgstr "Mettre à brouillon"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "29"
+msgstr "29"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,contact_email:0
+#: field:hr.cra.t4.summary,contact_email:0
+msgid "Contact Email"
+msgstr "Adresse courriel du contact"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "EI insurable earnings"
+msgstr "EI insurable earnings"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.summary:0
+msgid "Search Summarys"
+msgstr "Chercher des summarys"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:54
+#, python-format
+msgid "Send Original Slips"
+msgstr "Envoyer des feuillets originaux"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_38_hr_fiscal_slip_box
+msgid "38 - Security options benefits"
+msgstr "38 – Avantages liés aux options d'achat de titres"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract,worked_hours_per_pay_period:0
+msgid "Worked Hours per Pay Period"
+msgstr "Heures travaillées par période de paie"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Province of employment"
+msgstr "Province of employment"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4:0 field:hr.cra.t4.amount,slip_id:0
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_cra_t4
+msgid "T4 Slip"
+msgstr "Feuillet T4"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Gains assurables d'AE"
+msgstr "Gains assurables d'AE"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.box:0
+msgid "Group By..."
+msgstr "Grouper par.."
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Impôt sur le revenu retenu – ligne 437"
+msgstr "Impôt sur le revenu retenu – ligne 437"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.salary.rule,leave_activity_ids:0
+msgid "Related Leave Activities"
+msgstr "Activités de congé associées"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:89
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:61
+#, python-format
+msgid "Province"
+msgstr "Province"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:63
+#, python-format
+msgid "French"
+msgstr "Français"
+
+#. module: l10n_ca_hr_payroll
+#: field:res.company,cra_payroll_number:0
+msgid "CRA Payroll Number"
+msgstr "Numéro de compte de retenues de l'ARC"
+
+#. module: l10n_ca_hr_payroll
+#: constraint:hr.employee.benefit.category:0
+msgid ""
+"RPP and DPSP benefits must have a valid registration number.In the field "
+"Reference, please enter the 7 digit number."
+msgstr ""
+"Les RPA et RPDB doivent avoir un numéro d'agrément valide.Dans le champ "
+"Référence, veuillez entrer le numéro de 7 chiffres."
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.salary.rule:0
+msgid "Leaves"
+msgstr "Congés"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Pension adjustment – line 206"
+msgstr "Pension adjustment – line 206"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "12"
+msgstr "12"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box,deduction_line_ids:0
+#: selection:hr.fiscal_slip.box,type:0
+msgid "Deduction Categories"
+msgstr "Catégories de déduction"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.holidays.status,name:l10n_ca_hr_payroll.holiday_status_comp_unpaid
+msgid "Unpaid Compensatory"
+msgstr "Jours de compensation non-payés"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.summary:0
+msgid "Standard Information"
+msgstr "Information standard"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.box:0
+msgid "Search T4 Box"
+msgstr "Chercher des T4"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee,lastname_initial:0
+msgid "Last Name initial"
+msgstr "Nom de famille"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Prénom"
+msgstr "Prénom"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:71
+#: code:addons/l10n_ca_hr_payroll/models/hr_fiscal_slip.py:33
+#, python-format
+msgid "Sent"
+msgstr "Envoyé"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:39
+#, python-format
+msgid "Saskatchewan"
+msgstr "Saskatchewan"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,type:0 field:hr.cra.t4.summary,type:0
+msgid "Summary Type"
+msgstr "Type de sommaire"
+
+#. module: l10n_ca_hr_payroll
+#: constraint:hr.payslip:0
+msgid ""
+"The leave hours taken by the employee must be lower or equal to the number "
+"of worked hours per pay period on the contract."
+msgstr ""
+"Le nombre d'heures de congés prises par l'employé doit être inférieur au "
+"nombre maximal d'heures travaillées par semaine de l'employé."
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.box:0 field:hr.fiscal_slip.box,salary_rule_ids:0
+#: selection:hr.fiscal_slip.box,type:0
+#: field:hr.payslip.input.category,salary_rule_ids:0
+msgid "Salary Rules"
+msgstr "Règle de salaire"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_salary_rule.py:253
+#, python-format
+msgid ""
+"Salary rule %s is used to read leave accruals but it has no related leave "
+"accrual."
+msgstr ""
+"La règle de salaire %s est utilisée pour lire les banques de temps mais elle "
+"n'a aucun type de congé associé au niveau des banques de temps."
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.cra.summary,sbmt_ref_id:0 help:hr.cra.t4.summary,sbmt_ref_id:0
+msgid ""
+"Number created by the company to identify the summary. It should contain 6 "
+"numeric characters"
+msgstr ""
+"Numéro créé par la société pour identifier la summary. Il devrait être "
+"composé de 6 caractères numériques."
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4:0 field:hr.cra.t4,amount_ids:0
+msgid "Box Amounts"
+msgstr "Montant"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "July"
+msgstr "Juillet"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Cotisations de l'employé à l'AE – ligne 312"
+msgstr "Cotisations de l'employé à l'AE – ligne 312"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.box:0
+msgid "Employee Benefits"
+msgstr "Contribution de l'employeur"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Box - Case"
+msgstr "Box - Case"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "N° d'agrément d'un RPA ou d'un RPDB"
+msgstr "N° d'agrément d'un RPA ou d'un RPDB"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.fiscal_slip,computed:0 field:hr.cra.t4,computed:0
+#: field:hr.fiscal_slip,computed:0
+msgid "Computed"
+msgstr "Calculer les montants"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_payslip_input
+msgid "Payslip Input"
+msgstr "Entrée de bulletin de paie"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_cra_t4_summary_total
+msgid "CRA T4 Summary Amount"
+msgstr "Montant du sommaire du T4"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.employee,employee_number:0
+msgid "Employee Number"
+msgstr "Numéro d'employé"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:38
+#, python-format
+msgid "Quebec"
+msgstr "Québec"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.holidays.public.line,name:l10n_ca_hr_payroll.holidays_canada_day_2015
+msgid "Canada Day"
+msgstr "Paie Canadienne"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:41
+#, python-format
+msgid "United States"
+msgstr "États-Unis"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "PPIP insurable earnings"
+msgstr "PPIP insurable earnings"
+
+#. module: l10n_ca_hr_payroll
+#: constraint:hr.cra.t4:0
+msgid ""
+"Error! You can enter a maximum of 6 other amounts and all amounts must be "
+"different from each other."
+msgstr ""
+"Erreur, vous devez entrer un maximum de 6 autres montants et ils doivent "
+"tous être différents."
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Initial"
+msgstr "Initial"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.summary:0 field:hr.cra.t4.summary,total_ids:0
+msgid "Totals"
+msgstr "Totaux"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:83
+#, python-format
+msgid "The employee %s's working address has no province defined."
+msgstr "L'addresse de travail de l'employé %s n'a pas de province définie."
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_32_hr_fiscal_slip_box
+msgid "32 - Travel in a prescribed zone amount"
+msgstr "32 – Voyages dans une zone visée par règlement"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.summary:0
+msgid "Confirm T4 Slips"
+msgstr "Confirmer les feuillets T4"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4.amount,xml_tag:0 field:hr.cra.t4.summary.box,xml_tag:0
+#: field:hr.fiscal_slip.box,xml_tag:0
+msgid "XML Tag"
+msgstr "Balise XML"
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.employee.benefit.category,is_rpp_dpsp:0
+msgid ""
+"Whether the benefit is a Registered Pension Plan or a Deferred Profit "
+"Sharing Plan"
+msgstr ""
+"Détermine si l'avantage est une régime de pension agréé ou un régime de "
+"participation différé aux bénéfices."
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4,ei_xmpt_cd:0
+msgid "Employment Insurance exempt"
+msgstr "Exempt de l'assurance emploi"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_cra_t4_box
+msgid "CRA T4 Box"
+msgstr "Case du T4"
+
+#. module: l10n_ca_hr_payroll
+#: constraint:res.company:0
+msgid ""
+"A company can not have more than one holidays entitlement per leave type."
+msgstr ""
+"Une compagnie ne peut pas avoir plus d'une période d'accumulation de congé "
+"par type de congé."
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4:0
+msgid "Compute Amounts"
+msgstr "Calculer les montants"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4.summary.box,active:0
+msgid "Active"
+msgstr "Aftif"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract,holidays_entitlement_ids:0
+#: field:res.company,holidays_entitlement_ids:0
+msgid "Leave Entitlement Periods"
+msgstr "Périodes d'accumulation de congé"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.holidays.public.line,name:l10n_ca_hr_payroll.holidays_good_friday_2015
+msgid "Good Friday"
+msgstr "Vendredi"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,number_of_slips:0
+#: field:hr.cra.t4.summary,number_of_slips:0
+msgid "Number of Slips"
+msgstr "Nombre de feuillets"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_cpp_cntrb_amt_hr_fiscal_slip_box
+msgid "16 - Employee's CPP contributions"
+msgstr "16 - Cotisations de l'employé au RPC"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,lang_cd:0 field:hr.cra.t4.summary,lang_cd:0
+msgid "Language of Communication"
+msgstr "Langue de correspondance"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:91
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:62
+#, python-format
+msgid "Postal Code"
+msgstr "Code postal"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:31
+#, python-format
+msgid "New Brunswick"
+msgstr "Nouveau-Brunswick"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4.amount,is_other_amount:0 view:hr.cra.t4.box:0
+#: field:hr.fiscal_slip.box,is_other_amount:0
+msgid "Is Other Amount"
+msgstr "Autre revenu"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "PPIP"
+msgstr "PPIP"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:88
+#, python-format
+msgid "City"
+msgstr "Ville"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:56
+#, python-format
+msgid "Cancel slips already sent"
+msgstr "Annuler des feuillets déjà envoyés"
+
+#. module: l10n_ca_hr_payroll
+#: constraint:hr.cra.summary:0 constraint:hr.cra.t4.summary:0
+#, fuzzy
+msgid ""
+"Error! The contact phone number must be in the following format: 123-1234 "
+"and the area code must have 3 digits"
+msgstr ""
+"Erreur, le numéro de téléphone du contact doit avoir le format suivant: "
+"123-1234 et le code régional doit être composé de 3 digits."
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "RPAP"
+msgstr "RPAP"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Employee's PPIP premiums – see over"
+msgstr "Employee's PPIP premiums – see over"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_prov_insu_ern_amt_hr_fiscal_slip_box
+msgid "56 - PPIP insurable earnings"
+msgstr "56 - Gains assurables du RPAP\t"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.holidays.entitlement,month_start:0
+msgid "Month Start"
+msgstr "Mois de début"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_prov_pip_amt_hr_fiscal_slip_box
+msgid "55 - Employee's PPIP premiums"
+msgstr "55 - Cotisations de l'employé au RPAP"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:96
+#, python-format
+msgid "The field %s for %s is missing"
+msgstr "Le champs %s pour %s est manquant."
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.actions.report.xml,name:l10n_ca_hr_payroll.report_t4_employee_copy
+msgid "T4 - Employee Copy"
+msgstr "T4 - Copie de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4,rpp_dpsp_rgst_nbr:0
+msgid "RPP/PRPP registration number"
+msgstr "Numéro d'agrément d'un RPA ou d'un RPDB"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_30_hr_fiscal_slip_box
+msgid "30 - Housing, board and lodging amount"
+msgstr "30 – Pension et logement"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Employee's QPP contributions – line 308"
+msgstr "Employee's QPP contributions – line 308"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.holidays.entitlement:0
+#: model:ir.actions.act_window,name:l10n_ca_hr_payroll.open_tree_holidays_entitlement
+#: model:ir.ui.menu,name:l10n_ca_hr_payroll.menu_hr_holidays_entitlement_tree
+msgid "Holidays Entitlements"
+msgstr "Politiques d'accumulation de congé"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_leave_accrual
+msgid "Employee Leave Accrual"
+msgstr "Banque de temps d'un employé"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:27
+#, python-format
+msgid "Gross per pay"
+msgstr "Salaire brut"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.actions.report.xml,name:l10n_ca_hr_payroll.report_t4_summary
+msgid "T4 Summary XML"
+msgstr "XML du sommaire des T4"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_activity
+msgid "Employee Activities"
+msgstr "Contribution de l'employeur"
+
+#. module: l10n_ca_hr_payroll
+#: constraint:hr.contract:0
+msgid ""
+"A contract can not have more than one holidays entitlement per leave type."
+msgstr ""
+"Un contrat ne peut pas avoir plus d'une période d'accumulation de congé par "
+"type de congé."
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.cra.t4,child_ids:0
+msgid ""
+"When an employee has more than 6 other amounts to be written in his T4 slip, "
+"other T4 slips must be created."
+msgstr ""
+"Quand un employé a plus de 6 montants additionnels à écrire sur son T4, un "
+"ou d'autres T4 doivent être créés pour palier au manque de cases."
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4,other_amount_ids:0
+msgid "Other Amounts"
+msgstr "Autre revenus"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Employer's account number / Numéro de compte de l'employeur"
+msgstr "Employer's account number / Numéro de compte de l'employeur"
+
+#. module: l10n_ca_hr_payroll
+#: selection:res.company,week_start:0
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:35
+#, python-format
+msgid "EI - Employee Contribution"
+msgstr "AE - Contribution de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_t4_summary.py:45
+#, python-format
+msgid ""
+"Every T4 must be confirmed before sending the summary. The slip for employee "
+"%s is not confirmed."
+msgstr ""
+"Tous les T4 doivent être confirmés avant d'envoyer le sommaire. Le feuillet "
+"de l'employé %s n'est pas confirmé."
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,trnmtr_nbr:0 field:hr.cra.t4.summary,trnmtr_nbr:0
+msgid "Transmitter Number"
+msgstr "Numéro de transmetteur"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Nom de famille (en lettres moulées)"
+msgstr "Nom de famille (en lettres moulées)"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_31_hr_fiscal_slip_box
+msgid "31 - Special work site amount"
+msgstr "31 – Chantier particulier"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4:0 field:hr.cra.t4,child_ids:0
+msgid "Related T4 Slips"
+msgstr "Feuillets T4 associés"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.fiscal_slip,company_id:0 field:hr.cra.summary,company_id:0
+#: field:hr.cra.t4,company_id:0 field:hr.cra.t4.summary,company_id:0
+#: field:hr.fiscal_slip,company_id:0
+msgid "Company"
+msgstr "Société"
+
+#. module: l10n_ca_hr_payroll
+#: selection:res.company,week_start:0
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_salary_rule
+msgid "hr.salary.rule"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Other information (see over)"
+msgstr "Other information (see over)"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4.summary:0
+#: model:ir.actions.act_window,name:l10n_ca_hr_payroll.action_view_hr_t4_summary_tree
+#: model:ir.ui.menu,name:l10n_ca_hr_payroll.t4_summary_menu_item
+msgid "T4 Slips - Summary"
+msgstr "Sommaires du T4"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Cotisations syndicales – ligne 212"
+msgstr "Cotisations syndicales – ligne 212"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:40
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:46
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:54
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:66
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:75
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:82
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:91
+#, python-format
+msgid "Error!"
+msgstr "Erreur"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_employee_benefit_category
+msgid "Category of employee benefits"
+msgstr "Catégorie d'avantages sociaux"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:50
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:69
+#: code:addons/l10n_ca_hr_payroll/models/hr_fiscal_slip.py:30
+#, python-format
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "CPP/QPP pensionable earnings"
+msgstr "CPP/QPP pensionable earnings"
+
+#. module: l10n_ca_hr_payroll
+#: help:hr.cra.summary,proprietor_1_id:0
+#: help:hr.cra.t4.summary,proprietor_1_id:0
+msgid "The company's proprietor"
+msgstr "Le propriétaire de la société"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "55"
+msgstr "55"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "54"
+msgstr "54"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "56"
+msgstr "56"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "50"
+msgstr "50"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:38
+#, python-format
+msgid "Employee Benefits - Employee Contribution"
+msgstr "Avantages sociaux - Contribution de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "52"
+msgstr "52"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:57
+#, python-format
+msgid "Unused vacations payment"
+msgstr "Paiement de vancances non-utilisées"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.fiscal_slip,empt_prov_cd:0 field:hr.cra.t4,empt_prov_cd:0
+msgid "Province, territory or country of employment code"
+msgstr "Province, territoire ou pays d'emploi"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4,parent_id:0
+msgid "Parent T4"
+msgstr "T4 Parent"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_fiscal_slip.py:32
+#, python-format
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4:0 view:hr.cra.t4.summary:0
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.cra.t4:0
+msgid "Search T4"
+msgstr "Chercher des T4"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Code d'emploi"
+msgstr "Code d'emploi"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Employer's name – Nom de l'employeur"
+msgstr "Employer's name – Nom de l'employeur"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.fiscal_slip,employee_id:0 field:hr.cra.t4,employee_id:0
+#: field:hr.fiscal_slip,employee_id:0
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_employee
+msgid "Employee"
+msgstr "Employé"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:30
+#, python-format
+msgid "Net"
+msgstr "Revenu net"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.activity,unpaid_activity_id:0
+msgid "Related Unpaid Activity"
+msgstr "Activité non-payée associée"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:32
+#, python-format
+msgid "Newfoundland and Labrador"
+msgstr "Terre-Neuve-et-Labrador"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Charitable donations – line 349"
+msgstr "Charitable donations – line 349"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:28
+#: model:hr.payslip.input.category,name:l10n_ca_hr_payroll.payslip_input_retro_pay
+#, python-format
+msgid "Retroactive Pay Increases"
+msgstr "Augmentation de paie rétroactive"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Cotisations à un RPA – ligne 207"
+msgstr "Cotisations à un RPA – ligne 207"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4,prov_pip_xmpt_cd:0
+msgid "Provincial parental insurance plan exempt"
+msgstr "Exempt de l'assurance parentale"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/report/report_summary.py:38
+#, python-format
+msgid ""
+"The summary must be confirmed before generating the XML for transmission."
+msgstr ""
+"Le sommaire doit être confirmé avant de pouvoir générer le XML de "
+"transmission."
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box.benefit.line,box_id:0
+#: field:hr.fiscal_slip.box.deduction.line,box_id:0
+msgid "Box"
+msgstr "Case"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:40
+#, python-format
+msgid "Yukon Territories"
+msgstr "Territoires du Yukon"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_cra_t4_summary
+msgid "T4 Summary"
+msgstr "Sommaire du T4"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.holidays.status,name:l10n_ca_hr_payroll.holiday_status_public_unpaid
+msgid "Unpaid Public Holidays"
+msgstr "Congés fériés non-payés"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:56
+#, python-format
+msgid "Vacation taken"
+msgstr "Vacances utilisées"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.fiscal_slip.box,date_to:0
+#: field:hr.fiscal_slip.box.benefit.line,date_to:0
+#: field:hr.fiscal_slip.box.deduction.line,date_to:0
+msgid "Date To"
+msgstr "Date de fin"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_39_hr_fiscal_slip_box
+msgid "39 - Security options deductions 110(1)(d)"
+msgstr "39 – Déduction pour options d'achat de titres 110(1)d)"
+
+#. module: l10n_ca_hr_payroll
+#: help:res.company,cra_payroll_number:0
+msgid ""
+"This number contains the buisness number followed by RP and the payroll "
+"account number 4 digits"
+msgstr ""
+"Ce numéro contient le numéro d'entreprise du Canada suivi de RP suivi du "
+"numéro de compte de retenues de l'entreprise (4 digits)."
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_empt_incamt_hr_fiscal_slip_box
+msgid "14 - Employment income"
+msgstr "14 - Revenu d'emploi"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.contract,weeks_of_vacation:0
+msgid "Number of weeks of vacation"
+msgstr "Nombre de semaines de vacances"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "April"
+msgstr "Avril"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "December"
+msgstr "Décembre"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:44
+#, python-format
+msgid "PRPP - Employee Contribution"
+msgstr "RPAC - Contribution de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.holidays.entitlement:0
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_holidays_entitlement
+msgid "Holidays Entitlement"
+msgstr "Période d'accumulation de congé"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "RPP or DPSP registration number"
+msgstr "RPP or DPSP registration number"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:70
+#: code:addons/l10n_ca_hr_payroll/models/hr_fiscal_slip.py:31
+#, python-format
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Revenus d'emploi – ligne 101"
+msgstr "Revenus d'emploi – ligne 101"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:76
+#, python-format
+msgid "The employee %s's working address is not set."
+msgstr "L'adresse de travail de l'employé %s n'est pas déinie."
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.t4_box_rpp_cntrb_amt_hr_fiscal_slip_box
+msgid "20 - RPP contributions"
+msgstr "20 - Cotisations à un RPA"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:37
+#, python-format
+msgid "Prince Edward Island"
+msgstr "Île-du-Prince-Édouard"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_67_hr_fiscal_slip_box
+msgid "67 - Non-eligible retiring allowances"
+msgstr "67 – Allocations de retraite non admissibles"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_payslip_line.py:33
+#, python-format
+msgid "FIT - Federal Income Tax"
+msgstr "FIT - Impôt fédéral"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "November"
+msgstr "Novembre"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_cra_t4_amount
+msgid "CRA T4 Amount"
+msgstr "Montant"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Employee's CPP contributions – line 308"
+msgstr "Employee's CPP contributions – line 308"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "January"
+msgstr "Janvier"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_contract
+msgid "Contract"
+msgstr "Contrat"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:95
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_t4_summary.py:44
+#: code:addons/l10n_ca_hr_payroll/models/hr_salary_rule.py:252
+#: code:addons/l10n_ca_hr_payroll/report/report_summary.py:30
+#: code:addons/l10n_ca_hr_payroll/report/report_summary.py:37
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:48
+#, python-format
+msgid "Original"
+msgstr "Original"
+
+#. module: l10n_ca_hr_payroll
+#: help:res.company,cra_transmitter_number:0
+msgid ""
+"The first time you send a T4 summary, you must use the number MM000000. When "
+"the CRA receives your first summary, they will create and send you a number "
+"to replace MM000000."
+msgstr ""
+"La première fois que vous envoyez un sommaire du T4, vous devez utiliser le "
+"numéro MM000000. Quand l'ARC recevront votre premier sommaire, ils créeront "
+"et vous transmettront un numéro pour remplacer MM000000."
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:67
+#, python-format
+msgid "The employee %s's home address is incomplete. The field %s is missing."
+msgstr ""
+"L'adresse personnelle de l'employé %s est incomplète. Le champs %s n'est pas "
+"défini."
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Facteur d'équivalence – ligne 206"
+msgstr "Facteur d'équivalence – ligne 206"
+
+#. module: l10n_ca_hr_payroll
+#: model:ir.model,name:l10n_ca_hr_payroll.model_hr_cra_summary
+msgid "CRA Summary"
+msgstr "Sommaire de l'ARC"
+
+#. module: l10n_ca_hr_payroll
+#: selection:res.company,week_start:0
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.summary,proprietor_1_id:0 view:hr.cra.t4.summary:0
+#: field:hr.cra.t4.summary,proprietor_1_id:0
+msgid "Proprietor"
+msgstr "Propriétaire"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Employee's name and address – Nom et adresse de l'employé"
+msgstr "Employee's name and address – Nom et adresse de l'employé"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "46"
+msgstr "46"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "44"
+msgstr "44"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_40_hr_fiscal_slip_box
+msgid "40 - Other taxable allowance and benefit amount"
+msgstr "40 – Autres allocations et avantages imposables"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:55
+#, python-format
+msgid "The employee %s's home address is not set."
+msgstr "L'adresse de travail de l'employé %s n'est pas configuré correctement."
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_fiscal_slip.py:34
+#, python-format
+msgid "Northwest Territories"
+msgstr "Territoires du Nord-Ouest"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "February"
+msgstr "Février"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "AE"
+msgstr "AE"
+
+#. module: l10n_ca_hr_payroll
+#: code:addons/l10n_ca_hr_payroll/models/hr_cra_summary.py:90
+#: code:addons/l10n_ca_hr_payroll/models/hr_employee.py:60
+#, python-format
+msgid "Country"
+msgstr "pays"
+
+#. module: l10n_ca_hr_payroll
+#: report:t4_employee_copy:0
+msgid "Autres renseignements (voir au verso)"
+msgstr "Autres renseignements (voir au verso)"
+
+#. module: l10n_ca_hr_payroll
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "March"
+msgstr "Mars"
+
+#. module: l10n_ca_hr_payroll
+#: view:hr.salary.rule:0 field:hr.salary.rule,payslip_input_ids:0
+msgid "Payslip Inputs"
+msgstr "Entrées de bulletin de paie"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.fiscal_slip,year:0 field:hr.cra.summary,year:0
+#: field:hr.cra.t4,year:0 field:hr.cra.t4.summary,year:0
+#: field:hr.fiscal_slip,year:0
+msgid "Fiscal Year"
+msgstr "Année fiscale"
+
+#. module: l10n_ca_hr_payroll
+#: field:hr.cra.t4,summary_id:0 field:hr.cra.t4.summary.total,summary_id:0
+msgid "Summary"
+msgstr "Sommaire"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.payslip.input.category,name:l10n_ca_hr_payroll.payslip_input_unused_vac
+msgid "Unused Vacations"
+msgstr "Vacances non-utilisées"
+
+#. module: l10n_ca_hr_payroll
+#: model:hr.payslip.input.category,name:l10n_ca_hr_payroll.payslip_input_unused_sl
+msgid "Unused Sick Leaves"
+msgstr "Congés de maladie non-utilisés"
+
+#. module: l10n_ca_hr_payroll
+#: selection:res.company,week_start:0
+msgid "Saturday"
+msgstr "Samedi"
+
+#~ msgid ""
+#~ "Could not find an holiday entitlement for leave type %(leave_type)s, "
+#~ "neither for contract %(contract)s, nor for company %(company)s."
+#~ msgstr ""
+#~ "Aucune période d'accumulation congé trouvée pour le type de congé "
+#~ "%(leave_type)s,ni pour le contrat %(contract)s, ni pour la compagnie "
+#~ "%(company)s."

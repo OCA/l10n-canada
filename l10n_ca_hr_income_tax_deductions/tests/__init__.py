@@ -20,9 +20,9 @@
 ##############################################################################
 
 from . import (
-    test_hr_employee_deductions,
+    test_deduction,
 )
 
 checks = [
-    test_hr_employee_deductions,
+    test_deduction,
 ]

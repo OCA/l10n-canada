@@ -30,6 +30,7 @@ install:
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
   - pip install num2words xlrd
+  - pip install iso3166
   - sudo apt-get install xfonts-75dpi
   - wget http://sourceforge.net/projects/wkhtmltopdf/files/archive/0.12.2/wkhtmltox-0.12.2_linux-precise-amd64.deb
   - sudo dpkg -i wkhtmltox-0.12.2_linux-precise-amd64.deb
@@ -44,6 +45,7 @@ install:
   - git clone --depth=1 https://github.com/OCA/account-payment.git ${HOME}/account-payment -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/bank-statement-reconcile.git ${HOME}/bank-statement-reconcile -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/webkit-tools.git ${HOME}/webkit-tools -b ${VERSION}
+  - git clone --depth=1 https://github.com/OCA/hr.git ${HOME}/hr -b ${VERSION}
 
 script:
   - travis_run_tests
