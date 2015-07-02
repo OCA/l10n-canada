@@ -139,6 +139,9 @@ class report_print_check(report_sxw.rml_parse):
 
     @staticmethod
     def _get_amount_line(amount, currency, lang):
+        if not lang:
+            lang = 'EN'
+
         # max char with font Courier 9.0
         max_char = 72
         # turning the amount into integer removes all the decimals.
