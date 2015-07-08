@@ -2,12 +2,43 @@
 <openerp>
     <data>
 
-        <record id="rule_employee_own_payslip"  model="ir.rule">
+        <record id="rule_employee_payslip"  model="ir.rule">
             <field name="name">Access Employee own Payslip</field>
             <field name="model_id" model="ir.model" ref="model_hr_payslip"/>
             <field name="domain_force">[
                 ('employee_id', 'in', [ee.id for ee in user.employee_ids]),
                 ('state', '=', 'done'),
+            ]
+            </field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="rule_employee_payslip_line" model="ir.rule">
+            <field name="name">Access Employee own Payslip Line</field>
+            <field model="ir.model" name="model_id" ref="hr_payroll.model_hr_payslip_line"/>
+            <field name="domain_force">[
+                ('slip_id.employee_id', 'in', [ee.id for ee in user.employee_ids]),
+                ('slip_id.state', '=', 'done'),
+            ]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="rule_employee_payslip_benefit_line" model="ir.rule">
+            <field name="name">Access Employee own Payslip Benefit Line</field>
+            <field model="ir.model" name="model_id" ref="hr_payroll.model_hr_payslip_benefit_line"/>
+            <field name="domain_force">[
+                ('payslip_id.employee_id', 'in', [ee.id for ee in user.employee_ids]),
+                ('payslip_id.state', '=', 'done'),
+            ]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="rule_employee_t4"  model="ir.rule">
+            <field name="name">Access Employee own T4</field>
+            <field name="model_id" model="ir.model" ref="model_hr_cra_t4"/>
+            <field name="domain_force">[
+                ('employee_id', 'in', [ee.id for ee in user.employee_ids]),
+                ('state', '=', 'sent'),
             ]
             </field>
             <field name="groups" eval="[(4,ref('base.group_user'))]"/>
@@ -20,16 +51,18 @@
             <field name="groups" eval="[(4,ref('base.group_hr_manager'))]"/>
         </record>
 
+        <record id="rule_manager_payslip_line" model="ir.rule">
+            <field name="name">Access Manager Payslip Line</field>
+            <field model="ir.model" name="model_id" ref="hr_payroll.model_hr_payslip_line"/>
+            <field name="domain_force">[]</field>
+            <field name="groups" eval="[(4,ref('base.group_hr_manager'))]"/>
+        </record>
 
-        <record id="rule_employee_own_t4"  model="ir.rule">
-            <field name="name">Access Employee own T4</field>
-            <field name="model_id" model="ir.model" ref="model_hr_cra_t4"/>
-            <field name="domain_force">[
-                ('employee_id', 'in', [ee.id for ee in user.employee_ids]),
-                ('state', '=', 'sent'),
-            ]
-            </field>
-            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        <record id="rule_manager_payslip_benefit_line" model="ir.rule">
+            <field name="name">Access Manager Payslip Benefit Line</field>
+            <field model="ir.model" name="model_id" ref="hr_payroll.model_hr_payslip_benefit_line"/>
+            <field name="domain_force">[]</field>
+            <field name="groups" eval="[(4,ref('base.group_hr_manager'))]"/>
         </record>
 
         <record id="rule_manager_t4"  model="ir.rule">

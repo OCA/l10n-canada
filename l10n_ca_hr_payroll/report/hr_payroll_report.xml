@@ -2,6 +2,9 @@
 <openerp>
     <data>
 
+        <delete id="payslip_report" model="ir.actions.report.xml"/>
+        <delete id="payslip_details_report" model="ir.actions.report.xml"/>
+
         <report
             auto="False"
             id="report_t4_employee_copy"
