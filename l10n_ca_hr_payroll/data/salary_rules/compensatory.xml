@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="COMP" model="hr.salary.rule.category">
-            <field name="code">COMP</field>
-            <field name="name">Public Holidays Calculation</field>
-        </record>
-
         <record id="rule_ca_comp_available" model="hr.salary.rule">
             <field name="name">Compensatory days available</field>
             <field name="sequence" eval="40"/>
             <field name="code">COMP_AVAIL</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="category_id" ref="COMP"/>
+            <field name="category_id" ref="CALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="leave_accrual_id" ref="hr_holidays.holiday_status_comp"/>
@@ -24,7 +19,7 @@ result = rule.sum_leave_accruals(payslip, in_cash=True)
             <field name="name">Compensatory hours available</field>
             <field name="sequence" eval="41"/>
             <field name="code">COMP_AVAIL_HOURS</field>
-            <field name="category_id" ref="COMP"/>
+            <field name="category_id" ref="CALC"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
@@ -39,7 +34,7 @@ result = rule.sum_leave_accruals(payslip, in_cash=False)
             <field name="sequence" eval="42"/>
             <field name="code">COMP_REQ</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="category_id" ref="COMP"/>
+            <field name="category_id" ref="CALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="leave_activity_ids" eval="[(6, 0, [
@@ -55,14 +50,16 @@ result = rule.sum_leaves(payslip, in_cash=True)
             <field name="sequence" eval="43"/>
             <field name="code">COMP_TAKEN</field>
             <field name="appears_on_payslip" eval="1"/>
-            <field name="category_id" ref="COMP"/>
+            <field name="category_id" ref="CALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="leave_activity_ids" eval="[(6, 0, [
                 ref('hr_worked_days_activity.activity_holiday_status_comp'),
+                ref('activity_holiday_status_comp_unpaid'),
             ])]"/>
+            <field name="leave_accrual_id" ref="hr_holidays.holiday_status_comp"/>
             <field name="amount_python_compute">
-if COMP_AVAIL >= COMP_REQ:
+if COMP_AVAIL >= COMP_REQ or rule.allow_override_limit():
     result = COMP_REQ
 elif COMP_REQ > 0:
     result = COMP_AVAIL
@@ -77,7 +74,7 @@ else:
             <field name="name">Compensatory hours taken</field>
             <field name="sequence" eval="44"/>
             <field name="code">COMP_TAKEN_HOURS</field>
-            <field name="category_id" ref="COMP"/>
+            <field name="category_id" ref="CALC"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
@@ -86,9 +83,7 @@ else:
                 ref('activity_holiday_status_comp_unpaid'),
             ])]"/>
             <field name="amount_python_compute">
-requested_hours = rule.sum_leaves(payslip)
-result = min(COMP_AVAIL_HOURS, requested_hours)
-result = max(0, result)
+result = rule.sum_leaves(payslip, in_cash=False)
             </field>
         </record>
 
@@ -96,7 +91,7 @@ result = max(0, result)
             <field name="name">Unused compensatory days payment</field>
             <field name="sequence" eval="45"/>
             <field name="code">COMP_UNUSED</field>
-            <field name="category_id" ref="l10n_ca_hr_payroll.OTHER_WAGE"/>
+            <field name="category_id" ref="OTHER_WAGE"/>
             <field name="appears_on_payslip" eval="1"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
@@ -119,7 +114,7 @@ else:
             <field name="name">Unused compensatory hours taken</field>
             <field name="sequence" eval="46"/>
             <field name="code">COMP_UNUSED_HOURS</field>
-            <field name="category_id" ref="COMP"/>
+            <field name="category_id" ref="CALC"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
@@ -135,7 +130,7 @@ result = max(0, result)
             <field name="sequence" eval="92"/>
             <field name="code">COMP_ADDED</field>
             <field name="appears_on_payslip" eval="1"/>
-            <field name="category_id" ref="COMP"/>
+            <field name="category_id" ref="CALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
@@ -147,7 +142,7 @@ result = max(PUBLIC_AVAIL - PUBLIC_TAKEN, 0)
             <field name="name">Compensatory hours earned</field>
             <field name="sequence" eval="93"/>
             <field name="code">COMP_ADDED_HOURS</field>
-            <field name="category_id" ref="COMP"/>
+            <field name="category_id" ref="CALC"/>
             <field name="appears_on_payslip" eval="0"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>

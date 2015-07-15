@@ -42,9 +42,26 @@
             <field name="unpaid_activity_id" ref="activity_holiday_status_comp_unpaid"/>
         </record>
 
+        <!-- Unpaid Sick Leaves -->
+        <record id="holiday_status_sl_unpaid" model="hr.holidays.status">
+            <field name="name">Unpaid Sick Leaves</field>
+            <field name="limit">True</field>
+            <field name="color_name">brown</field>
+            <field name="paid_leave" eval="False"/>
+            <field name="activity_ids" eval="[(6, 0, [])]"/>
+        </record>
+        <record id="activity_holiday_status_sl_unpaid" model="hr.activity">
+            <field name="type">leave</field>
+            <field name="code">COMP_SL</field>
+            <field name="leave_id" ref="holiday_status_sl_unpaid"/>
+        </record>
+
         <!-- Sick Leaves -->
         <record id="hr_holidays.holiday_status_sl" model="hr.holidays.status">
             <field name="increase_accrual_on_allocation" eval="True"/>
+        </record>
+        <record id="hr_worked_days_activity.activity_holiday_status_sl" model="hr.activity">
+            <field name="unpaid_activity_id" ref="activity_holiday_status_sl_unpaid"/>
         </record>
 
         <!-- Unpaid Public Holidays -->

@@ -72,7 +72,7 @@ class HrSalaryRule(orm.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
 
-        assert len(ids) == 1
+        assert len(ids) == 1, "Expected single record"
 
         rule = self.browse(cr, uid, ids[0], context=context)
         return rule.payslip_input_ids
@@ -132,7 +132,7 @@ class HrSalaryRule(orm.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
 
-        assert len(ids) == 1
+        assert len(ids) == 1, "Expected single record"
 
         rule = self.browse(cr, uid, ids[0], context=context)
         return rule.leave_activity_ids
@@ -243,7 +243,7 @@ class HrSalaryRule(orm.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
 
-        assert len(ids) == 1
+        assert len(ids) == 1, "Expected single record"
 
         rule = self.browse(cr, uid, ids[0], context=context)
 
@@ -275,3 +275,23 @@ class HrSalaryRule(orm.Model):
         return self.pool['hr.leave.accrual'].sum_leaves_available(
             cr, uid, accrual_id, payslip.date_to, in_cash=in_cash,
             context=context)
+
+    def allow_override_limit(
+        self, cr, uid, ids, context=None
+    ):
+        """
+        Return True if the leave type related to the salary rule allows
+        to override the limit allowed to the employee.
+
+        This is used to know whether the employee is allowed to
+        be paid amounts for a leave type for which he has not already accruded
+        enough cash.
+        """
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+
+        assert len(ids) == 1, "Expected single record"
+
+        rule = self.browse(cr, uid, ids[0], context=context)
+
+        return rule.leave_accrual_id.limit

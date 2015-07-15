@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="PUBLIC" model="hr.salary.rule.category">
-            <field name="code">PUBLIC</field>
-            <field name="name">Public Holidays Calculation</field>
-        </record> 
-
         <record id="rule_ca_public_available" model="hr.salary.rule">
             <field name="name">Public holidays available</field>
             <field name="sequence" eval="50"/>
             <field name="code">PUBLIC_AVAIL</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="category_id" ref="PUBLIC"/>
+            <field name="category_id" ref="CALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
@@ -34,7 +29,7 @@ else:
             <field name="sequence" eval="51"/>
             <field name="code">PUBLIC_REQ</field>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="category_id" ref="PUBLIC"/>
+            <field name="category_id" ref="CALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="leave_activity_ids" eval="[(6, 0, [
@@ -53,14 +48,15 @@ else:
             <field name="sequence" eval="52"/>
             <field name="code">PUBLIC_TAKEN</field>
             <field name="appears_on_payslip" eval="1"/>
-            <field name="category_id" ref="PUBLIC"/>
+            <field name="category_id" ref="CALC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
+            <field name="leave_accrual_id" ref="hr_worked_days_activity.holiday_status_public"/>
             <field name="leave_activity_ids" eval="[(6, 0, [
                 ref('hr_worked_days_activity.activity_holiday_status_public'),
             ])]"/>
             <field name="amount_python_compute">
-if PUBLIC_AVAIL >= PUBLIC_REQ:
+if PUBLIC_AVAIL >= PUBLIC_REQ or rule.allow_override_limit():
     result = PUBLIC_REQ
 elif PUBLIC_REQ > 0:
     result = PUBLIC_AVAIL
