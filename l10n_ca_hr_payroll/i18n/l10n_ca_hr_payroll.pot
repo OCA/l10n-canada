@@ -22,6 +22,11 @@ msgid "Compensatory days taken"
 msgstr ""
 
 #. module: l10n_ca_hr_payroll
+#: model:hr.holidays.status,name:l10n_ca_hr_payroll.holiday_status_sl_unpaid
+msgid "Unpaid Sick Leaves"
+msgstr ""
+
+#. module: l10n_ca_hr_payroll
 #: model:hr.fiscal_slip.box,name:l10n_ca_hr_payroll.other_amount_source_37_hr_fiscal_slip_box
 msgid "37 - Employee home-relocation loan deduction amount"
 msgstr ""

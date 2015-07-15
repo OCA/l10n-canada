@@ -167,6 +167,7 @@ class HrSalaryRule(orm.Model):
         worked_days.sort(key=lambda wd: wd.date_from)
         worked_days.reverse()
 
+        wd_obj = self.pool['hr.payslip.worked_days']
         for wd in worked_days:
             if reduction == 0:
                 break
@@ -187,17 +188,14 @@ class HrSalaryRule(orm.Model):
             unpaid_activity = wd.activity_id.unpaid_activity_id
 
             # Create a worked days record to replace the previous wd
-            self.pool['hr.payslip.worked_days'].create(
-                cr, uid, {
-                    'payslip_id': wd.payslip_id.id,
-                    'date_from': wd.date_from,
-                    'date_to': wd.date_to,
-                    'number_of_hours': current_reduction,
-                    'rate': wd.rate,
-                    'hourly_rate': 0,
-                    'activity_id': unpaid_activity.id if unpaid_activity
-                    else default_unpaid_id,
-                }, context=context)
+            wd_data = wd_obj.copy_data(cr, uid, wd.id, context=context)
+            wd_data.update({
+                'number_of_hours': current_reduction,
+                'activity_id': unpaid_activity.id if unpaid_activity
+                else default_unpaid_id,
+                'hourly_rate': 0,
+            })
+            wd_obj.create(cr, uid, wd_data, context=context)
 
             # substract the amount reduced before next iteration
             reduction -= (

@@ -590,6 +590,11 @@ msgid "Unpaid Vacations"
 msgstr "Vacances non-payées"
 
 #. module: l10n_ca_hr_payroll
+#: model:hr.holidays.status,name:l10n_ca_hr_payroll.holiday_status_sl_unpaid
+msgid "Unpaid Sick Leaves"
+msgstr "Arrêts maladie non-payés"
+
+#. module: l10n_ca_hr_payroll
 #: model:ir.model,name:l10n_ca_hr_payroll.model_hr_payslip_run
 msgid "Payslip Batches"
 msgstr "Lots de bulletin de paie"
