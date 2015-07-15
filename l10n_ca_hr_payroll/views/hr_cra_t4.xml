@@ -22,11 +22,11 @@
                             <field name="year"/>
                             <field name="reference"/>
                             <field name="type"/>
-                            <field name="empt_prov_cd"/>
-                            <field name="summary_id"/>
-                            <field name="parent_id"/>
+                            <field name="empt_prov_cd"  />
+                            <field name="summary_id" groups="base.group_hr_manager"/>
+                            <field name="parent_id" groups="base.group_hr_manager"/>
                         </group>
-                        <notebook>
+                        <notebook groups="base.group_hr_manager">
                             <page name="amounts" string="Box Amounts">
                                 <field name="amount_ids" nolabel="1">
                                     <tree editable="top">

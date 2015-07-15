@@ -97,7 +97,7 @@ class HrCraT4Summary(orm.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
 
-        assert len(ids) == 1
+        assert len(ids) == 1, "Expected single record"
 
         summary = self.browse(cr, uid, ids[0], context=context)
 
@@ -142,7 +142,7 @@ class HrCraT4Summary(orm.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
 
-        assert len(ids) == 1
+        assert len(ids) == 1, "Expected single record"
 
         cra_summary_obj = self.pool['hr.cra.summary']
 
@@ -306,7 +306,7 @@ class HrCraT4Summary(orm.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
 
-        assert len(ids) == 1
+        assert len(ids) == 1, "Expected single record"
 
         summary = self.browse(cr, uid, ids[0], context=context)
 

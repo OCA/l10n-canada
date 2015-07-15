@@ -1545,8 +1545,8 @@ msgstr "Paiement de vancances non-utilisées"
 
 #. module: l10n_ca_hr_payroll
 #: field:hr.cra.fiscal_slip,empt_prov_cd:0 field:hr.cra.t4,empt_prov_cd:0
-msgid "Province, territory or country of employment code"
-msgstr "Province, territoire ou pays d'emploi"
+msgid "Province of employment"
+msgstr "Province d'emploi"
 
 #. module: l10n_ca_hr_payroll
 #: field:hr.cra.t4,parent_id:0

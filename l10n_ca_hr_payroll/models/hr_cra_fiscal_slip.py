@@ -61,7 +61,7 @@ class HrCraFiscalSlip(orm.AbstractModel):
     _columns = {
         'empt_prov_cd': fields.selection(
             get_province_codes,
-            string='Province, territory or country of employment code',
+            string='Province of employment',
             required=True, type="char",
             readonly=True, states={'draft': [('readonly', False)]},
         ),

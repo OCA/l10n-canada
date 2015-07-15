@@ -38,7 +38,7 @@ class HrCRAT4Box(orm.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
 
-        assert len(ids) == 1
+        assert len(ids) == 1, "Expected single record"
 
         box = self.browse(cr, uid, ids[0], context=context)
 
