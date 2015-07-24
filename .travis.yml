@@ -31,8 +31,8 @@ install:
   - travis_install_nightly
   - pip install num2words xlrd
   - sudo apt-get install xfonts-75dpi
-  - wget http://sourceforge.net/projects/wkhtmltopdf/files/archive/0.12.2/wkhtmltox-0.12.2_linux-precise-amd64.deb
-  - sudo dpkg -i wkhtmltox-0.12.2_linux-precise-amd64.deb
+  - wget http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-precise-amd64.deb
+  - sudo dpkg -i wkhtmltox-0.12.1_linux-precise-amd64.deb
   - bzr branch lp:~noviat/openobject-addons/extra-7.0 ${HOME}/noviat
   - bzr branch lp:~rcarnes/openerp-shared/7.0 ${HOME}/shared
   - pushd ${HOME}/shared; bzr merge lp:~savoirfairelinux-openerp/openerp-shared/7.0; popd  # TEMP
