@@ -20,30 +20,33 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import models, fields, api
 from openerp.tools.float_utils import float_round
 
 
-class account_tax(orm.Model):
+class account_tax(models.Model):
     _inherit = 'account.tax'
-    _columns = {
-        'expense_include': fields.boolean('Tax Included in Expense',
-                                          help="Check this if this tax is \
-                                            included in the expense amount."),
-    }
 
-    def compute_all(self, cr, uid, taxes, price_unit, quantity, product=None, partner=None, force_excluded=False):
+    expense_include = fields.Boolean('Tax Included in Expense',
+                                     help="Check this if this tax is \
+                                     included in the expense amount.")
+
+    @api.model
+    def compute_all(
+            self, taxes, price_unit, quantity, product=None, partner=None,
+            force_excluded=False):
         """
-        :param force_excluded: boolean used to say that we don't want to consider the value of field price_include of
-            tax. It's used in encoding by line where you don't matter if you encoded a tax with that boolean to True or
-            False
+        :param force_excluded: boolean used to say that we don't want to
+            consider the value of field price_include of tax. It's used
+            in encoding by line where you don't matter if you encoded a tax
+            with that boolean to True or False
         RETURN: {
                 'total': 0.0,                # Total without taxes
                 'total_included: 0.0,        # Total with taxes
-                'taxes': []                  # List of taxes, see compute for the format
+                'taxes': []                  # List of taxes, see compute for
+                                             # the format
             }
         """
-
         # By default, for each tax, tax amount will first be computed
         # and rounded at the 'Account' decimal precision for each
         # PO/SO/invoice line and then these rounded amounts will be
@@ -53,9 +56,11 @@ class account_tax(orm.Model):
         # precision when we round the tax amount for each line (we use
         # the 'Account' decimal precision + 5), and that way it's like
         # rounding after the sum of the tax amounts of each line
-        precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
+        precision = self.env['decimal.precision'].precision_get('Account')
         tax_compute_precision = precision
-        if taxes and taxes[0].company_id.tax_calculation_rounding_method == 'round_globally':
+        if (taxes and
+                taxes[0].company_id.tax_calculation_rounding_method ==
+                'round_globally'):
             tax_compute_precision += 5
         totalin = totalex = float_round(price_unit * quantity, precision)
         tin = []
@@ -66,7 +71,7 @@ class account_tax(orm.Model):
             else:
                 tin.append(tax)
         tin = self.compute_inv(
-            cr, uid, tin, price_unit, quantity, product=product,
+            tin, price_unit, quantity, product=product,
             partner=partner, precision=tax_compute_precision
         )
         for r in tin:
@@ -77,7 +82,7 @@ class account_tax(orm.Model):
         except:
             pass
         tex = self._compute(
-            cr, uid, tex, totlex_qty, quantity, product=product,
+            tex, totlex_qty, quantity, product=product,
             partner=partner, precision=tax_compute_precision
         )
         for r in tex:

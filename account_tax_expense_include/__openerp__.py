@@ -50,7 +50,7 @@ Contributors
 """,
     'depends': ['base', 'account'],
     'data': [
-        'account_tax_expense_include_view.xml',
+        'views/account_tax_expense_include_view.xml',
     ],
-    'installable': False
+    'installable': True
 }
