@@ -423,9 +423,7 @@ class HrReleve1Summary(orm.Model):
         'hsf_contribution_rate': 0.0,
         'hsf_amount_remitted': 0.0,
         'cnt_salaries': 0.0,
-        'cnt_rate': 0.0,
         'wsdrf_salaries': 0.0,
-        'wsdrf_rate': 0.0,
         'wsdrf_expenses_current': 0.0,
         'wsdrf_expenses': 0.0,
     }
