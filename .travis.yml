@@ -29,7 +29,7 @@ install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
-  - pip install num2words xlrd
+  - pip install num2words xlrd elaphe
   - sudo apt-get install xfonts-75dpi
   - wget http://sourceforge.net/projects/wkhtmltopdf/files/archive/0.12.2/wkhtmltox-0.12.2_linux-precise-amd64.deb
   - sudo dpkg -i wkhtmltox-0.12.2_linux-precise-amd64.deb
