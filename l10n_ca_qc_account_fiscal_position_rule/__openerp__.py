@@ -2,8 +2,7 @@
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
-#    Copyright (C) 2010 - 2014 Savoir-faire Linux
-#    (<http://www.savoirfairelinux.com>).
+#    Copyright (C) 2010 Savoir-faire Linux (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as
@@ -19,3 +18,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+{
+    'name': 'Account Fiscal Position Rules for Quebec, Canada',
+    'version': '1.0',
+    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
+    'website': 'http://www.savoirfairelinux.com',
+    'license': 'AGPL-3',
+    'category': 'Localization/Accounting',
+    'depends': [
+        'account_fiscal_position_rule_sale',
+        'account_fiscal_position_rule_purchase',
+        'account_fiscal_position_rule_stock',
+        'l10n_ca_toponyms',
+        'l10n_ca',
+    ],
+    'data': [
+        'data/account_fiscal_position_rule.xml',
+    ],
+    'installable': True,
+}
