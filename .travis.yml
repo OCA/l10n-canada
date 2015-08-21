@@ -33,14 +33,12 @@ install:
   - sudo apt-get install xfonts-75dpi
   - wget http://sourceforge.net/projects/wkhtmltopdf/files/archive/0.12.2/wkhtmltox-0.12.2_linux-precise-amd64.deb
   - sudo dpkg -i wkhtmltox-0.12.2_linux-precise-amd64.deb
-  - bzr branch lp:~noviat/openobject-addons/extra-7.0 ${HOME}/noviat
-  - bzr branch lp:~rcarnes/openerp-shared/7.0 ${HOME}/shared
-  - pushd ${HOME}/shared; bzr merge lp:~savoirfairelinux-openerp/openerp-shared/7.0; popd  # TEMP
   - git clone --depth=1 https://github.com/OCA/account-fiscal-rule.git ${HOME}/fiscal-rule -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/account-financial-reporting.git ${HOME}/finacial-reporting -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/account-financial-tools.git ${HOME}/financial-tools -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/account-invoicing.git ${HOME}/account-invoicing -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/account-payment.git ${HOME}/account-payment -b ${VERSION}
+  - git clone --depth=1 https://github.com/OCA/bank-payment.git ${HOME}/bank-payment -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/bank-statement-reconcile.git ${HOME}/bank-statement-reconcile -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/webkit-tools.git ${HOME}/webkit-tools -b ${VERSION}
 
