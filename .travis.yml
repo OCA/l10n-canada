@@ -33,6 +33,7 @@ install:
   - sudo apt-get install xfonts-75dpi
   - wget http://sourceforge.net/projects/wkhtmltopdf/files/archive/0.12.2/wkhtmltox-0.12.2_linux-precise-amd64.deb
   - sudo dpkg -i wkhtmltox-0.12.2_linux-precise-amd64.deb
+  - git clone --depth=1 https://github.com/OCA/account-closing.git ${HOME}/account-closing -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/account-fiscal-rule.git ${HOME}/fiscal-rule -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/account-financial-reporting.git ${HOME}/finacial-reporting -b ${VERSION}
   - git clone --depth=1 https://github.com/OCA/account-financial-tools.git ${HOME}/financial-tools -b ${VERSION}
