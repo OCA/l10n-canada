@@ -1,7 +1,9 @@
+account-closing
 account-fiscal-rule
 account-financial-reporting
 account-financial-tools
 account-invoicing
 account-payment
 bank-statement-reconcile
+bank-payment
 webkit-tools
