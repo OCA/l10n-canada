@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-# * res_partner_attributes_add_BN
+# * account_statement_td_canada_import
 # 
 # Translators:
 # Loic <loic.richard2@gmail.com>, 2015
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: l10n-canada (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 15:12+0000\n"
-"PO-Revision-Date: 2015-07-27 23:59+0000\n"
+"PO-Revision-Date: 2015-07-27 23:29+0000\n"
 "Last-Translator: Loic <loic.richard2@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/oca/OCA-l10n-canada-7-0/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -18,18 +18,13 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. module: res_partner_attributes_add_BN
-#: help:res.partner,ne:0
-msgid ""
-"Canada Business identification Number                            (9 digits)"
-msgstr "Numéro d'identification d'entreprise canadienne (9 digits)"
+#. module: account_statement_td_canada_import
+#: code:addons/account_statement_td_canada_import/statement.py:37
+#, python-format
+msgid "CSV - TD Canada"
+msgstr ""
 
-#. module: res_partner_attributes_add_BN
-#: model:ir.model,name:res_partner_attributes_add_BN.model_res_partner
-msgid "Partner"
-msgstr "Partenaire"
-
-#. module: res_partner_attributes_add_BN
-#: field:res.partner,ne:0
-msgid "BN"
-msgstr "NE"
+#. module: account_statement_td_canada_import
+#: model:ir.model,name:account_statement_td_canada_import.model_account_statement_profile
+msgid "Statement Profile"
+msgstr "Déclaration de profil"

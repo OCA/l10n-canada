@@ -3,26 +3,26 @@
 # * res_partner_attributes_add_BN
 # 
 # Translators:
-# Loic <loic.richard2@gmail.com>, 2015
+# Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: l10n-canada (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 15:12+0000\n"
-"PO-Revision-Date: 2015-07-27 23:59+0000\n"
-"Last-Translator: Loic <loic.richard2@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/oca/OCA-l10n-canada-7-0/language/fr/)\n"
+"PO-Revision-Date: 2015-06-22 18:22+0000\n"
+"Last-Translator: Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>\n"
+"Language-Team: French (Canada) (http://www.transifex.com/oca/OCA-l10n-canada-7-0/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
+"Language: fr_CA\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: res_partner_attributes_add_BN
 #: help:res.partner,ne:0
 msgid ""
 "Canada Business identification Number                            (9 digits)"
-msgstr "Numéro d'identification d'entreprise canadienne (9 digits)"
+msgstr "Numéro d'entreprise canadienne (9 chiffres)"
 
 #. module: res_partner_attributes_add_BN
 #: model:ir.model,name:res_partner_attributes_add_BN.model_res_partner

@@ -1,0 +1,165 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * l10n_ca_hr_employee_benefits
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: l10n-canada (7.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-12 19:52+0000\n"
+"PO-Revision-Date: 2015-02-04 16:13+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: English (http://www.transifex.com/oca/OCA-l10n-canada-7-0/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,default_amount_type:0
+msgid "Default Amount Amount Type"
+msgstr "Default Amount Amount Type"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.contract.benefit,employer_amount:0
+msgid "Employer Contribution"
+msgstr "Employer Contribution"
+
+#. module: l10n_ca_hr_employee_benefits
+#: view:hr.benefit.category:0
+msgid "Search Employee Benefit"
+msgstr "Search Employee Benefit"
+
+#. module: l10n_ca_hr_employee_benefits
+#: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_contract_benefit
+msgid "Employee Benefit"
+msgstr "Employee Benefit"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,name:0
+msgid "Benefit Name"
+msgstr "Benefit Name"
+
+#. module: l10n_ca_hr_employee_benefits
+#: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_benefit_category
+msgid "Category of employee benefits"
+msgstr "Category of employee benefits"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.contract.benefit,employee_amount:0
+msgid "Employee Contribution"
+msgstr "Employee Contribution"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.contract.benefit,date_end:0
+msgid "End Date"
+msgstr "End Date"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,cpp_exempt:0
+msgid "CPP/QPP Exempt"
+msgstr "CPP/QPP Exempt"
+
+#. module: l10n_ca_hr_employee_benefits
+#: selection:hr.benefit.category,default_amount_type:0
+#: selection:hr.contract.benefit,amount_type:0
+msgid "Each Pay"
+msgstr "Each Pay"
+
+#. module: l10n_ca_hr_employee_benefits
+#: selection:hr.benefit.category,default_amount_type:0
+#: selection:hr.contract.benefit,amount_type:0
+msgid "Annual"
+msgstr "Annual"
+
+#. module: l10n_ca_hr_employee_benefits
+#: selection:hr.benefit.category,default_amount_type:0
+#: selection:hr.contract.benefit,amount_type:0
+msgid "Percentage of Gross Salary"
+msgstr "Percentage of Gross Salary"
+
+#. module: l10n_ca_hr_employee_benefits
+#: view:hr.benefit.category:0 view:hr.contract:0
+#: field:hr.contract,benefit_line_ids:0
+#: model:ir.actions.act_window,name:l10n_ca_hr_employee_benefits.action_hr_benefit_category_list
+#: model:ir.ui.menu,name:l10n_ca_hr_employee_benefits.menu_action_hr_benefit_category_list
+msgid "Employee Benefits"
+msgstr "Employee Benefits"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.contract.benefit,contract_id:0
+#: model:ir.model,name:l10n_ca_hr_employee_benefits.model_hr_contract
+msgid "Contract"
+msgstr "Contract"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.contract.benefit,category_id:0
+msgid "Benefit"
+msgstr "Benefit"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,code:0 field:hr.contract.benefit,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,default_employer_amount:0
+msgid "Default Employer Contribution"
+msgstr "Default Employer Contribution"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.contract.benefit,date_start:0
+msgid "Start Date"
+msgstr "Start Date"
+
+#. module: l10n_ca_hr_employee_benefits
+#: view:hr.benefit.category:0
+msgid "Exemptions"
+msgstr "Exemptions"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,description:0 field:hr.contract.benefit,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.contract.benefit,amount_type:0
+msgid "Amount Amount Type"
+msgstr "Amount Amount Type"
+
+#. module: l10n_ca_hr_employee_benefits
+#: help:hr.benefit.category,code:0
+msgid "The code that can be used in the salary rules to identify the benefit"
+msgstr "The code that can be used in the salary rules to identify the benefit"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,default_employee_amount:0
+msgid "Default Employee Contribution"
+msgstr "Default Employee Contribution"
+
+#. module: l10n_ca_hr_employee_benefits
+#: help:hr.benefit.category,description:0
+msgid "Brief explanation of which benefits the category contains."
+msgstr "Brief explanation of which benefits the category contains."
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,ei_exempt:0
+msgid "Employement Insurance Exempt"
+msgstr "Employement Insurance Exempt"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,fit_exempt:0
+msgid "Federal Income Tax Exempt"
+msgstr "Federal Income Tax Exempt"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,pip_exempt:0
+msgid "Parental Insurance Plan Exempt"
+msgstr "Parental Insurance Plan Exempt"
+
+#. module: l10n_ca_hr_employee_benefits
+#: field:hr.benefit.category,pit_exempt:0
+msgid "Provincial Income Tax Exempt"
+msgstr "Provincial Income Tax Exempt"

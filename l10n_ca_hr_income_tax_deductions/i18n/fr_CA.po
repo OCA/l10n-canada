@@ -3,26 +3,25 @@
 # * l10n_ca_hr_income_tax_deductions
 # 
 # Translators:
-# Loic <loic.richard2@gmail.com>, 2015
-# Maxime Chambreuil <maxime.chambreuil@gmail.com>, 2015
+# Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: l10n-canada (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-27 15:12+0000\n"
-"PO-Revision-Date: 2015-07-27 23:27+0000\n"
-"Last-Translator: Loic <loic.richard2@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/oca/OCA-l10n-canada-7-0/language/fr/)\n"
+"PO-Revision-Date: 2015-06-22 18:16+0000\n"
+"Last-Translator: Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>\n"
+"Language-Team: French (Canada) (http://www.transifex.com/oca/OCA-l10n-canada-7-0/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
+"Language: fr_CA\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: view:hr.employee:0
 msgid "Canadian Payroll"
-msgstr "Paie Canadienne"
+msgstr "La paie canadienne"
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: code:addons/l10n_ca_hr_income_tax_deductions/hr_deduction_category.py:29
@@ -35,12 +34,12 @@ msgstr "Provincial"
 #: model:ir.actions.act_window,name:l10n_ca_hr_income_tax_deductions.action_hr_deduction_category_list
 #: model:ir.ui.menu,name:l10n_ca_hr_income_tax_deductions.menu_action_hr_deduction_category_list
 msgid "Income Tax Deductions"
-msgstr "Déductions d'Impôt sur le Revenu"
+msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: view:hr.employee:0
 msgid "Deduction Lines"
-msgstr "Lignes de Déduction"
+msgstr "Ligne de déduction"
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: code:addons/l10n_ca_hr_income_tax_deductions/hr_deduction_category.py:28
@@ -74,19 +73,19 @@ msgstr "Employé"
 msgid ""
 "It is used in computation of the payslip. May be an annual or periodic "
 "amount depending on the category. The deduction may be a tax credit."
-msgstr "C'est utilisé dans le calcul des bulletins de paie. Peut être un montant annuel ou périodique selon la catégorie. La déduction peut être un crédit d'impôts."
+msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: help:hr.deduction.category,estimated_income:0
 msgid ""
 "True if included in the calculation of the estimated annual net income, "
 "False otherwise"
-msgstr "Vrai si inclus dans le calcul du revenu net annuel estimé. Faux sinon."
+msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: model:ir.model,name:l10n_ca_hr_income_tax_deductions.model_hr_employee_deduction
 msgid "Income Tax Deduction"
-msgstr "Déduction d'impôt sur ​​le revenu"
+msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: field:hr.deduction.category,description:0
@@ -97,12 +96,12 @@ msgstr "Description"
 #: help:hr.deduction.category,code:0
 msgid ""
 "The code that can be used in the salary rules to identify the deduction"
-msgstr "Le code pouvant être utilisédans les règles de salaire topour identifier la déduction"
+msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: model:ir.model,name:l10n_ca_hr_income_tax_deductions.model_hr_deduction_category
 msgid "Income Tax Deduction Category"
-msgstr "Catégorie de la déduction d'impôt sur ​​le revenu"
+msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: field:hr.employee.deduction,date_end:0
@@ -128,12 +127,12 @@ msgstr "Montant"
 #. module: l10n_ca_hr_income_tax_deductions
 #: help:hr.employee,deduction_ids:0
 msgid "Income Tax deductions for the computation of the employee's payslips"
-msgstr "Déduction des impôts sur le revenu pour le calcul de la paie de l'employé"
+msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: view:hr.deduction.category:0
 msgid "Search Employee Deduction Categories"
-msgstr "Rechercher Catégorie de Déduction Employé"
+msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: selection:hr.deduction.category,default_amount_type:0
@@ -166,12 +165,12 @@ msgstr "Montant par défaut"
 #. module: l10n_ca_hr_income_tax_deductions
 #: field:hr.deduction.category,estimated_income:0
 msgid "Estimated Income"
-msgstr "Revenu Estimé"
+msgstr "Impôt estimé"
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: help:hr.deduction.category,description:0
 msgid "Brief explanation of which benefits the category contains."
-msgstr "Description rapide des avantages que cette catégorie contient"
+msgstr ""
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: field:hr.employee.deduction,date_start:0
