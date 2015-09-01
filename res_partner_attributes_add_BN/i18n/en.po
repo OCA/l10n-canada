@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * res_partner_attributes_add_BN
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: l10n-canada (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-24 23:24+0000\n"
+"PO-Revision-Date: 2015-05-11 15:29+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: English (http://www.transifex.com/oca/OCA-l10n-canada-8-0/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: res_partner_attributes_add_BN
+#: field:res.partner,bn:0
+msgid "BN"
+msgstr "BN"
+
+#. module: res_partner_attributes_add_BN
+#: help:res.partner,bn:0
+msgid "Canada Business Identification Number (9 digits)"
+msgstr "Canada Business Identification Number (9 digits)"
+
+#. module: res_partner_attributes_add_BN
+#: model:ir.model,name:res_partner_attributes_add_BN.model_res_partner
+msgid "Partner"
+msgstr "Partner"

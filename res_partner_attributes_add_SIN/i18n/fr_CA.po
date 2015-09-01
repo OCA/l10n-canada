@@ -3,18 +3,19 @@
 # * res_partner_attributes_add_SIN
 # 
 # Translators:
+# Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: l10n-canada (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-24 23:24+0000\n"
-"PO-Revision-Date: 2015-08-19 14:31+0000\n"
-"Last-Translator: Bruno JOLIVEAU\n"
-"Language-Team: French (http://www.transifex.com/oca/OCA-l10n-canada-8-0/language/fr/)\n"
+"PO-Revision-Date: 2015-08-24 20:53+0000\n"
+"Last-Translator: Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>\n"
+"Language-Team: French (Canada) (http://www.transifex.com/oca/OCA-l10n-canada-8-0/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
+"Language: fr_CA\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: res_partner_attributes_add_SIN
@@ -30,10 +31,10 @@ msgstr "NAS"
 #. module: res_partner_attributes_add_SIN
 #: help:res.partner,sin:0
 msgid "Social Insurance Number (9 digits)"
-msgstr "Numéro d'Assurance Sociale (9 chiffres)"
+msgstr "Numéro d'assurance sociale (9 chiffres)"
 
 #. module: res_partner_attributes_add_SIN
 #: code:addons/res_partner_attributes_add_SIN/models/res_partner.py:80
 #, python-format
 msgid "The number provided is not a valid SIN number!"
-msgstr "Le numéro fourni n'est pas un NAS valide !"
+msgstr "Le numéro saisi n'est pas un NAS valide!"

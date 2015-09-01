@@ -3,50 +3,49 @@
 # * l10n_ca_account_check_writing
 # 
 # Translators:
-# Bruno JOLIVEAU, 2015
-# Bruno JOLIVEAU, 2015
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+# Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>, 2015
+# Maxime Chambreuil <maxime.chambreuil@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: l10n-canada (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-24 23:24+0000\n"
-"PO-Revision-Date: 2015-08-24 20:55+0000\n"
-"Last-Translator: Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>\n"
-"Language-Team: French (http://www.transifex.com/oca/OCA-l10n-canada-8-0/language/fr/)\n"
+"PO-Revision-Date: 2015-06-30 22:29+0000\n"
+"Last-Translator: Maxime Chambreuil <maxime.chambreuil@gmail.com>\n"
+"Language-Team: French (Canada) (http://www.transifex.com/oca/OCA-l10n-canada-8-0/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
+"Language: fr_CA\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: l10n_ca_account_check_writing
 #: model:ir.model,name:l10n_ca_account_check_writing.model_account_voucher
 msgid "Accounting Voucher"
-msgstr "Justificatif comptable"
+msgstr "Pièce Comptable"
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Balance Due"
-msgstr "Solde dû"
+msgstr "Solde Dû"
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Check Amount"
-msgstr "Montant du chèque"
+msgstr "Vérifier Montant"
 
 #. module: l10n_ca_account_check_writing
 #: model:ir.model,name:l10n_ca_account_check_writing.model_res_company
 msgid "Companies"
-msgstr "Compagnies"
+msgstr "Entreprises"
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Discount"
-msgstr "Réduction"
+msgstr "Escompte"
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
@@ -70,7 +69,7 @@ msgstr "Mémo"
 #: report:l10n.ca.account.print.check.middle:0
 #: report:l10n.ca.account.print.check.top:0
 msgid "Original Amt."
-msgstr "Montant d'origine"
+msgstr "Montant Init."
 
 #. module: l10n_ca_account_check_writing
 #: report:l10n.ca.account.print.check.middle:0
@@ -81,20 +80,20 @@ msgstr "Paiement"
 #. module: l10n_ca_account_check_writing
 #: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_middle
 msgid "Print Check CA (Middle)"
-msgstr "Imprimer les chèques CA (Milieu)"
+msgstr "Imprimer Chèque CA (Centre)"
 
 #. module: l10n_ca_account_check_writing
 #: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_top
 msgid "Print Check CA (Top)"
-msgstr "Imprime chèque CA (Haut)"
+msgstr "Imprimer Chèque CA (Haut)"
 
 #. module: l10n_ca_account_check_writing
 #: model:ir.model,name:l10n_ca_account_check_writing.model_account_voucher_line
 msgid "Voucher Lines"
-msgstr "Lignes de justificatif"
+msgstr "Lignes"
 
 #. module: l10n_ca_account_check_writing
 #: code:addons/l10n_ca_account_check_writing/account_voucher.py:59
 #, python-format
 msgid "{amount} and {cents}/100 {currency}"
-msgstr "{amount} {currency} et {cents} cents"
+msgstr "{amount} et {cents}/100 {currency}"
