@@ -6,7 +6,6 @@
             <field name="name">account.tax.form.expense_include</field>
             <field name="model">account.tax</field>
             <field name="inherit_id" ref="account.view_tax_form"/>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                  <field position="after" name="price_include" >
                     <field name="expense_include"/>
