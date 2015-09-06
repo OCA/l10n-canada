@@ -32,6 +32,7 @@ msgstr "Provincial"
 
 #. module: l10n_ca_hr_income_tax_deductions
 #: view:hr.employee:0 field:hr.employee,deduction_ids:0
+#: view:hr.salary.rule:0
 #: model:ir.actions.act_window,name:l10n_ca_hr_income_tax_deductions.action_hr_deduction_category_list
 #: model:ir.ui.menu,name:l10n_ca_hr_income_tax_deductions.menu_action_hr_deduction_category_list
 msgid "Income Tax Deductions"
