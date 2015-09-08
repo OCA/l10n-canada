@@ -31,15 +31,24 @@ Supplier on expense line
 ========================
 This module adds a supplier field on the expense line.
 
+A second module will automatically install after this one, setting the field
+as 'required'. We need to separate this in 2 modules because we need the demo
+expense lines to have a supplier before setting the field required. This is
+done in order to avoid warnings on installation with demo data activated.
+
 Contributors
 ------------
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
+* Agathe Mollé <agathe.molle@savoirfairelinux.com>
 """,
     "depends": ['hr_expense'],
     "data": [
         'hr_expense_line_view.xml',
+    ],
+    "demo": [
+        'hr_expense_line_demo.xml'
     ],
     "installable": True
 }
