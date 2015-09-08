@@ -26,5 +26,6 @@ from openerp.osv import orm, fields
 class hr_expense_line(orm.Model):
     _inherit = 'hr.expense.line'
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Supplier'),
+        'partner_id': fields.many2one('res.partner', 'Supplier',
+                                      required=True),
     }
