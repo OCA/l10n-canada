@@ -40,7 +40,6 @@ Contributors
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
     'depends': ['base'],
-    'license': 'AGPL-3',
     'data': [
         'l10n_ca_toponyms.xml',
     ],

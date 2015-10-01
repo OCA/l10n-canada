@@ -23,9 +23,9 @@ import time
 from openerp.report import report_sxw
 
 
-class report_print_check(report_sxw.rml_parse):
+class ReportPrintCheck(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
-        super(report_print_check, self).__init__(cr, uid, name, context)
+        super(ReportPrintCheck, self).__init__(cr, uid, name, context)
         self.number_lines = 0
         self.number_add = 0
         self.localcontext.update({
@@ -107,7 +107,7 @@ report_sxw.report_sxw(
     'report.l10n.ca.account.print.check.top',
     'account.voucher',
     'addons/l10n_ca_account_check_writing/report/l10n_ca_check_print_top.rml',
-    parser=report_print_check, header=False
+    parser=ReportPrintCheck, header=False
 )
 
 report_sxw.report_sxw(
@@ -115,5 +115,5 @@ report_sxw.report_sxw(
     'account.voucher',
     'addons/l10n_ca_account_check_writing/'
     'report/l10n_ca_check_print_middle.rml',
-    parser=report_print_check, header=False
+    parser=ReportPrintCheck, header=False
 )
