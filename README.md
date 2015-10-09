@@ -16,12 +16,12 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[l10n_ca_account_check_writing](l10n_ca_account_check_writing/) | 1.0 | Canada - Check Writing
-[l10n_ca_toponyms](l10n_ca_toponyms/) | 1.0 | Canada - Provinces and Territories
-[res_currency_print_on_check](res_currency_print_on_check/) | 1.0 | Display name for currencies
-[res_partner_attributes_add_BN](res_partner_attributes_add_BN/) | 1.0 | Business identification Number in Canada (BN/NE)
-[res_partner_attributes_add_NEQ](res_partner_attributes_add_NEQ/) | 1.0 | Quebec Enterprise Number (NEQ)
-[res_partner_attributes_add_SIN](res_partner_attributes_add_SIN/) | 1.0 | Canada Social Insurance Number (SIN/NAS)
+[l10n_ca_account_check_writing](l10n_ca_account_check_writing/) | 8.0.1.0.0 | Canada - Check Writing
+[l10n_ca_toponyms](l10n_ca_toponyms/) | 8.0.1.0.0 | Canada - Provinces and Territories
+[res_currency_print_on_check](res_currency_print_on_check/) | 8.0.1.0.0 | Display name for currencies
+[res_partner_attributes_add_BN](res_partner_attributes_add_BN/) | 8.0.1.0.0 | Business identification Number in Canada (BN/NE)
+[res_partner_attributes_add_NEQ](res_partner_attributes_add_NEQ/) | 8.0.1.0.0 | Quebec Enterprise Number (NEQ)
+[res_partner_attributes_add_SIN](res_partner_attributes_add_SIN/) | 8.0.1.0.0 | Canada Social Insurance Number (SIN/NAS)
 
 Unported addons
 ---------------
