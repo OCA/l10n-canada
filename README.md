@@ -27,13 +27,13 @@ Unported addons
 ---------------
 addon | version | summary
 --- | --- | ---
-[account_tax_expense_include_unported](__unported__/account_tax_expense_include_unported/) | 1.0 (unported) | Taxes included in expense
-[hr_expense_line_supplier_unported](__unported__/hr_expense_line_supplier_unported/) | 1.0 (unported) | Supplier on expense line
-[l10n_ca_hr_payroll](__unported__/l10n_ca_hr_payroll/) | 1.0 (unported) | Canada - Payroll
-[l10n_ca_hr_payroll_account](__unported__/l10n_ca_hr_payroll_account/) | 1.0 (unported) | Canada - Payroll Accounting
-[l10n_ca_qc_account_fiscal_position_rule_unported](__unported__/l10n_ca_qc_account_fiscal_position_rule_unported/) | 1.0 (unported) | Account Fiscal Position Rules for Quebec, Canada
-[l10n_ca_qc_hr_payroll](__unported__/l10n_ca_qc_hr_payroll/) | 1.0 (unported) | Canada - Quebec - Payroll
-[l10n_ca_qc_hr_payroll_account](__unported__/l10n_ca_qc_hr_payroll_account/) | 1.0 (unported) | Canada - Quebec - Payroll Accounting
+[account_tax_expense_include_unported](account_tax_expense_include_unported/) | 1.0 (unported) | Taxes included in expense
+[hr_expense_line_supplier_unported](hr_expense_line_supplier_unported/) | 1.0 (unported) | Supplier on expense line
+[l10n_ca_hr_payroll](l10n_ca_hr_payroll/) | 1.0 (unported) | Canada - Payroll
+[l10n_ca_hr_payroll_account](l10n_ca_hr_payroll_account/) | 1.0 (unported) | Canada - Payroll Accounting
+[l10n_ca_qc_account_fiscal_position_rule_unported](l10n_ca_qc_account_fiscal_position_rule_unported/) | 1.0 (unported) | Account Fiscal Position Rules for Quebec, Canada
+[l10n_ca_qc_hr_payroll](l10n_ca_qc_hr_payroll/) | 1.0 (unported) | Canada - Quebec - Payroll
+[l10n_ca_qc_hr_payroll_account](l10n_ca_qc_hr_payroll_account/) | 1.0 (unported) | Canada - Quebec - Payroll Accounting
 
 [//]: # (end addons)
 
