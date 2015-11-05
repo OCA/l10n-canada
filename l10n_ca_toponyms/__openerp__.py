@@ -22,7 +22,7 @@
 
 {
     'name': 'Canada - Provinces and Territories',
-    'version': '8.0.1.0.0',
+    'version': '9.0.0.0.0',
     'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website': 'http://www.savoirfairelinux.com',
     'category': 'Localisation/Canada',
@@ -43,5 +43,5 @@ Contributors
     'data': [
         'l10n_ca_toponyms.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
