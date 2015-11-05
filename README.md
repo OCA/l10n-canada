@@ -12,6 +12,12 @@ Dependencies
      * num2words
 
 [//]: # (addons)
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[l10n_ca_toponyms](l10n_ca_toponyms/) | 9.0.0.0.0 | Canada - Provinces and Territories
+
 Unported addons
 ---------------
 addon | version | summary
@@ -24,7 +30,6 @@ addon | version | summary
 [l10n_ca_qc_account_fiscal_position_rule_unported](l10n_ca_qc_account_fiscal_position_rule_unported/) | 1.0 (unported) | Account Fiscal Position Rules for Quebec, Canada
 [l10n_ca_qc_hr_payroll](l10n_ca_qc_hr_payroll/) | 1.0 (unported) | Canada - Quebec - Payroll
 [l10n_ca_qc_hr_payroll_account](l10n_ca_qc_hr_payroll_account/) | 1.0 (unported) | Canada - Quebec - Payroll Accounting
-[l10n_ca_toponyms](l10n_ca_toponyms/) | 8.0.1.0.0 (unported) | Canada - Provinces and Territories
 [res_currency_print_on_check](res_currency_print_on_check/) | 8.0.1.0.0 (unported) | Display name for currencies
 [res_partner_attributes_add_BN](res_partner_attributes_add_BN/) | 8.0.1.0.0 (unported) | Business identification Number in Canada (BN/NE)
 [res_partner_attributes_add_NEQ](res_partner_attributes_add_NEQ/) | 8.0.1.0.0 (unported) | Quebec Enterprise Number (NEQ)
