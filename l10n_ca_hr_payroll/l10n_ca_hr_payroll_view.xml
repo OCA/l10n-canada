@@ -5,7 +5,6 @@
         <record id="hr_payroll_tax_table_form" model="ir.ui.view">
             <field name="name">hr.payroll.tax.table.form</field>
             <field name="model">hr.payroll.tax.table</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Canadian Tax Table">
                    <field name="name" select="1"/>
@@ -95,7 +94,6 @@
         <record id="hr_payroll_tax_table_search" model="ir.ui.view">
             <field name="name">hr.payroll.tax.table.search</field>
             <field name="model">hr.payroll.tax.table</field>
-            <field name="type">search</field>
             <field name="arch" type="xml">
                 <search string="Canadian Tax Table">
                     <field name="name"/>
@@ -110,7 +108,6 @@
         <record id="hr_payroll_tax_table_tree" model="ir.ui.view">
           <field name="name">hr.payroll.tax.table.tree</field>
           <field name="model">hr.payroll.tax.table</field>
-          <field name="type">tree</field>
           <field name="arch" type="xml">
               <tree string="Canadian Tax Table">
                    <field name="name"/>
@@ -125,7 +122,6 @@
       <record id="action_hr_payroll_tax_table_tree" model="ir.actions.act_window">
           <field name="name">Canadian Tax Table</field>
           <field name="res_model">hr.payroll.tax.table</field>
-          <field name="view_type">form</field>
           <field name="view_mode">tree,form</field>
           <field name="view_id" ref="hr_payroll_tax_table_tree"/>
           <field name="search_view_id" ref="hr_payroll_tax_table_search"/>
@@ -136,7 +132,6 @@
       <record id="hr_employee_view_form_inherit" model="ir.ui.view">
           <field name="name">hr.employee.view.form.inherit</field>
           <field name="model">hr.employee</field>
-          <field name="type">form</field>
           <field name="inherit_id" ref="hr.view_employee_form"/>
           <field name="arch" type="xml">
               <notebook position="inside">
@@ -179,7 +174,6 @@
    <record id="hr_contract_form_inherit" model="ir.ui.view">
        <field name="name">hr.contract.view.form.inherit</field>
        <field name="model">hr.contract</field>
-       <field name="type">form</field>
        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
        <field name="arch" type="xml">
            <xpath expr="//field[@name='working_hours']" position="after">
@@ -193,7 +187,6 @@
       <record id="hr_salary_rule_list_inherit" model="ir.ui.view">
           <field name="name">hr.salary.rule.list.inherit</field>
           <field name="model">hr.salary.rule</field>
-          <field name="type">tree</field>
           <field name="inherit_id" ref="hr_payroll.hr_salary_rule_list"/>
           <field name="arch" type="xml">
               <xpath expr="//field[@name='sequence']" position="attributes">

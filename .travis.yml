@@ -1,13 +1,24 @@
-addons:
-  apt:
-    packages:
-      - expect-dev  # provides unbuffer utility
-      - python-lxml # because pip installation is slow
-
 language: python
+sudo: false
+cache: pip
 
 python:
   - "2.7"
+
+addons:
+  apt:
+    sources:
+      - pov-wkhtmltopdf
+    packages:
+      - expect-dev  # provides unbuffer utility
+      - python-lxml # because pip installation is slow
+      - xfonts-75dpi
+      - wkhtmltopdf
+
+# set up an X server to run wkhtmltopdf.
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 
 env:
   global:
@@ -20,7 +31,7 @@ env:
   - TRANSIFEX="1"
   - TESTS="1" ODOO_REPO="odoo/odoo"
   - TESTS="1" ODOO_REPO="OCA/OCB"
-  - TESTS="1.0" ODOO_REPO="OCA/OCB" UNIT_TEST="1"
+  - TESTS="1" ODOO_REPO="OCA/OCB" UNIT_TEST="1"
 
 virtualenv:
   system_site_packages: true
@@ -30,20 +41,6 @@ install:
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
   - pip install num2words xlrd
-  - sudo apt-get install xfonts-75dpi
-  - wget http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-precise-amd64.deb
-  - sudo dpkg -i wkhtmltox-0.12.1_linux-precise-amd64.deb
-  - bzr branch lp:~noviat/openobject-addons/extra-7.0 ${HOME}/noviat
-  - bzr branch lp:~rcarnes/openerp-shared/7.0 ${HOME}/shared
-  - pushd ${HOME}/shared; bzr merge lp:~savoirfairelinux-openerp/openerp-shared/7.0; popd  # TEMP
-  - bzr branch lp:~savoirfairelinux-openerp/openerp-usa/npg_bank_account_reconciliation-add_unclear_entries_summation ${HOME}/usa
-  - git clone --depth=1 https://github.com/OCA/account-fiscal-rule.git ${HOME}/fiscal-rule -b ${VERSION}
-  - git clone --depth=1 https://github.com/OCA/account-financial-reporting.git ${HOME}/finacial-reporting -b ${VERSION}
-  - git clone --depth=1 https://github.com/OCA/account-financial-tools.git ${HOME}/financial-tools -b ${VERSION}
-  - git clone --depth=1 https://github.com/OCA/account-invoicing.git ${HOME}/account-invoicing -b ${VERSION}
-  - git clone --depth=1 https://github.com/OCA/account-payment.git ${HOME}/account-payment -b ${VERSION}
-  - git clone --depth=1 https://github.com/OCA/bank-statement-reconcile.git ${HOME}/bank-statement-reconcile -b ${VERSION}
-  - git clone --depth=1 https://github.com/OCA/webkit-tools.git ${HOME}/webkit-tools -b ${VERSION}
 
 script:
   - travis_run_tests
