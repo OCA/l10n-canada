@@ -8,6 +8,12 @@ This module adds the fiscal position rules to set the fiscal position of a
 document (picking, invoice, sale order, purchase order) based on the canadian
 province or territory.
 
+Installation
+============
+
+Make sure to install the Canadian Chart of Accounts before installing this
+module, otherwise the fiscal position will not be set on all the rules.
+
 For further information, please visit:
 
 * https://www.odoo.com/forum/help-1
