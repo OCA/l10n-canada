@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+
+   <!-- Rules from Quebec -->
+   
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2qc">
+            <field name="name">From Quebec to Quebec</field>
+            <field name="description">From a company in Quebec to a partner in Quebec</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(QC)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+        
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2on">
+            <field name="name">From Quebec to Ontario</field>
+            <field name="description">From a company in Quebec to a partner in Ontario</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(ON)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','ON')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2bc">
+            <field name="name">From Quebec to British Colombia</field>
+            <field name="description">From a company in Quebec to a partner in British Colombia</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(BC)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','BC')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2nb">
+            <field name="name">From Quebec to New Brunswick</field>
+            <field name="description">From a company in Quebec to a partner in New Brunswick</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(NB)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','NB')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2nl">
+            <field name="name">From Quebec to Newfoundland and Labrador</field>
+            <field name="description">From a company in Quebec to a partner in Newfoundland and Labrador</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(NL)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','NL')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2ns">
+            <field name="name">From Quebec to la Nova Scotia</field>
+            <field name="description">From a company in Quebec to a partner in Nova Scotia</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(NS)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','NS')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2ab">
+            <field name="name">From Quebec to Alberta</field>
+            <field name="description">From a company in Quebec to a partner in Alberta</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(AB)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','AB')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2mb">
+            <field name="name">From Quebec to Manitoba</field>
+            <field name="description">From a company in Quebec to a partner in Manitoba</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(MB)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','MB')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2sk">
+            <field name="name">From Quebec to la Saskatchewan</field>
+            <field name="description">From a company in Quebec to a partner in Saskatchewan</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(SK)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','SK')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2pe">
+            <field name="name">From Quebec to Prince Edward Island</field>
+            <field name="description">From a company in Quebec to a partner in Prince Edward Island</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(PE)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','PE')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2nt">
+            <field name="name">From Quebec to Northwest Territories</field>
+            <field name="description">From a company in Quebec to a partner in Northwest Territories</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(NT)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','NT')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2nu">
+            <field name="name">From Quebec to Nunavut</field>
+            <field name="description">From a company in Quebec to a partner in Nunavut</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(NU)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','NU')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2yt">
+            <field name="name">From Quebec to Yukon</field>
+            <field name="description">From a company in Quebec to a partner in Yukon</field>
+            <field name="company_id">1</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(YT)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="to_shipping_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="to_shipping_state" model="res.country.state" search="[('code','=','YT')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+        <record model="account.fiscal.position.rule" id="rule_fr_qc2rotw">
+            <field name="name">From Quebec to rest of the world</field>
+            <field name="description">From a company in Quebec to a partner in the rest of the world</field>
+            <field name="company_id">1</field>
+            <field name="sequence">20</field>
+            <field name="fiscal_position_id" model="account.fiscal.position" search="[('name','like','%(INTL)%')]"/>
+            <field name="from_country" model="res.country" search="[('code','=','CA')]"/>
+            <field name="from_state" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="use_invoice">TRUE</field>
+            <field name="use_picking">TRUE</field>
+            <field name="use_purchase">TRUE</field>
+            <field name="use_sale">TRUE</field>
+        </record>
+
+    </data>
+</openerp>
