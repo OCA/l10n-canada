@@ -58,7 +58,6 @@ Contributors
         'account_invoice_merge',
         'account_voucher_supplier_invoice_number',
     ],
-    "license": "AGPL-3",
     "data": [],
     "installable": True,
 }
