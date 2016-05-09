@@ -20,6 +20,4 @@
 #
 ##############################################################################
 
-from . import (
-    hr_expense_line
-)
+from . import hr_expense_line
