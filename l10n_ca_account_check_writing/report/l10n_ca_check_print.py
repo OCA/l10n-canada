@@ -20,7 +20,7 @@
 #
 ##############################################################################
 import logging
-_logger = logging.getLogger(__name__)
+
 import re
 import time
 from openerp.tools import config
@@ -34,6 +34,8 @@ from num2words import num2words
 # For the words we use in custom_translation(), we have to put dummy _()
 # calls here so that Odoo picks them up during .pot generation
 _("and")
+
+_logger = logging.getLogger(__name__)
 
 
 class report_print_check(report_sxw.rml_parse):
