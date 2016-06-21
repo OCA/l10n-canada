@@ -12,10 +12,10 @@
             <attribute name="editable"></attribute>
           </xpath>
           <xpath expr="//page[@string='Description']/field[@name='line_ids']/tree/field[@name='analytic_account']" position="before">
-            <field name="partner_id" domain="[('supplier','=',True)]"/>
+            <field name="partner_id" required="1" domain="[('supplier','=',True)]"/>
           </xpath>
           <xpath expr="//page[@string='Description']/field[@name='line_ids']/form/group/group/field[@name='unit_amount']" position="before">
-            <field name="partner_id" domain="[('supplier','=',True)]"/>
+            <field name="partner_id" required="1" domain="[('supplier','=',True)]"/>
           </xpath>
         </data>
       </field>

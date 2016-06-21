@@ -8,10 +8,6 @@ HR Expense Line Supplier
 
 This module adds a supplier field on the expense line.
 
-A second module will automatically install after this one, setting the field
-as 'required'. We need to separate this in 2 modules because we need the demo
-expense lines to have a supplier before setting the field required. This is
-done in order to avoid warnings on installation with demo data activated.
 
 Usage
 =====

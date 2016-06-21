@@ -14,10 +14,10 @@
     "license": "AGPL-3",
     "depends": ['hr_expense'],
     "data": [
-        'views/hr_expense_line_view.xml',
+        'views/hr_expense_line.xml',
     ],
     "demo": [
-        'demo/hr_expense_line_demo.xml',
+        'demo/hr_expense_line.xml',
     ],
     "installable": True,
 }
