@@ -55,6 +55,7 @@ Contributors
         'l10n_ca_toponyms',
         'account_check_writing',
         'res_currency_print_on_check',
+        'account_voucher_supplier_invoice_number',
     ],
     'data': [
         'l10n_ca_account_check_writing_report.xml',

@@ -33,6 +33,7 @@ install:
   - travis_install_nightly
   - pip install num2words
   - git clone --depth=1 https://github.com/OCA/account-fiscal-rules.git /tmp/fiscal-rules -b ${VERSION}
+  - git clone --depth=1 https://github.com/OCA/account-payment.git /tmp/account-payment -b ${VERSION}
 
 script:
   - travis_run_tests
