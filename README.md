@@ -16,6 +16,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[hr_expense_line_supplier](hr_expense_line_supplier/) | 8.0.1.0.0 | Supplier on Expense Line
 [l10n_ca_account_check_writing](l10n_ca_account_check_writing/) | 8.0.1.0.0 | Canada - Check Writing
 [l10n_ca_qc_account_fiscal_position_rule](l10n_ca_qc_account_fiscal_position_rule/) | 8.0.1.0.0 | Account Fiscal Position Rules for Quebec, Canada
 [l10n_ca_toponyms](l10n_ca_toponyms/) | 8.0.1.0.0 | Canada - Provinces and Territories
@@ -29,7 +30,6 @@ Unported addons
 addon | version | summary
 --- | --- | ---
 [account_tax_expense_include_unported](account_tax_expense_include_unported/) | 1.0 (unported) | Taxes included in expense
-[hr_expense_line_supplier_unported](hr_expense_line_supplier_unported/) | 1.0 (unported) | Supplier on expense line
 [l10n_ca_hr_payroll](l10n_ca_hr_payroll/) | 1.0 (unported) | Canada - Payroll
 [l10n_ca_hr_payroll_account](l10n_ca_hr_payroll_account/) | 1.0 (unported) | Canada - Payroll Accounting
 [l10n_ca_qc_account_fiscal_position_rule_unported](l10n_ca_qc_account_fiscal_position_rule_unported/) | 1.0 (unported) | Account Fiscal Position Rules for Quebec, Canada
