@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: l10n-canada (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-24 23:24+0000\n"
-"PO-Revision-Date: 2015-05-11 15:29+0000\n"
+"POT-Creation-Date: 2016-07-20 17:14+0000\n"
+"PO-Revision-Date: 2016-07-20 17:14+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: English (http://www.transifex.com/oca/OCA-l10n-canada-8-0/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -84,11 +84,6 @@ msgstr "Print Check CA (Middle)"
 #: model:ir.actions.report.xml,name:l10n_ca_account_check_writing.l10n_ca_account_print_check_top
 msgid "Print Check CA (Top)"
 msgstr "Print Check CA (Top)"
-
-#. module: l10n_ca_account_check_writing
-#: model:ir.model,name:l10n_ca_account_check_writing.model_account_voucher_line
-msgid "Voucher Lines"
-msgstr "Voucher Lines"
 
 #. module: l10n_ca_account_check_writing
 #: code:addons/l10n_ca_account_check_writing/account_voucher.py:59
