@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -22,7 +22,7 @@
 
 {
     "name": "Canada - Provinces and Territories",
-    "version": "1.0",
+    "version": "7.0.1.0.0",
     "author": "Savoir-faire Linux,Odoo Community Association (OCA)",
     "website": "http://www.savoirfairelinux.com",
     "category": "Localisation/Canada",
@@ -38,7 +38,6 @@ Contributors
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
 """,
     "depends": ['base'],
-    "license": "AGPL-3",
     "data": [
         "l10n_ca_toponyms.xml",
     ],

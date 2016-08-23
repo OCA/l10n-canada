@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -22,7 +22,7 @@
 
 {
     "name": "Taxes included in expense",
-    "version": "1.2",
+    "version": "7.0.1.2.0",
     "author": "Savoir-faire Linux,Odoo Community Association (OCA)",
     "category": "Account",
     "website": "http://wwww.savoirfairelinux.com",

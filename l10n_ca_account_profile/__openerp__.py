@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -22,7 +22,7 @@
 
 {
     "name": "Canada - Accounting profile",
-    "version": "1.0",
+    "version": "7.0.1.0.0",
     "author": "Savoir-faire Linux,Odoo Community Association (OCA)",
     "website": "http://www.savoirfairelinux.com",
     "category": "Localisation/Canada",
@@ -58,7 +58,6 @@ Contributors
         'account_invoice_merge',
         'account_voucher_supplier_invoice_number',
     ],
-    "license": "AGPL-3",
     "data": [],
     "installable": True,
 }

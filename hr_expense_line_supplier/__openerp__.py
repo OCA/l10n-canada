@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -21,7 +21,7 @@
 ##############################################################################
 {
     "name": "Supplier on expense line",
-    "version": "1.2",
+    "version": "7.0.1.2.0",
     "author": "Savoir-faire Linux,Odoo Community Association (OCA)",
     "website": "http://www.savoirfairelinux.com",
     "category": "Human Resources",

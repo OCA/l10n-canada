@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Copyright (C) 2012 - 2014 Odoo Canada. All Rights Reserved.
@@ -21,9 +21,8 @@
 {
     'name': 'Canada - Payroll',
     'category': 'Localization',
-    'version': '1.0',
+    'version': '7.0.1.0.0',
     'license': 'AGPL-3',
-    'category': 'Generic Modules/Human Resources',
     'description': """
 Canada Payroll Rules
 ====================

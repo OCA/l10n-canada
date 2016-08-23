@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -22,7 +22,7 @@
 
 {
     'name': 'Account Statement TD Canada Import',
-    'version': '0.1',
+    'version': '7.0.1.0.0',
     'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'maintainer': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
