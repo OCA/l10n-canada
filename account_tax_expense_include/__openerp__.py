@@ -40,8 +40,12 @@ Contributors
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
+* David Dufresne <david.dufresne@savoirfairelinux.com>
 """,
-    "depends": ["account"],
+    "depends": [
+        "account",
+        "hr_expense_line_supplier",
+    ],
     "data": [
         "account_tax_view.xml",
     ],
