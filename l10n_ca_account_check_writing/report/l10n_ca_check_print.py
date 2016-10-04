@@ -31,9 +31,13 @@ from openerp.tools.translate import _
 # This is why we use the library below. You can get it at:
 # https://pypi.python.org/pypi/num2words
 from num2words import num2words
-# For the words we use in custom_translation(), we have to put dummy _()
-# calls here so that Odoo picks them up during .pot generation
-_("and")
+
+# For the words we use in custom_translation(), we have to put dummy _() calls here so that Odoo
+# picks them up during .pot generation
+AND = "and"
+AMOUNT_WORD_TEMPLATE = "{amount_in_word} {AND} {cents}/100 {currency_name}"
+_(AND)
+_(AMOUNT_WORD_TEMPLATE)
 
 _logger = logging.getLogger(__name__)
 
@@ -155,33 +159,25 @@ class report_print_check(report_sxw.rml_parse):
         currency_name = currency.print_on_check
 
         try:
-            base_amount_in_word = num2words(base_amont, lang=lang[:2])
+            if type(lang) is str or type(lang) is unicode:
+                amount_in_word = num2words(int(amount), lang=lang[:2])
+            else:
+                amount_in_word = num2words(int(amount))
         except NotImplementedError:
-            base_amount_in_word = num2words(base_amont)
+            amount_in_word = num2words(int(amount))
+        currency_name = currency.print_on_check
+        cents = int(amount * 100) % 100
+        s_and = custom_translation(AND, lang)
+        first_line = custom_translation(AMOUNT_WORD_TEMPLATE, lang)
 
-        # it should not have any AND in the base_amount_in_word
-        # so we just use the power of regex to sub them.
-        base_amount_in_word = re.sub(r' and ', ' ', base_amount_in_word)
-
-        if lang.startswith('fr'):
-            first_line = u'{amount_in_word} {currency_name} {AND} {cents}/100 '
-        else:
-            first_line = u'{amount_in_word} {AND} {cents}/100 {currency_name} '
-
-        first_line = first_line.format(
-            AND=custom_translation("and", lang),
-            currency_name=currency_name,
-            amount_in_word=base_amount_in_word,
-            cents=cents
-        )
+        first_line = first_line.format(AND=s_and, currency_name=currency_name,
+                                       amount_in_word=amount_in_word,
+                                       cents=cents)
 
         first_line = first_line.title()
 
         nb_missing_char = max_char - len(first_line)
-        if nb_missing_char:
-            stars = '*' * nb_missing_char
-        else:
-            stars = ''
+        stars = '*' * nb_missing_char
         amount_line_fmt = stars + first_line
         return amount_line_fmt
 
