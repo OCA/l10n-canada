@@ -43,5 +43,5 @@ Contributors
     'data': [
         'l10n_ca_toponyms.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
