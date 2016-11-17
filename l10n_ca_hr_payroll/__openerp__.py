@@ -37,6 +37,7 @@ Contributors
 * Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * Sandy Carter <sandy.carter@savoirfairelinux.com>
+* Rigoberto Martínez <rigo1985@gmail.com>
 """,
     'author': "Odoo Canada,Odoo Community Association (OCA)",
     'website': 'https://community.odoo.com/project/42',
@@ -50,5 +51,5 @@ Contributors
     ],
     'test': [],
     'demo': [],
-    'installable': False,
+    'installable': True,
 }
