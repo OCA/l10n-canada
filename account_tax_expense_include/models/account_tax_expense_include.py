@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -24,16 +24,16 @@ from openerp import models, fields, api
 from openerp.tools.float_utils import float_round
 
 
-class account_tax(models.Model):
+class AccountTax(models.Model):
     _inherit = 'account.tax'
 
     expense_include = fields.Boolean('Tax Included in Expense',
                                      help="Check this if this tax is \
                                      included in the expense amount.")
 
-    @api.model
+    @api.multi
     def compute_all(
-            self, taxes, price_unit, quantity, product=None, partner=None,
+            self, price_unit, quantity, product=None, partner=None,
             force_excluded=False):
         """
         :param force_excluded: boolean used to say that we don't want to
@@ -58,14 +58,14 @@ class account_tax(models.Model):
         # rounding after the sum of the tax amounts of each line
         precision = self.env['decimal.precision'].precision_get('Account')
         tax_compute_precision = precision
-        if (taxes and
-                taxes[0].company_id.tax_calculation_rounding_method ==
+        if (self and
+                self[0].company_id.tax_calculation_rounding_method ==
                 'round_globally'):
             tax_compute_precision += 5
         totalin = totalex = float_round(price_unit * quantity, precision)
         tin = []
         tex = []
-        for tax in taxes:
+        for tax in self:
             if not tax.price_include or force_excluded:
                 tex.append(tax)
             else:
