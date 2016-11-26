@@ -19,6 +19,7 @@ addon | version | summary
 [l10n_ca_toponyms](l10n_ca_toponyms/) | 9.0.0.0.0 | Canada - Provinces and Territories
 [res_partner_attributes_add_BN](res_partner_attributes_add_BN/) | 9.0.1.0.0 | Business identification Number in Canada (BN/NE)
 [res_partner_attributes_add_NEQ](res_partner_attributes_add_NEQ/) | 9.0.1.0.0 | Quebec Enterprise Number (NEQ)
+[res_partner_attributes_add_SIN](res_partner_attributes_add_SIN/) | 9.0.1.0.0 | Canada Social Insurance Number (SIN/NAS)
 
 Unported addons
 ---------------
@@ -33,7 +34,6 @@ addon | version | summary
 [l10n_ca_qc_hr_payroll](l10n_ca_qc_hr_payroll/) | 1.0 (unported) | Canada - Quebec - Payroll
 [l10n_ca_qc_hr_payroll_account](l10n_ca_qc_hr_payroll_account/) | 1.0 (unported) | Canada - Quebec - Payroll Accounting
 [res_currency_print_on_check](res_currency_print_on_check/) | 8.0.1.0.0 (unported) | Display name for currencies
-[res_partner_attributes_add_SIN](res_partner_attributes_add_SIN/) | 8.0.1.0.0 (unported) | Canada Social Insurance Number (SIN/NAS)
 
 [//]: # (end addons)
 
