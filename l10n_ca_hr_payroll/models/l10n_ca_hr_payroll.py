@@ -205,54 +205,54 @@ class HrEmployee(models.Model):
     cpp_exempt = fields.Boolean(string='CPP/QPP Exempt')
     qpip_exempt = fields.Boolean(string='QPIP Exempt')
     cpp_ytd_adj = fields.Float(string='CPP/QPP YTD Adjustment',
-                               help='''\Amount to adjust CPP/QPP for 
+                               help='''Amount to adjust CPP/QPP for 
                                calculations.\n Used if employee has 
                                contributed elsewhere and will be factored in 
                                when calculating maximum CPP payment''')
     ei_ytd_adj = fields.Float(string='EI YTD Adjustment',
-                              help='''\Amount to adjust EI for calculations.
+                              help='''Amount to adjust EI for calculations.
                               \nUsed if employee has contributed elsewhere 
                               and will be factored in when calculating maximum 
                               EI payment''')
     vac_pay = fields.Float(string='Vacation Pay %', digits=(16, 2))
     f1 = fields.Float(string='Childcare/Alimony (F1)', digits=(16, 2),
-                      help='''\Annual deductions such as child care expenses 
+                      help='''Annual deductions such as child care expenses 
                       and support payments, etc., authorized by a tax services 
                       office or tax centre''')
     f2 = fields.Float(string='Alimony/Maint Garnish (F2)', digits=(16, 2), 
-                      help='''\Alimony or maintenance payments required by a 
+                      help='''Alimony or maintenance payments required by a 
                       legal document to be payroll-deducted authorized by a 
                       tax services office or tax centre''')
     hd = fields.Float(string='Prescribed Zone (HD)', digits=(16, 2), 
-                      help='''\Annual deduction for living in a prescribed 
+                      help='''Annual deduction for living in a prescribed 
                       zone as indicated on Form TD1''')
     lcf = fields.Float(string='Fed Labour sponsored funds (LCF)', 
-                       digits=(16, 2), help='''\Provincial or territorial 
+                       digits=(16, 2), help='''Provincial or territorial 
                        labour-sponsored funds tax credit''')
     lcp = fields.Float(string='Prov Labour sponsored funds (LCP)', 
-                       digits=(16, 2), help='''\Provincial or territorial 
+                       digits=(16, 2), help='''Provincial or territorial 
                        labour-sponsored funds tax credit''')
     f = fields.Float(string='RSP/RPP/RCA (F)', digits=(16, 2), 
-                     help='''\Payroll deductions for employee contributions to 
+                     help='''Payroll deductions for employee contributions to 
                      a registered pension plan (RPP), a registered retirement 
                      savings plan (RRSP), or a retirement compensation 
                      arrangement (RCA)''')
     l = fields.Float(string='Extra Tax Deductions (L)', digits=(16, 2), 
-                     help='''\Extra tax deductions requested for the pay 
+                     help='''Extra tax deductions requested for the pay 
                      period''')
     k3 = fields.Float(string='Federal Medical (K3)', digits=(16, 2), 
-                      help='''\Other federal tax credits, such as medical 
+                      help='''Other federal tax credits, such as medical 
                       expenses and charitable donations authorized by a tax 
                       services office or tax centre''')
     u1 = fields.Float(string='Union Dues (U1)', digits=(16, 2), 
-                      help='''\Union dues''')
+                      help='''Union dues''')
     y = fields.Float(string='MB/ON Extra Tax Reduction(Y)', digits=(16, 2), 
-                      help='''\Extra provincial or territorial tax reduction 
+                      help='''Extra provincial or territorial tax reduction 
                       based on applicable amounts reported on the provincial 
                       or territorial Form TD1''')
     td1 = fields.Float(string='Personal Tax Credits Return (TD1)', 
                        digits=(16, 2), required=True, default=11038.00, 
-                       help='''\Personal Tax Credits Return''')
+                       help='''Personal Tax Credits Return''')
     eeins = fields.Float(string='Insurance - Employee Contribution (EeINS)', 
                          digits=(16, 2), required=True, default=0.00)
     erins = fields.Float(string='Insurance - Employer Contribution (ErINS)', 
