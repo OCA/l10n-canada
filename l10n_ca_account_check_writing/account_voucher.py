@@ -19,14 +19,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import logging
 
 from openerp import api, models, _
 
 from openerp.tools import config
+
+_logger = logging.getLogger(__name__)
 # Odoo's built-in routines for converting numbers to words is pretty bad,
 # especially in French This is why we use the library below. You can get it at:
 # https://pypi.python.org/pypi/num2words
-from num2words import num2words
+try:
+    from num2words import num2words
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 
 class AccountVoucher(models.Model):
