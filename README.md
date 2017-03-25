@@ -12,6 +12,7 @@ Dependencies
      * num2words
 
 [//]: # (addons)
+
 Available addons
 ----------------
 addon | version | summary
