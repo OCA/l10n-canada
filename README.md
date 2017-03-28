@@ -26,6 +26,7 @@ addon | version | summary
 [res_partner_attributes_add_NEQ](res_partner_attributes_add_NEQ/) | 8.0.1.0.0 | Quebec Enterprise Number (NEQ)
 [res_partner_attributes_add_SIN](res_partner_attributes_add_SIN/) | 8.0.1.0.0 | Canada Social Insurance Number (SIN/NAS)
 
+
 Unported addons
 ---------------
 addon | version | summary
