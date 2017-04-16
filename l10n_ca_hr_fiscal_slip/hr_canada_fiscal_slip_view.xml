@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!-- Create an empty submenu where fiscal slip forms will appear -->
+        <menuitem id="menu_fiscal_slips" name="Canada Fiscal Slips" parent="hr_payroll.menu_hr_root_payroll" groups="base.group_hr_user" sequence="45"/>
+    </data>
+</openerp>
+
