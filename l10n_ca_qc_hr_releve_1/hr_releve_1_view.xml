@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_releve_1_form" model="ir.ui.view">
+            <field name="name">hr.releve_1.form</field>
+            <field name="model">hr.releve_1</field>
+            <field name="arch" type="xml">
+                <form string="Relevés 1" version="7.0">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
+                        <button string="Compute Amounts" name="compute_amounts" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Create Datamatrix Code" name="make_dtmx_barcode_string" type="object" states="draft" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="year"/>
+                            <field name="type"/>
+                            <field name="number" readonly="1"/>
+                            <field name="amended_slip" 
+                                attrs="{'invisible': [('type', '!=', 'A')],'required': [('type', '=', 'A')]}"
+                                domain="[('year', '=', year), ('company_id', '=', company_id), ('type', 'in', ['R', 'A'])]"
+                            />
+                            <field name="previous_number" readonly="1" attrs="{
+                                'invisible': [('type', '!=', 'A')],
+                            }"/>
+                            <field name="reference"/>
+                        </group>
+                        <group col="4">
+                            <group string="Employee">
+                                <field name="employee_id"/>
+                                <field name="nas" readonly="1"/>
+                                <field name="no_employee" readonly="1"/>
+                                <field name="lastname" readonly="1"/>
+                                <field name="firstname" readonly="1"/>
+                                <field name="initial" readonly="1"/>
+                            </group>
+                            <group string="Home Adress">
+                                <field name="address_home_id" invisible="1"/>
+                                <field name="street" readonly="1"/>
+                                <field name="street2" readonly="1"/>
+                                <field name="city" readonly="1"/>
+                                <field name="state_id" readonly="1"/>
+                                <field name="country_id" readonly="1"/>
+                                <field name="zip" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="standard_fields" string="Standard Inputs">
+                                <group col="6">
+                                    <field name="a_revenu_emploi"/>
+                                    <field name="b_cotisation_rrq"/>
+                                    <field name="c_cotisation_ass_emploi"/>
+                                    <field name="d_cotisation_rpa"/>
+                                    <field name="e_impot_que"/>
+                                    <field name="f_cotisation_syndicale"/>
+                                    <field name="g_salaire_admis_rrq"/>
+                                    <field name="h_cotisation_rqap"/>
+                                    <field name="i_salaire_admis_rqap"/>
+                                    <field name="j_regime_ass_maladie"/>
+                                    <field name="k_voyage"/>
+                                    <field name="l_autre_avantage"/>
+                                    <field name="m_commission"/>
+                                    <field name="n_don_bienfaisance"/>
+                                    <field name="o_autre_revenu"/>
+                                    <field name="p_regime_ass_inter_entr"/>
+                                    <field name="q_salaire_differe"/>
+                                    <field name="r_revenu_indien"/>
+                                    <field name="s_pourboire_recu"/>
+                                    <field name="t_pourboire_attribue"/>
+                                    <field name="u_retraite_progressive"/>
+                                    <field name="v_nourriture_logement"/>
+                                    <field name="w_vehicule"/>
+                                    <field name="o_autre_revenu_source" domain="[('is_other_revenue', '=', True)]"/>
+                                </group>
+                            </page>
+                            <page name="info_sup" string="Additional Information">
+                                <group col="8">
+                                    <field name="other_info_ids" nolabel="1">
+                                        <tree editable="top">
+                                            <field name="source"/>
+                                            <field name="amount"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page name="dtmx_barcode_string" string="DataMatrix Barcode">
+                                <group>
+                                    <field name="dtmx_barcode_image" widget="image" width="150" height="150" readonly="1" nolabel="1"/>
+                                </group>
+                                <group col="1">
+                                    <label for="dtmx_barcode_string" string="Barcode Content"/>
+                                    <field name="dtmx_barcode_string" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_releve_1_tree" model="ir.ui.view">
+            <field name="name">hr.releve_1.tree</field>
+            <field name="model">hr.releve_1</field>
+            <field name="arch" type="xml">
+                <tree string="Relevés 1">
+                    <field name="employee_id"/>
+                    <field name="year"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_releve_1_filter" model="ir.ui.view">
+            <field name="name">hr.releve_1.select</field>
+            <field name="model">hr.releve_1</field>
+            <field name="arch" type="xml">
+                <search string="Search Relevés 1">
+                    <field name="employee_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_hr_releve_1_tree" model="ir.actions.act_window">
+            <field name="name">Relevés 1</field>
+            <field name="res_model">hr.releve_1</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_hr_releve_1_tree"/>
+            <field name="search_view_id" ref="view_hr_releve_1_filter"/>
+        </record>
+
+        <menuitem action="action_view_hr_releve_1_tree" id="releve_1_menu_item" parent="l10n_ca_hr_fiscal_slip.menu_fiscal_slips" groups="base.group_hr_user" sequence="50"/>
+    </data>
+</openerp>
+

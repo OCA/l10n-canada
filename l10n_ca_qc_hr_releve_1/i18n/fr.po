@@ -1,0 +1,335 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* l10n_ca_qc_hr_releve_1
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-03 22:46+0000\n"
+"PO-Revision-Date: 2015-01-03 18:09-0500\n"
+"Last-Translator: David Dufresne <david.dufresne@savoirfairelinux.com>\n"
+"Language-Team: Savoir-faire Linux\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,zip:0
+msgid "Zip"
+msgstr "Code Postal"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: model:ir.actions.report.xml,name:l10n_ca_qc_hr_releve_1.releve_1_report_copy_2
+msgid "Relevé 1 - Copy 2 (Employee)"
+msgstr "Relevé 1 - Copie 2 (Employé)"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:157
+#: field:hr.releve_1,state_id:0
+#, python-format
+msgid "Province"
+msgstr "Province"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,company_id:0
+msgid "Company"
+msgstr "Société"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:163
+#, python-format
+msgid "Zip Code"
+msgstr "Code postal"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: selection:hr.releve_1,type:0
+msgid "Original"
+msgstr "Original"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: view:hr.releve_1:0
+#: model:ir.actions.act_window,name:l10n_ca_qc_hr_releve_1.action_view_hr_releve_1_tree
+#: model:ir.ui.menu,name:l10n_ca_qc_hr_releve_1.releve_1_menu_item
+msgid "Relevés 1"
+msgstr "Relevés 1"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: model:ir.actions.report.xml,name:l10n_ca_qc_hr_releve_1.releve_1_report_copy_1
+msgid "Relevé 1 - Copy 1 (Revenu Québec)"
+msgstr "Relevés 1 - Copy 1 (Revenu Québec)"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1.other_info,amount:0
+msgid "Amount"
+msgstr "Montant"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: selection:hr.releve_1,type:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: model:ir.model,name:l10n_ca_qc_hr_releve_1.model_hr_releve_1_other_info
+msgid "Additional Information on Releve 1"
+msgstr "Information additionnelle sur le Relevé 1"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,reference:0
+msgid "Reference"
+msgstr "Référence"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: model:ir.model,name:l10n_ca_qc_hr_releve_1.model_hr_releve_1_other_info_source
+msgid "Additional Information Source on Releve 1"
+msgstr "Source de l'information additionnelle sur le Relevé 1"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,dtmx_barcode_string:0
+msgid "Datamatrix Code"
+msgstr "Code Datamatrix"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,dtmx_barcode_image:0
+msgid "DataMatrix Bar Code"
+msgstr "Code à barre Datamatrix"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,amended_slip:0
+msgid "Amended Slip"
+msgstr "Feuillet amendé"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1.other_info,source:0
+msgid "Source"
+msgstr "Source"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: view:hr.releve_1:0 field:hr.releve_1,employee_id:0
+#: model:ir.model,name:l10n_ca_qc_hr_releve_1.model_hr_employee
+msgid "Employee"
+msgstr "Employé"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: view:hr.releve_1:0
+msgid "Create Datamatrix Code"
+msgstr "Créer le code Datamatrix"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: constraint:hr.releve_1:0
+msgid ""
+"Error! You can enter a maximum of 4 other amounts\n"
+"and they must be different from each other"
+msgstr ""
+"Erreur! Vous ne pouvez pas entrer plus de 4 lignes d'information "
+"additionnelle. Ils doivent tous être différents."
+
+#. module: l10n_ca_qc_hr_releve_1
+#: help:hr.releve_1.other_info.source,code:0
+msgid "Code that appears Releve 1"
+msgstr "Le code qui apparaît sur le Relevé 1."
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:104
+#, python-format
+msgid "The field %s is missing"
+msgstr "Le champs %s est manquant."
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:240
+#: field:hr.releve_1,lastname:0
+#, python-format
+msgid "Last Name"
+msgstr "Nom de famille"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: view:hr.releve_1:0
+msgid "Standard Inputs"
+msgstr "Entrées standards"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,no_employee:0
+msgid "Employee Number"
+msgstr "Numéro d'employé"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,number:0
+msgid "Sequential Number"
+msgstr "Numéro séquentiel"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: view:hr.releve_1:0 field:hr.releve_1,other_info_ids:0
+msgid "Additional Information"
+msgstr "Information additionnelle"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: view:hr.releve_1:0
+msgid "Search Relevés 1"
+msgstr "Chercher des Relevés 1"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:130
+#, python-format
+msgid "The value %s is too long"
+msgstr "La valeur %s est trop longue"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,state:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: selection:hr.releve_1,type:0
+msgid "Amended"
+msgstr "Amendé"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: view:hr.releve_1:0
+msgid "Compute Amounts"
+msgstr "Calculer les montants"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: view:hr.releve_1:0
+msgid "Home Adress"
+msgstr "Adresse personnelle"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: model:ir.model,name:l10n_ca_qc_hr_releve_1.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:141
+#, python-format
+msgid "Street Line 2"
+msgstr "Rue ligne 2"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:104
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:130
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:255
+#: code:addons/l10n_ca_qc_hr_releve_1/res_company.py:48
+#: code:addons/l10n_ca_qc_hr_releve_1/res_company.py:84
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: view:hr.releve_1:0
+msgid "Barcode Content"
+msgstr "Contenu du code à barre"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1.other_info.source,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,initial:0
+msgid "Last Name Initial"
+msgstr "Initiale"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:142
+#: field:hr.releve_1,city:0
+#, python-format
+msgid "City"
+msgstr "Ville"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:241
+#: field:hr.releve_1,firstname:0
+#, python-format
+msgid "First Name"
+msgstr "Prénom"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,address_home_id:0
+msgid "Home Address"
+msgstr "Adresse personnelle"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,previous_number:0
+msgid "Previous Sequential Number"
+msgstr "Numéro séquentiel précédent"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1.other_info.source,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:255
+#, python-format
+msgid "The employee home address is not set"
+msgstr "L'adresse personnelle de l'employé n'est pas configurée."
+
+#. module: l10n_ca_qc_hr_releve_1
+#: model:ir.model,name:l10n_ca_qc_hr_releve_1.model_hr_releve_1
+msgid "Relevé 1"
+msgstr "Relevé 1"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:183
+#, python-format
+msgid "Preparator Number"
+msgstr "Numéro de préparateur"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,street:0
+msgid "Address Line 1"
+msgstr "Adresse ligne 1"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,street2:0
+msgid "Address Line 2"
+msgstr "Adresse ligne 2"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,country_id:0
+msgid "Country"
+msgstr "Pays"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,nas:0
+msgid "Social Insurance Number"
+msgstr "Numéro d'assurance sociale"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1,year:0
+msgid "Fiscal Year"
+msgstr "Année fiscale"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/hr_releve_1.py:140
+#, python-format
+msgid "Street Line 1"
+msgstr "Rue ligne 1"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: field:hr.releve_1.other_info.source,is_other_revenue:0
+msgid "Is Other Revenu"
+msgstr "Est un autre revenu"
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/res_company.py:49
+#, python-format
+msgid "Your sequence number range for Revenu Quebec is incorrectly set"
+msgstr ""
+"Votre intervalle de numéro de séquence pour Revenu Québec est mal configurée."
+
+#. module: l10n_ca_qc_hr_releve_1
+#: code:addons/l10n_ca_qc_hr_releve_1/res_company.py:85
+#, python-format
+msgid ""
+"You have already used all your sequential numbers assigned by Revenu Quebec"
+msgstr ""
+"Vous avez déjà utilisé tous vos numéros séquentiels assignés par Revenu "
+"Québec."
