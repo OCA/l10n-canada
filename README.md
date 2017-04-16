@@ -3,6 +3,8 @@
 [![Coverage Status](https://coveralls.io/repos/OCA/l10n-canada/badge.svg?branch=8.0)](https://coveralls.io/r/OCA/l10n-canada?branch=8.0)
 [![Code Climate](https://codeclimate.com/github/OCA/l10n-canada/badges/gpa.svg)](https://codeclimate.com/github/OCA/l10n-canada)
 
+[![Transifex Status](https://www.transifex.com/projects/p/l10n-canada/chart/image_png)](https://www.transifex.com/projects/p/l10n-canada)
+
 Odoo modules for Canada
 =======================
 
