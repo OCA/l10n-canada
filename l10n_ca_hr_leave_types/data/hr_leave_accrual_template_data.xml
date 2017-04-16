@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="template_vacation" model="hr.leave.accrual.template">
+            <field name="name">Vacation</field>
+            <field name="code">VAC</field>
+            <field name="amount_type">cash</field>
+        </record>
+        <record id="template_vacation_line_1" model="hr.leave.accrual.template.line">
+            <field name="template_id" ref="template_vacation"/>
+            <field name="salary_rule_id" ref="rule_ca_vac_added"/>
+            <field name="substract" eval="False"/>
+        </record>
+        <record id="template_vacation_line_2" model="hr.leave.accrual.template.line">
+            <field name="template_id" ref="template_vacation"/>
+            <field name="salary_rule_id" ref="rule_ca_vac_taken"/>
+            <field name="substract" eval="True"/>
+        </record>
+        <record id="template_vacation_line_3" model="hr.leave.accrual.template.line">
+            <field name="template_id" ref="template_vacation"/>
+            <field name="salary_rule_id" ref="rule_ca_unused_vac_taken"/>
+            <field name="substract" eval="True"/>
+        </record>
+
+        <record id="template_sick_leaves" model="hr.leave.accrual.template">
+            <field name="name">Sick Leaves</field>
+            <field name="code">SL</field>
+            <field name="amount_type">hours</field>
+        </record>
+        <record id="template_sick_leaves_line_1" model="hr.leave.accrual.template.line">
+            <field name="template_id" ref="template_sick_leaves"/>
+            <field name="salary_rule_id" ref="rule_ca_sl_taken"/>
+            <field name="substract" eval="True"/>
+        </record>
+        <record id="template_sick_leaves_line_2" model="hr.leave.accrual.template.line">
+            <field name="template_id" ref="template_sick_leaves"/>
+            <field name="salary_rule_id" ref="rule_ca_unused_sl_taken"/>
+            <field name="substract" eval="True"/>
+        </record>
+
+        <record id="template_compensatory" model="hr.leave.accrual.template">
+            <field name="name">Compensatory Days</field>
+            <field name="code">COMP</field>
+            <field name="amount_type">cash</field>
+        </record>
+        <record id="template_compensatory_line_1" model="hr.leave.accrual.template.line">
+            <field name="template_id" ref="template_compensatory"/>
+            <field name="salary_rule_id" ref="rule_ca_comp_added"/>
+            <field name="substract" eval="False"/>
+        </record>
+        <record id="template_compensatory_line_2" model="hr.leave.accrual.template.line">
+            <field name="template_id" ref="template_compensatory"/>
+            <field name="salary_rule_id" ref="rule_ca_comp_taken"/>
+            <field name="substract" eval="True"/>
+        </record>
+        <record id="template_compensatory_line_3" model="hr.leave.accrual.template.line">
+            <field name="template_id" ref="template_compensatory"/>
+            <field name="salary_rule_id" ref="rule_ca_unused_comp_taken"/>
+            <field name="substract" eval="True"/>
+        </record>
+    </data>
+</openerp>

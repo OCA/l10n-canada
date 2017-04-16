@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="LEGAL" model="hr.salary.rule.category">
+            <field name="code">LEGAL</field>
+            <field name="name">Legal Leaves Calculation</field>
+        </record> 
+
+        <!-- Legal leaves - 60 -->
+        <record id="rule_ca_legal_available" model="hr.salary.rule">
+            <field name="name">Legal leaves available</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="65"/>
+            <field name="code">LEGAL_AVAIL</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="LEGAL"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if contract.salary_computation_method == 'wage':
+    result = 0
+else:
+    legal_leaves = payslip.get_public_holidays(
+        payslip.date_from,
+        payslip.date_to,
+        country_code='CA',
+        state_code=False,
+    )
+
+    result = 0
+
+    if legal_leaves:
+        for legal_leave in legal_leaves:
+            four_weeks_gross = payslip.get_4_weeks_of_gross(
+                payslip,
+                employee.id,
+                contract.id,
+                legal_leave.date,
+            )
+            result += four_weeks_gross / 20
+            </field>
+        </record>
+
+        <record id="rule_ca_legal_requested" model="hr.salary.rule">
+            <field name="name">Legal leaves requested</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="66"/>
+            <field name="code">LEGAL_REQ</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="LEGAL"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if contract.salary_computation_method == 'wage':
+    result = 0
+else:
+    result = payslip.sum_leave_category(payslip, 'LEGAL', multiply_by_rate=True)
+            </field>
+        </record>
+
+        <record id="rule_ca_legal_taken" model="hr.salary.rule">
+            <field name="name">Legal leaves taken</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="67"/>
+            <field name="code">LEGAL_TAKEN</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="category_id" ref="LEGAL"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if LEGAL_AVAIL >= LEGAL_REQ:
+    result = LEGAL_REQ
+elif LEGAL_REQ > 0:
+    result = LEGAL_AVAIL
+    if contract.salary_computation_method == 'hourly_rate':
+        payslip.reduce_leave_hours(
+            payslip, 'LEGAL',
+            LEGAL_REQ - LEGAL_AVAIL,
+            divide_by_rate=True
+        )
+else:
+    result = 0
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="COMP" model="hr.salary.rule.category">
+            <field name="code">COMP</field>
+            <field name="name">Legal Leaves Calculation</field>
+        </record>
+
+        <record id="rule_ca_comp_available" model="hr.salary.rule">
+            <field name="name">Compensatory days available</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="61"/>
+            <field name="code">COMP_AVAIL</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="COMP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+comp_accrual = employee.sum_leave_accruals(employee.id, 'COMP', payslip.date_to)
+result = comp_accrual['previous_ytd'] \
+    + comp_accrual['current_added_ytd'] \
+    - comp_accrual['current_taken_ytd'] \
+            </field>
+        </record>
+
+        <record id="rule_ca_comp_requested" model="hr.salary.rule">
+            <field name="name">Compensatory days requested</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="62"/>
+            <field name="code">COMP_REQ</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="COMP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.sum_leave_category(payslip, 'COMP', multiply_by_rate=True)
+            </field>
+        </record>
+
+        <record id="rule_ca_comp_taken" model="hr.salary.rule">
+            <field name="name">Compensatory days taken</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="63"/>
+            <field name="code">COMP_TAKEN</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="category_id" ref="COMP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if COMP_AVAIL >= COMP_REQ:
+    result = COMP_REQ
+elif COMP_REQ > 0:
+    result = COMP_AVAIL
+    payslip.reduce_leave_hours(
+        payslip,
+        'COMP',
+        COMP_REQ - COMP_AVAIL,
+        divide_by_rate=True
+    )
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_unused_comp_taken" model="hr.salary.rule">
+            <field name="name">Unused compensatory days payment</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="64"/>
+            <field name="code">COMP_UNUSED</field>
+            <field name="category_id" ref="l10n_ca_hr_payroll.OTHER_WAGE"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+requested_amount = payslip.sum_payslip_input(payslip, 'COMP_UNUSED')
+available_amount = COMP_AVAIL - COMP_TAKEN
+
+if available_amount >= requested_amount:
+    result = requested_amount
+elif requested_amount > 0:
+    result = available_amount
+    payslip.reduce_payslip_input_amount(payslip, 'COMP_UNUSED', requested_amount - available_amount)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_comp_added" model="hr.salary.rule">
+            <field name="name">Compensatory days earned</field>
+            <field name="structure_id" eval="[(6, 0, [ref('l10n_ca_hr_payroll.hr_structure_ca_base')])]"/>
+            <field name="sequence" eval="91"/>
+            <field name="code">COMP_ADDED</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="category_id" ref="COMP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = max(LEGAL_AVAIL - LEGAL_TAKEN, 0)
+            </field>
+        </record>
+
+    </data>
+</openerp>
