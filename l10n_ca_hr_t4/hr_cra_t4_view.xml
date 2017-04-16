@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_t4_form" model="ir.ui.view">
+            <field name="name">hr.cra.t4.form</field>
+            <field name="model">hr.cra.t4</field>
+            <field name="arch" type="xml">
+                <form string="T4 Slip" version="7.0">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
+                        <button string="Compute Amounts" name="compute_amounts" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Confirm" name="approve_slip" type="object" states="draft" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group name="slip_info">
+                            <field name="company_id"/>
+                            <field name="year"/>
+                            <field name="reference"/>
+                            <field name="type"/>
+                            <field name="empt_prov_cd"/>
+                        </group>
+                        <group name="employee_info" col="4">
+                            <group name="employee" string="Employee">
+                                <field name="employee_id"/>
+                                <field name="nas" readonly="1"/>
+                                <field name="no_employee" readonly="1"/>
+                                <field name="lastname" readonly="1"/>
+                                <field name="firstname" readonly="1"/>
+                                <field name="initial" readonly="1"/>
+                            </group>
+                            <group name="home_address" string="Home Address">
+                                <field name="address_home_id" invisible="1"/>
+                                <field name="street" readonly="1"/>
+                                <field name="street2" readonly="1"/>
+                                <field name="city" readonly="1"/>
+                                <field name="state_id" readonly="1"/>
+                                <field name="country_id" readonly="1"/>
+                                <field name="zip" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="standard_fields" string="Standard Inputs">
+                                <group col="4">
+                                    <field name="rpp_dpsp_rgst_nbr"/>
+                                    <field name="cpp_qpp_xmpt_cd"/>
+                                    <field name="ei_xmpt_cd"/>
+                                    <field name="prov_pip_xmpt_cd"/>
+                                    <field name="empt_cd"/>
+                                    <field name="empt_incamt"/>
+                                    <field name="cpp_cntrb_amt"/>
+                                    <field name="qpp_cntrb_amt"/>
+                                    <field name="empe_eip_amt"/>
+                                    <field name="rpp_cntrb_amt"/>
+                                    <field name="itx_ddct_amt"/>
+                                    <field name="ei_insu_ern_amt"/>
+                                    <field name="cpp_qpp_ern_amt"/>
+                                    <field name="unn_dues_amt"/>
+                                    <field name="chrty_dons_amt"/>
+                                    <field name="padj_amt"/>
+                                    <field name="prov_pip_amt"/>
+                                    <field name="prov_insu_ern_amt"/>
+                                    <field name="empr_cpp_amt"/>
+                                    <field name="empr_eip_amt"/>
+                                </group>
+                            </page>
+                            <page name="info_sup" string="Additional Information">
+                                <group col="8">
+                                    <field name="other_amount_ids" nolabel="1">
+                                        <tree editable="top">
+                                            <field name="source"/>
+                                            <field name="amount"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_t4_tree" model="ir.ui.view">
+            <field name="name">hr.cra.t4.tree</field>
+            <field name="model">hr.cra.t4</field>
+            <field name="arch" type="xml">
+                <tree string="T4 Slips">
+                    <field name="employee_id"/>
+                    <field name="year"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_t4_filter" model="ir.ui.view">
+            <field name="name">hr.cra.t4.select</field>
+            <field name="model">hr.cra.t4</field>
+            <field name="arch" type="xml">
+                <search string="Search T4">
+                    <field name="employee_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_t4_tree" model="ir.actions.act_window">
+            <field name="name">T4 Slip</field>
+            <field name="res_model">hr.cra.t4</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_t4_tree"/>
+            <field name="search_view_id" ref="view_t4_filter"/>
+        </record>
+
+        <menuitem action="action_view_t4_tree" id="t4_slip_menu_item" parent="l10n_ca_hr_fiscal_slip.menu_fiscal_slips" groups="base.group_hr_user" sequence="10"/>
+    </data>
+</openerp>
+

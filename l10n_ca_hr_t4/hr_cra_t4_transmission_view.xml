@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_t4_transmission_form" model="ir.ui.view">
+            <field name="name">hr.cra.t4.transmission.form</field>
+            <field name="model">hr.cra.t4.transmission</field>
+            <field name="arch" type="xml">
+                <form string="T4 Slips - Transmission" version="7.0">
+                    <header>
+                        <button string="Generate XML" name="generate_xml" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Confirm Sent" name="send_slips" type="object" states="draft" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,ready,sent,confirmed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="company_partner_id" readonly="1"/>
+                            <field name="ne" readonly="1"/>
+                            <field name="year"/>
+                            <field name="type"/>
+                        </group>
+
+                        <notebook>
+                            <page name="general_info" string="Standard Information">
+                                <group>
+                                    <field name="sbmt_ref_id"/>
+                                    <field name="lang_cd"/>
+                                </group>
+                                <group string="Proprietor">
+                                    <field name="proprietor_1_id"/>
+                                    <field name="proprietor_1_nas" readonly="1"/>
+                                    <field name="proprietor_2_id"/>
+                                    <field name="proprietor_2_nas" readonly="1"
+                                        attrs="{'invisible': [('proprietor_2_id', '=', False)]}"
+                                    />
+                                </group>
+                                <group>
+                                    <group string="Contact">
+                                        <field name="contact_id"/>
+                                        <field name="contact_area_code"/>
+                                        <field name="contact_phone"/>
+                                        <field name="contact_extension"/>
+                                        <field name="contact_email"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="t4_slip_ids" string="T4 Slips">
+                                <group>
+                                    <field 
+                                        name="t4_original_ids"
+                                        attrs="{'invisible': [('type', '!=', 'O')],
+                                                'required': [('type', '=', 'O')]}"
+                                        domain="[('state', '!=', 'sent'), ('type', '=', 'O'), ('year', '=', year)]"
+                                    />
+                                    <field  
+                                    name="t4_amended_ids"
+                                            
+                                        attrs="{'invisible': [('type', '!=', 'A')],
+                                                'required': [('type', '=', 'A')]}"
+                                        domain="[('state', '!=', 'sent'), ('type', '=', 'A'), ('year', '=', year)]"
+                                    />
+                                    <field  
+                                    name="t4_cancelled_ids"
+                                        attrs="{'invisible': [('type', '!=', 'C')],
+                                                'required': [('type', '=', 'C')]}"
+                                        domain="[('state', '!=', 'sent'), ('type', '=', 'C'), ('year', '=', year)]"
+                                    />
+                                </group>
+                            </page>
+                            <page name="xml_generated" string="XML Generated">
+                                <field name="xml" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_t4_transmission_tree" model="ir.ui.view">
+            <field name="name">hr.cra.t4.transmission.tree</field>
+            <field name="model">hr.cra.t4.transmission</field>
+            <field name="arch" type="xml">
+                <tree string="T4 Slips">
+                    <field name="company_id"/>
+                    <field name="year"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_t4_transmission_filter" model="ir.ui.view">
+            <field name="name">hr.cra.t4.transmission.select</field>
+            <field name="model">hr.cra.t4.transmission</field>
+            <field name="arch" type="xml">
+                <search string="Search Transmissions">
+                    <field name="year"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_hr_t4_transmission_tree" model="ir.actions.act_window">
+            <field name="name">T4 Slips - Transmission</field>
+            <field name="res_model">hr.cra.t4.transmission</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_hr_t4_transmission_tree"/>
+            <field name="search_view_id" ref="view_hr_t4_transmission_filter"/>
+        </record>
+
+        <menuitem action="action_view_hr_t4_transmission_tree" id="t4_transmission_menu_item" parent="l10n_ca_hr_fiscal_slip.menu_fiscal_slips" groups="base.group_hr_manager" sequence="30"/>
+    </data>
+</openerp>
