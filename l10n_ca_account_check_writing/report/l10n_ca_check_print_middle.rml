@@ -50,7 +50,7 @@
 
     <!-- Check Sum Letter -->
     <currentFrame name="CheckSumLetter" />
-    <para style="P10-R">[[ ltrim(amount_in_word(voucher), 80) ]]</para>
+    <para style="P10-R">[[ ltrim(fill(amount_in_word(voucher)), 80) ]]</para>
 
     <setNextFrame name="MemoLabel" />
     <frameEnd />
