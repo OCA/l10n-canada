@@ -33,16 +33,22 @@ class report_print_check(report_sxw.rml_parse):
             'get_all_lines': self.get_all_lines,
             'ltrim': self.ltrim,
             'spad': self.pad_stars,
+            'fill': self.fill_stars,
             'amount_in_word': self.get_amount_in_word,
         })
 
     def ltrim(self, s, maxlen):
         if len(s) > maxlen:
             return s[-maxlen:]
+        return s
 
     def pad_stars(self, s, maxlen):
         """ Pad string with stars """
         return u'{0:*>{1}}'.format(s, maxlen)
+
+    def fill_stars(self, amount):
+        res = ''.join(['*' * (78 - len(amount)), amount])
+        return ''.join([res, '*'])
 
     def get_amount_in_word(self, voucher):
         currency = voucher._get_current_currency(voucher.id)

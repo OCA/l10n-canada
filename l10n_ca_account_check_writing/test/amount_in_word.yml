@@ -24,4 +24,4 @@
   I check that the voucher state is "posted"
 -
   !assert {model: account.voucher, id: check0}:
-    - amount_in_word == '************************************ three hundred and forty-two and 15/100 euros'
+    - amount_in_word == 'three hundred and forty-two and 15/100 euros'

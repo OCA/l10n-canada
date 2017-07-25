@@ -62,9 +62,6 @@ class AccountVoucher(models.Model):
             currency=currency_name,
         )
 
-        if len(res) < 79:
-            res = u" ".join([u"*" * (80 - len(res)), res])
-
         return res
 
     @api.multi
