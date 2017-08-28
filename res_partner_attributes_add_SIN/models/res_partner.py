@@ -2,7 +2,8 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import fields, models, api, _, exceptions
+from odoo import  _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
@@ -18,12 +19,12 @@ class ResPartner(models.Model):
     )
 
     @api.multi
-    @api.constrains("sin")
+    @api.constrains('sin')
     def _check_sin(self):
         """
         Check if SIN is valid when changed or saved
         :return: none
-        :raises: exceptions.Warning when SIN is invalid
+        :raises: ValidationError when SIN is invalid
         """
         self.ensure_one()
 
@@ -59,6 +60,6 @@ class ResPartner(models.Model):
             return luhn_checksum(sin) == 0
 
         if not is_luhn_valid(self.sin):
-            raise exceptions.ValidationError(
+            raise ValidationError(
                 _('The number provided is not a valid SIN number!')
             )

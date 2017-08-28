@@ -2,17 +2,17 @@
 # © 2016 Savoir-faire Linux
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import exceptions
-from openerp.tests import TransactionCase
+from odoo import exceptions
+from odoo.tests import TransactionCase
 
 
 class TestPartnerSin(TransactionCase):
 
     def setUp(self):
         super(TestPartnerSin, self).setUp()
-        self.partner = self.env["res.partner"].create({
-            "name": "Test Partner",
-            "is_company": False
+        self.partner = self.env['res.partner'].create({
+            'name': 'Test Partner',
+            'is_company': False
         })
 
     def test_valid_sin(self):
