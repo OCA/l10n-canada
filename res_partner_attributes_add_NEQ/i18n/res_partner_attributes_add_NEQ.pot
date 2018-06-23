@@ -1,22 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * res_partner_attributes_add_NEQ
+#	* res_partner_attributes_add_NEQ
 #
-# Translators:
-# Wahyu Setiawan <wahyusetiaaa@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-28 03:52+0000\n"
-"PO-Revision-Date: 2017-03-28 03:52+0000\n"
-"Last-Translator: Wahyu Setiawan <wahyusetiaaa@gmail.com>, 2017\n"
-"Language-Team: Indonesian (https://www.transifex.com/oca/teams/23907/id/)\n"
-"Language: id\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: \n"
 
 #. module: res_partner_attributes_add_NEQ
 #: model:ir.model.fields,field_description:res_partner_attributes_add_NEQ.field_res_partner_neq
@@ -26,9 +21,10 @@ msgstr ""
 #. module: res_partner_attributes_add_NEQ
 #: model:ir.model,name:res_partner_attributes_add_NEQ.model_res_partner
 msgid "Partner"
-msgstr "Mitra"
+msgstr ""
 
 #. module: res_partner_attributes_add_NEQ
 #: model:ir.model.fields,help:res_partner_attributes_add_NEQ.field_res_partner_neq
 msgid "Quebec Enterprise Number (10 digits)"
 msgstr ""
+
