@@ -18,41 +18,6 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 
 #. module: base
-#: model:res.country.state,name:base.state_ca_bc
-msgid "British Columbia"
-msgstr "Colombie-Britannique"
-
-#. module: base
-#: model:res.country.state,name:base.state_ca_nb
-msgid "New Brunswick"
-msgstr "Nouveau-Brunswick"
-
-#. module: base
-#: model:res.country.state,name:base.state_ca_nl
-msgid "Newfoundland and Labrador"
-msgstr "Terre-Neuve-et-Labrador"
-
-#. module: base
-#: model:res.country.state,name:base.state_ca_nt
-msgid "Northwest Territories"
-msgstr "Territoires du Nord-Ouest"
-
-#. module: base
-#: model:res.country.state,name:base.state_ca_ns
-msgid "Nova Scotia"
-msgstr "Nouvelle-Écosse"
-
-#. module: base
-#: model:res.country.state,name:base.state_ca_pe
-msgid "Prince Edward Island"
-msgstr "Île-du-Prince-Édouard"
-
-#. module: base
-#: model:res.country.state,name:base.state_ca_qc
-msgid "Quebec"
-msgstr "Québec"
-
-#. module: base
 #: model:res.country.state,name:base.state_us_5
 msgid "California"
 msgstr "Californie"

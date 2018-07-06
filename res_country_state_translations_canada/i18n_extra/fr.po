@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-21 11:54-0400\n"
+"PO-Revision-Date: 2018-06-21 11:55-0400\n"
+"Last-Translator: Agathe Mollé <agathe.molle@savoirfairelinux.com>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: base
+#: model:res.country.state,name:base.state_ca_bc
+msgid "British Columbia"
+msgstr "Colombie-Britannique"
+
+#. module: base
+#: model:res.country.state,name:base.state_ca_nb
+msgid "New Brunswick"
+msgstr "Nouveau-Brunswick"
+
+#. module: base
+#: model:res.country.state,name:base.state_ca_nl
+msgid "Newfoundland and Labrador"
+msgstr "Terre-Neuve-et-Labrador"
+
+#. module: base
+#: model:res.country.state,name:base.state_ca_nt
+msgid "Northwest Territories"
+msgstr "Territoires du Nord-Ouest"
+
+#. module: base
+#: model:res.country.state,name:base.state_ca_ns
+msgid "Nova Scotia"
+msgstr "Nouvelle-Écosse"
+
+#. module: base
+#: model:res.country.state,name:base.state_ca_pe
+msgid "Prince Edward Island"
+msgstr "Île-du-Prince-Édouard"
+
+#. module: base
+#: model:res.country.state,name:base.state_ca_qc
+msgid "Quebec"
+msgstr "Québec"
