@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# © 2010 Savoir-faire Linux
+# © 2018 Savoir-faire Linux
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Canada - States, Provinces and Territories Translations',
-    'version': '10.0.0.1.0',
+    'name': 'Canada - Provinces and Territories Translations in French',
+    'version': '10.0.1.0.0',
     'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website': 'http://www.savoirfairelinux.com',
     'category': 'Localisation/Canada',

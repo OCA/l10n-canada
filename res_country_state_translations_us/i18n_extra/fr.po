@@ -1,0 +1,138 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-21 11:54-0400\n"
+"PO-Revision-Date: 2018-06-21 11:55-0400\n"
+"Last-Translator: Agathe Mollé <agathe.molle@savoirfairelinux.com>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_5
+msgid "California"
+msgstr "Californie"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_9
+msgid "District of Columbia"
+msgstr "District de Columbia"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_10
+msgid "Florida"
+msgstr "Floride"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_11
+msgid "Georgia"
+msgstr "Géorgie"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_12
+msgid "Hawaii"
+msgstr "Hawaï"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_19
+msgid "Louisiana"
+msgstr "Louisiane"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_26
+msgid "New Mexico"
+msgstr "Nouveau-Mexique"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_28
+msgid "North Carolina"
+msgstr "Caroline du Nord"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_29
+msgid "North Dakota"
+msgstr "Dakota du Nord"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_39
+msgid "Pennsylvania"
+msgstr "Pennsylvanie"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_41
+msgid "South Carolina"
+msgstr "Caroline du Sud"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_42
+msgid "South Dakota"
+msgstr "Dakota du Sud"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_47
+msgid "Virginia"
+msgstr "Virginie"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_49
+msgid "West Virginia"
+msgstr "Virginie-Occidentale"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_as
+msgid "American Samoa"
+msgstr "Samoa américaines"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_fm
+msgid "Federated States of Micronesia"
+msgstr "États fédérés de Micronésie"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_mh
+msgid "Marshall Islands"
+msgstr "Îles Marshall"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_mp
+msgid "Northern Mariana Islands"
+msgstr "Îles Mariannes du Nord"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_pw
+msgid "Palau"
+msgstr "Palaos"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_pr
+msgid "Puerto Rico"
+msgstr "Porto Rico"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_vi
+msgid "Virgin Islands"
+msgstr "Îles Vierges des États-Unis"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_aa
+msgid "Armed Forces Americas"
+msgstr "Forces Armées Amériques"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_ae
+msgid "Armed Forces Europe"
+msgstr "Forces Armées Europe"
+
+#. module: base
+#: model:res.country.state,name:base.state_us_ap
+msgid "Armed Forces Pacific"
+msgstr "Forces Armées Pacifique"
