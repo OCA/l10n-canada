@@ -8,7 +8,8 @@ setuptools.setup(
     description="Meta package for oca-l10n-canada Odoo addons",
     version=version,
     install_requires=[
-        'odoo10-addon-l10n_ca_states_translations',
+        'odoo10-addon-res_country_state_translations_canada',
+        'odoo10-addon-res_country_state_translations_us',
     ],
     classifiers=[
         'Programming Language :: Python',
