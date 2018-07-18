@@ -17,7 +17,8 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[l10n_ca_states_translations](l10n_ca_states_translations/) | 10.0.0.1.0 | Canada - States, Provinces and Territories Translations
+[res_country_state_translations_canada](res_country_state_translations_canada/) | 10.0.1.0.0 | Canada - Provinces and Territories Translations in French
+[res_country_state_translations_us](res_country_state_translations_us/) | 10.0.1.0.0 | USA - States Translations in French
 
 
 Unported addons
