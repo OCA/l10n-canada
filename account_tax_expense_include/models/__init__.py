@@ -20,6 +20,4 @@
 #
 ##############################################################################
 
-from . import (
-    account_tax_expense_include
-)
+from . import account_tax_expense_include
